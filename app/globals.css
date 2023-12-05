@@ -1,4 +1,9 @@
 /*@tailwind base;*/
 @tailwind components;
 @tailwind utilities;
-
+.imageWrapper {
+    position: absolute;
+    bottom: 20px; /* Sesuaikan dengan jarak dari bawah yang diinginkan */
+    right: 20px; /* Sesuaikan dengan jarak dari kanan yang diinginkan */
+  }
+  

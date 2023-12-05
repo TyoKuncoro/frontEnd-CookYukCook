@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import Image from 'next/image';
+import Image from "next/image";
 import { Button, Card, Input, Form } from "antd";
 import { store } from "#/store";
 import { sampleRepository } from "#/repository/sample";
@@ -16,7 +16,7 @@ const Page = () => {
   const { data, error, isLoading } = sampleRepository.hooks.useJoke();
 
   const onFinish = () => {
-    console.log('submit button pressed');
+    console.log("submit button pressed");
   };
   return (
     <div>
@@ -73,10 +73,10 @@ const Page = () => {
             </Form.Item>
           </Form>
           <div className="text-center mt-32 mb-16">
-            <div style={{color: '#FC9F48'}}>belum punya akun?</div>
-            <div style={{color: '#FC9F48'}}>
+            <div style={{ color: "#FC9F48" }}>belum punya akun?</div>
+            <div style={{ color: "#FC9F48" }}>
               yuk buat{" "}
-              <a href="#" className="text-blue">
+              <a href="#" className="text-blue underline underline-offset-2">
                 disini
               </a>
             </div>
@@ -84,13 +84,23 @@ const Page = () => {
         </div>
         <div>
           <Image
-          className="rounded-r-3xl" 
-          src="/assets/Image.png"
-          width={550}
-          height={575}
-          alt="image"
+            className="rounded-r-3xl"
+            src="/assets/Image.png"
+            width={550}
+            height={575}
+            alt="image"
           />
         </div>
+      </div>
+      <div>
+        <Image 
+        style={{bottom: '20px', right: '20px'}}
+        className="absolute"
+        src="/assets/maskot.png"
+        width={150}
+        height={150}
+        alt="Cook Yuk Cook"
+        />
       </div>
     </div>
   );
