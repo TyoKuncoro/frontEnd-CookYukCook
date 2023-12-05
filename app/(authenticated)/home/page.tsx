@@ -19,14 +19,14 @@ const Page = () => {
     console.log("submit button pressed");
   };
   return (
-    <div>
+    <div className="mt-20">
       <div className="flex place-content-center">
         <div
           className="rounded-l-3xl"
           style={{ backgroundColor: "#FFD8B4", width: "37%" }}
         >
           <div
-            className=" font-bold text-7xl text-center mb-32"
+            className=" font-bold text-7xl text-center mb-32 mt-5"
             style={{ color: "white" }}
           >
             Login
@@ -86,15 +86,15 @@ const Page = () => {
           <Image
             className="rounded-r-3xl"
             src="/assets/Image.png"
-            width={550}
-            height={575}
+            width={500}
+            height={590}
             alt="image"
           />
         </div>
       </div>
       <div>
         <Image 
-        style={{bottom: '20px', right: '20px'}}
+        style={{bottom: '30px', right: '30px'}}
         className="absolute"
         src="/assets/maskot.png"
         width={150}
