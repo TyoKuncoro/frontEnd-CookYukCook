@@ -1,24 +1,99 @@
 "use client";
 
 import React from "react";
-import {Button, Card} from "antd";
-import {store} from "#/store";
-import {sampleRepository} from "#/repository/sample";
+import Image from 'next/image';
+import { Button, Card, Input, Form } from "antd";
+import { store } from "#/store";
+import { sampleRepository } from "#/repository/sample";
+import FullRoundButton from "../../Component/fullRoundedButton";
+import {
+  DownloadOutlined,
+  UserOutlined,
+  LockOutlined,
+} from "@ant-design/icons";
 
 const Page = () => {
-    const { data, error, isLoading }  = sampleRepository.hooks.useJoke();
-    return <div>
-        <div>
-            home: {store.ui.title}
+  const { data, error, isLoading } = sampleRepository.hooks.useJoke();
+
+  const onFinish = () => {
+    console.log('submit button pressed');
+  };
+  return (
+    <div>
+      <div className="flex place-content-center">
+        <div
+          className="rounded-l-3xl"
+          style={{ backgroundColor: "#FFD8B4", width: "37%" }}
+        >
+          <div
+            className=" font-bold text-7xl text-center mb-32"
+            style={{ color: "white" }}
+          >
+            Login
+          </div>
+          <Form
+            name="login"
+            initialValues={{ remember: true }}
+            onFinish={onFinish}
+            style={{ maxWidth: "300px", margin: "0 auto" }}
+          >
+            <Form.Item
+              name="email"
+              rules={[
+                { required: true, message: "Please input your email!" },
+                { type: "email", message: "Invalid email address" },
+              ]}
+            >
+              <Input prefix={<UserOutlined />} placeholder="Email" />
+            </Form.Item>
+
+            <Form.Item
+              name="password"
+              rules={[
+                { required: true, message: "Please input your password!" },
+              ]}
+            >
+              <Input.Password
+                prefix={<LockOutlined />}
+                placeholder="Password"
+              />
+            </Form.Item>
+
+            <Form.Item>
+              <Button
+                htmlType="submit"
+                style={{
+                  width: "100%",
+                  backgroundColor: "#FF7D04",
+                  color: "white",
+                }}
+              >
+                Masuk
+              </Button>
+            </Form.Item>
+          </Form>
+          <div className="text-center mt-32 mb-16">
+            <div style={{color: '#FC9F48'}}>belum punya akun?</div>
+            <div style={{color: '#FC9F48'}}>
+              yuk buat{" "}
+              <a href="#" className="text-blue">
+                disini
+              </a>
+            </div>
+          </div>
         </div>
         <div>
-            fact: {data?.setup}
+          <Image
+          className="rounded-r-3xl" 
+          src="/assets/Image.png"
+          width={550}
+          height={575}
+          alt="image"
+          />
         </div>
-        <Button className={"ml-8"} onClick={() => {
-            store.ui.changeTitle("from home")
-        }}>change title</Button>
-    </div>;
+      </div>
+    </div>
+  );
 };
 
 export default Page;
-
