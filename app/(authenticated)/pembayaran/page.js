@@ -42,20 +42,20 @@ const Pembayaran = () => {
 
   const handleCheckout = async () => {
     const data = {
-      id: 'T0011',
+      id: 'TT001111',
       productName: "buku",
-      price: 100000,
-      quantity: 3
+      price: 120000,
+      quantity: 1
     }
     const response = await fetch("api/tokenizer", {
       method: "POST",
       body: JSON.stringify(data)
     })
     const requestData = await response.json() 
-    console.log(requestData, "dataaa coook")
+    // console.log(requestData, "dataaa coook")
     window.snap.pay(requestData.token)
 
-    console.log("test")
+    // console.log("test")
   }
   //end for midtrans
 

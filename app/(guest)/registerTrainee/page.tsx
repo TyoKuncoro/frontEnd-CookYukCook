@@ -48,7 +48,7 @@ const Page = () => {
       <div className="flex place-content-center">
         <div
           className="rounded-l-3xl"
-          style={{ backgroundColor: "#FFD8B4", width: "37%" }}
+          style={{ backgroundColor: "#FFD8B4", width: "31%" }}
         >
           <div
             className=" font-bold text-7xl text-center mb-10 mt-5"
@@ -56,13 +56,13 @@ const Page = () => {
           >
             Peserta
           </div>
-          <div className="mx-20">
+          <div className="mx-28">
             <Form
               form={form}
               name="register"
               onFinish={onFinish}
               labelCol={{ span: 6 }}
-              wrapperCol={{ span: 23 }}
+              wrapperCol={{ span: 32 }}
               initialValues={{ remember: true }}
             >
               <Form.Item

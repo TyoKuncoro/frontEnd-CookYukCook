@@ -9,20 +9,20 @@
   
 
   .ant-input-affix-wrapper-focused {
-    border: 1px solid red !important;
-    box-shadow: 0 0 0 2px red !important;
+    border: 1px solid #FF7D04 !important;
+    box-shadow: 0 0 0 2px #FF7D04 !important;
   }
 
   .ant-input-affix-wrapper:hover {
-    border: 1px solid red !important
+    border: 1px solid #FF7D04 !important
   }
 
   :where(.css-dev-only-do-not-override-1u09lqq).ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
-    color: red;
-    border-color: red;
+    color: #FF7D04;
+    border-color: #FF7D04;
   }
 
   :where(.css-dev-only-do-not-override-1u09lqq).ant-upload-wrapper .ant-upload-drag p.ant-upload-drag-icon .anticon {
-    color: red;
+    color: #FF7D04;
     font-size: 48px;
   }
