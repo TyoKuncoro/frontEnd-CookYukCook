@@ -14,7 +14,7 @@ import Image from "next/image";
 
 const { Option } = Select;
 
-const MyForm = () => {
+const Page = () => {
   const [form] = Form.useForm();
   const [selectedGender, setSelectedGender] = useState(undefined);
 
@@ -44,7 +44,7 @@ const MyForm = () => {
   };
 
   return (
-    <div className="mt-5">
+    <div>
       <div className="flex place-content-center">
         <div
           className="rounded-l-3xl"
@@ -124,7 +124,7 @@ const MyForm = () => {
               </Form.Item>
 
               <Form.Item
-                name="password"
+                name="passwordRegister"
                 rules={[
                   { required: true, message: "Silakan masukkan password!" },
                 ]}
@@ -197,7 +197,7 @@ const MyForm = () => {
             className="rounded-r-3xl"
             src="/assets/Jelly.png"
             width={550}
-            height={750}
+            height={800}
             alt="image"
           />
         </div>{" "}
@@ -217,4 +217,4 @@ const MyForm = () => {
   );
 };
 
-export default MyForm;
+export default Page;

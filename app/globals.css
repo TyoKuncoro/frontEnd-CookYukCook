@@ -7,3 +7,22 @@
     right: 20px; /* Sesuaikan dengan jarak dari kanan yang diinginkan */
   }
   
+
+  .ant-input-affix-wrapper-focused {
+    border: 1px solid red !important;
+    box-shadow: 0 0 0 2px red !important;
+  }
+
+  .ant-input-affix-wrapper:hover {
+    border: 1px solid red !important
+  }
+
+  :where(.css-dev-only-do-not-override-1u09lqq).ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
+    color: red;
+    border-color: red;
+  }
+
+  :where(.css-dev-only-do-not-override-1u09lqq).ant-upload-wrapper .ant-upload-drag p.ant-upload-drag-icon .anticon {
+    color: red;
+    font-size: 48px;
+  }
