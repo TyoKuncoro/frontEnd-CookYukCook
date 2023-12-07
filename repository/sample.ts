@@ -3,7 +3,7 @@ import useSWR from "swr";
 
 const url = {
 	getJoke() {
-		// return `/random_joke`
+		return `/random_joke`
 	},
 }
 
@@ -13,10 +13,10 @@ const hooks = {
 	}
 }
 
-const manipulatedData = {
+const manipulateData = {
 
 }
 
 export const sampleRepository = {
-	url, hooks, manipulatedData
+	url, hooks, manipulateData
 }

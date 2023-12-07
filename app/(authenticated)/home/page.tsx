@@ -13,7 +13,7 @@ import {
 } from "@ant-design/icons";
 
 const Page = () => {
-  const { data, error, isLoading } = sampleRepository.hooks.useJoke();
+  // const { data, error, isLoading } = sampleRepository.hooks.useJoke();
 
   const onFinish = () => {
     console.log("submit button pressed");

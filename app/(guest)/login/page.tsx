@@ -35,7 +35,7 @@ interface SuccessLogin {
 
 
 const Page = () => {
-  const { data, error, isLoading } = sampleRepository.hooks.useJoke();
+  // const { data, error, isLoading } = sampleRepository.hooks.useJoke();
   const router = useRouter()
   const onFinish = async (values: any) => {
     console.log('Received values of form: ', values);
