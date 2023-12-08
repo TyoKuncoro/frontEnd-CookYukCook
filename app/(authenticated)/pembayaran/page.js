@@ -42,12 +42,12 @@ const Pembayaran = () => {
 
   const handleCheckout = async () => {
     const data = {
-      id: 'TT001111',
+      id: 'TT3001111',
       productName: "buku",
       price: 120000,
       quantity: 1
     }
-    const response = await fetch("api/tokenizer", {
+    const response = await fetch("api/token", {
       method: "POST",
       body: JSON.stringify(data)
     })

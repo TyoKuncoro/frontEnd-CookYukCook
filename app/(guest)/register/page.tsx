@@ -11,12 +11,15 @@ import {
 } from "@ant-design/icons";
 import { useState } from "react";
 import Image from "next/image";
+import { UploadOutlined } from "@ant-design/icons";
 
 const { Option } = Select;
 
 const Page = () => {
   const [form] = Form.useForm();
   const [selectedGender, setSelectedGender] = useState(undefined);
+  const [logoFileList, setLogoFileList] = useState([]);
+
 
   const onFinish = (values) => {
     console.log("Received values:", values);
@@ -34,17 +37,16 @@ const Page = () => {
     return isJpgOrPng;
   };
 
-  const uploadPhotoProps = {
-    beforeUpload,
-    onChange: (info) => {
-      if (info.file.status !== "uploading") {
-        console.log(info.file, info.fileList);
-      }
+  const uploadProps = {
+    maxCount: 1,
+    beforeUpload: (file) => {
+      // Validasi sebelum upload
+      return false;
     },
   };
 
   return (
-    <div>
+    <div className="my-20">
       <div className="flex place-content-center">
         <div
           className="rounded-l-3xl"
@@ -141,7 +143,10 @@ const Page = () => {
                 dependencies={["password"]}
                 hasFeedback
                 rules={[
-                  { required: true, message: "Silakan isi konfirmasi password!" },
+                  {
+                    required: true,
+                    message: "Silakan isi konfirmasi password!",
+                  },
                   ({ getFieldValue }) => ({
                     validator(_, value) {
                       if (!value || getFieldValue("password") === value) {
@@ -161,6 +166,20 @@ const Page = () => {
               </Form.Item>
 
               <Form.Item
+                name="logo"
+                rules={[{ required: true, message: "Silakan pilih Logo" }]}
+              >
+                <Upload
+                  {...uploadProps}
+                  fileList={logoFileList}
+                  onChange={({ fileList }) => setLogoFileList(fileList)}
+                >
+                  <Button icon={<UploadOutlined />} style={{ width: "100%" }}>
+                    Foto profil
+                  </Button>
+                </Upload>
+              </Form.Item>
+              {/* <Form.Item
                 name="photo"
                 valuePropName="fileList"
                 getValueFromEvent={(e) => {
@@ -178,7 +197,7 @@ const Page = () => {
                     Klik atau seret file untuk mengunggah
                   </p>
                 </Upload.Dragger>
-              </Form.Item>
+              </Form.Item> */}
 
               <Form.Item wrapperCol={{ offset: 9, span: 12 }}>
                 <Button
@@ -197,22 +216,21 @@ const Page = () => {
             className="rounded-r-3xl"
             src="/assets/Jelly.png"
             width={550}
-            height={800}
+            height={670}
             alt="image"
           />
         </div>{" "}
       </div>
       <div>
-        <Image 
-        style={{bottom: '30px', right: '30px'}}
-        className="absolute"
-        src="/assets/maskot.png"
-        width={150}
-        height={150}
-        alt="Cook Yuk Cook"
+        <Image
+          style={{ bottom: "30px", right: "30px" }}
+          className="absolute"
+          src="/assets/maskot.png"
+          width={150}
+          height={150}
+          alt="Cook Yuk Cook"
         />
       </div>
-
     </div>
   );
 };
