@@ -34,7 +34,7 @@ interface SuccessLogin {
 }
 
 
-const Page = () => {
+const Login = () => {
   // const { data, error, isLoading } = sampleRepository.hooks.useJoke();
   const router = useRouter()
   const onFinish = async (values: any) => {
@@ -143,4 +143,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default Login;

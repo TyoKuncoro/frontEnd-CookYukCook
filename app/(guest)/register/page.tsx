@@ -15,7 +15,7 @@ import { UploadOutlined } from "@ant-design/icons";
 
 const { Option } = Select;
 
-const Page = () => {
+const Register = () => {
   const [form] = Form.useForm();
   const [selectedGender, setSelectedGender] = useState(undefined);
   const [logoFileList, setLogoFileList] = useState([]);
@@ -53,7 +53,7 @@ const Page = () => {
           style={{ backgroundColor: "#FFD8B4", width: "31%" }}
         >
           <div
-            className=" font-bold text-7xl text-center mb-10 mt-5"
+            className=" font-bold text-4xl text-center mb-20 mt-5"
             style={{ color: "white" }}
           >
             Peserta
@@ -179,25 +179,6 @@ const Page = () => {
                   </Button>
                 </Upload>
               </Form.Item>
-              {/* <Form.Item
-                name="photo"
-                valuePropName="fileList"
-                getValueFromEvent={(e) => {
-                  if (Array.isArray(e)) {
-                    return e;
-                  }
-                  return e && e.fileList;
-                }}
-              >
-                <Upload.Dragger {...uploadPhotoProps}>
-                  <p className="ant-upload-drag-icon">
-                    <InboxOutlined />
-                  </p>
-                  <p className="ant-upload-text">
-                    Klik atau seret file untuk mengunggah
-                  </p>
-                </Upload.Dragger>
-              </Form.Item> */}
 
               <Form.Item wrapperCol={{ offset: 9, span: 12 }}>
                 <Button
@@ -215,8 +196,8 @@ const Page = () => {
           <Image
             className="rounded-r-3xl"
             src="/assets/Jelly.png"
-            width={550}
-            height={670}
+            width={500}
+            height={760}
             alt="image"
           />
         </div>{" "}
@@ -235,4 +216,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default Register;

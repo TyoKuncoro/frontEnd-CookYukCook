@@ -6,7 +6,7 @@ import { UploadOutlined } from "@ant-design/icons";
 import Image from "next/image";
 const { Option } = Select;
 
-const YourForm = () => {
+const registerKitchen = () => {
   const [form] = Form.useForm();
   const [logoFileList, setLogoFileList] = useState([]);
   const [legalitasFileList, setLegalitasFileList] = useState([]);
@@ -127,20 +127,29 @@ const YourForm = () => {
           <Form.Item name="confirm">
             <Input.Password placeholder="Konfirmasi Password" />
           </Form.Item>
-
-          <Form.Item>
-            <Button
-              type="primary"
-              htmlType="submit"
-              style={{ backgroundColor: "#FF7D04", borderColor: "#FF7D04" }}
-            >
-              Daftar
-            </Button>
-          </Form.Item>
+            <Form.Item>
+              <Button
+                type="primary"
+                htmlType="submit"
+                style={{ backgroundColor: "#FF7D04", borderColor: "#FF7D04" }}
+              >
+                Daftar
+              </Button>
+            </Form.Item>
         </Form>
+        <div>
+        <Image
+          style={{ bottom: "30px", right: "30px" }}
+          className="absolute"
+          src="/assets/maskot.png"
+          width={150}
+          height={150}
+          alt="Cook Yuk Cook"
+        />
+      </div>
       </div>
     </div>
   );
 };
 
-export default YourForm;
+export default registerKitchen;
