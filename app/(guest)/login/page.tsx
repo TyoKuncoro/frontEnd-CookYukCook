@@ -113,7 +113,7 @@ const Login = () => {
             <div style={{ color: "#FC9F48" }}>belum punya akun?</div>
             <div style={{ color: "#FC9F48" }}>
               yuk buat{" "}
-              <a href="#" className="text-blue underline underline-offset-2">
+              <a href= "/select-role" className="text-blue underline underline-offset-2">
                 disini
               </a>
             </div>

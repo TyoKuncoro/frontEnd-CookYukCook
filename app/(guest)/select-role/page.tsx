@@ -3,17 +3,18 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 const SelectRole = () => {
-    const router = useRouter()
+  const router = useRouter();
   const moveToStudio = () => {
-    router.push("/register-kitchen")
+    router.push("/register-kitchen");
   };
   const moveToTrainee = () => {
-    router.push("/register")
+    router.push("/register");
   };
   return (
     <div className="flex place-content-center mt-28">
       <div onClick={moveToTrainee}>
         <Image
+          className="rounded-l-3xl"
           src="/assets/trainee.png"
           width={500}
           height={650}
@@ -23,6 +24,7 @@ const SelectRole = () => {
       </div>
       <div onClick={moveToStudio}>
         <Image
+          className=" rounded-r-3xl"
           src="/assets/studio.png"
           width={500}
           height={650}
