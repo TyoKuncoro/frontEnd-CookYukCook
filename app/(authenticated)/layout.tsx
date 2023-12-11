@@ -1,17 +1,25 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import {
-  HomeFilled,
-  InfoCircleFilled,
+  HomeOutlined,
+  AuditOutlined,
+  MessageOutlined,
   LaptopOutlined,
   NotificationOutlined,
   UserOutlined,
+  BookOutlined,
+  WalletOutlined,
+  ClockCircleOutlined,
+  BellOutlined,
+  LogoutOutlined,
+  IdcardOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { Breadcrumb, Layout, Menu, theme } from "antd";
 import { useRouter } from "next/navigation";
+import { parseJwt } from "../Component/Helper/convert";
 
 const { Header, Content, Sider } = Layout;
 
@@ -49,31 +57,126 @@ interface AuthenticatedLayoutProps {
 const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
   children,
 }) => {
+  // const [menu, setMenu] = useState()
   const router = useRouter();
 
   const {
     token: { colorBgContainer },
   } = theme.useToken();
+  // console.log(localStorage.getItem("access_token"), "ini token tai")
+  const token = localStorage.getItem("access_token");
 
-  const menu: MenuProps["items"] = [
+  console.log(token, "hayoo udah nemu tokennya ");
+  const role = parseJwt(token).role;
+  console.log(role, "role coook");
+  const menu : MenuProps["items"] = [
     {
       key: `/home`,
-      icon: <HomeFilled />,
+      icon: <HomeOutlined />,
       label: `Dashboard`,
     },
     {
-      key: `/about`,
-      icon: <InfoCircleFilled />,
-      label: `About`,
+      key: `/regular`,
+      icon: <AuditOutlined />,
+      label: `Kelas Regular`,
+    },
+    {
+      key: `/private`,
+      icon: <BookOutlined />,
+      label: `Kelas Private`,
+    },
+    {
+      key: `/pembayaran`,
+      icon: <WalletOutlined />,
+      label: `Pembayaran`,
+    },
+    {
+      key: `/riwayat`,
+      icon: <ClockCircleOutlined />,
+      label: `Riwayat Pembayaran`,
+    },
+    {
+      key: `/profile`,
+      icon: <UserOutlined />,
+      label: `Profile`,
+    },
+    {
+      key: `notif`,
+      icon: <BellOutlined />,
+      label: `Notifikasi`,
+    },
+    {
+      key: `/chat`,
+      icon: <MessageOutlined />,
+      label: `Chat`,
+    },
+    {
+      key: `/keluar`,
+      icon: <LogoutOutlined />,
+      label: `Logout`,
+    },
+  ]
+  const menuAdmin: MenuProps["items"] = [
+    {
+      key: `/home`,
+      icon: <HomeOutlined />,
+      label: `Dashboard`,
+    },
+    {
+      key: `/regular`,
+      icon: <AuditOutlined />,
+      label: `Kelas Regular`,
+    },
+    {
+      key: `/private`,
+      icon: <BookOutlined />,
+      label: `Kelas Private`,
+    },
+    {
+      key: `/pembayaran`,
+      icon: <WalletOutlined />,
+      label: `Pembayaran`,
+    },
+    {
+      key: `/riwayat`,
+      icon: <ClockCircleOutlined />,
+      label: `Riwayat Pembayaran`,
+    },
+    {
+      key: `/profile`,
+      icon: <UserOutlined />,
+      label: `Profile`,
+    },
+    {
+      key: `notif`,
+      icon: <BellOutlined />,
+      label: `Notifikasi`,
+    },
+    {
+      key: `/management`,
+      icon: <IdcardOutlined />,
+      label: `Management Pengguna`,
+    },
+    {
+      key: `/keluar`,
+      icon: <LogoutOutlined />,
+      label: `Logout`,
     },
   ];
 
   return (
     <Layout>
       <Layout>
-        <Sider width={200} style={{ background: "#FFEBD1", borderTopRightRadius: "50" }}>
+        <Sider
+          width={200}
+          style={{ background: "#FFEBD1", borderTopRightRadius: "50" }}
+        >
           <Image
-            style={{marginLeft: "20px", marginTop: "13px", marginBottom: "45px"}}
+            style={{
+              marginLeft: "20px",
+              marginTop: "13px",
+              marginBottom: "45px",
+            }}
             src="/assets/maskot.png"
             width={150}
             height={150}
@@ -83,8 +186,8 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
             mode="inline"
             // defaultSelectedKeys={['1']}
             // defaultOpenKeys={['sub1']}
-            style={{ height: "100%", borderRight: 0,  background: "#FFEBD1"  }}
-            items={menu}
+            style={{ height: "100%", borderRight: 0, background: "#FFEBD1" }}
+            items={ role == "trainee" || "kitchen studio" ? menu : menuAdmin}
             onClick={({ key }) => {
               router.push(key);
               // console.log(`key ${key} route not found`);

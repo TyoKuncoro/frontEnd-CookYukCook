@@ -39,10 +39,9 @@ const Pembayaran = () => {
 
   }, [])
 
-
   const handleCheckout = async () => {
     const data = {
-      id: 'TT3001111',
+      id: 'T5',
       productName: "buku",
       price: 120000,
       quantity: 1
@@ -58,6 +57,13 @@ const Pembayaran = () => {
     // console.log("test")
   }
   //end for midtrans
+
+
+
+  // Handle webHooks Midtrans
+  // End handle webHooks Midtrans
+
+
 
 
   const today = new Date();

@@ -22,6 +22,7 @@ export async function POST(request) {
             gross_amount: price * quantity
         }
     }
+    console.log('ini request coook', request)
 
     const token = await snap.createTransactionToken(parameter)
     console.log(token)

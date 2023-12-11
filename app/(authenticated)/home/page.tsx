@@ -14,13 +14,15 @@ import {
 
 const Page = () => {
   // const { data, error, isLoading } = sampleRepository.hooks.useJoke();
-
+  
+  console.log(localStorage.getItem("access_token"))
   const onFinish = () => {
     console.log("submit button pressed");
   };
   return (
     <div className="mt-20">
-      <div className="flex place-content-center">
+      <button onClick={onFinish}>test</button>
+      {/* <div className="flex place-content-center">
         <div
           className="rounded-l-3xl"
           style={{ backgroundColor: "#FFD8B4", width: "37%" }}
@@ -101,7 +103,7 @@ const Page = () => {
         height={150}
         alt="Cook Yuk Cook"
         />
-      </div>
+      </div> */}
     </div>
   );
 };
