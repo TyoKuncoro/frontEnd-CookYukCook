@@ -14,46 +14,45 @@ import {
   LockOutlined,
 } from "@ant-design/icons";
 
-
 interface ErrorLogin {
-  response : {
-      body: {
-          statusCode: number
-          error: string
-      }
-  }
+  response: {
+    body: {
+      statusCode: number;
+      error: string;
+    };
+  };
 }
 interface SuccessLogin {
   body: {
-      data: {
-          access_token: string
-      }
-      statusCode: number
-      message: string
-  }
+    data: {
+      access_token: string;
+    };
+    statusCode: number;
+    message: string;
+  };
 }
 
-
 const Login = () => {
+  // localStorage.removeItem('access_token')
   // const { data, error, isLoading } = sampleRepository.hooks.useJoke();
-  const router = useRouter()
+  const router = useRouter();
   const onFinish = async (values: any) => {
-    console.log('Received values of form: ', values);
+    console.log("Received values of form: ", values);
     try {
-       const data = {
-            email: values?.email,
-            password: values?.password
-        }
+      const data = {
+        email: values?.email,
+        password: values?.password,
+      };
 
-       const login = await authRepository.manipulateData.login(data) 
-       console.log(login, "Hasil API Login")
-        localStorage.setItem("access_token", login?.body?.data?.access_token)
-        router.push("/home")
+      const login = await authRepository.manipulateData.login(data);
+      console.log(login, "Hasil API Login");
+      localStorage.setItem("access_token", login?.body?.data?.access_token);
+      router.push("/home");
     } catch (error) {
-        // message.error(error.response.body.error)
-        console.log(error, "errornya cook")
+      // message.error(error.response.body.error)
+      console.log(error, "errornya cook");
     }
-};
+  };
 
   return (
     <div className="mt-20">
@@ -113,7 +112,10 @@ const Login = () => {
             <div style={{ color: "#FC9F48" }}>belum punya akun?</div>
             <div style={{ color: "#FC9F48" }}>
               yuk buat{" "}
-              <a href= "/select-role" className="text-blue underline underline-offset-2">
+              <a
+                href="/select-role"
+                className="text-blue underline underline-offset-2"
+              >
                 disini
               </a>
             </div>
@@ -130,13 +132,13 @@ const Login = () => {
         </div>
       </div>
       <div>
-        <Image 
-        style={{bottom: '30px', right: '30px'}}
-        className="absolute"
-        src="/assets/maskot.png"
-        width={150}
-        height={150}
-        alt="Cook Yuk Cook"
+        <Image
+          style={{ bottom: "30px", right: "30px" }}
+          className="absolute"
+          src="/assets/maskot.png"
+          width={150}
+          height={150}
+          alt="Cook Yuk Cook"
         />
       </div>
     </div>

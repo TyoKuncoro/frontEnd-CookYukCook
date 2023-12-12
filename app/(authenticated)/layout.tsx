@@ -65,10 +65,12 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
   } = theme.useToken();
   // console.log(localStorage.getItem("access_token"), "ini token tai")
   const token = localStorage.getItem("access_token");
-
+  let role: string = 'kosong'
   console.log(token, "hayoo udah nemu tokennya ");
-  const role = parseJwt(token).role;
-  console.log(role, "role coook");
+  if (token){
+    role = parseJwt(token).role;
+    console.log(role, "role coook");
+  }
   const menu : MenuProps["items"] = [
     {
       key: `/home`,
@@ -187,7 +189,10 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
             // defaultSelectedKeys={['1']}
             // defaultOpenKeys={['sub1']}
             style={{ height: "100%", borderRight: 0, background: "#FFEBD1" }}
-            items={ role == "trainee" || "kitchen studio" ? menu : menuAdmin}
+            items={ 
+              // menu
+              role == "trainee" || "kitchen studio" ? menu : menuAdmin
+            }
             onClick={({ key }) => {
               router.push(key);
               // console.log(`key ${key} route not found`);
