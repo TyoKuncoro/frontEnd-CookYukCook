@@ -167,8 +167,8 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
   ];
 
   return (
-    <Layout>
-      <Layout>
+    // <Layout>
+      <Layout className="min-h-screen">
         <Sider
           width={200}
           style={{ background: "#FFEBD1", borderTopRightRadius: "50" }}
@@ -184,9 +184,9 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
             height={150}
             alt="Cook Yuk Cook"
           />
-          <Menu
+          <Menu className=""
             mode="inline"
-            // defaultSelectedKeys={['1']}
+            defaultSelectedKeys={['/home']}
             // defaultOpenKeys={['sub1']}
             style={{ height: "100%", borderRight: 0, background: "#FFEBD1" }}
             items={ 
@@ -199,22 +199,21 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
             }}
           />
         </Sider>
-        <Layout
+        {/* <Layout
           style={{ padding: "0 24px 24px", height: "calc(100vh - 64px)" }}
-        >
-          <Content
+        > */}
+          {/* <Content
             style={{
               padding: 24,
               margin: "16px 0 0 0",
               minHeight: 200,
               background: colorBgContainer,
             }}
-          >
+          > */}
             {children}
-          </Content>
-        </Layout>
-      </Layout>
-    </Layout>
+          {/* </Content> */}
+        {/* </Layout> */}
+      </Layout> 
   );
 };
 

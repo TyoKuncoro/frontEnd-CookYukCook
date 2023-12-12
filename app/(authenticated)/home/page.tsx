@@ -90,7 +90,7 @@ const Page = () => {
   };
 
   return (
-    <div>
+    <div className="p-20 bg-white">
       <div className=" bg-orange-100 rounded-3xl">
         <div
           className="px-8 py-4 bg-orange-400 rounded-tl-3xl rounded-br-3xl"
@@ -136,7 +136,7 @@ const Page = () => {
           </Card>
         </div>
       </div>
-      <div className="flex">
+      <div className="flex justify-between">
       <div className=" mt-6 bg-orange-100 rounded-3xl mr-10 w-[50%]">
           <div
             className="px-8 py-4 bg-orange-400 rounded-tl-3xl rounded-br-3xl "
@@ -198,7 +198,7 @@ const Page = () => {
               <div className="flex justify-between">
                 <div>
                   <div>Tema: {tema}</div>
-                  <div>Kelas Regular</div>
+                  <div>Kelas Private</div>
                   <div>lokasi:</div>
                   <p className=" text-xs">{alamat}</p>
                   <div className=" text-xs">Dimulai pada:</div>
