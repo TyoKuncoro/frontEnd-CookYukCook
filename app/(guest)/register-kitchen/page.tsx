@@ -1,16 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { Upload, Input, Button, Form, Select } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import Image from "next/image";
-import { useForm } from "antd/es/form/Form";
 const { Option } = Select;
 
 
-// const [form] = useForm();
-const registerKitchen = () => {
-  const [form] = Form.useForm();
+const RegisterKitchen = () => {
   const [logoFileList, setLogoFileList] = useState([]);
   const [legalitasFileList, setLegalitasFileList] = useState([]);
 
@@ -65,7 +62,7 @@ const registerKitchen = () => {
         >
           Studio Masak
         </div>
-        <Form form={form} onFinish={onFinish}>
+        <Form onFinish={onFinish}>
           <Form.Item name="nama">
             <Input placeholder="Nama kitchen studio" />
           </Form.Item>
@@ -77,7 +74,7 @@ const registerKitchen = () => {
             <Upload
               {...uploadProps}
               fileList={logoFileList}
-              onChange={({ fileList }) => setLogoFileList(fileList)}
+              onChange={({ fileList }: any) => setLogoFileList(fileList)}
             >
               <Button icon={<UploadOutlined />} style={{ width: "100%" }}>
                 Pilih Logo
@@ -101,7 +98,7 @@ const registerKitchen = () => {
             <Upload
               {...uploadProps}
               fileList={legalitasFileList}
-              onChange={({ fileList }) => setLegalitasFileList(fileList)}
+              onChange={({ fileList }: any) => setLegalitasFileList(fileList)}
             >
               <Button icon={<UploadOutlined />} style={{ width: "100%" }}>
                 Pilih Legalitas
@@ -155,4 +152,4 @@ const registerKitchen = () => {
   );
 };
 
-export default registerKitchen;
+export default RegisterKitchen;
