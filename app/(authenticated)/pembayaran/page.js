@@ -3,6 +3,7 @@
 import FullRoundedButton from "#/app/Component/fullRoundedButton";
 import { useEffect, useState } from "react";
 import Mistrans from "midtrans-client"
+import { v4 as uuidv4 } from 'uuid';
 // import snap from "midtrans-client"
 
 const Pembayaran = () => {
@@ -40,8 +41,10 @@ const Pembayaran = () => {
   }, [])
 
   const handleCheckout = async () => {
+    const uuidGenerator = uuidv4();
+    console.log(uuidGenerator, "ini uuid cook")
     const data = {
-      id: 'T5',
+      id: uuidGenerator,
       productName: "buku",
       price: 120000,
       quantity: 1
