@@ -266,7 +266,7 @@ function Home(): any {
             <div className=" bg-orange-50 rounded-lg p-2">
               <div>Materi Kelas yang dipelajari:</div>
               {materi.map((items, index) => (
-                <div key ={index}>{items}</div>
+                <li key ={index}>{items}</li>
               ))}
             </div>
           </div>
@@ -302,7 +302,7 @@ function Home(): any {
             <div className=" bg-orange-50 rounded-lg p-2">
               <div>Materi Kelas yang dipelajari:</div>
               {materi.map((items) => (
-                <div>{items}</div>
+                <li>{items}</li>
               ))}
             </div>
           </div>
