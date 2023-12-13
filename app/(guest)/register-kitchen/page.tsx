@@ -74,7 +74,7 @@ const registerKitchen = () => {
             <Upload
               {...uploadProps}
               fileList={logoFileList}
-              onChange={({ fileList }) => setLogoFileList(fileList)}
+              onChange={( fileList: any ) => setLogoFileList(fileList)}
             >
               <Button icon={<UploadOutlined />} style={{ width: "100%" }}>
                 Pilih Logo
@@ -98,7 +98,7 @@ const registerKitchen = () => {
             <Upload
               {...uploadProps}
               fileList={legalitasFileList}
-              onChange={({ fileList }) => setLegalitasFileList(fileList)}
+              onChange={( fileList: any ) => setLegalitasFileList(fileList)}
             >
               <Button icon={<UploadOutlined />} style={{ width: "100%" }}>
                 Pilih Legalitas
