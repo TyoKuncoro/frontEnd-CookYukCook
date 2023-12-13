@@ -16,10 +16,9 @@ function onPanelChange1(value: any, mode: any) {
 };
 
 
-function Page() {
+function Home(): any {
 
-
-  // const { data, error, isLoading } = sampleRepository.hooks.useJoke();
+  //======================================================================trainee
   const [tema, setTema] = useState("Judul Tema");
   const [namaKelas, setNamaKelas] = useState("Nama Kelas");
   const [alamat, setAlamat] = useState("Alamat");
@@ -65,7 +64,7 @@ function Page() {
 
   const handleDaftar = () => {
     alert(
-      "lanjut ke proses daftar di wiring ya mr. Tyo dancok yang gantreng  "
+      "lanjut ke proses daftar di wiring ya mr. Tyo dancok yang gantreng"
     );
     setIsModalOpen(false);
   };
@@ -167,7 +166,7 @@ function Page() {
             </Card>
           </div>
         </div>
-        <div className=" mt-6 bg-orange-100 rounded-3xl mr-10 w-[50%]">
+        <div className=" mt-6 bg-orange-100 rounded-3xl w-[50%]">
           <div
             className="px-8 py-4 bg-orange-400 rounded-tl-3xl rounded-br-3xl "
             style={{
@@ -321,4 +320,4 @@ function Page() {
   );
 }
 
-export default Page;
+export default Home;

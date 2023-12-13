@@ -8,7 +8,7 @@ import { useForm } from "antd/es/form/Form";
 const { Option } = Select;
 
 
-const [form] = useForm();
+// const [form] = useForm();
 const registerKitchen = () => {
   const [form] = Form.useForm();
   const [logoFileList, setLogoFileList] = useState([]);
@@ -77,7 +77,7 @@ const registerKitchen = () => {
             <Upload
               {...uploadProps}
               fileList={logoFileList}
-              onChange={( fileList: any ) => setLogoFileList(fileList)}
+              onChange={({ fileList }) => setLogoFileList(fileList)}
             >
               <Button icon={<UploadOutlined />} style={{ width: "100%" }}>
                 Pilih Logo
@@ -101,7 +101,7 @@ const registerKitchen = () => {
             <Upload
               {...uploadProps}
               fileList={legalitasFileList}
-              onChange={( fileList: any ) => setLegalitasFileList(fileList)}
+              onChange={({ fileList }) => setLegalitasFileList(fileList)}
             >
               <Button icon={<UploadOutlined />} style={{ width: "100%" }}>
                 Pilih Legalitas
