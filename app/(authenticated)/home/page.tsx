@@ -13,10 +13,10 @@ import {
 } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
 
-const onPanelChange = (value, mode) => {
+const onPanelChange = (value: any, mode: any) => {
   console.log(value.format('YYYY-MM-DD'), mode);
 };
-const onPanelChange1 = (value, mode) => {
+const onPanelChange1 = (value: any, mode: any) => {
   console.log(value.format('YYYY-MM-DD'), mode);
 };
 
