@@ -4,8 +4,11 @@ import { useState } from "react";
 import { Upload, Input, Button, Form, Select } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import Image from "next/image";
+import { useForm } from "antd/es/form/Form";
 const { Option } = Select;
 
+
+const [form] = useForm();
 const registerKitchen = () => {
   const [form] = Form.useForm();
   const [logoFileList, setLogoFileList] = useState([]);
