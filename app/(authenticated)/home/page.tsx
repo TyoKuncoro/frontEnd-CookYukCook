@@ -6,11 +6,6 @@ import { Button, Calendar, Card, Modal } from "antd";
 import FullRoundedButton from "../../Component/fullRoundedButton";
 import { store } from "#/store";
 import { sampleRepository } from "#/repository/sample";
-import {
-  DownloadOutlined,
-  UserOutlined,
-  LockOutlined,
-} from "@ant-design/icons";
 import { useRouter } from "next/navigation";
 
 function onPanelChange(value: any, mode: any) {
@@ -18,10 +13,10 @@ function onPanelChange(value: any, mode: any) {
 };
 function onPanelChange1(value: any, mode: any) {
   console.log(value.format('YYYY-MM-DD'), mode);
-}
+};
 
 
-const Page = () => {
+function Page() {
 
 
   // const { data, error, isLoading } = sampleRepository.hooks.useJoke();
@@ -44,27 +39,27 @@ const Page = () => {
   const router = useRouter();
 
   const showModal = () => {
-    if(!localStorage.getItem("access_token")){
-      alert("silahkan login")
-      router.push('login')
-    } else{
-    setIsModalOpen(true);
+    if (!localStorage.getItem("access_token")) {
+      alert("silahkan login");
+      router.push('login');
+    } else {
+      setIsModalOpen(true);
     }
   };
   const showModal1 = () => {
-    if(!localStorage.getItem("access_token")){
-      alert("silahkan login")
-      router.push('login')
-    } else{
-    setIsModalOpen1(true);
+    if (!localStorage.getItem("access_token")) {
+      alert("silahkan login");
+      router.push('login');
+    } else {
+      setIsModalOpen1(true);
     }
   };
   const showModal2 = () => {
-    if(!localStorage.getItem("access_token")){
-      alert("silahkan login")
-      router.push('login')
-    } else{
-    setIsModalOpen2(true);
+    if (!localStorage.getItem("access_token")) {
+      alert("silahkan login");
+      router.push('login');
+    } else {
+      setIsModalOpen2(true);
     }
   };
 
@@ -103,9 +98,7 @@ const Page = () => {
         <div className=" py-4 mx-10">
           <Card
             title={namaKelas}
-            extra={
-              <FullRoundedButton text="Lihat Detail" onclick={showModal} />
-            }
+            extra={<FullRoundedButton text="Lihat Detail" icons={null} type={"primary"} onclick={showModal} />}
             style={{ width: 300 }}
           >
             <div className="flex justify-between">
@@ -129,15 +122,14 @@ const Page = () => {
                   src="/assets/Image.png"
                   width={40}
                   height={40}
-                  alt="Gambar"
-                />
+                  alt="Gambar" />
               </div>
             </div>
           </Card>
         </div>
       </div>
       <div className="flex justify-between">
-      <div className=" mt-6 bg-orange-100 rounded-3xl mr-10 w-[50%]">
+        <div className=" mt-6 bg-orange-100 rounded-3xl mr-10 w-[50%]">
           <div
             className="px-8 py-4 bg-orange-400 rounded-tl-3xl rounded-br-3xl "
             style={{
@@ -149,9 +141,7 @@ const Page = () => {
           <div className=" py-4 mx-10">
             <Card
               title={namaKelas}
-              extra={
-                <FullRoundedButton text="Lihat Detail" onclick={showModal1} />
-              }
+              extra={<FullRoundedButton text="Lihat Detail"  icons={null} type={"primary"}  onclick={showModal1} />}
               style={{ width: 300 }}
             >
               <div className="flex justify-between">
@@ -171,8 +161,7 @@ const Page = () => {
                     src="/assets/Image.png"
                     width={40}
                     height={40}
-                    alt="Gambar"
-                  />
+                    alt="Gambar" />
                 </div>
               </div>
             </Card>
@@ -190,9 +179,7 @@ const Page = () => {
           <div className=" py-4 mx-10">
             <Card
               title={namaKelas}
-              extra={
-                <FullRoundedButton text="Lihat Detail" onclick={showModal2} />
-              }
+              extra={<FullRoundedButton text="Lihat Detail" icons={null} type={"primary"} onclick={showModal2} />}
               style={{ width: 300 }}
             >
               <div className="flex justify-between">
@@ -212,8 +199,7 @@ const Page = () => {
                     src="/assets/Image.png"
                     width={40}
                     height={40}
-                    alt="Gambar"
-                  />
+                    alt="Gambar" />
                 </div>
               </div>
             </Card>
@@ -235,8 +221,7 @@ const Page = () => {
               src="/assets/Image.png"
               width={150}
               height={100}
-              alt="Gambar"
-            />
+              alt="Gambar" />
             <div className="font-bold">{tema}</div>
             <div className=" text-xs">Chef: {namaChef}</div>
           </div>
@@ -253,8 +238,8 @@ const Page = () => {
                 <FullRoundedButton
                   text={"Daftar"}
                   icons={null}
-                  onclick={handleDaftar}
-                />
+                  type={"primary"} 
+                  onclick={handleDaftar} />
               </div>
             </div>
           </div>
@@ -274,8 +259,7 @@ const Page = () => {
               src="/assets/Image.png"
               width={150}
               height={100}
-              alt="Gambar"
-            />
+              alt="Gambar" />
             <div className="font-bold">{tema}</div>
             <div className=" text-xs">Chef: {namaChef}</div>
           </div>
@@ -289,10 +273,10 @@ const Page = () => {
           </div>
         </div>
         <div style={{
-              marginTop: 30,
-              width: 450,
-              border: `1px solid orange`,
-              borderRadius: 10,
+          marginTop: 30,
+          width: 450,
+          border: `1px solid orange`,
+          borderRadius: 10,
         }}>
           <Calendar fullscreen={false} onPanelChange={onPanelChange} />
         </div>
@@ -311,8 +295,7 @@ const Page = () => {
               src="/assets/Image.png"
               width={150}
               height={100}
-              alt="Gambar"
-            />
+              alt="Gambar" />
             <div className="font-bold">{tema}</div>
             <div className=" text-xs">Chef: {namaChef}</div>
           </div>
@@ -326,16 +309,16 @@ const Page = () => {
           </div>
         </div>
         <div style={{
-              marginTop: 30,
-              width: 450,
-              border: `1px solid orange`,
-              borderRadius: 10,
+          marginTop: 30,
+          width: 450,
+          border: `1px solid orange`,
+          borderRadius: 10,
         }}>
           <Calendar fullscreen={false} onPanelChange={onPanelChange1} />
         </div>
       </Modal>
     </div>
   );
-};
+}
 
 export default Page;
