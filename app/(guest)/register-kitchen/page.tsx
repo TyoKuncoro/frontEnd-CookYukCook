@@ -11,7 +11,7 @@ const registerKitchen = () => {
   const [logoFileList, setLogoFileList] = useState([]);
   const [legalitasFileList, setLegalitasFileList] = useState([]);
 
-  const onFinish = (values) => {
+  const onFinish = (values: any) => {
     // Lakukan sesuatu dengan nilai-nilai formulir yang di-submit
     // Lakukan validasi di sini
     console.log("ini values cook", values);
@@ -19,7 +19,7 @@ const registerKitchen = () => {
 
   const uploadProps = {
     maxCount: 1,
-    beforeUpload: (file) => {
+    beforeUpload: (file: any) => {
       // Validasi sebelum upload
       return false;
     },
@@ -27,16 +27,16 @@ const registerKitchen = () => {
 
   const logoUploadProps = {
     accept: ".png,.jpg,.jpeg",
-    beforeUpload: (file) => {
-      setLogoFile(file.slice(-1));
+    beforeUpload: (file: any) => {
+      setLogoFileList(file.slice(-1));
       return false; // Prevent default upload behavior
     },
   };
 
   const legalitasUploadProps = {
     accept: ".pdf",
-    beforeUpload: (file) => {
-      setLegalitasFile(file);
+    beforeUpload: (file: any) => {
+      setLegalitasFileList(file);
       return false; // Prevent default upload behavior
     },
   };
