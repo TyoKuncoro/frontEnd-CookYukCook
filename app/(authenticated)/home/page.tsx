@@ -227,8 +227,8 @@ function Home(): any {
           <div>
             <div className=" bg-orange-50 rounded-lg p-2">
               <div>Materi Kelas yang dipelajari:</div>
-              {materi.map((items) => (
-                <div>{items}</div>
+              {materi.map((items, key) => (
+                <div key = {key}>{items}</div>
               ))}
             </div>
             <div className="flex justify-between mt-2">
@@ -265,8 +265,8 @@ function Home(): any {
           <div>
             <div className=" bg-orange-50 rounded-lg p-2">
               <div>Materi Kelas yang dipelajari:</div>
-              {materi.map((items) => (
-                <div>{items}</div>
+              {materi.map((items, key) => (
+                <div key ={key}>{items}</div>
               ))}
             </div>
           </div>
