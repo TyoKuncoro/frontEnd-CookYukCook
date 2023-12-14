@@ -121,11 +121,11 @@ const RegisterKitchen = () => {
           </Form.Item>
 
           <Form.Item name="password">
-            <Input.Password placeholder="Password" />
+            <Input.Password placeholder="Kata Sandi" />
           </Form.Item>
 
           <Form.Item name="confirm">
-            <Input.Password placeholder="Konfirmasi Password" />
+            <Input.Password placeholder="Konfirmasi Kata Sandi" />
           </Form.Item>
             <Form.Item>
               <Button

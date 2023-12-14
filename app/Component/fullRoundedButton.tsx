@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Space} from "antd/lib/index";
 
-type props = {text: string, icons: any, type: any, onclick: any}
+type props = {text?: string, icons?: any, type?: any, onclick?: any}
 
 const FullRoundedButton = ({text, icons, type, onclick}:props) => {
 

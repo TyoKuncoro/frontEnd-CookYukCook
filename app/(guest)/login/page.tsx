@@ -91,7 +91,7 @@ const Login = () => {
             >
               <Input.Password
                 prefix={<LockOutlined />}
-                placeholder="Password"
+                placeholder="Kata Sandi"
               />
             </Form.Item>
 

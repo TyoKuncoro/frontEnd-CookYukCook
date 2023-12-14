@@ -65,13 +65,13 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
   } = theme.useToken();
   // console.log(localStorage.getItem("access_token"), "ini token tai")
   const token = localStorage.getItem("access_token");
-  let role: string = 'kosong'
+  let role: string = "Admin";
   console.log(token, "hayoo udah nemu tokennya ");
-  if (token){
+  if (token) {
     role = parseJwt(token).role;
     console.log(role, "role coook");
   }
-  const menu : MenuProps["items"] = [
+  const menu: MenuProps["items"] = [
     {
       key: `/home`,
       icon: <HomeOutlined />,
@@ -117,7 +117,7 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
       icon: <LogoutOutlined />,
       label: `Logout`,
     },
-  ]
+  ];
   const menuAdmin: MenuProps["items"] = [
     {
       key: `/home`,
@@ -167,53 +167,50 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
   ];
 
   return (
-    // <Layout>
-      <Layout className="min-h-screen">
-        <Sider
-          width={200}
-          style={{ background: "#FFEBD1", borderTopRightRadius: "50" }}
+    <Layout className="">
+      <Sider
+        width={200}
+        style={{ background: "#FFEBD1", borderTopRightRadius: "50" }}
+      >
+        <Image
+          style={{
+            marginLeft: "20px",
+            marginTop: "13px",
+            marginBottom: "45px",
+          }}
+          src="/assets/maskot.png"
+          width={150}
+          height={150}
+          alt="Cook Yuk Cook"
+        />
+        <Menu
+          className=""
+          mode="inline"
+          defaultSelectedKeys={["/home"]}
+          // defaultOpenKeys={['sub1']}
+          style={{ height: "100%", borderRight: 0, background: "#FFEBD1" }}
+          items={
+            // menu
+            role == "trainee" || "kitchen studio" ? menu : menuAdmin
+          }
+          onClick={({ key }) => {
+            router.push(key);
+            // console.log(`key ${key} route not found`);
+          }}
+        />
+      </Sider>
+      <Layout style={{ height: "calc(100vh - 64px)" }}>
+        <Content
+          style={{
+            padding: 24,
+            minHeight: 200,
+            background: colorBgContainer,
+          }}
         >
-          <Image
-            style={{
-              marginLeft: "20px",
-              marginTop: "13px",
-              marginBottom: "45px",
-            }}
-            src="/assets/maskot.png"
-            width={150}
-            height={150}
-            alt="Cook Yuk Cook"
-          />
-          <Menu className=""
-            mode="inline"
-            defaultSelectedKeys={['/home']}
-            // defaultOpenKeys={['sub1']}
-            style={{ height: "100%", borderRight: 0, background: "#FFEBD1" }}
-            items={ 
-              // menu
-              role == "trainee" || "kitchen studio" ? menu : menuAdmin
-            }
-            onClick={({ key }) => {
-              router.push(key);
-              // console.log(`key ${key} route not found`);
-            }}
-          />
-        </Sider>
-        {/* <Layout
-          style={{ padding: "0 24px 24px", height: "calc(100vh - 64px)" }}
-        > */}
-          {/* <Content
-            style={{
-              padding: 24,
-              margin: "16px 0 0 0",
-              minHeight: 200,
-              background: colorBgContainer,
-            }}
-          > */}
-            {children}
-          {/* </Content> */}
-        {/* </Layout> */}
-      </Layout> 
+          {children}
+        </Content>
+      </Layout>
+    </Layout>
   );
 };
 

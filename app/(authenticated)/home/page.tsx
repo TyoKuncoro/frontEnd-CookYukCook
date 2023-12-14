@@ -17,7 +17,7 @@ function onPanelChange1(value: any, mode: any) {
 
 
 function Home(): any {
-
+  // localStorage.removeItem("access_token")
   //======================================================================trainee
   const [tema, setTema] = useState("Judul Tema");
   const [namaKelas, setNamaKelas] = useState("Nama Kelas");
@@ -84,12 +84,12 @@ function Home(): any {
   };
 
   return (
-    <div className="p-20 bg-white">
+    <div className="p-5 bg-white">
       <div className=" bg-orange-100 rounded-3xl">
         <div
           className="px-8 py-4 bg-orange-400 rounded-tl-3xl rounded-br-3xl"
           style={{
-            marginRight: 1350,
+            marginRight: "75%",
           }}
         >
           Pilihan Untukmu

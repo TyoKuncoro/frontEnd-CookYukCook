@@ -38,3 +38,16 @@
   :where(.css-dev-only-do-not-override-1u09lqq).ant-menu-light .ant-menu-submenu-selected > .ant-menu-submenu-title, :where(.css-dev-only-do-not-override-1u09lqq).ant-menu-light > .ant-menu .ant-menu-submenu-selected > .ant-menu-submenu-title {
     color: black;
   }
+
+  :where(.css-dev-only-do-not-override-1u09lqq).ant-btn-primary:not(:disabled):not(.ant-btn-disabled):hover {
+    color: #fff;
+    background-color: #f7a960;
+  }
+  :where(.css-dev-only-do-not-override-1u09lqq).ant-btn-primary:not(:disabled):not(.ant-btn-disabled) {
+    color: #fff;
+    background-color: #FF7D04;
+  }
+  :where(.css-dev-only-do-not-override-1u09lqq).ant-input:hover {
+    border-color: #FF7D04;
+    border-inline-end-width: 1px;
+  }

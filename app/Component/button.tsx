@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { Button, Space } from "antd/lib/index";
 
-type props = {text: string, icons: null}
+type props = {text?: string, icons?: any, onclick?: any}
 
-const button = ({text, icons}:props) => {
+const LogoutButton = ({text, icons, onclick}:props) => {
 
   return (
     <Button
       type="primary"
-      style={{backgroundColor: '#FF7D04'}}
+      style={{backgroundColor: '#FF0000'}}
+      onClick={onclick}
     >
       <Space>
       {text}{icons}
@@ -16,4 +17,4 @@ const button = ({text, icons}:props) => {
     </Button>
   );
 };
-export default button
+export default LogoutButton
