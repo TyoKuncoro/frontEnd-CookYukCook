@@ -17,7 +17,7 @@ function onPanelChange1(value: any, mode: any) {
 
 
 function Home(): any {
-  // localStorage.removeItem("access_token")
+  
   //======================================================================trainee
   const [tema, setTema] = useState("Judul Tema");
   const [namaKelas, setNamaKelas] = useState("Nama Kelas");

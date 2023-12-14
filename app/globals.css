@@ -51,3 +51,12 @@
     border-color: #FF7D04;
     border-inline-end-width: 1px;
   }
+
+  :where(.css-dev-only-do-not-override-1u09lqq).ant-select:not(.ant-select-disabled):not(.ant-select-customize-input):not(.ant-pagination-size-changer):hover .ant-select-selector {
+    border-color: #FF7D04;
+  }
+
+  :where(.css-dev-only-do-not-override-1u09lqq).ant-picker:hover, :where(.css-dev-only-do-not-override-1u09lqq).ant-picker-focused {
+    border-color: #FF7D04;
+    border-inline-end-width: 1px;
+  }
