@@ -92,7 +92,7 @@ const Profile = () => {
             </Form.Item>
             <Form.Item>
               <Button type="primary" htmlType="submit">
-                Ubah Password
+                Submit
               </Button>
             </Form.Item>
           </Form>

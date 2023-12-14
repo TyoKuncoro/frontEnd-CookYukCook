@@ -60,3 +60,14 @@
     border-color: #FF7D04;
     border-inline-end-width: 1px;
   }
+
+  :where(.css-dev-only-do-not-override-1u09lqq).ant-tabs .ant-tabs-tab:hover {
+    color: #f7a960;
+  }
+  :where(.css-dev-only-do-not-override-1u09lqq).ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+    color: #FF7D04;
+    text-shadow: 0 0 0.25px currentcolor;
+  }
+  .ant-tabs-tab .ant-tabs-tab.ant-tabs-tab-active{
+    border-bottom: #FF7D04;
+  }
