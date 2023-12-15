@@ -56,11 +56,7 @@ const Chat = () => {
               <div className="flex place-content-end">
                 <div
                   key={message.id}
-                  className={`p-2 rounded-lg m-3 ${
-                    message.sender === "user"
-                      ? "bg-white "
-                      : "bg-green-300 flex place-content-end "
-                  }`}
+                  className={`p-2 rounded-lg m-3 ${"bg-green-300 "}`}
                 >
                   {message.text}
                 </div>
@@ -83,11 +79,7 @@ const Chat = () => {
                 />
                 <div
                   key={message.id}
-                  className={`p-2 rounded-lg m-3 ${
-                    message.sender === "user"
-                      ? "bg-white "
-                      : "bg-green-300"
-                  }`}
+                  className={`p-2 rounded-lg m-3 ${"bg-white"}`}
                 >
                   {message.text}
                 </div>
