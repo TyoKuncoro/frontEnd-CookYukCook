@@ -2,6 +2,7 @@
 
 import FullRoundedButton from "#/app/Component/fullRoundedButton";
 import React, { useState } from "react";
+import Image from "next/image";
 
 const Chat = () => {
   const [messages, setMessages] = useState([
@@ -11,24 +12,91 @@ const Chat = () => {
   ]);
 
   const sendMessage = () => {
+    alert("fungsi kirimnya lain kali ya mr. Tyo dancok yg gantreng");
     // Logika untuk mengirim pesan
   };
 
+  const kembali = () => {
+    alert("fungsinya lain kali ya mr. Tyo dancok yg gantreng");
+  };
+
   return (
-    <div className="bg-orange-200 w-full h-screen p-10 flex flex-col justify-end ">
+    <div className="bg-orange-200 w-full h-screen flex flex-col justify-end rounded-lg ">
       <div className="flex-1 overflow-y-auto">
-        {messages.map((message) => (
+        <div className="bg-orange-400 flex  text-white justify-between">
           <div
-            key={message.id}
-            className={`p-2 rounded-lg my-3 ${
-              message.sender === "user" ? "bg-white " : "bg-green-300"
-            }`}
+            className="flex items-center place-content-center w-[4%]"
+            style={{ cursor: "pointer" }}
+            onClick={kembali}
           >
-            <p>{message.text}</p>
+            <Image
+              className="border-r-2 border-white rounded"
+              src="/assets/ArrowLeftOutlined.png"
+              width={25}
+              height={25}
+              alt="Gambar"
+            />
+          </div>
+          <div className="flex mr-6 ">
+            <div className="items-center text-lg font-semibold flex">
+              Dapur Rey
+            </div>
+            <Image
+              className=" rounded m-3"
+              src="/assets/account.png"
+              width={60}
+              height={60}
+              alt="Gambar"
+            />
+          </div>
+        </div>
+        {messages.map((message) => (
+          <div>
+            {message.sender === "user" ? (
+              <div className="flex place-content-end">
+                <div
+                  key={message.id}
+                  className={`p-2 rounded-lg m-3 ${
+                    message.sender === "user"
+                      ? "bg-white "
+                      : "bg-green-300 flex place-content-end "
+                  }`}
+                >
+                  {message.text}
+                </div>
+                <Image
+                  className=" rounded m-3"
+                  src="/assets/account.png"
+                  width={60}
+                  height={60}
+                  alt="Gambar"
+                />
+              </div>
+            ) : (
+              <div className="flex place-content-">
+                <Image
+                  className=" rounded m-3"
+                  src="/assets/account.png"
+                  width={60}
+                  height={60}
+                  alt="Gambar"
+                />
+                <div
+                  key={message.id}
+                  className={`p-2 rounded-lg m-3 ${
+                    message.sender === "user"
+                      ? "bg-white "
+                      : "bg-green-300"
+                  }`}
+                >
+                  {message.text}
+                </div>
+              </div>
+            )}
           </div>
         ))}
       </div>
-      <div className="flex justify-between items-center p-4">
+      <div className="flex justify-between items-center p-4 bg-orange-400 fixed left-56 right-6 rounded-lg bottom-8">
         <input
           type="text"
           placeholder="Ketik pesan..."
