@@ -70,9 +70,9 @@ const Pembayaran = () => {
   const todayDate = `${day} - ${month} - ${year}`;
 
   return (
-    <div className=" bg-black">
-      <div className="p-12 my-20 bg-orange-50 mx-20 flex place-content-center rounded-2xl">
-        <div className="">
+    <div className="mt-20">
+      <div className=" bg-orange-100 mx-80 py-16 flex place-content-center rounded-2xl">
+        <div className=" w-[75%]">
           <div className="text-2xl font-bold text-orange-500">
             Pendaftaran Kelas {tipeKelas}
           </div>
@@ -80,18 +80,18 @@ const Pembayaran = () => {
           <div className="text-xl font-bold text-orange-500 mb-5">
             Detail Pesanan
           </div>
-          <div className="text-l font-bold bg-orange-300 px-10 py-5 rounded-lg">
+          <div className="text-l font-bold bg-orange-200 px-10 w-[50%] py-5 rounded-lg">
             <div className="mb-2">{namaKelas}</div>
             <div className="mb-5">Tema: {temaKelas}</div>
             <div>Harga: Rp. {harga}</div>
           </div>
         </div>
         <div>
-          <div className="text-right text-l flex flex-col text-xl font-bold text-orange-500 justify-between screen mb-80">
+          <div className="text-right text-l flex flex-col text-xl font-bold justify-between screen mb-80">
             {todayDate}
           </div>
           <FullRoundedButton
-            text={"checkout"}
+            text={"Daftar dan Bayar"}
             icons={null}
             onclick={handleCheckout}
           />
