@@ -121,7 +121,7 @@ const Profile = () => {
               </Select>
             </Form.Item>
             <Form.Item
-              name="birthdate"
+              name="Tanggal lahir"
               rules={[
                 { required: true, message: "Silakan pilih tanggal lahir!" },
               ]}
@@ -129,7 +129,7 @@ const Profile = () => {
               <DatePicker
                 style={{ width: "100%" }}
                 placeholder="Tanggal Lahir"
-                prefix={<CalendarOutlined />}
+                // prefix={<CalendarOutlined />}
               />
             </Form.Item>
 

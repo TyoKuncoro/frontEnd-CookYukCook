@@ -71,3 +71,20 @@
   .ant-tabs-tab .ant-tabs-tab.ant-tabs-tab-active{
     border-bottom: #FF7D04;
   }
+
+  :where(.css-dev-only-do-not-override-1u09lqq).ant-pagination .ant-pagination-item-active:hover a {
+    color: #FF7D04;
+  }
+
+  :where(.css-dev-only-do-not-override-1u09lqq).ant-pagination .ant-pagination-item-active:hover {
+    border-color: #FF7D04;
+  }
+
+  :where(.css-dev-only-do-not-override-1u09lqq).ant-pagination .ant-pagination-item-active a {
+    color: #FF7D04;
+  }
+
+  :where(.css-dev-only-do-not-override-1u09lqq).ant-pagination .ant-pagination-item-active {
+    border-color: #FF7D04;
+  }
+  
