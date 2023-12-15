@@ -167,28 +167,31 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
   ];
 
   return (
-    <Layout className="">
+    <Layout className=" bg-white">
       <Sider
-        width={200}
-        style={{ background: "#FFEBD1", borderTopRightRadius: "50" }}
+        width={220}
+        style={{ background: "#FFEBD1", borderTopRightRadius: 60 }}
       >
-        <Image
-          style={{
-            marginLeft: "20px",
-            marginTop: "13px",
-            marginBottom: "45px",
-          }}
-          src="/assets/maskot.png"
-          width={150}
-          height={150}
-          alt="Cook Yuk Cook"
-        />
+        <div className="flex py-6 justify-center">
+          <Image
+            src="/assets/maskot.png"
+            width={150}
+            height={150}
+            alt="Cook Yuk Cook"
+          />
+        </div>
         <Menu
           className=""
           mode="inline"
           defaultSelectedKeys={["/home"]}
           // defaultOpenKeys={['sub1']}
-          style={{ height: "100%", borderRight: 0, background: "#FFEBD1" }}
+          style={{
+            height: "100%",
+            borderRight: 0,
+            background: "#FFEBD1",
+            fontWeight: "bold",
+            color: "#FF7D04",
+          }}
           items={
             // menu
             role == "trainee" || "kitchen studio" ? menu : menuAdmin
