@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Button, Space } from "antd/lib/index";
 
-type props = {text: string, icons: null}
+type props = {text: string, icons: any}
 
-const button = ({text, icons}:props) => {
+const Button1 = ({text, icons}:props) => {
 
   return (
     <Button
@@ -16,4 +16,4 @@ const button = ({text, icons}:props) => {
     </Button>
   );
 };
-export default button
+export default Button1
