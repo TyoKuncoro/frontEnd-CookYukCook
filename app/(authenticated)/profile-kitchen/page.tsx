@@ -102,11 +102,11 @@ const ProfileKitchen = () => {
           placeholder="Jumlah Chef"
           style={{ width: "100%", marginTop: "1rem" }}
         >
-          {[...Array(10).keys()].map((value) => (
-            <Option key={value + 1} value={value + 1}>
-              {value + 1}
-            </Option>
-          ))}
+              {[...Array(10)].map((_, index) => (
+                <Option key={index + 1} value={index + 1}>
+                  {index + 1}
+                </Option>
+              ))}
         </Select>
 
         <Form.Item
