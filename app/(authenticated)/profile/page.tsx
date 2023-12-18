@@ -1,5 +1,4 @@
 "use client";
-
 import FullRoundedButton from "#/app/Component/fullRoundedButton";
 import Image from "next/image";
 import React, { useState } from "react";

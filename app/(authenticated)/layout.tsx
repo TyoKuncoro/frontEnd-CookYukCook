@@ -113,7 +113,7 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
       label: `Chat`,
     },
     {
-      key: `/keluar`,
+      key: `/logout`,
       icon: <LogoutOutlined />,
       label: `Logout`,
     },
@@ -160,7 +160,7 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
       label: `Management Pengguna`,
     },
     {
-      key: `/keluar`,
+      key: `/logout`,
       icon: <LogoutOutlined />,
       label: `Logout`,
     },
