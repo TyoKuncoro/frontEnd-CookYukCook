@@ -190,7 +190,7 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
             borderRight: 0,
             background: "#FFEBD1",
             fontWeight: "bold",
-            color: "#FF7D04",
+            color: "#FF7D04", 
           }}
           items={
             // menu

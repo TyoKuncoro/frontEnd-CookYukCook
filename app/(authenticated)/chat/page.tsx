@@ -88,7 +88,7 @@ const Chat = () => {
           </div>
         ))}
       </div>
-      <div className="flex justify-between items-center p-4 bg-orange-400 fixed left-56 right-6 rounded-lg bottom-8">
+      <div className="flex justify-between items-center p-4 bg-orange-400 fixed w-[85.5%] justify-center rounded-lg bottom-8">
         <input
           type="text"
           placeholder="Ketik pesan..."
