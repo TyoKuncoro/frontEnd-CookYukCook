@@ -6,7 +6,7 @@ import LogoutButton from "#/app/Component/button";
 import { LogoutOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
 
-const Admin = () => {
+const ProfileAdmin = () => {
   const router = useRouter();
   const data = {
     Nama: "Nama Admin",
@@ -59,4 +59,4 @@ const Admin = () => {
   );
 };
 
-export default Admin;
+export default ProfileAdmin;

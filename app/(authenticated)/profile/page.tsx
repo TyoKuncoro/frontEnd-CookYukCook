@@ -82,13 +82,13 @@ const Profile = () => {
         >
           <Form form={form} layout="vertical" onFinish={onFinishPassword}>
           <Form.Item name="password lama">
-              <Input placeholder="Masukan Password Lama" />
+              <Input type="password" placeholder="Masukan Password Lama" />
             </Form.Item>
             <Form.Item name="password baru">
-              <Input placeholder="Masukan Password Baru" />
+              <Input type="password" placeholder="Masukan Password Baru" />
             </Form.Item>
             <Form.Item name="konfirmasi password">
-              <Input placeholder="Konfirmasi Password Baru" />
+              <Input type="password" placeholder="Konfirmasi Password Baru" />
             </Form.Item>
             <Form.Item>
               <Button type="primary" htmlType="submit">
