@@ -15,6 +15,7 @@ import {
   BellOutlined,
   LogoutOutlined,
   IdcardOutlined,
+  UsergroupDeleteOutlined
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { Breadcrumb, Layout, Menu, theme } from "antd";
@@ -71,100 +72,15 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
     role = parseJwt(token).role;
     console.log(role, "role coook");
   }
+
+
   const menu: MenuProps["items"] = [
     {
-      key: `/home`,
-      icon: <HomeOutlined />,
-      label: `Dashboard`,
+    key: `/file`,
+    icon: <UsergroupDeleteOutlined />,
+    label: `Dashboard`,
     },
-    {
-      key: `/regular`,
-      icon: <AuditOutlined />,
-      label: `Kelas Regular`,
-    },
-    {
-      key: `/private`,
-      icon: <BookOutlined />,
-      label: `Kelas Private`,
-    },
-    {
-      key: `/pembayaran`,
-      icon: <WalletOutlined />,
-      label: `Pembayaran`,
-    },
-    {
-      key: `/riwayat`,
-      icon: <ClockCircleOutlined />,
-      label: `Riwayat Pembayaran`,
-    },
-    {
-      key: `/profile`,
-      icon: <UserOutlined />,
-      label: `Profile`,
-    },
-    {
-      key: `notif`,
-      icon: <BellOutlined />,
-      label: `Notifikasi`,
-    },
-    {
-      key: `/chat`,
-      icon: <MessageOutlined />,
-      label: `Chat`,
-    },
-    {
-      key: `/keluar`,
-      icon: <LogoutOutlined />,
-      label: `Logout`,
-    },
-  ];
-  const menuAdmin: MenuProps["items"] = [
-    {
-      key: `/home`,
-      icon: <HomeOutlined />,
-      label: `Dashboard`,
-    },
-    {
-      key: `/regular`,
-      icon: <AuditOutlined />,
-      label: `Kelas Regular`,
-    },
-    {
-      key: `/private`,
-      icon: <BookOutlined />,
-      label: `Kelas Private`,
-    },
-    {
-      key: `/pembayaran`,
-      icon: <WalletOutlined />,
-      label: `Pembayaran`,
-    },
-    {
-      key: `/riwayat`,
-      icon: <ClockCircleOutlined />,
-      label: `Riwayat Pembayaran`,
-    },
-    {
-      key: `/profile`,
-      icon: <UserOutlined />,
-      label: `Profile`,
-    },
-    {
-      key: `notif`,
-      icon: <BellOutlined />,
-      label: `Notifikasi`,
-    },
-    {
-      key: `/management`,
-      icon: <IdcardOutlined />,
-      label: `Management Pengguna`,
-    },
-    {
-      key: `/keluar`,
-      icon: <LogoutOutlined />,
-      label: `Logout`,
-    },
-  ];
+  ]
 
   return (
     <Layout className=" bg-white">
@@ -192,10 +108,7 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
             fontWeight: "bold",
             color: "#FF7D04", 
           }}
-          items={
-            // menu
-            role == "trainee" || "kitchen studio" ? menu : menuAdmin
-          }
+          items={menu}
           onClick={({ key }) => {
             router.push(key);
             // console.log(`key ${key} route not found`);
