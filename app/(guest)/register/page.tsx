@@ -12,17 +12,40 @@ import {
 import { useState } from "react";
 import Image from "next/image";
 import { UploadOutlined } from "@ant-design/icons";
+import { authRepository } from "#/repository/auth";
+import { UploadChangeParam, UploadFile } from "antd/es/upload";
+import { profile } from "console";
+import { useRouter } from "next/navigation";
 
 const { Option } = Select;
 
 const Register = () => {
+  const router = useRouter();
   const [form] = Form.useForm();
   const [selectedGender, setSelectedGender] = useState(undefined);
   const [logoFileList, setLogoFileList] = useState([]);
+  const [profilePhoto, setProfilePhoto] = useState<string | null>(null);
 
-
-  const onFinish = (values) => {
+  const onFinish = async (values: any) => {
     console.log("Received values:", values);
+    try {
+      const data = {
+        level: "Trainee",
+        name: values?.name,
+        email: values?.email,
+        password: values?.password,
+        phoneNumber: values?.whatsapp,
+        dateOfBirth: values?.birhtdate,
+        gender: values?.gender,
+        address: values?.alamat,
+        photo: profilePhoto,
+      };
+      const register = await authRepository.manipulateData.register(data);
+      console.log(register, "ini hasil register");
+      router.push("/login");
+    } catch (error) {
+      // message.error(error.response.body.message)
+    }
   };
 
   const onGenderChange = (value) => {
@@ -43,6 +66,28 @@ const Register = () => {
       // Validasi sebelum upload
       return false;
     },
+  };
+
+  const uploadPhoto = async (args: UploadChangeParam<UploadFile<any>>) => {
+    const file = args.file;
+    try {
+      if (file.size && file.size > 2097152) {
+        message.error("ukuran file terlalu besar");
+      } else {
+        if(file.type === 'image/png' || file.type === 'image/jpg' ||file.type === 'image/jpeg'){
+          const response = await authRepository.manipulateData.uploadPhotoTrainee(
+            file
+          );
+          console.log(response.body.fileName, "ini hasilnya");
+          setProfilePhoto(response.body.fileName);
+    }else{
+      message.error("Extensi file tidak diketahui")
+    }
+      
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -120,13 +165,17 @@ const Register = () => {
                   onChange={onGenderChange}
                   allowClear
                 >
-                  <Option value="male">Pria</Option>
-                  <Option value="female">Wanita</Option>
+                  <Option value="Pria">Pria</Option>
+                  <Option value="Wanita">Wanita</Option>
                 </Select>
               </Form.Item>
 
+              <Form.Item name="alamat">
+                <Input placeholder="Alamat" />
+              </Form.Item>
+
               <Form.Item
-                name="passwordRegister"
+                name="password"
                 rules={[
                   { required: true, message: "Silakan masukkan password!" },
                 ]}
@@ -166,13 +215,13 @@ const Register = () => {
               </Form.Item>
 
               <Form.Item
-                name="logo"
+                name="profile"
                 rules={[{ required: true, message: "Silakan pilih Logo" }]}
               >
                 <Upload
                   {...uploadProps}
                   fileList={logoFileList}
-                  onChange={({ fileList }) => setLogoFileList(fileList)}
+                  onChange={uploadPhoto}
                 >
                   <Button icon={<UploadOutlined />} style={{ width: "100%" }}>
                     Foto profil

@@ -6,8 +6,13 @@
     bottom: 20px; /* Sesuaikan dengan jarak dari bawah yang diinginkan */
     right: 20px; /* Sesuaikan dengan jarak dari kanan yang diinginkan */
   }
-  
-
+.div-list{
+  background-color: #FED08C ;
+}
+.border-list{
+  border-color: #FF7D04;
+  border-width: 1px;
+}
   .ant-input-affix-wrapper-focused {
     border: 1px solid #FF7D04 !important;
     box-shadow: 0 0 0 2px #FF7D04 !important;
@@ -88,3 +93,55 @@
     border-color: #FF7D04;
   }
   
+  .ant-collapse>.ant-collapse-item >.ant-collapse-header .ant-collapse-arrow svg {
+    font-size: 1.25rem;
+  }
+
+  .ant-collapse-small >.ant-collapse-item >.ant-collapse-header {
+    align-items: center;
+  }
+  .ant-btn-primary {
+    background-color: #FF7D04;
+    border-radius: 16px;
+  }
+  .ant-btn-primary:not(:disabled):not(.ant-btn-disabled):hover {
+    background-color: white;
+    color:#FF7D04;
+    border: #FF7D04 1px solid;
+  }
+  .ant-btn-primary:not(:disabled):not(.ant-btn-disabled):focus-visible {
+    outline: #FF7D04 4px solid;
+  }
+
+  .ant-modal .ant-modal-footer {
+    text-align: center;
+  }
+  .ant-input:hover,
+  .ant-picker:hover, 
+  .ant-picker-focused,
+  .ant-input-number:hover,
+  .ant-input-number-focused,
+  .ant-input:focus{
+    border: #FF7D04 1px solid;
+    box-shadow: none;
+  }
+ 
+  .ant-input-number .ant-input-number-input {
+    height: 44px;
+    font-size: 16px;
+  }
+  .ant-picker-dropdown .ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-cell-inner{
+    background-color: #FF7D04;
+  }
+  .ant-picker-dropdown .ant-picker-cell-in-view.ant-picker-cell-today .ant-picker-cell-inner::before{
+    border:#FF7D04 1px solid;
+  }
+  .ant-modal .ant-modal-title{
+    font-size: 32px;
+    margin-bottom:33px;
+  }
+  .ant-input:placeholder-shown,
+  .ant-picker-input >input:placeholder-shown ,
+  .ant-input-number-input:placeholder-shown{
+    font-size: 16px;
+  }
