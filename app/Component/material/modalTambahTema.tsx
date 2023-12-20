@@ -2,8 +2,6 @@ import {
   Button,
   Modal,
 } from "antd";
-import { useState } from "react";
-import FormPengajuanKelas from "./formPengajuan";
 
 // interface ModalPengajuanProps {
 //   visible: boolean;
@@ -11,11 +9,11 @@ import FormPengajuanKelas from "./formPengajuan";
 //   title: string;
 //   content: React.ReactNode;
 // }
-const ModalPengajuan=(props:any)=> {
+const ModalTambahTema=(props:any)=> {
   const {title, closeModal, content, visible} = props;
   return (
     <Modal
-    width={720}
+    width={483}
     className="text-center"
       title={title}
       visible={visible}
@@ -26,4 +24,4 @@ const ModalPengajuan=(props:any)=> {
     </Modal>
   );
 };
-export default ModalPengajuan;
+export default ModalTambahTema;

@@ -30,7 +30,7 @@ const FormUbahMateri = () =>{
             <Form.Item<FieldType>
               name="namaMateri"
               rules={[
-                { required: true, message: "Harap masukan nama kelas" },
+                { required: true, message: "Harap masukan nama materi" },
               ]}
             >
               <Input 
@@ -41,7 +41,7 @@ const FormUbahMateri = () =>{
             <Form.Item<FieldType>
               name="link"
               rules={[
-                { required: true, message: "Harap masukan tema kelas" },
+                { required: true, message: "Harap masukan link video materi" },
               ]}
             >
               <Input 
