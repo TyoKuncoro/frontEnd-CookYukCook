@@ -15,6 +15,7 @@ import {
   BellOutlined,
   LogoutOutlined,
   IdcardOutlined,
+  UsergroupDeleteOutlined
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { Breadcrumb, Layout, Menu, theme } from "antd";
@@ -71,11 +72,13 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
     role = parseJwt(token).role;
     console.log(role, "role coook");
   }
+
+
   const menu: MenuProps["items"] = [
     {
-      key: `/home`,
-      icon: <HomeOutlined />,
-      label: `Dashboard`,
+    key: `/file`,
+    icon: <UsergroupDeleteOutlined />,
+    label: `Dashboard`,
     },
     {
       key: `/regular`,
@@ -192,10 +195,7 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
             fontWeight: "bold",
             color: "#FF7D04", 
           }}
-          items={
-            // menu
-            role == "trainee" || "kitchen studio" ? menu : menuAdmin
-          }
+          items={role == "Trainee" || "Kitchen Studio" ? menu : menuAdmin }
           onClick={({ key }) => {
             router.push(key);
             // console.log(`key ${key} route not found`);

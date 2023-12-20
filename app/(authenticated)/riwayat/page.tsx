@@ -1,4 +1,4 @@
-"use client";
+
 import React, { useState } from "react";
 import { ClockCircleOutlined } from "@ant-design/icons";
 import { Tabs } from "antd";
