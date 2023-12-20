@@ -1,64 +1,57 @@
-import { LinkOutlined } from "@ant-design/icons";
-import { Button, Form, Input } from "antd";
+import { materiRepository } from "#/repository/materi";
+import { Button, Form, Input, Modal, message } from "antd";
+const CreateMateriModal = ({ idClass, typeClass, visible, onClose }:any) => {
+  const [form] = Form.useForm();
 
-const FormTambahMateri = () => {
-    const onFinish = (values: any) => {
-        console.log("Success:", values);
+  const onFinish = async (values:any) => {
+    try {
+      const data = {
+        idclass: idClass,
+        typeClass: typeClass,
+        name: values.name,
+        link: values.link,
       };
-    
-      const onFinishFailed = (errorInfo: any) => {
-        console.log("Failed:", errorInfo);
-      };
-    type FieldType = {
-        namaMateri?: string;
-        link?: string;
-      };
+      const createdMateri = await materiRepository.manipulateData.createMaterial(data);
+
+      console.log('Materi created successfully:', createdMateri);
+      message.success('Materi created successfully');
+      onClose();
+    } catch (error) {
+      console.error('Error creating materi:', error);
+      message.error('Failed to create materi');
+    }
+  };
+
   return (
-    <div>
-         <Form
-          name="basic"
-          labelCol={{ span: 4 }}
-          wrapperCol={{ span: 16 }}
-          // style={{ maxWidth: 600 }}
-          className="flex flex-col justify-centers items-center"
-          size="middle"
-          initialValues={{ remember: true }}
-          onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
-          autoComplete="off"
-          >
-            <Form.Item<FieldType>
-              name="namaMateri"
-              rules={[
-                { required: true, message: "Harap masukan nama kelas" },
-              ]}
-            >
-              <Input 
-              placeholder="Materi Kelas" 
-              className="custom-placeholder h-11 w-80 rounded-lg border-orange-300" />
-            </Form.Item>
+    <Modal
+      title="Create Materi"
+      visible={visible}
+      onCancel={onClose}
+      footer={null}
+      className="text-center"
+    >
+      <Form form={form} onFinish={onFinish}>
+        <Form.Item
+          name="name"
+          rules={[{ required: true, message: 'Please input the materi name!' }]}
+        >
+          <Input placeholder="Materi Name" />
+        </Form.Item>
 
-            <Form.Item<FieldType>
-              name="link"
-              rules={[
-                { required: true, message: "Harap masukan tema kelas" },
-              ]}
-            >
-              <Input 
-               prefix={<LinkOutlined className="text-2xl text-slate-500" />}
-              placeholder="Link Video" className="custom-placeholder h-11 w-80 rounded-lg border-orange-300" />
-              </Form.Item>
-          <Form.Item>
-          <Button
-            key="submit"
-            type="primary"
-            htmlType="submit"
-          >
-            Tambah
+        <Form.Item
+          name="link"
+          rules={[{ required: true, message: 'Please input the materi link!' }]}
+        >
+          <Input placeholder="Materi Link" />
+        </Form.Item>
+
+        <Form.Item>
+          <Button type="primary" htmlType="submit">
+            Tambah 
           </Button>
-          </Form.Item>
-        </Form>
-    </div>
+        </Form.Item>
+      </Form>
+    </Modal>
   );
 };
-export default FormTambahMateri;
+export default CreateMateriModal;

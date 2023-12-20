@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import { Button, Card, Input, Form } from "antd";
+import { Button, Card, Input, Form, message } from "antd";
 import { store } from "#/store";
 import { sampleRepository } from "#/repository/sample";
 import FullRoundButton from "../../Component/fullRoundedButton";
@@ -47,6 +47,7 @@ const Login = () => {
       const login = await authRepository.manipulateData.login(data);
       console.log(login, "Hasil API Login");
       localStorage.setItem("access_token", login?.body?.data?.access_token);
+      setTimeout(message.success(`Halo! Selamat Datang`), 2000)
       router.push("/home");
     } catch (error) {
       // message.error(error.response.body.error)

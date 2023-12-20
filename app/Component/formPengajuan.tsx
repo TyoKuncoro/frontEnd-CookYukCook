@@ -1,10 +1,34 @@
-import { Button, DatePicker, Form, Input, InputNumber } from "antd"
+import { regularClassRepository } from "#/repository/regularClass";
+import { Button, DatePicker, Form, Input, InputNumber, Select, message } from "antd"
+import { Option } from "antd/es/mentions";
 import { DatePickerProps } from "antd/lib";
 
 const FormPengajuanKelas = () => {
-    const onFinish = (values: any) => {
-        console.log("Success:", values);
-      };
+  // const {tema} = props;
+  const onFinish = async(values:any) =>{
+    try {
+      const data = {
+        tema:values?.tema,
+        couserName:values?.namaKelas,
+        startDate:values?.tglMulai,
+        endDate:values?.tglSelesai,
+        numberOfBenches:values?.bench,
+        price:values?.harga,
+        description:values?.desc,
+        adminFee:values?.adminFee
+      }
+      const pengajuan = await regularClassRepository.manipulateData.createKelasReg(data)
+      console.log(pengajuan, "ini dia")
+      message.success("OKE WOE")
+      
+    } catch (error) {
+      console.log(error)
+    }
+  }
+    // const onFinish = (values: any) => {
+    //     console.log("Success:", values);
+    //   };
+
     
       const onFinishFailed = (errorInfo: any) => {
         console.log("Failed:", errorInfo);
@@ -61,7 +85,13 @@ const FormPengajuanKelas = () => {
                 { required: true, message: "Harap masukan tema kelas" },
               ]}
             >
-              <Input placeholder="Tema Kelas" className="custom-placeholder h-11 w-80 rounded-lg border-orange-300" />
+              <Select>
+                <Option></Option>
+              </Select>
+              {/* <Input
+              placeholder="Tema Kelas"
+              className="custom-placeholder h-11 w-80 rounded-lg border-orange-300" 
+              /> */}
             </Form.Item>
 
             <Form.Item<FieldType>
