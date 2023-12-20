@@ -48,11 +48,11 @@ const Register = () => {
     }
   };
 
-  const onGenderChange = (value) => {
+  const onGenderChange = (value: any) => {
     setSelectedGender(value);
   };
 
-  const beforeUpload = (file) => {
+  const beforeUpload = (file: any) => {
     const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
     if (!isJpgOrPng) {
       message.error("Hanya dapat mengunggah file JPG/PNG!");
@@ -62,7 +62,7 @@ const Register = () => {
 
   const uploadProps = {
     maxCount: 1,
-    beforeUpload: (file) => {
+    beforeUpload: (file: any) => {
       // Validasi sebelum upload
       return false;
     },

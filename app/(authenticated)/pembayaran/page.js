@@ -39,6 +39,7 @@ const Pembayaran = () => {
   }, []);
 
   const handleCheckout = async () => {
+    
     const uuidGenerator = uuidv4();
     console.log(uuidGenerator, "ini uuid cook");
     const data = {

@@ -4,8 +4,8 @@ import { ClockCircleOutlined } from "@ant-design/icons";
 import { Tabs } from "antd";
 import Image from "next/image";
 import FullRoundedButton from "#/app/Component/fullRoundedButton";
-const { TabPane } = Tabs;
 import { Pagination } from "antd";
+const { TabPane } = Tabs;
 
 const Riwayat: React.FC = () => {
   const handleTabChange = (key: any) => {
