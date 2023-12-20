@@ -65,7 +65,7 @@ const ListRegular = () => {
                   <div>
                     <div className="flex justify-between">
                       <p className="text-3xl font-bold">Materi Kelas</p>
-                      <p key={items.id}>{items.id}</p>
+                      
                       <UbahMateriBtn
                         text="Tambah Materi"
                         key={null}
