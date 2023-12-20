@@ -85,13 +85,10 @@ const FormPengajuanKelas = () => {
                 { required: true, message: "Harap masukan tema kelas" },
               ]}
             >
-              <Select>
-                <Option></Option>
-              </Select>
-              {/* <Input
+              <Input
               placeholder="Tema Kelas"
               className="custom-placeholder h-11 w-80 rounded-lg border-orange-300" 
-              /> */}
+              />
             </Form.Item>
 
             <Form.Item<FieldType>

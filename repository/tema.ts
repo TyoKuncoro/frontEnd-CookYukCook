@@ -4,11 +4,15 @@ import useSWR from "swr";
 
 const url = {
     findAllTema: () => "/training-theme",
-    createTema: () => "/training-theme"
+    createTema: () => "/training-theme",
+    findTemaByUsers: (id:any) => `/training-theme/find/${id}`
 };
 const hooks = {
     findAllTema(){
         return useSWR(url.findAllTema(), http.fetcher)
+    },
+    findTemaByUsers(id:any){
+        return useSWR(url.findTemaByUsers(id), http.fetcher)
     }
 }
 const manipulateData = {

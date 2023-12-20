@@ -24,7 +24,7 @@ const CreateMateriModal = ({ idClass, typeClass, visible, onClose }:any) => {
 
   return (
     <Modal
-      title="Create Materi"
+      title="Tambah Materi"
       visible={visible}
       onCancel={onClose}
       footer={null}
