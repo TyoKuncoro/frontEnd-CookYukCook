@@ -1,18 +1,15 @@
 "use client";
 
 import React, { useState } from "react";
-import { Calendar, Card } from "antd";
+import { Calendar} from "antd";
 import Image from "next/image";
 import FullRoundedButton from "#/app/Component/fullRoundedButton";
 import { PrinterOutlined, EditOutlined, SendOutlined } from "@ant-design/icons";
 
 const HomeKitchen: React.FC = () => {
   const [tema, setTema] = useState("Judul Tema");
-  const [namaKelas, setNamaKelas] = useState("Nama Kelas");
-  const [alamat, setAlamat] = useState("Alamat");
   const [startDate, setStartDate] = useState("tanggal mulai");
   const [endDate, setEndDate] = useState("tanggal selesai");
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [selectedDate, setSelectedDate] = useState<string>("");
 
@@ -56,11 +53,9 @@ const HomeKitchen: React.FC = () => {
     console.log("pengajuan kelas");
   };
 
-  // const editKelas = (event: any) =>{
-  //   setVariableKelas(values)
-  //   console.log(event.key)
-  // }
-  console.log(variableKelas)
+  const editKelas = (event: any) =>{
+    console.log(event.key)
+  }
   return (
     <div>
       <div className="text-2xl font-semibold">Jadwal</div>
