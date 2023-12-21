@@ -2,10 +2,11 @@
 
 import React, { useState } from "react";
 import { ClockCircleOutlined } from "@ant-design/icons";
-import { Tabs } from "antd";
+import { Tabs, message } from "antd";
 import Image from "next/image";
 import FullRoundedButton from "#/app/Component/fullRoundedButton";
 import { Pagination } from "antd";
+import { useRouter } from "next/navigation";
 const { TabPane } = Tabs;
 
 const Riwayat: React.FC = () => {
@@ -38,6 +39,12 @@ const Riwayat: React.FC = () => {
     console.log("Halaman:", pageNumber);
     // Anda bisa menambahkan logika lainnya di sini, misalnya memuat data untuk halaman yang dipilih.
   }
+  const router = useRouter();
+  if (!localStorage.getItem("access_token")) {
+    message.error('Anda belum login, silahkan login')
+    router.push('login');
+  }
+
   return (
     <div className="flex place-content-center ">
       <div className=" w-[85%] px-20 rounded-3xl bg-orange-100">

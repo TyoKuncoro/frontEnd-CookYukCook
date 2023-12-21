@@ -7,6 +7,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 const Regular = () => {
+
   const [judul, setJudul] = useState("Cooking challenge(judul)");
   const [temaPelatihan, setTemaPelatihan] = useState(
     "masak asik(tema pelatihan)"

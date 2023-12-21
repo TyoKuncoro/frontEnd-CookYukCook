@@ -12,6 +12,7 @@ import {
   Space,
   Table,
   Tag,
+  message,
 } from "antd";
 import {
   EditOutlined,
@@ -45,9 +46,11 @@ const Profile = () => {
     setGender(value);
   };
 
-  if (!token) {
-    alert("silahkan login");
+  if (!localStorage.getItem("access_token")) {
+    message.error('Anda belum login, silahkan login')
+    router.push('login');
   }
+
 
   const handleLogOut = () => {
     localStorage.removeItem("access_token");

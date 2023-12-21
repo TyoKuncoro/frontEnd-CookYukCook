@@ -4,9 +4,14 @@ import FullRoundedButton from "#/app/Component/fullRoundedButton";
 import { useEffect, useState } from "react";
 import Mistrans from "midtrans-client";
 import { v4 as uuidv4 } from "uuid";
+import { useRouter } from "next/navigation";
+import { message } from "antd";
+
 // import snap from "midtrans-client"
 
 const Pembayaran = () => {
+  const router = useRouter();
+
   //dummy data
   const [nama, SetNama] = useState("Cecil");
   const [namaKelas, setNamaKelas] = useState("Membuat Kue Khas Lebaran");
@@ -21,6 +26,10 @@ const Pembayaran = () => {
     serverKey: process.env.SECRET,
     clientKey: process.env.NEXT_PUBLIC_CLIENT,
   });
+  if (!localStorage.getItem("access_token")) {
+    message.error('Anda belum login, silahkan login')
+    router.push('login');
+  }
 
   useEffect(() => {
     const snapScript = "https://app.sandbox.midtrans.com/snap/snap.js";

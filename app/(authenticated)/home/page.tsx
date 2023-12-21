@@ -1,7 +1,7 @@
 "use client"
 import React, { useState } from "react";
 import Image from "next/image";
-import { Button, Calendar, Card, Modal } from "antd";
+import { Button, Calendar, Card, Modal, message } from "antd";
 import FullRoundedButton from "../../Component/fullRoundedButton";
 import { store } from "#/store";
 import { sampleRepository } from "#/repository/sample";
@@ -38,7 +38,7 @@ function Home(): any {
 
   const showModal = () => {
     if (!localStorage.getItem("access_token")) {
-      alert("silahkan login");
+      message.error("silahkan login");
       router.push('login');
     } else {
       setIsModalOpen(true);
@@ -46,7 +46,7 @@ function Home(): any {
   };
   const showModal1 = () => {
     if (!localStorage.getItem("access_token")) {
-      alert("silahkan login");
+      message.error("silahkan login");
       router.push('login');
     } else {
       setIsModalOpen1(true);
@@ -54,7 +54,7 @@ function Home(): any {
   };
   const showModal2 = () => {
     if (!localStorage.getItem("access_token")) {
-      alert("silahkan login");
+      message.error("silahkan login");
       router.push('login');
     } else {
       setIsModalOpen2(true);
