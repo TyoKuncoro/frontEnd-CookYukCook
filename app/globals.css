@@ -110,3 +110,6 @@
   :where(.css-dev-only-do-not-overide-1u091qq).ant-select:not(.ant-select-disabled):not(.ant-select-customize-input):not(.ant-pagination-size-changer) .ant-select-selector{
     border:#FF7D04 1px solid;
   }
+  :where(.css-dev-only-do-not-override-1u09lqq).ant-input-disabled, :where(.css-dev-only-do-not-override-1u09lqq).ant-input[disabled] {
+    font-size:16px;
+  }

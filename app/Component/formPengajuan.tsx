@@ -42,6 +42,7 @@ const FormPengajuanKelas = () => {
         await regularClassRepository.manipulateData.createKelasReg(data);
       console.log(pengajuan, "ini dia");
       message.success("Pengajuan Kelas Berhasil");
+      form.resetFields()
     } catch (error) {
       console.log(error);
     }
@@ -70,10 +71,14 @@ const FormPengajuanKelas = () => {
 
   const onChange1 = (value: number) => {
     console.log("changed", value);
+    // form.setFieldValue('adminFee', value * 10 / 100)
   };
   const onChangeTema = (value :string[]) => {
     console.log(`selected ${value}`)
 
+  }
+  const handleAdminFee = (value: number) =>{
+    form.setFieldValue('adminFee', value * 10 / 100)
   }
   return (
     <Form
@@ -185,7 +190,7 @@ const FormPengajuanKelas = () => {
             >
               <InputNumber
                 // defaultValue={0}
-                onChange={onChange1}
+                onChange={handleAdminFee}
                 className="custom-placeholder h-11 w-80 rounded-lg border-orange-300"
                 placeholder="Harga"
               />
@@ -196,12 +201,13 @@ const FormPengajuanKelas = () => {
             <Form.Item<FieldType>
               name="adminFee"
               rules={[{ required: true, message: "" }]}
+              // val={form.getFieldValue('harga')}
             >
-              <InputNumber
-                // defaultValue={0}
-                onChange={onChange1}
+              <Input
+                disabled
+                value={'pp'}
                 className="custom-placeholder h-11 w-80 rounded-lg border-orange-300"
-                placeholder="Biaya Admin"
+                // placeholder="Biaya Admin"
               />
             </Form.Item>
           </div>

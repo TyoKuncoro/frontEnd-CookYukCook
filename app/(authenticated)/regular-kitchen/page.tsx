@@ -68,7 +68,7 @@ const ListRegular = () => {
                       
                       <UbahMateriBtn
                         text="Tambah Materi"
-                        key={null}
+                        key={items.id}
                         onclick={showModal}
                         />
                       <CreateMateriModal
