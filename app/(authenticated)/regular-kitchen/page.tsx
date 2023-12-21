@@ -68,7 +68,7 @@ const ListRegular = () => {
                       
                       <UbahMateriBtn
                         text="Tambah Materi"
-                        key={null}
+                        key={items.id}
                         onclick={showModal}
                         />
                       <CreateMateriModal
@@ -93,7 +93,7 @@ const ListRegular = () => {
         </div>
       )}
       <ModalPengajuan
-        title="pengajuan Kelas"
+        title="Pengajuan Kelas"
         closeModal={handleClose}
         visible={modalOpen}
         content={<FormPengajuanKelas />}
