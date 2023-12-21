@@ -15,27 +15,28 @@ import { TeamOutlined } from "@ant-design/icons";
 import { temaKelasRepository } from "#/repository/tema";
 
 const FormTambahTema = () => {
-  const token = localStorage.getItem("access_token");
-  let id:any;
-  if (token) {
-    id = parseJwt(token).id;
-    // console.log(id);
-  }
-  const onFinish = async (values:any) =>{
-    try{
-        const data ={
-            kitchen:id,
-            name:values?.name,
-            chef_name:values?.chef_name,
-            price:values?.price
-        }
-        const createTema = await temaKelasRepository.manipulateData.createTema(data)
-        console.log(createTema, "oke")
-        message.success("oke")
-    }catch(e){
-        console.log(e)
-    }
-  }
+  // const token = localStorage.getItem("access_token");
+  // let id:any;
+  // if (token) {
+  //   id = parseJwt(token).id;
+  //   // console.log(id);
+  // }
+  // const onFinish = async (values:any) =>{
+  //   try{
+  //       const data ={
+  //           kitchen:id,
+  //           name:values?.name,
+  //           chef_name:values?.chef_name,
+  //           price:values?.price
+  //       }
+  //       const createTema = await temaKelasRepository.manipulateData.createTema(data)
+  //       console.log(createTema, "oke")
+  //       message.success("oke")
+  //       setmod
+  //   }catch(e){
+  //       console.log(e)
+  //   }
+  // }
   // const onFinish = (values: any) => {
   //     console.log("Success:", values);
   //   };
@@ -65,8 +66,6 @@ const FormTambahTema = () => {
         // style={{ maxWidth: 600 }}
         className="flex flex-col justify-centers items-center"
         size="middle"
-        initialValues={{ remember: true }}
-        onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         autoComplete="off"
       >
@@ -99,11 +98,11 @@ const FormTambahTema = () => {
             className="custom-placeholder h-11 w-80 rounded-lg border-orange-300"
           />
         </Form.Item>
-        <Form.Item>
+        {/* <Form.Item>
           <Button key="submit" type="primary" htmlType="submit">
             Simpan
           </Button>
-        </Form.Item>
+        </Form.Item> */}
       </Form>
     </div>
   );

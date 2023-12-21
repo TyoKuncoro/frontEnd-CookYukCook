@@ -50,7 +50,7 @@ const Login = () => {
       setTimeout(message.success(`Halo! Selamat Datang`), 2000)
       router.push("/home");
     } catch (error) {
-      // message.error(error.response.body.error)
+      message.error(error.response.body?.error)
       console.log(error, "errornya cook");
     }
   };

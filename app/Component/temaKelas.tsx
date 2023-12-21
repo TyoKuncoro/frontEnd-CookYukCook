@@ -7,6 +7,7 @@ import ModalPengajuan from "./createPengajuan";
 import FormPengajuanKelas from "./formPengajuan";
 import FormTambahTema from "./formTambahTema";
 import ModalTambahTema from "./material/modalTambahTema";
+import TambahTema from "./material/modalTambahTema";
 
 
 export default function TemaKelas (){
@@ -75,12 +76,7 @@ export default function TemaKelas (){
             closeModal={handleClose} 
             visible={modalOpen}
             content={<FormPengajuanKelas/>}/>
-
-            <ModalTambahTema 
-            title="Tambah Tema Kelas" 
-            closeModal={handleCloseModal} 
-            visible={openModal}
-            content={<FormTambahTema/>}/>
+            <TambahTema open={openModal} closeModal={handleCloseModal}/>
         </div>
     )
 }
