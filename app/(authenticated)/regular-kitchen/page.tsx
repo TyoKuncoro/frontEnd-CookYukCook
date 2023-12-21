@@ -25,7 +25,7 @@ const ListRegular = () => {
   }
   const [regular, setRegular] = useState([]);
   const { data } = regularClassRepository.hooks.findRegClassByKitchen(id);
-  // console.log(data?.data?.material, 'hallooo')
+  console.log(data?.data?.material, 'hallooo')
   useEffect(() => {
     setRegular(data?.data);
   }, [data]);

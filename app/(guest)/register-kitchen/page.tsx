@@ -35,9 +35,8 @@ const RegisterKitchen = () => {
         description:values?.desc
       };
       const register = await authRepository.manipulateData.register(data);
-      setTimeout(message.success("Anda Berhasil Register"), 2000)
       console.log(register, "ini hasil register");
-      router.push('/home')
+      router.push('/login')
     }catch(error){
       // message.error(error.response.body.message)
     }
@@ -76,6 +75,7 @@ const RegisterKitchen = () => {
            const response = await authRepository.manipulateData.uploadLogo(file)
            console.log(response.body.fileName, 'hasilnya')
            setProfilePhoto(response.body.fileName)
+           message.success('Foto logo berhasil terupload')
         }else{
           message.error('Extensi file tidak diketahui')
         }
@@ -97,6 +97,7 @@ const RegisterKitchen = () => {
            const response = await authRepository.manipulateData.uploadLegalitas(file)
            console.log(response.body.fileName, 'hasilnya')
            setLegalitas(response.body.fileName)
+           message.error('Foto legalitas berhasil terupload')
         }else{
           message.error('Extensi file tidak diketahui')
         }

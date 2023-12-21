@@ -77,10 +77,12 @@ function Home(): any {
     setIsModalOpen2(false);
   };
 
-  console.log(localStorage.getItem("access_token"));
   const onFinish = () => {
     console.log("submit button pressed");
   };
+
+
+  const token = localStorage.getItem("access_token")
 
   return (
     <div className="p-5 bg-white">
@@ -126,6 +128,7 @@ function Home(): any {
           </Card>
         </div>
       </div>
+{token &&
       <div className="flex justify-between">
         <div className=" mt-6 bg-orange-100 rounded-3xl mr-10 w-[50%]">
           <div
@@ -204,7 +207,7 @@ function Home(): any {
           </div>
         </div>
       </div>
-
+}
       <Modal
         title="Daftar Kelas Regular"
         open={isModalOpen}

@@ -76,8 +76,8 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
 
   const menu: MenuProps["items"] = [
     {
-    key: `/file`,
-    icon: <UsergroupDeleteOutlined />,
+    key: `/home`,
+    icon: <HomeOutlined />,
     label: `Dashboard`,
     },
     {
@@ -105,16 +105,16 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
       icon: <UserOutlined />,
       label: `Profile`,
     },
-    {
-      key: `notif`,
-      icon: <BellOutlined />,
-      label: `Notifikasi`,
-    },
-    {
-      key: `/chat`,
-      icon: <MessageOutlined />,
-      label: `Chat`,
-    },
+    // {
+    //   key: `notif`,
+    //   icon: <BellOutlined />,
+    //   label: `Notifikasi`,
+    // },
+    // {
+    //   key: `/chat`,
+    //   icon: <MessageOutlined />,
+    //   label: `Chat`,
+    // },
     {
       key: `/logout`,
       icon: <LogoutOutlined />,
@@ -152,11 +152,11 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
       icon: <UserOutlined />,
       label: `Profile`,
     },
-    {
-      key: `notif`,
-      icon: <BellOutlined />,
-      label: `Notifikasi`,
-    },
+    // {
+    //   key: `notif`,
+    //   icon: <BellOutlined />,
+    //   label: `Notifikasi`,
+    // },
     {
       key: `/management`,
       icon: <IdcardOutlined />,
@@ -187,7 +187,7 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
           className=""
           mode="inline"
           defaultSelectedKeys={["/home"]}
-          // defaultOpenKeys={['sub1']}
+          defaultOpenKeys={['sub1']}
           style={{
             height: "100%",
             borderRight: 0,

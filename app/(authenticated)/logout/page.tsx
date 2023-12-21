@@ -10,7 +10,7 @@ const Logout = () => {
     message.error('Silahkan Login')
     route.push('/login')
     return (
-        <div>Logout</div>
+        <div>Meneruskan ke Login</div>
     )
 }
 

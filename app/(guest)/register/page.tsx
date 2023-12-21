@@ -81,6 +81,7 @@ const Register = () => {
           );
           console.log(response.body.fileName, "ini hasilnya");
           setProfilePhoto(response.body.fileName);
+          message.success('Foto berhasil terupload')
     }else{
       message.error("Extensi file tidak diketahui")
     }
@@ -184,7 +185,7 @@ const Register = () => {
               >
                 <Input.Password
                   prefix={<LockOutlined />}
-                  placeholder="Password"
+                  placeholder="Kata Sandi"
                 />
               </Form.Item>
 
@@ -211,7 +212,7 @@ const Register = () => {
               >
                 <Input.Password
                   prefix={<LockOutlined />}
-                  placeholder="Konfirmasi Password"
+                  placeholder="Konfirmasi Kata Sandi"
                 />
               </Form.Item>
 

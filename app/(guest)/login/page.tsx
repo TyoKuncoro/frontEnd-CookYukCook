@@ -110,8 +110,8 @@ const Login = () => {
             </Form.Item>
           </Form>
           <div className="text-center mt-32 mb-16">
-            <div style={{ color: "#FC9F48" }}>belum punya akun?</div>
-            <div style={{ color: "#FC9F48" }}>
+            <div className="text-orange-500">belum punya akun?</div>
+            <div className="text-orange-500">
               yuk buat{" "}
               <a
                 href="/select-role"
