@@ -24,13 +24,15 @@ import {
 } from "@ant-design/icons";
 import LogoutButton from "#/app/Component/button";
 import { useRouter } from "next/navigation";
+import ProfileKitchen from "../profile-kitchen/page"
+import { parseJwt } from "../../Component/Helper/convert";
+import ProfileAdmin from "../profile-admin/page";
 
 const { Option } = Select;
 
 const Profile = () => {
   const [email, setEmail] = useState("trainee@gmail.com");
   const router = useRouter();
-  const token = localStorage.getItem("access_token");
 
   const [form] = Form.useForm();
   const [gender, setGender] = useState("Pria");
@@ -46,7 +48,8 @@ const Profile = () => {
     setGender(value);
   };
 
-  if (!localStorage.getItem("access_token")) {
+  const token = localStorage.getItem("access_token")
+  if (!token) {
     message.error('Anda belum login, silahkan login')
     router.push('login');
   }
@@ -72,7 +75,15 @@ const Profile = () => {
   const handleCancelPassword = () => {
     setVisiblePassword(false);
   };
-  return (
+
+  let role: string= "";
+  if (token) {
+    role = parseJwt(token).role;
+    console.log(role, "role coookecoke");
+  }
+
+   
+  return  role === "Trainee" ? 
     <div className="flex w-[100%]">
       <div>
         <Modal
@@ -209,7 +220,11 @@ const Profile = () => {
         />
       </div>
     </div>
-  );
+    :
+    role === "Kitchen Studio" ? 
+    <ProfileKitchen /> :
+    <ProfileAdmin />
+  
 };
 
 export default Profile;

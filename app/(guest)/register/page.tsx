@@ -92,6 +92,11 @@ const Register = () => {
     }
   };
 
+  const token = localStorage.getItem('access_token')
+  if (token) {
+    router.push('/home');
+  }
+
   return (
     <div className="my-20">
       <div className="flex place-content-center">
@@ -218,7 +223,7 @@ const Register = () => {
 
               <Form.Item
                 name="profile"
-                rules={[{ required: true, message: "Silakan pilih Logo" }]}
+                rules={[{ required: true, message: "Silakan pilih Foto Profile" }]}
               >
                 <Upload
                   {...uploadProps}

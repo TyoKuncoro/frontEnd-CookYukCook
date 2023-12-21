@@ -7,6 +7,8 @@ import Image from "next/image";
 import FullRoundedButton from "#/app/Component/fullRoundedButton";
 import { Pagination } from "antd";
 import { useRouter } from "next/navigation";
+import { parseJwt } from "#/app/Component/Helper/convert";
+import RiwayatKitchen from "../riwayat-kitchen/page";
 const { TabPane } = Tabs;
 
 const Riwayat: React.FC = () => {
@@ -40,12 +42,21 @@ const Riwayat: React.FC = () => {
     // Anda bisa menambahkan logika lainnya di sini, misalnya memuat data untuk halaman yang dipilih.
   }
   const router = useRouter();
-  if (!localStorage.getItem("access_token")) {
+  const token = localStorage.getItem("access_token")
+  if (!token) {
     message.error('Anda belum login, silahkan login')
     router.push('login');
   }
 
-  return (
+  let role: string = "";
+  if (token) {
+    role = parseJwt(token).role;
+    console.log(role, 'ini role');
+  }
+
+
+  
+  return role === 'Trainee' ?
     <div className="flex place-content-center ">
       <div className=" w-[85%] px-20 rounded-3xl bg-orange-100">
         <div className=" text-2xl my-6 font-bold">Riwayat Pembayaran</div>
@@ -161,7 +172,8 @@ const Riwayat: React.FC = () => {
         </Tabs>
       </div>
     </div>
-  );
+  : 
+  <RiwayatKitchen />
 };
 
 export default Riwayat;

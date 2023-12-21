@@ -1,19 +1,21 @@
 "use client";
 
 import React, { useState } from "react";
-import { Calendar} from "antd";
+import { Calendar, message } from "antd";
 import Image from "next/image";
 import FullRoundedButton from "#/app/Component/fullRoundedButton";
 import { PrinterOutlined, EditOutlined, SendOutlined } from "@ant-design/icons";
+import { useRouter } from "next/navigation";
 
 const HomeKitchen: React.FC = () => {
+  const router = useRouter();
   const [tema, setTema] = useState("Judul Tema");
   const [startDate, setStartDate] = useState("tanggal mulai");
   const [endDate, setEndDate] = useState("tanggal selesai");
 
   const [selectedDate, setSelectedDate] = useState<string>("");
 
-  const [variableKelas, setVariableKelas] = useState('')
+  const [variableKelas, setVariableKelas] = useState("");
 
   const handleDateSelect = (date: any) => {
     setSelectedDate(date.format("YYYY-MM-DD"));
@@ -52,10 +54,20 @@ const HomeKitchen: React.FC = () => {
   const openModal = () => {
     console.log("pengajuan kelas");
   };
+  const token = localStorage.getItem('access_token')
 
-  const editKelas = (event: any) =>{
-    console.log(event.key)
+  const ajukanKelas = () => {
+    if(!token){
+    message.error('silahkan login')
+    router.push('/login')
+    } else {
+      router.push('/pembayaran')
+    }
   }
+
+  const editKelas = (event: any) => {
+    console.log(event.key);
+  };
   return (
     <div>
       <div className="text-2xl font-semibold">Jadwal</div>
@@ -74,51 +86,54 @@ const HomeKitchen: React.FC = () => {
               marginRight: "75%",
             }}
           >
-            Pilihan Untukmu
+            Kelas Anda
           </div>
           <div className=" py-4 mx-10">
-            <div
-              style={{ width: 300 }}
-              className="bg-orange-300 rounded-lg p-6"
-            >
-              <div className=" content-between ">
-                <Image
-                  className=" rounded"
-                  src="/assets/Image.png"
-                  width={250}
-                  height={175}
-                  alt="Gambar"
-                />
-                <div className="flex justify-between">
-                  <div>
-                    <div className="text-xl font-bold">Tema: {tema}</div>
-                    <div className=" font-bold">Dimulai pada:</div>
-                    <div className="font-bold">
-                      {startDate}-{endDate}
-                    </div>
+            {token && (
+              <div
+                style={{ width: 300 }}
+                className="bg-orange-300 rounded-lg p-6"
+              >
+                <div className=" content-between ">
+                  <Image
+                    className=" rounded"
+                    src="/assets/Image.png"
+                    width={250}
+                    height={175}
+                    alt="Gambar"
+                  />
+                  <div className="flex justify-between">
+                    <div>
+                      <div className="text-xl font-bold">Tema: {tema}</div>
+                      <div className=" font-bold">Dimulai pada:</div>
+                      <div className="font-bold">
+                        {startDate}-{endDate}
+                      </div>
 
-                    <div>Kelas Private</div>
-                    <div className="mt-2">Chef {data.Chef}</div>
+                      <div>Kelas Private</div>
+                      <div className="mt-2">Chef {data.Chef}</div>
+                    </div>
+                  </div>
+                  <div className="flex justify-between">
+                    <div>Trainee {data.Trainee}</div>
+                    <FullRoundedButton
+                      text="Lihat Detail"
+                      icons={null}
+                      type={"primary"}
+                      //   onclick={showModal}
+                    />
                   </div>
                 </div>
-                <div className="flex justify-between">
-                  <div>Trainee {data.Trainee}</div>
-                  <FullRoundedButton
-                    text="Lihat Detail"
-                    icons={null}
-                    type={"primary"}
-                    //   onclick={showModal}
-                  />
-                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </div>
       {/* <p>Selected Date: {selectedDate}</p> */}
       <div className="flex mt-3">
         <div className="w-[50%] bg-orange-300 rounded mr-20">
-          {kelas.map((item, index) => (
+          {token &&
+          kelas.map((item, index) => (
             <div
               key={index}
               className="rounded-xl flex justify-between m-3 p-5 bg-white"
@@ -141,7 +156,8 @@ const HomeKitchen: React.FC = () => {
                     className="font-semibold text-orange-500 mt-2"
                     // onClick={showExport}
                   >
-                    <PrinterOutlined onClick={() => console.log('chat')} /> export
+                    <PrinterOutlined onClick={() => console.log("chat")} />{" "}
+                    export
                   </div>
                 )}
               </div>
@@ -156,14 +172,18 @@ const HomeKitchen: React.FC = () => {
             <div className="font-semibold bg-orange-400 text-2xl py-2 rounded-tl-3xl rounded-br-3xl pl-8 pr-20">
               Kelas Dalam Pengajuan
             </div>
-            <FullRoundedButton text="Ajukan Kelas" icons={<SendOutlined />} />
+            <FullRoundedButton text="Ajukan Kelas" icons={<SendOutlined />} onclick={ajukanKelas}/>
           </div>
           <div className="mt-12">
-            {kelasPengajuan.map((item, index) => (
-              <div key={index} className="flex justify-between mx-32 bg-white p-3 rounded-lg my-1 text-lg">
+            { token &&
+            kelasPengajuan.map((item, index) => (
+              <div
+                key={index}
+                className="flex justify-between mx-32 bg-white p-3 rounded-lg my-1 text-lg"
+              >
                 <div>{item}</div>
                 <div>
-                  <EditOutlined onClick={()=>setVariableKelas(item)}/>
+                  <EditOutlined onClick={() => setVariableKelas(item)} />
                 </div>
               </div>
             ))}

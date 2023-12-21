@@ -12,7 +12,7 @@ import { Pagination } from "antd";
 const { TabPane } = Tabs;
 const { Option } = Select;
 
-const WeekPicker: React.FC = () => {
+const RiwayatKitchen: React.FC = () => {
   const handleTabChange = (key: any) => {
     console.log("Tab changed:", key);
   };
@@ -205,4 +205,4 @@ const WeekPicker: React.FC = () => {
   );
 };
 
-export default WeekPicker;
+export default RiwayatKitchen;

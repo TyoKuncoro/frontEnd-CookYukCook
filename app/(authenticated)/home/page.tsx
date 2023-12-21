@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 import Image from "next/image";
 import { Button, Calendar, Card, Modal, message } from "antd";
@@ -6,24 +6,24 @@ import FullRoundedButton from "../../Component/fullRoundedButton";
 import { store } from "#/store";
 import { sampleRepository } from "#/repository/sample";
 import { useRouter } from "next/navigation";
+import HomeKitchen from "../home-kitchen/page";
+import { parseJwt } from "#/app/Component/Helper/convert";
 
 function onPanelChange(value: any, mode: any) {
-  console.log(value.format('YYYY-MM-DD'), mode);
-};
+  console.log(value.format("YYYY-MM-DD"), mode);
+}
 function onPanelChange1(value: any, mode: any) {
-  console.log(value.format('YYYY-MM-DD'), mode);
-};
+  console.log(value.format("YYYY-MM-DD"), mode);
+}
 
-
-function Home(): any {
-  
+const Home: React.FC = () =>  {
   //======================================================================trainee
   const [tema, setTema] = useState("Judul Tema");
   const [namaKelas, setNamaKelas] = useState("Nama Kelas");
   const [alamat, setAlamat] = useState("Alamat");
   const [startDate, setStartDate] = useState("tanggal mulai");
   const [endDate, setEndDate] = useState("tanggal selesai");
-  const [price, setPrice] = useState(100000);
+  const [price, setPrice] = useState(120000);
   const [terisi, setTerisi] = useState(4);
   const [availableBench, setAvailableBench] = useState(10);
   const [namaChef, setNamaChef] = useState("nama chef");
@@ -33,13 +33,12 @@ function Home(): any {
   const [isModalOpen1, setIsModalOpen1] = useState(false);
   const [isModalOpen2, setIsModalOpen2] = useState(false);
 
-
   const router = useRouter();
 
   const showModal = () => {
     if (!localStorage.getItem("access_token")) {
       message.error("silahkan login");
-      router.push('login');
+      router.push("login");
     } else {
       setIsModalOpen(true);
     }
@@ -47,7 +46,7 @@ function Home(): any {
   const showModal1 = () => {
     if (!localStorage.getItem("access_token")) {
       message.error("silahkan login");
-      router.push('login');
+      router.push("login");
     } else {
       setIsModalOpen1(true);
     }
@@ -55,16 +54,14 @@ function Home(): any {
   const showModal2 = () => {
     if (!localStorage.getItem("access_token")) {
       message.error("silahkan login");
-      router.push('login');
+      router.push("login");
     } else {
       setIsModalOpen2(true);
     }
   };
 
   const handleDaftar = () => {
-    alert(
-      "lanjut ke proses daftar di wiring ya mr. Tyo dancok yang gantreng"
-    );
+    message.error("wiring is in process");
     setIsModalOpen(false);
   };
   const handleCancel = () => {
@@ -81,10 +78,14 @@ function Home(): any {
     console.log("submit button pressed");
   };
 
+  const token = localStorage.getItem("access_token");
+  let role: string = "";
+  if (token) {
+    role = parseJwt(token).role;
+    // console.log(role, 'ini role');
+  }
 
-  const token = localStorage.getItem("access_token")
-
-  return (
+  return role === "Trainee" ? (
     <div className="p-5 bg-white">
       <div className=" bg-orange-100 rounded-3xl">
         <div
@@ -98,7 +99,14 @@ function Home(): any {
         <div className=" py-4 mx-10">
           <Card
             title={namaKelas}
-            extra={<FullRoundedButton text="Lihat Detail" icons={null} type={"primary"} onclick={showModal} />}
+            extra={
+              <FullRoundedButton
+                text="Lihat Detail"
+                icons={null}
+                type={"primary"}
+                onclick={showModal}
+              />
+            }
             style={{ width: 300 }}
           >
             <div className="flex justify-between">
@@ -122,92 +130,109 @@ function Home(): any {
                   src="/assets/Image.png"
                   width={40}
                   height={40}
-                  alt="Gambar" />
+                  alt="Gambar"
+                />
               </div>
             </div>
           </Card>
         </div>
       </div>
-{token &&
-      <div className="flex justify-between">
-        <div className=" mt-6 bg-orange-100 rounded-3xl mr-10 w-[50%]">
-          <div
-            className="px-8 py-4 bg-orange-400 rounded-tl-3xl rounded-br-3xl "
-            style={{
-              marginRight: 320,
-            }}
-          >
-            Kelas Regular Pilihanmu
-          </div>
-          <div className=" py-4 mx-10">
-            <Card
-              title={namaKelas}
-              extra={<FullRoundedButton text="Lihat Detail"  icons={null} type={"primary"}  onclick={showModal1} />}
-              style={{ width: 300 }}
+      {token && (
+        <div className="flex justify-between">
+          <div className=" mt-6 bg-orange-100 rounded-3xl mr-10 w-[50%]">
+            <div
+              className="px-8 py-4 bg-orange-400 rounded-tl-3xl rounded-br-3xl "
+              style={{
+                marginRight: 320,
+              }}
             >
-              <div className="flex justify-between">
-                <div>
-                  <div>Tema: {tema}</div>
-                  <div>Kelas Regular</div>
-                  <div>lokasi:</div>
-                  <p className=" text-xs">{alamat}</p>
-                  <div className=" text-xs">Dimulai pada:</div>
-                  <div className="text-xs">
-                    {startDate}-{endDate}
+              Kelas Regular Pilihanmu
+            </div>
+            <div className=" py-4 mx-10">
+              <Card
+                title={namaKelas}
+                extra={
+                  <FullRoundedButton
+                    text="Lihat Detail"
+                    icons={null}
+                    type={"primary"}
+                    onclick={showModal1}
+                  />
+                }
+                style={{ width: 300 }}
+              >
+                <div className="flex justify-between">
+                  <div>
+                    <div>Tema: {tema}</div>
+                    <div>Kelas Regular</div>
+                    <div>lokasi:</div>
+                    <p className=" text-xs">{alamat}</p>
+                    <div className=" text-xs">Dimulai pada:</div>
+                    <div className="text-xs">
+                      {startDate}-{endDate}
+                    </div>
+                  </div>
+                  <div className=" content-between">
+                    <Image
+                      className=" rounded"
+                      src="/assets/Image.png"
+                      width={40}
+                      height={40}
+                      alt="Gambar"
+                    />
                   </div>
                 </div>
-                <div className=" content-between">
-                  <Image
-                    className=" rounded"
-                    src="/assets/Image.png"
-                    width={40}
-                    height={40}
-                    alt="Gambar" />
-                </div>
-              </div>
-            </Card>
+              </Card>
+            </div>
           </div>
-        </div>
-        <div className=" mt-6 bg-orange-100 rounded-3xl w-[50%]">
-          <div
-            className="px-8 py-4 bg-orange-400 rounded-tl-3xl rounded-br-3xl "
-            style={{
-              marginRight: 320,
-            }}
-          >
-            Kelas Private Pilihanmu
-          </div>
-          <div className=" py-4 mx-10">
-            <Card
-              title={namaKelas}
-              extra={<FullRoundedButton text="Lihat Detail" icons={null} type={"primary"} onclick={showModal2} />}
-              style={{ width: 300 }}
+          <div className=" mt-6 bg-orange-100 rounded-3xl w-[50%]">
+            <div
+              className="px-8 py-4 bg-orange-400 rounded-tl-3xl rounded-br-3xl "
+              style={{
+                marginRight: 320,
+              }}
             >
-              <div className="flex justify-between">
-                <div>
-                  <div>Tema: {tema}</div>
-                  <div>Kelas Private</div>
-                  <div>lokasi:</div>
-                  <p className=" text-xs">{alamat}</p>
-                  <div className=" text-xs">Dimulai pada:</div>
-                  <div className="text-xs">
-                    {startDate}-{endDate}
+              Kelas Private Pilihanmu
+            </div>
+            <div className=" py-4 mx-10">
+              <Card
+                title={namaKelas}
+                extra={
+                  <FullRoundedButton
+                    text="Lihat Detail"
+                    icons={null}
+                    type={"primary"}
+                    onclick={showModal2}
+                  />
+                }
+                style={{ width: 300 }}
+              >
+                <div className="flex justify-between">
+                  <div>
+                    <div>Tema: {tema}</div>
+                    <div>Kelas Private</div>
+                    <div>lokasi:</div>
+                    <p className=" text-xs">{alamat}</p>
+                    <div className=" text-xs">Dimulai pada:</div>
+                    <div className="text-xs">
+                      {startDate}-{endDate}
+                    </div>
+                  </div>
+                  <div className=" content-between">
+                    <Image
+                      className=" rounded"
+                      src="/assets/Image.png"
+                      width={40}
+                      height={40}
+                      alt="Gambar"
+                    />
                   </div>
                 </div>
-                <div className=" content-between">
-                  <Image
-                    className=" rounded"
-                    src="/assets/Image.png"
-                    width={40}
-                    height={40}
-                    alt="Gambar" />
-                </div>
-              </div>
-            </Card>
+              </Card>
+            </div>
           </div>
         </div>
-      </div>
-}
+      )}
       <Modal
         title="Daftar Kelas Regular"
         open={isModalOpen}
@@ -222,7 +247,8 @@ function Home(): any {
               src="/assets/Image.png"
               width={150}
               height={100}
-              alt="Gambar" />
+              alt="Gambar"
+            />
             <div className="font-bold">{tema}</div>
             <div className=" text-xs">Chef: {namaChef}</div>
           </div>
@@ -230,7 +256,7 @@ function Home(): any {
             <div className=" bg-orange-50 rounded-lg p-2">
               <div>Materi Kelas yang dipelajari:</div>
               {materi.map((items, index) => (
-                <div key = {index}>{items}</div>
+                <div key={index}>{items}</div>
               ))}
             </div>
             <div className="flex justify-between mt-2">
@@ -239,8 +265,9 @@ function Home(): any {
                 <FullRoundedButton
                   text={"Daftar"}
                   icons={null}
-                  type={"primary"} 
-                  onclick={handleDaftar} />
+                  type={"primary"}
+                  onclick={handleDaftar}
+                />
               </div>
             </div>
           </div>
@@ -260,7 +287,8 @@ function Home(): any {
               src="/assets/Image.png"
               width={150}
               height={100}
-              alt="Gambar" />
+              alt="Gambar"
+            />
             <div className="font-bold">{tema}</div>
             <div className=" text-xs">Chef: {namaChef}</div>
           </div>
@@ -268,17 +296,19 @@ function Home(): any {
             <div className=" bg-orange-50 rounded-lg p-2">
               <div>Materi Kelas yang dipelajari:</div>
               {materi.map((items, index) => (
-                <li key ={index}>{items}</li>
+                <li key={index}>{items}</li>
               ))}
             </div>
           </div>
         </div>
-        <div style={{
-          marginTop: 30,
-          width: 450,
-          border: `1px solid orange`,
-          borderRadius: 10,
-        }}>
+        <div
+          style={{
+            marginTop: 30,
+            width: 450,
+            border: `1px solid orange`,
+            borderRadius: 10,
+          }}
+        >
           <Calendar fullscreen={false} onPanelChange={onPanelChange} />
         </div>
       </Modal>
@@ -296,7 +326,8 @@ function Home(): any {
               src="/assets/Image.png"
               width={150}
               height={100}
-              alt="Gambar" />
+              alt="Gambar"
+            />
             <div className="font-bold">{tema}</div>
             <div className=" text-xs">Chef: {namaChef}</div>
           </div>
@@ -309,16 +340,20 @@ function Home(): any {
             </div>
           </div>
         </div>
-        <div style={{
-          marginTop: 30,
-          width: 450,
-          border: `1px solid orange`,
-          borderRadius: 10,
-        }}>
+        <div
+          style={{
+            marginTop: 30,
+            width: 450,
+            border: `1px solid orange`,
+            borderRadius: 10,
+          }}
+        >
           <Calendar fullscreen={false} onPanelChange={onPanelChange1} />
         </div>
       </Modal>
     </div>
+  ) : (
+    <HomeKitchen />
   );
 }
 

@@ -6,12 +6,10 @@ import Mistrans from "midtrans-client";
 import { v4 as uuidv4 } from "uuid";
 import { useRouter } from "next/navigation";
 import { message } from "antd";
-import PembayaranKitchen from "../pembayaran-kitchen/page";
-import { parseJwt } from "#/app/Component/Helper/convert";
 
 // import snap from "midtrans-client"
 
-const Pembayaran = () => {
+const PembayaranKitchen = () => {
   const router = useRouter();
 
   //dummy data
@@ -46,13 +44,13 @@ const Pembayaran = () => {
   }, []);
 
   const handleCheckout = async () => {
-    
     const uuidGenerator = uuidv4();
     console.log(uuidGenerator, "ini uuid cook");
+
     const data = {
       id: uuidGenerator,
       productName: "Kelas Masak",
-      price: 120000,
+      price: harga + (harga * 1) / 10,
       quantity: 1,
     };
     const response = await fetch("api/token", {
@@ -76,33 +74,36 @@ const Pembayaran = () => {
   const year = today.getFullYear();
 
   const todayDate = `${day} - ${month} - ${year}`;
-  const token = localStorage.getItem("access_token")
+  const token = localStorage.getItem("access_token");
   if (!token) {
-    message.error('Anda belum login, silahkan login')
-    router.push('login');
+    message.error("Anda belum login, silahkan login");
+    router.push("login");
   }
 
-  let role = "";
-  if (token) {
-    role = parseJwt(token).role;
-    // console.log(role, 'ini role');
-  }
-
-  return role === "Trainee" ? (
+  return (
     <div className="mt-20">
       <div className=" bg-orange-100 mx-80 py-16 flex place-content-center rounded-2xl">
         <div className=" w-[75%]">
           <div className="text-2xl font-bold text-orange-500">
-            Pendaftaran Kelas {tipeKelas}
+            Pengajuan kelas {tipeKelas}
           </div>
           <div className="text-xl mb-20">Nama: {nama}</div>
           <div className="text-xl font-bold text-orange-500 mb-5">
             Detail Pesanan
           </div>
-          <div className="text-l font-bold bg-orange-200 px-10 w-[50%] py-5 rounded-lg">
+          <div className="text-l font-bold bg-orange-200 px-10 w-[55%] py-5 rounded-lg">
             <div className="mb-2">{namaKelas}</div>
             <div className="mb-5">Tema: {temaKelas}</div>
-            <div>Harga: Rp. {harga}</div>
+            <tbody>
+              <tr>
+                <td className="w-48">Harga</td>
+                <td>: Rp. {harga}</td>
+              </tr>
+              <tr>
+                <td className="w-48">Total Harga (admin 10%)</td>
+                <td>: Rp. {harga + harga / 10}</td>
+              </tr>
+            </tbody>
           </div>
         </div>
         <div>
@@ -110,16 +111,14 @@ const Pembayaran = () => {
             {todayDate}
           </div>
           <FullRoundedButton
-            text={"Daftar dan Bayar"}
+            text={"Ajukan dan Bayar"}
             icons={null}
             onclick={handleCheckout}
           />
         </div>
       </div>
     </div>
-  ) : (
-    <PembayaranKitchen />
-  )
+  );
 };
 
-export default Pembayaran;
+export default PembayaranKitchen;

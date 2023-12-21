@@ -1,3 +1,5 @@
+"use client"
+
 import { temaKelasRepository } from "#/repository/tema";
 import { Button, Space, Tag } from "antd";
 import { ColumnsType } from "antd/es/table";

@@ -7,9 +7,9 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 const Regular = () => {
-  const [judul, setJudul] = useState("Cooking challenge(judul)");
+  const [judul, setJudul] = useState("Memasak di Kelas Private");
   const [temaPelatihan, setTemaPelatihan] = useState(
-    "masak asik(tema pelatihan)"
+    "masak nusantara"
   );
   const [namaChef, setNamaChef] = useState("nazhwa");
   const [namaKitchenStudio, setNamaKitchenStudio] = useState("Dapur Rey");
@@ -34,7 +34,8 @@ const Regular = () => {
     availableBench: 4,
   };
   const router = useRouter();
-  if (!localStorage.getItem("access_token")) {
+  const token = localStorage.getItem("access_token")
+  if (!token) {
     message.error('Anda belum login, silahkan login')
     router.push('login');
   }
@@ -52,11 +53,11 @@ const Regular = () => {
             <div className="text-2xl text-orange-400 font-bold">
               {namaKitchenStudio}
             </div>
-            <FullRoundedButton
+            {/* <FullRoundedButton
               text="Hubungi Studio Masak"
               icons={<MessageOutlined />}
               type={"primary"}
-            />
+            /> */}
           </div>
         </div>
         <div className=" mt-10 font-bold text-lg">Materi Kelas</div>
@@ -116,7 +117,7 @@ const Regular = () => {
           <div className="flex justify-between">
             <div>
               <div>Tema: {data.tema}</div>
-              <div>Kelas Regular</div>
+              <div>Kelas Private</div>
               <div>lokasi:</div>
               <p className=" text-xs">{data.alamat}</p>
               <div className=" text-xs">Dimulai pada:</div>

@@ -10,34 +10,33 @@ import { UploadChangeParam } from "antd/es/upload";
 import { UploadFile } from "antd/lib";
 const { Option } = Select;
 
-
 const RegisterKitchen = () => {
   const router = useRouter();
   const [logoFileList, setLogoFileList] = useState([]);
   const [legalitasFileList, setLegalitasFileList] = useState([]);
-  const [profilePhoto, setProfilePhoto] = useState<string | null>(null)
-  const [legalitas, setLegalitas] = useState<string | null> (null)
+  const [profilePhoto, setProfilePhoto] = useState<string | null>(null);
+  const [legalitas, setLegalitas] = useState<string | null>(null);
   const onFinish = async (values: any) => {
     // Lakukan sesuatu dengan nilai-nilai formulir yang di-submit
     // Lakukan validasi di sini
     console.log("ini values cook", values);
-    try{
+    try {
       const data = {
         level: "Kitchen Studio",
         name: values?.nama,
-        email:values?.email,
-        phoneNumber:values?.whatsapp,
-        password:values?.password,
-        address:values?.alamat,
+        email: values?.email,
+        phoneNumber: values?.whatsapp,
+        password: values?.password,
+        address: values?.alamat,
         numberOfChefs: values?.jumlahChef,
-        logos:profilePhoto,
+        logos: profilePhoto,
         legality: legalitas,
-        description:values?.desc
+        description: values?.desc,
       };
       const register = await authRepository.manipulateData.register(data);
       console.log(register, "ini hasil register");
-      router.push('/login')
-    }catch(error){
+      router.push("/login");
+    } catch (error) {
       // message.error(error.response.body.message)
     }
   };
@@ -63,51 +62,65 @@ const RegisterKitchen = () => {
     beforeUpload: (file: any) => {
       setLegalitasFileList(file);
       return false; // Prevent default upload behavior
-    },}
+    },
+  };
 
-    const uploadLogoKitchen = async (args: UploadChangeParam<UploadFile<any>>) =>{
-      const file = args.file
-      try {
-        if(file.size && file.size > 2097152){
-          message.error('ukuran file terlalu besar')
-        }else{
-          if(file.type === 'image/png' || file.type === 'image/jpg' ||file.type === 'image/jpeg'){
-           const response = await authRepository.manipulateData.uploadLogo(file)
-           console.log(response.body.fileName, 'hasilnya')
-           setProfilePhoto(response.body.fileName)
-           message.success('Foto logo berhasil terupload')
-        }else{
-          message.error('Extensi file tidak diketahui')
+  const uploadLogoKitchen = async (
+    args: UploadChangeParam<UploadFile<any>>
+  ) => {
+    const file = args.file;
+    try {
+      if (file.size && file.size > 2097152) {
+        message.error("ukuran file terlalu besar");
+      } else {
+        if (
+          file.type === "image/png" ||
+          file.type === "image/jpg" ||
+          file.type === "image/jpeg"
+        ) {
+          const response = await authRepository.manipulateData.uploadLogo(file);
+          console.log(response.body.fileName, "hasilnya");
+          setProfilePhoto(response.body.fileName);
+          message.success("Foto logo berhasil terupload");
+        } else {
+          message.error("Extensi file tidak diketahui");
         }
       }
-       
-        
-      } catch (error) {
-        console.error(error)
-      }
-    };
-
-    const uploadLegalitas = async (args: UploadChangeParam<UploadFile<any>>) =>{
-      const file = args.file
-      try {
-        if(file.size && file.size > 2097152){
-          message.error('ukuran file terlalu besar')
-        }else{
-          if(file.type === 'image/png' || file.type === 'image/jpg' ||file.type === 'image/jpeg'){
-           const response = await authRepository.manipulateData.uploadLegalitas(file)
-           console.log(response.body.fileName, 'hasilnya')
-           setLegalitas(response.body.fileName)
-           message.error('Foto legalitas berhasil terupload')
-        }else{
-          message.error('Extensi file tidak diketahui')
-        }
-      }
-       
-        
-      } catch (error) {
-        console.error(error)
-      }
+    } catch (error) {
+      console.error(error);
     }
+  };
+
+  const uploadLegalitas = async (args: UploadChangeParam<UploadFile<any>>) => {
+    const file = args.file;
+    try {
+      if (file.size && file.size > 2097152) {
+        message.error("ukuran file terlalu besar");
+      } else {
+        if (
+          file.type === "image/png" ||
+          file.type === "image/jpg" ||
+          file.type === "image/jpeg"
+        ) {
+          const response = await authRepository.manipulateData.uploadLegalitas(
+            file
+          );
+          console.log(response.body.fileName, "hasilnya");
+          setLegalitas(response.body.fileName);
+          message.error("Foto legalitas berhasil terupload");
+        } else {
+          message.error("Extensi file tidak diketahui");
+        }
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const token = localStorage.getItem("access_token");
+  if (token) {
+    router.push("/home");
+  }
 
   return (
     <div className="flex place-content-center my-20">
@@ -197,26 +210,26 @@ const RegisterKitchen = () => {
           <Form.Item name="confirm">
             <Input.Password placeholder="Konfirmasi Kata Sandi" />
           </Form.Item>
-            <Form.Item>
-              <Button
-                type="primary"
-                htmlType="submit"
-                style={{ backgroundColor: "#FF7D04", borderColor: "#FF7D04" }}
-              >
-                Daftar
-              </Button>
-            </Form.Item>
+          <Form.Item>
+            <Button
+              type="primary"
+              htmlType="submit"
+              style={{ backgroundColor: "#FF7D04", borderColor: "#FF7D04" }}
+            >
+              Daftar
+            </Button>
+          </Form.Item>
         </Form>
         <div>
-        <Image
-          style={{ bottom: "30px", right: "30px" }}
-          className="absolute"
-          src="/assets/maskot.png"
-          width={150}
-          height={150}
-          alt="Cook Yuk Cook"
-        />
-      </div>
+          <Image
+            style={{ bottom: "30px", right: "30px" }}
+            className="absolute"
+            src="/assets/maskot.png"
+            width={150}
+            height={150}
+            alt="Cook Yuk Cook"
+          />
+        </div>
       </div>
     </div>
   );

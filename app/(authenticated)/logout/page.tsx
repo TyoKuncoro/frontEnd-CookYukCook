@@ -7,10 +7,10 @@ import { message } from "antd";
 const Logout = () => {
     const route = useRouter()
     localStorage.removeItem("access_token")
-    message.error('Silahkan Login')
     route.push('/login')
+    message.error('Silahkan Login')
     return (
-        <div>Memuat. . .</div>
+        <div className="text-3xl font-extrabold">Memuat. . .</div>
     )
 }
 

@@ -54,6 +54,10 @@ const Login = () => {
       console.log(error, "errornya cook");
     }
   };
+  const token = localStorage.getItem('access_token')
+  if (token) {
+    router.push('/home');
+  }
 
   return (
     <div className="mt-20">

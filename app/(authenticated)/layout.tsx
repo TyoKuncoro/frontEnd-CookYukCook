@@ -168,7 +168,7 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
       label: `Logout`,
     },
   ];
-
+  const path =  window.location.pathname
   return (
     <Layout className=" bg-white">
       <Sider
@@ -186,8 +186,8 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
         <Menu
           className=""
           mode="inline"
-          defaultSelectedKeys={["/home"]}
-          defaultOpenKeys={['sub1']}
+          selectedKeys={[path]}
+          // defaultOpenKeys={['sub1']}
           style={{
             height: "100%",
             borderRight: 0,

@@ -23,6 +23,6 @@
       "#/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/(authenticated)/pembayaran/page.js", "app/(authenticated)/pembayaran/page.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/(authenticated)/pembayaran/page.js", "app/(authenticated)/pembayaran/page.js", "app/(authenticated)/pembayaran-kitchen/page.js"],
   "exclude": ["node_modules"]
 }
