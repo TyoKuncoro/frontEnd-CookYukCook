@@ -93,7 +93,7 @@ const ListRegular = () => {
         </div>
       )}
       <ModalPengajuan
-        title="pengajuan Kelas"
+        title="Pengajuan Kelas"
         closeModal={handleClose}
         visible={modalOpen}
         content={<FormPengajuanKelas />}
