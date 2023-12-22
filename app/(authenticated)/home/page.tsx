@@ -8,6 +8,7 @@ import { sampleRepository } from "#/repository/sample";
 import { useRouter } from "next/navigation";
 import HomeKitchen from "../home-kitchen/page";
 import { parseJwt } from "#/app/Component/Helper/convert";
+import { regularClassRepository } from "#/repository/regularClass";
 
 function onPanelChange(value: any, mode: any) {
   console.log(value.format("YYYY-MM-DD"), mode);
@@ -80,10 +81,16 @@ const Home: React.FC = () =>  {
 
   const token = localStorage.getItem("access_token");
   let role: string = "";
+  let id: string = "";
   if (token) {
     role = parseJwt(token).role;
+    id = parseJwt(token).id;
     // console.log(role, 'ini role');
   }
+
+  const { data } = regularClassRepository.hooks.findRegClassByKitchen(id);
+  console.log(data, "ini data tai")
+
 
   return role === "Trainee" ? (
     <div className="p-5 bg-white">

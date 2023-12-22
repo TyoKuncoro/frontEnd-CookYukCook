@@ -145,8 +145,6 @@
   .ant-input-number-input:placeholder-shown{
     font-size: 16px;
   }
-<<<<<<< HEAD
-=======
   .ant-form-vertical .ant-form-item-label >label{
     font-size: 16px;
     font-weight:500;
@@ -164,4 +162,3 @@
   :where(.css-dev-only-do-not-override-1u09lqq).ant-input-disabled, :where(.css-dev-only-do-not-override-1u09lqq).ant-input[disabled] {
     font-size:16px;
   }
->>>>>>> a1ee9a429f6396b6c6b3e59bd028c6848231d9e0
