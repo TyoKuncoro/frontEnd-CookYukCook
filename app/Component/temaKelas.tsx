@@ -10,6 +10,7 @@ import FormPengajuanKelas from "./formPengajuan";
 import FormTambahTema from "./formTambahTema";
 import ModalTambahTema from "./material/modalTambahTema";
 import TambahTema from "./material/modalTambahTema";
+import UbahMateriBtn from "./buttonUbahMateri";
 
 
 export default function TemaKelas (){
@@ -71,8 +72,8 @@ export default function TemaKelas (){
       ];
     return (
         <div>
-          <Button onClick={handleOpenModal}>Tambah Tema Kelas</Button>
-            <Table columns={columns} dataSource={tema} />
+          <UbahMateriBtn key={null} text="Tambah Tema Kelas" onclick={handleOpenModal}/>
+            <Table className="mt-5 text-xl" columns={columns} dataSource={tema} />
             <ModalPengajuan 
             title="pengajuan Kelas" 
             closeModal={handleClose} 

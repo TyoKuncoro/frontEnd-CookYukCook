@@ -2,7 +2,7 @@ import { Button, Modal } from "antd"
 import FormUbahMateri from "./formUbahMateri";
 import { useState } from "react";
 
-const UbahMateri = () => {
+const UbahMateri = ({idMateri, idClass}:any) => {
     const [open, setOpen] = useState(false);
 
   const showModal = () => {
@@ -34,7 +34,8 @@ const UbahMateri = () => {
         onCancel={handleCancel}
         footer={[,]}
       >
-        <FormUbahMateri />
+        
+        <FormUbahMateri idClass={idClass} idMateri={idMateri} />
       </Modal>
         </div>
     )

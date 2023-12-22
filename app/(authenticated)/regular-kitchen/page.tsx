@@ -5,7 +5,7 @@ import ListKelasRegular from "#/app/Component/listKelasRegular";
 import UbahMateriBtn from "#/app/Component/buttonUbahMateri";
 import ListTrainee from "#/app/Component/listTrainee";
 import ModalPengajuan from "#/app/Component/createPengajuan";
-import TambahMateri from "#/app/Component/material/modalTambahTema";
+import TambahMateri from "#/app/Component/material/formTambahMateri";
 import UbahMateri from "#/app/Component/material/modalUbahMateri";
 import FormPengajuanKelas from "#/app/Component/formPengajuan";
 import TemaKelas from "#/app/Component/temaKelas";
@@ -13,6 +13,7 @@ import { parseJwt } from "#/app/Component/Helper/convert";
 import { regularClassRepository } from "#/repository/regularClass";
 import { materiRepository } from "#/repository/materi";
 import CreateMateriModal from "#/app/Component/material/formTambahMateri";
+import { Button, Modal } from "antd";
 
 const ListRegular = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -24,8 +25,8 @@ const ListRegular = () => {
     // console.log(id);
   }
   const [regular, setRegular] = useState([]);
-  const { data } = regularClassRepository.hooks.findRegClassByKitchen(id);
-  console.log(data?.data?.material, 'hallooo')
+  const { data, mutate: mutateData } = regularClassRepository.hooks.findRegClassByKitchen(id);
+  // console.log(data?.data?.material, 'hallooo')
   useEffect(() => {
     setRegular(data?.data);
   }, [data]);
@@ -36,12 +37,25 @@ const ListRegular = () => {
     setModalOpen(false);
   };
   const [modalVisible, setModalVisible] = useState(false);
-  const showModal = () => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedClass, setSelectedClass] = useState({ id: "", type: "" });
+  const showModal = (id:any, type:any) => {
+    setSelectedClass({id, type})
     setModalVisible(true);
   };
   const closeModal = () => {
     setModalVisible(false);
   };
+
+  const handleTambahMateriClick = (id: any, type: any) => {
+    setSelectedClass({ id, type });
+    setIsModalVisible(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalVisible(false);
+  };
+
   return (
     <div className="bg-white p-20 w-full space-y-16">
       <div className="float-right mr-3">
@@ -65,20 +79,13 @@ const ListRegular = () => {
                   <div>
                     <div className="flex justify-between">
                       <p className="text-3xl font-bold">Materi Kelas</p>
-                      
                       <UbahMateriBtn
                         text="Tambah Materi"
-                        key={items.id}
-                        onclick={showModal}
-                        />
-                      <CreateMateriModal
-                        idClass={items.id}
-                        type_class={"Regular Class"}
-                        visible={modalVisible}
-                        onClose={closeModal}
+                        key={null}
+                        onclick={() =>showModal(items.id, "Regular Class")}
                       />
                     </div>
-                    <div className="div-list w-[1020px] h-auto p-2 rounded-lg">
+                    <div className="div-list w-[1020px] h- p-2 rounded-lg">
                       <ListKelasRegular classData={items} />
                     </div>
                   </div>
@@ -98,6 +105,19 @@ const ListRegular = () => {
         visible={modalOpen}
         content={<FormPengajuanKelas />}
       />
+      <Modal 
+      title="Tambah Materi Kelas"
+      className="text-center"
+      visible={modalVisible} 
+      onCancel={closeModal} 
+      footer={null}>
+        <TambahMateri
+          idClass={selectedClass.id}
+          typeClass={selectedClass.type}
+          onClose={closeModal}
+          mutateData={mutateData}
+        />
+      </Modal>
       <TemaKelas />
     </div>
   );

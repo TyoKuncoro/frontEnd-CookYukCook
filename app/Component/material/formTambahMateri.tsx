@@ -1,57 +1,78 @@
+// TambahMateri.jsx
 import { materiRepository } from "#/repository/materi";
-import { Button, Form, Input, Modal, message } from "antd";
-const CreateMateriModal = ({ idClass, typeClass, visible, onClose }:any) => {
-  const [form] = Form.useForm();
+import { LinkOutlined } from "@ant-design/icons";
+import { Form, Input, Select, Modal, Button, message } from "antd";
 
-  const onFinish = async (values:any) => {
-    try {
-      const data = {
-        idclass: idClass,
-        typeClass: typeClass,
-        name: values.name,
-        link: values.link,
-      };
-      const createdMateri = await materiRepository.manipulateData.createMaterial(data);
-
-      console.log('Materi created successfully:', createdMateri);
-      message.success('Materi created successfully');
+const TambahMateri = ({ idClass, typeClass, onClose , mutateData}: any) => {
+  const [form] =Form.useForm()
+  const onFinish = async (values: any) => {
+    // Kirim data materi ke backend
+    console.log("Form values:", values);
+    const data = {
+      type_class: typeClass,
+      idclass: idClass,
+      name: values?.namaMateri,
+      link: values?.link,
+    };
+    const insert = await materiRepository.manipulateData.createMaterial(data);
+    console.log(insert, "halo");
+    // Tutup modal setelah selesai
+    message.success("Materi Berhasil ditambahkan")
+    setTimeout(() => {
       onClose();
-    } catch (error) {
-      console.error('Error creating materi:', error);
-      message.error('Failed to create materi');
-    }
+    }, 2000);
+    mutateData()
+    form.resetFields();
   };
 
   return (
-    <Modal
-      title="Tambah Materi"
-      visible={visible}
-      onCancel={onClose}
-      footer={null}
-      className="text-center"
-    >
-      <Form form={form} onFinish={onFinish}>
-        <Form.Item
-          name="name"
-          rules={[{ required: true, message: 'Please input the materi name!' }]}
-        >
-          <Input placeholder="Materi Name" />
-        </Form.Item>
+    <div>
+      <Form
+      form={form}
+      className="flex flex-col justify-centers items-center"
+      size="middle" 
+      onFinish={onFinish}>
+        <div>
+          <p className="text-base font-medium text-start">Materi</p>
+          <Form.Item
+            name="namaMateri"
+            rules={[{ required: true, message: "Nama Materi harus diisi" }]}
+          >
+            <Input
+            placeholder="Materi Kelas" 
+            className="custom-placeholder h-11 w-80 rounded-lg border-orange-300" />
+          </Form.Item>
+        </div>
+        <div>
+          <p className="text-base font-medium text-start">Tautan Video</p>
+          <Form.Item
+            name="link"
+            rules={[{ required: true, message: "Link Materi harus diisi" }]}
+          >
+            <Input
+            placeholder="Tautan Video"
+            prefix={<LinkOutlined className="text-2xl text-slate-500"/>} 
+            className="custom-placeholder h-11 w-80 rounded-lg border-orange-300" />
+          </Form.Item>
+        </div>
 
         <Form.Item
-          name="link"
-          rules={[{ required: true, message: 'Please input the materi link!' }]}
+          name="type"
+          label="Jenis Kelas"
+          initialValue={typeClass}
+          hidden
         >
-          <Input placeholder="Materi Link" />
+          <Input />
         </Form.Item>
 
         <Form.Item>
           <Button type="primary" htmlType="submit">
-            Tambah 
+            Tambah
           </Button>
         </Form.Item>
       </Form>
-    </Modal>
+    </div>
   );
 };
-export default CreateMateriModal;
+
+export default TambahMateri;

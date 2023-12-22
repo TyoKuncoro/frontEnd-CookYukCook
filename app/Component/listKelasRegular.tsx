@@ -6,6 +6,7 @@ import { ColumnsType } from "antd/es/table";
 import { Table } from "antd/lib";
 import ColumnGroup from "antd/es/table/ColumnGroup";
 import Column from "antd/es/table/Column";
+import TambahMateri from "./material/modal";
 
 const {Panel} = Collapse;
 const ListKelasRegular = ( {classData} ) => {
@@ -19,7 +20,7 @@ const ListKelasRegular = ( {classData} ) => {
                 // activeKey={active} ghost={true}
             >
                 {classData.material?.map((material:any) => (
-            <Panel header={material.name} key={material.id} extra={<UbahMateri/>}>
+            <Panel header={material.name} key={material.id} extra={<UbahMateri idClass={classData.id} idMateri={material.id}/>}>
                     <div>
                         <a href={material.link} target="_blank"> <LinkOutlined/> {material.link}</a>
                     </div>
