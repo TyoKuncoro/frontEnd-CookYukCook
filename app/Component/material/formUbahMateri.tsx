@@ -30,8 +30,8 @@ const FormUbahMateri = ({ idClass, idMateri }: any) => {
     try {
       const data = {
         idclass: idClass,
-        name: values?.namaMateri,
-        link: values?.link,
+        name: values.namaMateri,
+        link: values.link,
       };
       const updateMateri =
         materiRepository.manipulateData.updateMaterialByClass(
