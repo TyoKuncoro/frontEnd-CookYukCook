@@ -26,7 +26,7 @@ const ListRegular = () => {
   }
   const [regular, setRegular] = useState([]);
   const { data, mutate: mutateData } = regularClassRepository.hooks.findRegClassByKitchen(id);
-  // console.log(data?.data?.material, 'hallooo')
+  console.log(data?.data?.material, 'hallooo')
   useEffect(() => {
     setRegular(data?.data);
   }, [data]);
@@ -69,9 +69,9 @@ const ListRegular = () => {
               <div key={items.id}>
                 <div className="flex justify-between">
                   <div className=" space-y-0">
-                    <p className="text-4xl font-bold">{items.courseName}</p>
-                    <p className="text-2xl">Tema: {items.theme.name}</p>
-                    <p className="text-xl">Chef: {items.theme.chef_name}</p>
+                    <p className="text-4xl font-bold">{items?.courseName}</p>
+                    <p className="text-2xl">Tema: {items?.name}</p>
+                    <p className="text-xl">Chef: {items?.chef_name}</p>
                   </div>
                 </div>
 
@@ -82,7 +82,7 @@ const ListRegular = () => {
                       <UbahMateriBtn
                         text="Tambah Materi"
                         key={null}
-                        onclick={() =>showModal(items.id, "Regular Class")}
+                        onclick={() =>showModal(items?.id, "Regular Class")}
                       />
                     </div>
                     <div className="div-list w-[1020px] h- p-2 rounded-lg">

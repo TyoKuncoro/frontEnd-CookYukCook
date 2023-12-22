@@ -51,14 +51,8 @@ const HomeKitchen: React.FC = () => {
     "international cuisine",
   ];
 
-  const showExport = () => {
-    console.log("modal dibuka");
-  };
-  const openModal = () => {
-    console.log("pengajuan kelas");
-  };
   const token = localStorage.getItem("access_token");
-
+  console.log(token, "toooooooooooooken")
   const editKelas = (event: any) => {
     console.log(event.key);
   };

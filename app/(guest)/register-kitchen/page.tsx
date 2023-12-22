@@ -107,7 +107,7 @@ const RegisterKitchen = () => {
           );
           console.log(response.body.fileName, "hasilnya");
           setLegalitas(response.body.fileName);
-          message.error("Foto legalitas berhasil terupload");
+          message.success("Foto legalitas berhasil terupload");
         } else {
           message.error("Extensi file tidak diketahui");
         }

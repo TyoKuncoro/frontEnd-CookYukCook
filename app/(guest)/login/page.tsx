@@ -44,9 +44,9 @@ const Login = () => {
         password: values?.password,
       };
 
-      const login = await authRepository.manipulateData.login(data);
-      console.log(login, "Hasil API Login");
-      localStorage.setItem("access_token", login?.body?.data?.access_token);
+      const masuk = await authRepository.manipulateData.login(data);
+      console.log(masuk, "Hasil API Login");
+      localStorage.setItem("access_token", masuk?.body?.data?.access_token);
       setTimeout(message.success(`Halo! Selamat Datang`), 2000)
       router.push("/home");
     } catch (error) {
@@ -54,6 +54,9 @@ const Login = () => {
       console.log(error, "errornya cook");
     }
   };
+
+
+
   const token = localStorage.getItem('access_token')
   if (token) {
     router.push('/home');

@@ -55,7 +55,7 @@ const Regular = () => {
 
   const [textValue, setTextValue] = useState("");
 
-  const handleTextChange = (e) => {
+  const handleTextChange = (e:any) => {
     setTextValue(e.target.value);
   };
 
