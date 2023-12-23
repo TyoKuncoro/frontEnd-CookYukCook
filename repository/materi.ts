@@ -19,7 +19,7 @@ const manipulateData = {
   createMaterial(data:any){
     return http.post(url.createMaterial()).send(data)
   },
-  updateMaterialByClass (data:any, id:any){
+  updateMaterialByClass (id:any, data:any){
     return http.put(url.updateMaterialByClass(id)).send(data);
   }
 };

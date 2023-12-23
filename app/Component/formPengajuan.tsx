@@ -15,7 +15,7 @@ import { temaKelasRepository } from "#/repository/tema";
 import { useEffect, useState } from "react";
 import { kitchenRepository } from "#/repository/kitchen";
 
-const FormPengajuanKelas = () => {
+const FormPengajuanKelas = ({mutateData}) => {
   const [form] = Form.useForm();
   const token = localStorage.getItem("access_token");
   let id:any;
@@ -43,6 +43,7 @@ const FormPengajuanKelas = () => {
       console.log(pengajuan, "ini dia");
       message.success("Pengajuan Kelas Berhasil");
       form.resetFields()
+      mutateData()
     } catch (error) {
       console.log(error);
     }

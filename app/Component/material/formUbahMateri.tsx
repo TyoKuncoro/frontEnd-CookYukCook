@@ -3,8 +3,8 @@ import { LinkOutlined } from "@ant-design/icons";
 import { Button, Form, Input } from "antd";
 import { useState, useEffect } from "react";
 
-const FormUbahMateri = ({ idClass, idMateri }: any) => {
-  console.log(idClass, "haiiii");
+const FormUbahMateri = ({ idMateri }: any) => {
+  // console.log(idClass, "haiiii");
   const [form] = Form.useForm();
   const { data: dataMateri } =
     materiRepository.hooks.findMaterialById(idMateri);
@@ -29,14 +29,13 @@ const FormUbahMateri = ({ idClass, idMateri }: any) => {
     console.log("Success:", values);
     try {
       const data = {
-        idclass: idClass,
         name: values.namaMateri,
         link: values.link,
       };
       const updateMateri =
         materiRepository.manipulateData.updateMaterialByClass(
-          data,
-          dataMateri.data.id
+          dataMateri.data.id,
+          data
         );
       console.log(updateMateri, "hasil");
     } catch (e) {
@@ -111,14 +110,14 @@ const FormUbahMateri = ({ idClass, idMateri }: any) => {
             />
           </Form.Item>
         </div>
-        <Form.Item
+        {/* <Form.Item
           name="idclass"
           label="Jenis Kelas"
           initialValue={idClass}
           hidden
         >
           <Input />
-        </Form.Item>
+        </Form.Item> */}
         <Form.Item>
           <Button key="submit" type="primary" htmlType="submit">
             Simpan

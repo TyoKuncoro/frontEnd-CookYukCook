@@ -5,7 +5,7 @@ import { parseJwt } from "../Helper/convert";
 import { TeamOutlined } from "@ant-design/icons";
 
 const TambahTema = (props: any) => {
-  const { open, closeModal } = props;
+  const { open, closeModal, mutate} = props;
   const [openModal, setOpenModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
@@ -43,6 +43,7 @@ const TambahTema = (props: any) => {
         closeModal();
       }, 2000);
       form.resetFields();
+      mutate()
     } catch (e) {
       console.log(e);
     }

@@ -20,7 +20,7 @@ const ListKelasRegular = ( {classData} ) => {
                 // activeKey={active} ghost={true}
             >
                 {classData.material?.map((material:any) => (
-            <Panel header={material.name} key={material.id} extra={<UbahMateri idClass={classData.id} idMateri={material.id}/>}>
+            <Panel header={material.name} key={material.id} extra={<UbahMateri idMateri={material.id}/>}>
                     <div>
                         <a href={material.link} target="_blank"> <LinkOutlined/> {material.link}</a>
                     </div>

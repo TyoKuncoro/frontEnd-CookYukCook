@@ -14,7 +14,7 @@ import { parseJwt } from "./Helper/convert";
 import { TeamOutlined } from "@ant-design/icons";
 import { temaKelasRepository } from "#/repository/tema";
 
-const FormTambahTema = () => {
+const FormTambahTema = ({mutate}) => {
   // const token = localStorage.getItem("access_token");
   // let id:any;
   // if (token) {

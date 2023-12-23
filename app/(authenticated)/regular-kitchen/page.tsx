@@ -14,6 +14,7 @@ import { regularClassRepository } from "#/repository/regularClass";
 import { materiRepository } from "#/repository/materi";
 import CreateMateriModal from "#/app/Component/material/formTambahMateri";
 import { Button, Modal } from "antd";
+import FormUbahPengajuan from "#/app/Component/formUbahPengajuan";
 
 const ListRegular = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -25,7 +26,8 @@ const ListRegular = () => {
     // console.log(id);
   }
   const [regular, setRegular] = useState([]);
-  const { data, mutate: mutateData } = regularClassRepository.hooks.findRegClassByKitchen(id);
+  const { data, mutate: mutateData } =
+    regularClassRepository.hooks.findRegClassByKitchen(id);
   // console.log(data?.data?.material, 'hallooo')
   useEffect(() => {
     setRegular(data?.data);
@@ -39,8 +41,8 @@ const ListRegular = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedClass, setSelectedClass] = useState({ id: "", type: "" });
-  const showModal = (id:any, type:any) => {
-    setSelectedClass({id, type})
+  const showModal = (id: any, type: any) => {
+    setSelectedClass({ id, type });
     setModalVisible(true);
   };
   const closeModal = () => {
@@ -72,6 +74,7 @@ const ListRegular = () => {
                     <p className="text-4xl font-bold">{items.courseName}</p>
                     <p className="text-2xl">Tema: {items.theme.name}</p>
                     <p className="text-xl">Chef: {items.theme.chef_name}</p>
+                {/* <FormUbahPengajuan idClass={items.id} /> */}
                   </div>
                 </div>
 
@@ -82,7 +85,7 @@ const ListRegular = () => {
                       <UbahMateriBtn
                         text="Tambah Materi"
                         key={null}
-                        onclick={() =>showModal(items.id, "Regular Class")}
+                        onclick={() => showModal(items.id, "Regular Class")}
                       />
                     </div>
                     <div className="div-list w-[1020px] h- p-2 rounded-lg">
@@ -103,14 +106,15 @@ const ListRegular = () => {
         title="Pengajuan Kelas"
         closeModal={handleClose}
         visible={modalOpen}
-        content={<FormPengajuanKelas />}
+        content={<FormPengajuanKelas mutateData={mutateData} />}
       />
-      <Modal 
-      title="Tambah Materi Kelas"
-      className="text-center"
-      visible={modalVisible} 
-      onCancel={closeModal} 
-      footer={null}>
+      <Modal
+        title="Tambah Materi Kelas"
+        className="text-center"
+        visible={modalVisible}
+        onCancel={closeModal}
+        footer={null}
+      >
         <TambahMateri
           idClass={selectedClass.id}
           typeClass={selectedClass.type}
