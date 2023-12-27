@@ -3,10 +3,10 @@ import { LinkOutlined } from "@ant-design/icons";
 import { Button, Form, Input } from "antd";
 import { useState, useEffect } from "react";
 
-const FormUbahMateri = ({ idMateri }: any) => {
+const FormUbahMateri = ({ idMateri, onclose, mutate }: any) => {
   // console.log(idClass, "haiiii");
   const [form] = Form.useForm();
-  const { data: dataMateri } =
+  const { data: dataMateri} =
     materiRepository.hooks.findMaterialById(idMateri);
   const [updateMateri, setUpdateMateri] = useState({
     namaMateri: dataMateri?.data?.name,
@@ -24,20 +24,22 @@ const FormUbahMateri = ({ idMateri }: any) => {
   }, [dataMateri]);
 
   console.log(dataMateri, "halo");
-  const onFinish = (values: any) => {
+  const onFinish =async (values: any) => {
     console.log(values, "halloooo");
     console.log("Success:", values);
-    try {
+    try{
       const data = {
         name: values.namaMateri,
         link: values.link,
       };
-      const updateMateri =
+      const updateMateri = await
         materiRepository.manipulateData.updateMaterialByClass(
           dataMateri.data.id,
           data
         );
       console.log(updateMateri, "hasil");
+      mutate()
+      onclose()
     } catch (e) {
       console.log(e);
     }

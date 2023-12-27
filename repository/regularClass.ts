@@ -4,6 +4,7 @@ import useSWR from "swr";
 const url = {
   findAllRegularClass: () => "/regular-class",
   findRegClassByKitchen: (id:any) => `/regular-class/find/${id}`,
+  findRegClassBykitchenPending: (id:any) => `/regular-class/find-pending/${id}`,
   findRegClassById: (id:any) => `/regular-class/${id}`,
   createKelas: () => '/regular-class/create-pengajuan',
   updatePengajuan: (id:any) => `/regular-class/update-pengajuan/${id}`
@@ -17,6 +18,9 @@ const hooks = {
   },
   findRegClassById(id:any){
     return useSWR(url.findRegClassById(id), http.fetcher)
+  },
+  findRegClassByKitchenPending(id:any){
+    return useSWR(url.findRegClassBykitchenPending(id), http.fetcher)
   }
 }
 const manipulateData = {

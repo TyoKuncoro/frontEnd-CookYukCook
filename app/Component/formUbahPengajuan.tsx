@@ -5,7 +5,7 @@ import { Button, Form, Input, Select } from "antd";
 import { parseJwt } from "./Helper/convert";
 import { useEffect, useState } from "react";
 
-const FormUbahPengajuan = ({idClass}) => {
+const FormUbahPengajuan = ({idClass}:any) => {
     // const idClass = "6bd47f8a-a33f-4823-903c-f5d17637b916"
   const [form] = Form.useForm();
   type FieldType = {
@@ -18,21 +18,22 @@ const FormUbahPengajuan = ({idClass}) => {
         id = parseJwt(token).id
     }
   const {data: dataTema} = temaKelasRepository.hooks.findTemaByUsers(id)
-  const {data:dataReg} = regularClassRepository.hooks.findRegClassById(idClass)
-  console.log(dataReg?.data.id, "Halo")
+  const {data:dataReg, isLoading} = regularClassRepository.hooks.findRegClassById(idClass)
+  console.log(dataReg?.data, "Halo2")
   const [updateReg, setUpdateReg] = useState({
     courseName: dataReg?.data?.courseName,
-    theme_id: dataReg?.data?.theme_id,
+    theme_id: dataReg?.data?.theme.id,
   });
-   //disini aku bikin useeffect buat nge set field nya
    useEffect(() => {
-    form.setFieldsValue({
-      courseName: dataReg?.data?.courseName,
-      theme_id: dataReg?.data?.theme_id,
-    });
-    //[dataMateri] itu namanya array depedencies, jadi dia bakal manggil useEfect lagi, kalo yang di dalem dependecies nya berubah
-    //disini kan tadinya dia sempet undefined, baru setelah ke berapa kali ada datanya, jadi dia terus kepanggil sampe ada datanya
-  }, [dataReg]);
+    if(!isLoading){
+      form.setFieldsValue({
+        namaKelas: dataReg?.data?.courseName,
+        tema: dataReg?.data?.theme.id,
+      });
+    }
+  }, [dataReg, isLoading]);
+  console.log(dataReg?.data?.courseName, "halo")
+  console.log(dataReg?.data?.theme.id, "halo3")
   const onFinish = async (values:any) => {
     console.log(values, "values")
     try{
@@ -62,6 +63,7 @@ const FormUbahPengajuan = ({idClass}) => {
         // onFinishFailed={onFinishFailed}
         autoComplete="off"
       >
+        <p>{dataReg?.data?.id} halo</p>
         <div>
           <p className="text-base font-medium text-start">Nama Kelas</p>
           <Form.Item<FieldType>
@@ -70,6 +72,7 @@ const FormUbahPengajuan = ({idClass}) => {
             rules={[{ required: true, message: "Harap masukan nama kelas" }]}
           >
             <Input
+            // value={dataReg?.data?.courseName}
             onChange={(e) =>
                 setUpdateReg({ ...updateReg, courseName: e.target.value })
                 }
@@ -85,7 +88,7 @@ const FormUbahPengajuan = ({idClass}) => {
             rules={[{ required: true, message: "Harap masukan tema kelas" }]}
           >
             <Select
-              value={dataReg?.data?.theme_id}
+              // defaultValue={dataReg?.data?.theme.name}
               style={{ width: 320 }}
               onChange={(e) =>
                 setUpdateReg({ ...updateReg, theme_id: e })

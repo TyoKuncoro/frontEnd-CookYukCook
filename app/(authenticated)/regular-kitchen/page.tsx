@@ -15,6 +15,7 @@ import { materiRepository } from "#/repository/materi";
 import CreateMateriModal from "#/app/Component/material/formTambahMateri";
 import { Button, Modal } from "antd";
 import FormUbahPengajuan from "#/app/Component/formUbahPengajuan";
+import UbahPengajuan from "#/app/Component/modalUbahPengajuan";
 
 const ListRegular = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -28,7 +29,7 @@ const ListRegular = () => {
   const [regular, setRegular] = useState([]);
   const { data, mutate: mutateData } =
     regularClassRepository.hooks.findRegClassByKitchen(id);
-  // console.log(data?.data?.material, 'hallooo')
+  console.log(data, "hallooo");
   useEffect(() => {
     setRegular(data?.data);
   }, [data]);
@@ -74,7 +75,8 @@ const ListRegular = () => {
                     <p className="text-4xl font-bold">{items.courseName}</p>
                     <p className="text-2xl">Tema: {items.theme.name}</p>
                     <p className="text-xl">Chef: {items.theme.chef_name}</p>
-                {/* <FormUbahPengajuan idClass={items.id} /> */}
+                    {/* <FormUbahPengajuan idClass={items.id} /> */}
+                    <UbahPengajuan idClass={items.id} />
                   </div>
                 </div>
 
@@ -89,11 +91,13 @@ const ListRegular = () => {
                       />
                     </div>
                     <div className="div-list w-[1020px] h- p-2 rounded-lg">
-                      <ListKelasRegular classData={items} />
+                      <ListKelasRegular classData={items} mutate={mutateData} />
                     </div>
                   </div>
                   <div>
-                    <ListTrainee />
+                    {items.usersPay && items.usersPay.length > 0 && (
+                      <ListTrainee usersData={items} />
+                    )}
                   </div>
                 </div>
                 <hr />
