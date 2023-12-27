@@ -36,7 +36,7 @@ const Regular = () => {
   const router = useRouter();
   const token = localStorage.getItem("access_token")
   if (!token) {
-    message.error('Anda belum login, silahkan login')
+    setTimeout(message.error('Anda belum login, silahkan login'), 2000);
     router.push('login');
   }
 
@@ -112,7 +112,7 @@ const Regular = () => {
           title={data.namaKelas}
           // extra={<FullRoundedButton text="Lihat Detail" icons={null} type={"primary"} onclick={showModal} />}
           style={{ width: 300 }}
-          className="bg-orange-300"
+          className=""
         >
           <div className="flex justify-between">
             <div>

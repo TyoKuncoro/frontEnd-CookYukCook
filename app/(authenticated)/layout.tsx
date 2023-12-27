@@ -67,7 +67,7 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
   
   const token = localStorage.getItem("access_token");
   let role: string = "Admin";
-  console.log(token, "hayoo udah nemu tokennya ");
+  // console.log(token, "hayoo udah nemu tokennya ");
   if (token) {
     role = parseJwt(token).role;
     console.log(role, "role coook");
@@ -105,16 +105,6 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
       icon: <UserOutlined />,
       label: `Profile`,
     },
-    // {
-    //   key: `notif`,
-    //   icon: <BellOutlined />,
-    //   label: `Notifikasi`,
-    // },
-    // {
-    //   key: `/chat`,
-    //   icon: <MessageOutlined />,
-    //   label: `Chat`,
-    // },
     {
       key: `/logout`,
       icon: <LogoutOutlined />,
@@ -152,11 +142,6 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
       icon: <UserOutlined />,
       label: `Profile`,
     },
-    // {
-    //   key: `notif`,
-    //   icon: <BellOutlined />,
-    //   label: `Notifikasi`,
-    // },
     {
       key: `/management`,
       icon: <IdcardOutlined />,

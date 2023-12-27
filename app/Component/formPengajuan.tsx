@@ -18,13 +18,17 @@ import { kitchenRepository } from "#/repository/kitchen";
 const FormPengajuanKelas = () => {
   const [form] = Form.useForm();
   const token = localStorage.getItem("access_token");
-  let id:any;
-  if (token) {
-    id = parseJwt(token).id;
-    // console.log(id);
-  }
-  const {data: dataTema} = temaKelasRepository.hooks.findTemaByUsers(id)
-  const {data: dataKitchen} = kitchenRepository.hooks.getKitchenById(id)
+  const [id, setId] = useState(null)
+  useEffect(() =>{
+    if (token) {
+      setId (parseJwt(token).id)
+      // console.log(id);
+    }
+    const {data: dataTema} = temaKelasRepository.hooks.findTemaByUsers(id)
+    const {data: dataKitchen} = kitchenRepository.hooks.getKitchenById(id)
+    
+  }, [token])
+  // let id:any;
   const onFinish = async (values: any) => {
     try {
       const data = {

@@ -9,7 +9,7 @@ let AuthIntercept = superagentIntercept((err: any, res: any) => {
     if ((res && res.status === 401)) {
         console.log('AuthIntercept 401');
         TokenUtil.clearAccessToken();
-        TokenUtil.persistToken();
+        // TokenUtil.persistToken();
         window.location.href = "/login";
     }
 });

@@ -106,7 +106,7 @@ const RiwayatKitchen: React.FC = () => {
           onclick={showModal}
         />
       </div>
-      <div className="flex justify-between bg-orange-200 border-4"
+      <div className="flex justify-between border-4"
             style={{ borderTop: "1px solid", borderBottom: "1px solid" }}
             >
         <div className="text-lg font-bold ">Waktu dan Tanggal</div>
@@ -116,7 +116,7 @@ const RiwayatKitchen: React.FC = () => {
       {data.map((item, index) => {
         return (
           <div
-            className="flex justify-between bg-orange-200 py-2"
+            className="flex justify-between py-2"
             style={{ borderBottom: "1px solid " }}
           >
             <div>{item.tanggal}</div>

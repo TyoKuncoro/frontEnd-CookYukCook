@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
-import { Calendar, DatePicker, Input, InputNumber, Modal, message } from "antd";
+import React, { useEffect, useState } from "react";
+import { Calendar, DatePicker, Card, Input, InputNumber, Modal, message } from "antd";
 import Image from "next/image";
 import FullRoundedButton from "#/app/Component/fullRoundedButton";
 import { PrinterOutlined, EditOutlined, SendOutlined } from "@ant-design/icons";
@@ -50,13 +50,12 @@ const HomeKitchen: React.FC = () => {
     "Sweet europe",
     "international cuisine",
   ];
-
-  const token = localStorage.getItem("access_token");
-  console.log(token, "toooooooooooooken")
+    const token = localStorage.getItem("access_token");
+    console.log(token, "toooooooooooooken")
+      
   const editKelas = (event: any) => {
-    console.log(event.key);
+  console.log(event.key);
   };
-
   let id: string = "";
   let email: string = "";
   if (token) {
@@ -74,9 +73,8 @@ const HomeKitchen: React.FC = () => {
       setModalVisible(true);
     }
   };
-  const { data: dataUser } = kitchenRepository.hooks.getKitchenByUser();
   // console.log(dataUser, "data uuuuuuuuuuuuuuuuser");
-
+  
   const [modalVisible, setModalVisible] = useState(false);
   const [courseName, setCourseName] = useState("");
   const [startDate, setStartDate] = useState("");
@@ -85,6 +83,8 @@ const HomeKitchen: React.FC = () => {
   const [numberOfBenches, setNumberOfBenches] = useState(0);
   const [description, setDescription] = useState("");
 
+  const { data: dataUser } = kitchenRepository.hooks.getKitchenByUser();
+  console.log(dataUser, "data user")
   const handleOk = async () => {
     // console.log(`${id}, id
     // ${courseName} = course
@@ -112,18 +112,22 @@ const HomeKitchen: React.FC = () => {
         mengajukanKelas,
         "Meeeeeeeeeeeeeeeeeeeeeeeeeeeeeeengajukan kelas"
       );
+      // console.log(mengajukanKelas.body.data.adminFee, "price")
+      // console.log(mengajukanKelas.body.data.courseName, "courseName")
+      // localStorage.setItem('price', mengajukanKelas.body.data.adminFee)
+      // localStorage.setItem('courseName', mengajukanKelas.body.courseName)
       setCourseName("");
       setStartDate("");
       setEndDate("");
       setPrice(0);
       setNumberOfBenches(0);
       setDescription("");
+      router.push("/pembayaran");
 
-      mutate(regularClassRepository.url.findRegClassByKitchen(id));
+      // mutate(regularClassRepository.url.findRegClassByKitchen(id));
     } catch (e) {
       console.log(e, "eror mengajukan data");
     }
-    // router.push("/pembayaran");
     setModalVisible(false);
   };
 
@@ -188,7 +192,7 @@ const HomeKitchen: React.FC = () => {
           style={{ marginBottom: "1rem" }}
         />
       </Modal>
-      <div className="text-2xl font-semibold">Jadwal</div>
+      <div className="text-2xl font-semibold mb-5">Jadwal</div>
       <div className="flex">
         <div className=" w-[50%] mx-10 ">
           <Calendar
@@ -197,10 +201,11 @@ const HomeKitchen: React.FC = () => {
             className="bg-orange-300"
           />
         </div>
-        <div className=" bg-orange-100 w-[100%] rounded-3xl">
+        <div className="  w-[100%] rounded-3xl"
+        style={{border: "2px solid #FF7D04"}}>
           <div className="flex justify-between">
             <div
-              className="px-8 py-4 bg-orange-400 rounded-tl-3xl rounded-br-3xl"
+              className="px-8 py-4 bg-orange-400 rounded-tl-2xl font-bold rounded-br-3xl"
               style={{
                 marginRight: "50%",
               }}
@@ -216,15 +221,15 @@ const HomeKitchen: React.FC = () => {
           <div className=" py-4 mx-10 flex">
             {token &&
               data?.data.map((item: any, index: any) => (
-                <div
+                <Card
                   style={{ width: 300 }}
-                  className="bg-orange-300 rounded-lg p-6 mr-2"
+                  className="rounded-lg p-4 mr-2"
                 >
                   <div className=" content-between ">
                     <Image
                       className=" rounded"
                       src="/assets/Image.png"
-                      width={250}
+                      width={220}
                       height={175}
                       alt="Gambar"
                     />
@@ -251,13 +256,13 @@ const HomeKitchen: React.FC = () => {
                       />
                     </div> */}
                   </div>
-                </div>
+                </Card>
               ))}
           </div>
         </div>
       </div>
       {/* <p>Selected Date: {selectedDate}</p> */}
-      <div className="flex mt-3">
+      {/* <div className="flex mt-3">
         <div className="w-[50%] bg-orange-300 rounded mr-20">
           {token &&
             kelas.map((item, index) => (
@@ -294,7 +299,7 @@ const HomeKitchen: React.FC = () => {
               </div>
             ))}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

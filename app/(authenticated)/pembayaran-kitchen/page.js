@@ -15,9 +15,10 @@ const PembayaranKitchen = () => {
   //dummy data
   const [nama, SetNama] = useState("Cecil");
   const [namaKelas, setNamaKelas] = useState("Membuat Kue Khas Lebaran");
-  const [temaKelas, setTemaKelas] = useState("Pembuatan Kue Kering");
-  const [harga, setHarga] = useState(120000);
+  // const [temaKelas, setTemaKelas] = useState("Pembuatan Kue Kering");
+  const [harga, setHarga] = useState(0);
   const [tipeKelas, setTipeKelas] = useState("Regular");
+  const [courseName, setCourseName] = useState('-')
   // end dummy data
 
   // from midtrans
@@ -28,6 +29,12 @@ const PembayaranKitchen = () => {
   });
 
   useEffect(() => {
+    const courseGet = localStorage.getItem('courseName')
+    setCourseName(courseGet);
+    console.log(courseName, 'courseName')
+    const hargaGet = localStorage.getItem('price')
+    setHarga(hargaGet);
+    // console.log(harga, "harga")
     const snapScript = "https://app.sandbox.midtrans.com/snap/snap.js";
     const clientKey = process.env.NEXT_PUBLIC_CLIENT;
 
@@ -42,15 +49,14 @@ const PembayaranKitchen = () => {
       document.body.removeChild(script);
     };
   }, []);
-
   const handleCheckout = async () => {
     const uuidGenerator = uuidv4();
-    console.log(uuidGenerator, "ini uuid cook");
+    // console.log(uuidGenerator, "ini uuid cook");
 
     const data = {
       id: uuidGenerator,
-      productName: "Kelas Masak",
-      price: harga + (harga * 1) / 10,
+      productName: courseName,
+      price: harga,
       quantity: 1,
     };
     const response = await fetch("api/token", {
@@ -59,6 +65,8 @@ const PembayaranKitchen = () => {
     });
     const requestData = await response.json();
     // console.log(requestData, "dataaa coook")
+    localStorage.removeItem('courseName')
+    localStorage.removeItem('price')
     window.snap.pay(requestData.token);
 
     // console.log("test")
@@ -76,13 +84,15 @@ const PembayaranKitchen = () => {
   const todayDate = `${day} - ${month} - ${year}`;
   const token = localStorage.getItem("access_token");
   if (!token) {
-    message.error("Anda belum login, silahkan login");
+    setTimeout(message.error("Anda belum login, silahkan login"), 2000);
     router.push("login");
   }
 
   return (
     <div className="mt-20">
-      <div className=" bg-orange-100 mx-80 py-16 flex place-content-center rounded-2xl">
+      <div className=" mx-80 py-16 flex place-content-center rounded-2xl"
+      
+      >
         <div className=" w-[75%]">
           <div className="text-2xl font-bold text-orange-500">
             Pengajuan kelas {tipeKelas}
@@ -92,17 +102,17 @@ const PembayaranKitchen = () => {
             Detail Pesanan
           </div>
           <div className="text-l font-bold bg-orange-200 px-10 w-[55%] py-5 rounded-lg">
-            <div className="mb-2">{namaKelas}</div>
-            <div className="mb-5">Tema: {temaKelas}</div>
+            {/* <div className="mb-2">{namaKelas}</div> */}
+            <div className="mb-5">Tema: {courseName}</div>
             <tbody>
               <tr>
-                <td className="w-48">Harga</td>
+                <td className="w-48">Biaya Pengajuan Kelas</td>
                 <td>: Rp. {harga}</td>
               </tr>
-              <tr>
+              {/* <tr>
                 <td className="w-48">Total Harga (admin 10%)</td>
                 <td>: Rp. {harga + harga / 10}</td>
-              </tr>
+              </tr> */}
             </tbody>
           </div>
         </div>

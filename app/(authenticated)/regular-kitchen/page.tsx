@@ -13,7 +13,7 @@ import { parseJwt } from "#/app/Component/Helper/convert";
 import { regularClassRepository } from "#/repository/regularClass";
 import { materiRepository } from "#/repository/materi";
 import CreateMateriModal from "#/app/Component/material/formTambahMateri";
-import { Button, Modal } from "antd";
+import { Button, Modal, message } from "antd";
 
 const ListRegular = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -26,7 +26,7 @@ const ListRegular = () => {
   }
   const [regular, setRegular] = useState([]);
   const { data, mutate: mutateData } = regularClassRepository.hooks.findRegClassByKitchen(id);
-  console.log(data?.data?.material, 'hallooo')
+  // console.log(data?.data?.material, 'hallooo')
   useEffect(() => {
     setRegular(data?.data);
   }, [data]);

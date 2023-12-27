@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import HomeKitchen from "../home-kitchen/page";
 import { parseJwt } from "#/app/Component/Helper/convert";
 import { regularClassRepository } from "#/repository/regularClass";
+import { kitchenRepository } from "#/repository/kitchen";
 
 function onPanelChange(value: any, mode: any) {
   console.log(value.format("YYYY-MM-DD"), mode);
@@ -17,14 +18,14 @@ function onPanelChange1(value: any, mode: any) {
   console.log(value.format("YYYY-MM-DD"), mode);
 }
 
-const Home: React.FC = () =>  {
+const Home: React.FC = () => {
   //======================================================================trainee
   const [tema, setTema] = useState("Judul Tema");
   const [namaKelas, setNamaKelas] = useState("Nama Kelas");
   const [alamat, setAlamat] = useState("Alamat");
   const [startDate, setStartDate] = useState("tanggal mulai");
   const [endDate, setEndDate] = useState("tanggal selesai");
-  const [price, setPrice] = useState(120000);
+  // const [price, setPrice] = useState(120000);
   const [terisi, setTerisi] = useState(4);
   const [availableBench, setAvailableBench] = useState(10);
   const [namaChef, setNamaChef] = useState("nama chef");
@@ -33,15 +34,18 @@ const Home: React.FC = () =>  {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpen1, setIsModalOpen1] = useState(false);
   const [isModalOpen2, setIsModalOpen2] = useState(false);
+  const [selectedData, setSelectedData] = useState<any>(null)
 
   const router = useRouter();
 
-  const showModal = () => {
+  const showModal = (data: any) => {
     if (!localStorage.getItem("access_token")) {
       message.error("silahkan login");
       router.push("login");
     } else {
       setIsModalOpen(true);
+      setSelectedData(data)
+      console.log(data, "data");
     }
   };
   const showModal1 = () => {
@@ -85,77 +89,86 @@ const Home: React.FC = () =>  {
   if (token) {
     role = parseJwt(token).role;
     id = parseJwt(token).id;
-    // console.log(role, 'ini role');
+    console.log(role, 'ini role');
   }
+  const { data: dataKelas } =
+    regularClassRepository.hooks.findAllRegularClass();
+  console.log(dataKelas, "Data Kelas");
 
-  const { data } = regularClassRepository.hooks.findRegClassByKitchen(id);
-  console.log(data, "ini data tai")
-
-
-  return role === "Trainee" ? (
+  // const { data } = regularClassRepository.hooks.findRegClassByKitchen(dataUser?.data.id);
+  // console.log(data, "ini data")
+  return role === "Kitchen Studio" ? (
+    <HomeKitchen />
+  ) : (
     <div className="p-5 bg-white">
-      <div className=" bg-orange-100 rounded-3xl">
+      <div className="  rounded-3xl" style={{ border: "2px solid #FF7D04" }}>
         <div
-          className="px-8 py-4 bg-orange-400 rounded-tl-3xl rounded-br-3xl"
+          className="px-8 py-4 bg-orange-400 rounded-tl-2xl rounded-br-3xl font-bold"
           style={{
             marginRight: "75%",
           }}
         >
           Pilihan Untukmu
         </div>
-        <div className=" py-4 mx-10">
-          <Card
-            title={namaKelas}
-            extra={
-              <FullRoundedButton
-                text="Lihat Detail"
-                icons={null}
-                type={"primary"}
-                onclick={showModal}
-              />
-            }
-            style={{ width: 300 }}
-          >
-            <div className="flex justify-between">
-              <div>
-                <div>Tema: {tema}</div>
-                <div>Kelas Regular</div>
-                <div>lokasi:</div>
-                <p className=" text-xs">{alamat}</p>
-                <div className=" text-xs">Dimulai pada:</div>
-                <div className="text-xs">
-                  {startDate}-{endDate}
-                </div>
-                <div className=" font-bold text-lg mt-3">Cuma: {price}</div>
-                <div className=" font-bold">
-                  Quota: {terisi}/{availableBench}
-                </div>
-              </div>
-              <div className=" content-between">
-                <Image
-                  className=" rounded"
-                  src="/assets/Image.png"
-                  width={40}
-                  height={40}
-                  alt="Gambar"
+        <div className=" py-4 mx-10 flex">
+          {dataKelas?.data.map((item: any, index:any) =>(
+            <Card
+              title={item.courseName}
+              className="mr-2"
+              extra={
+                <FullRoundedButton
+                  text="Lihat Detail"
+                  icons={null}
+                  type={"primary"}
+                  onclick={() => showModal(item)}
                 />
+              }
+              style={{ width: 300 }}
+            >
+              <div className="flex justify-between">
+                <div>
+                  <div>Tema: {item.courseName}</div>
+                  <div>Kelas Regular</div>
+                  {/* <div>lokasi:</div>
+                  <p className=" text-xs">{alamat}</p> */}
+                  <div className=" text-xs">Dimulai pada:</div>
+                  <div className="text-xs">
+                    {item.startDate.substring(0, 10)} sampai {item.endDate.substring(0, 10)}
+                  </div>
+                  <div className=" font-bold text-lg mt-3">Cuma: {item.price - item.adminFee}</div>
+                  <div className=" font-bold">
+                    Quota: {item.numberOfBenches}
+                  </div>
+                </div>
+                <div className=" content-between">
+                  <Image
+                    className=" rounded"
+                    src="/assets/Image.png"
+                    width={40}
+                    height={40}
+                    alt="Gambar"
+                  />
+                </div>
               </div>
-            </div>
-          </Card>
+            </Card>
+          ))}
         </div>
       </div>
-      {token && (
         <div className="flex justify-between">
-          <div className=" mt-6 bg-orange-100 rounded-3xl mr-10 w-[50%]">
+          <div
+            className=" mt-6 rounded-3xl mr-10 w-[50%]"
+            style={{ border: "2px solid #FF7D04" }}
+          >
             <div
-              className="px-8 py-4 bg-orange-400 rounded-tl-3xl rounded-br-3xl "
+              className="px-8 py-4 bg-orange-400 rounded-tl-2xl rounded-br-3xl  font-bold"
               style={{
                 marginRight: 320,
               }}
             >
               Kelas Regular Pilihanmu
             </div>
-            <div className=" py-4 mx-10">
+            <div className=" py-4 mx-10 h-64">
+            {/* {token && (
               <Card
                 title={namaKelas}
                 extra={
@@ -190,11 +203,15 @@ const Home: React.FC = () =>  {
                   </div>
                 </div>
               </Card>
+            )} */}
             </div>
           </div>
-          <div className=" mt-6 bg-orange-100 rounded-3xl w-[50%]">
+          <div
+            className=" mt-6 rounded-3xl w-[50%]"
+            style={{ border: "2px solid #FF7D04" }}
+          >
             <div
-              className="px-8 py-4 bg-orange-400 rounded-tl-3xl rounded-br-3xl "
+              className="px-8 py-4 bg-orange-400 rounded-tl-2xl rounded-br-3xl font-bold"
               style={{
                 marginRight: 320,
               }}
@@ -202,6 +219,7 @@ const Home: React.FC = () =>  {
               Kelas Private Pilihanmu
             </div>
             <div className=" py-4 mx-10">
+              {/* {token && (
               <Card
                 title={namaKelas}
                 extra={
@@ -236,10 +254,10 @@ const Home: React.FC = () =>  {
                   </div>
                 </div>
               </Card>
+              )} */}
             </div>
           </div>
         </div>
-      )}
       <Modal
         title="Daftar Kelas Regular"
         open={isModalOpen}
@@ -256,8 +274,10 @@ const Home: React.FC = () =>  {
               height={100}
               alt="Gambar"
             />
-            <div className="font-bold">{tema}</div>
-            <div className=" text-xs">Chef: {namaChef}</div>
+            <div className="font-bold">{selectedData?.courseName}</div>
+            <div className=" text-xs">Quota : {selectedData?.numberOfBenches}</div>
+            <div className=" text-xs">Dimulai pada:</div>
+            <div className=" text-xs">{selectedData?.startDate.substring(0, 10)} sampai {selectedData?.endDate.substring(0, 10)}</div>
           </div>
           <div>
             <div className=" bg-orange-50 rounded-lg p-2">
@@ -267,7 +287,7 @@ const Home: React.FC = () =>  {
               ))}
             </div>
             <div className="flex justify-between mt-2">
-              <div className=" font-bold text-lg items-center">Rp. {price}</div>
+              <div className=" font-bold text-lg items-center">Rp. {selectedData?.price - selectedData?.adminFee}</div>
               <div>
                 <FullRoundedButton
                   text={"Daftar"}
@@ -359,9 +379,8 @@ const Home: React.FC = () =>  {
         </div>
       </Modal>
     </div>
-  ) : (
-    <HomeKitchen />
-  );
-}
+  ) 
+  
+};
 
 export default Home;

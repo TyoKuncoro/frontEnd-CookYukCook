@@ -8,7 +8,7 @@ const Logout = () => {
     const route = useRouter()
     localStorage.removeItem("access_token")
     route.push('/login')
-    // message.error('Silahkan Login')
+    setTimeout(message.error('Silahkan Login'), 2000);
     return (
         <div className="text-3xl font-extrabold">Memuat. . .</div>
     )

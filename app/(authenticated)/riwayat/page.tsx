@@ -44,7 +44,7 @@ const Riwayat: React.FC = () => {
   const router = useRouter();
   const token = localStorage.getItem("access_token")
   if (!token) {
-    message.error('Anda belum login, silahkan login')
+    setTimeout(message.error('Anda belum login, silahkan login'), 2000);
     router.push('login');
   }
 
@@ -58,7 +58,8 @@ const Riwayat: React.FC = () => {
   
   return role === 'Trainee' ?
     <div className="flex place-content-center ">
-      <div className=" w-[85%] px-20 rounded-3xl bg-orange-100">
+      <div className=" w-[85%] px-20 rounded-3xl"
+      >
         <div className=" text-2xl my-6 font-bold">Riwayat Pembayaran</div>
         <Tabs
           defaultActiveKey="1"

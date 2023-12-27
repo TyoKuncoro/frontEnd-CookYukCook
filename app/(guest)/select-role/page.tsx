@@ -11,7 +11,7 @@ const SelectRole = () => {
     router.push("/register");
   };
   return (
-    <div className="flex place-content-center mt-28">
+    <div className="flex place-content-center mt-10">
       <div onClick={moveToTrainee}>
         <Image
           className="rounded-l-3xl"
@@ -35,7 +35,7 @@ const SelectRole = () => {
       <div>
         <Image
           style={{ bottom: "30px", right: "30px" }}
-          className="absolute"
+          className="fixed"
           src="/assets/maskot.png"
           width={150}
           height={150}

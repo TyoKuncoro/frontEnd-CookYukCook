@@ -17,6 +17,7 @@ import LogoutButton from "#/app/Component/button";
 import { useRouter } from "next/navigation";
 import { Button, Form, Input, Modal, Select, Upload } from "antd";
 import { useForm } from "antd/es/form/Form";
+import { regularClassRepository } from "#/repository/regularClass";
 
 const { Option } = Select;
 
@@ -24,11 +25,11 @@ const ProfileKitchen = () => {
   const router = useRouter();
   const [form] = useForm();
   const data = {
-    Nama: "Nama Kitchen Studio",
+    Nama: "Dapur Rey",
     Email: "Darey@admin.com",
     Chef: 10,
   };
-
+  
   const [legalitasFileList, setLegalitasFileList] = useState([]);
 
   const handleLogOut = () => {
@@ -190,7 +191,7 @@ const ProfileKitchen = () => {
           />
         </Form.Item>
       </Modal>
-      <div className=" py-20 flex bg-orange-200 w-[70%] m-36 rounded-xl">
+      <div className=" py-20 flex w-[70%] m-36 rounded-xl">
         <div className=" mx-14 mt-14">
           <Image
             className=" rounded"

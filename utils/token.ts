@@ -18,20 +18,20 @@ export class TokenUtil {
     }
   };
 
-  static persistToken() {
-    if (TokenUtil.accessToken != null) {
-      localStorage.setItem('access_token', TokenUtil.accessToken);
-    } else {
-      localStorage.removeItem('access_token');
-    }
+  // static persistToken() {
+  //   if (TokenUtil.accessToken != null) {
+  //     localStorage.setItem('access_token', TokenUtil.accessToken);
+  //   } else {
+  //     localStorage.removeItem('access_token');
+  //   }
 
-    if (TokenUtil.refreshToken != null) {
-      localStorage.setItem('refresh_token', TokenUtil.refreshToken);
-    } else {
-      localStorage.removeItem('refresh_token');
-    }
+  //   if (TokenUtil.refreshToken != null) {
+  //     localStorage.setItem('refresh_token', TokenUtil.refreshToken);
+  //   } else {
+  //     localStorage.removeItem('refresh_token');
+  //   }
 
-  }
+  // }
 
   static setAccessToken(accessToken: string) {
     TokenUtil.accessToken = accessToken;

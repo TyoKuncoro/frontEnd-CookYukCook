@@ -79,7 +79,13 @@ const Profile = () => {
   let role: string= "";
   if (token) {
     role = parseJwt(token).role;
-    console.log(role, "role coookecoke");
+    // console.log(role, "role coookecoke");
+  }
+
+  const data: any ={
+    whatsapp: "0895320076636",
+    gender: "Wanita",
+    tanggaLahir: "2003-12-24"
   }
 
    
@@ -155,7 +161,7 @@ const Profile = () => {
         </Modal>
       </div>
       <div className="w-[65%] ml-20">
-        <div className="flex bg-orange-200 rounded-3xl mt-20">
+        <div className="flex rounded-3xl mt-20">
           <div className=" ml-14 mt-14">
             <Image
               className=" rounded"
@@ -166,7 +172,7 @@ const Profile = () => {
             />
           </div>
           <div className=" ps-8 mt-14">
-            <div className=" text-3xl font-bold mb-10">Nama Trainee</div>
+            <div className=" text-3xl font-bold mb-10">Cecilila Siregar</div>
             <table>
               <tbody className="flex flex-col gap-4 text-xl">
                 <tr>
@@ -177,17 +183,17 @@ const Profile = () => {
                 <tr>
                   <td className="w-48">No. Whatsapp</td>
                   <td>:</td>
-                  <td className=" pl-20">{email}</td>
+                  <td className=" pl-20">{data.whatsapp}</td>
                 </tr>
                 <tr>
                   <td className="w-48">Gender</td>
                   <td>:</td>
-                  <td className=" pl-20">{email}</td>
+                  <td className=" pl-20">{data.gender}</td>
                 </tr>
                 <tr>
                   <td className="w-48">Tanggal Lahir</td>
                   <td>:</td>
-                  <td className=" pl-20">{email}</td>
+                  <td className=" pl-20">{data.tanggaLahir}</td>
                 </tr>
                 <tr>
                   <td className="w-48">Password</td>

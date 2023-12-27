@@ -102,7 +102,7 @@ const Register = () => {
       <div className="flex place-content-center">
         <div
           className="rounded-l-3xl"
-          style={{ backgroundColor: "#FFD8B4", width: "31%" }}
+          style={{ backgroundColor: "#FFD8B4", width: "30%" }}
         >
           <div
             className=" font-bold text-4xl text-center mb-20 mt-5"
@@ -252,7 +252,7 @@ const Register = () => {
           <Image
             className="rounded-r-3xl"
             src="/assets/Jelly.png"
-            width={500}
+            width={510}
             height={760}
             alt="image"
           />

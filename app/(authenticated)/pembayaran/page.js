@@ -78,7 +78,7 @@ const Pembayaran = () => {
   const todayDate = `${day} - ${month} - ${year}`;
   const token = localStorage.getItem("access_token")
   if (!token) {
-    message.error('Anda belum login, silahkan login')
+    setTimeout(message.error('Anda belum login, silahkan login'), 2000);
     router.push('login');
   }
 
@@ -90,7 +90,9 @@ const Pembayaran = () => {
 
   return role === "Trainee" ? (
     <div className="mt-20">
-      <div className=" bg-orange-100 mx-80 py-16 flex place-content-center rounded-2xl">
+      <div className=" mx-80 py-16 flex place-content-center rounded-2xl"
+      // style={{border: "2px solid #FF7D04"}}
+      >
         <div className=" w-[75%]">
           <div className="text-2xl font-bold text-orange-500">
             Pendaftaran Kelas {tipeKelas}

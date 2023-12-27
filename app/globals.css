@@ -106,7 +106,7 @@
   }
   .ant-btn-primary:not(:disabled):not(.ant-btn-disabled):hover {
     background-color: white;
-    color:#FF7D04;
+    color:#eebbbb;
     border: #FF7D04 1px solid;
   }
   .ant-btn-primary:not(:disabled):not(.ant-btn-disabled):focus-visible {
@@ -167,4 +167,7 @@
   }
 .ant-table-wrapper .ant-table-tbody >tr >td {
   font-size: 16px;
+}
+:where(.css-dev-only-do-not-override-1u09lqq).ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):hover {
+  color: #FF7D04;
 }

@@ -33,7 +33,6 @@ interface SuccessLogin {
 }
 
 const Login = () => {
-  // localStorage.removeItem('access_token')
   // const { data, error, isLoading } = sampleRepository.hooks.useJoke();
   const router = useRouter();
   const onFinish = async (values: any) => {
@@ -48,7 +47,7 @@ const Login = () => {
       console.log(masuk, "Hasil API Login");
       localStorage.setItem("access_token", masuk?.body?.data?.access_token);
       setTimeout(message.success(`Halo! Selamat Datang`), 2000)
-      router.push("/home");
+      router.push("home");
     } catch (error) {
       // message.error(error.response.body?.error)
       console.log(error, "errornya cook");
@@ -67,7 +66,7 @@ const Login = () => {
       <div className="flex place-content-center">
         <div
           className="rounded-l-3xl"
-          style={{ backgroundColor: "#FFD8B4", width: "37%" }}
+          style={{ backgroundColor: "#FFD8B4", width: "28%" }}
         >
           <div
             className=" font-bold text-7xl text-center mb-32 mt-5"
@@ -134,7 +133,7 @@ const Login = () => {
             className="rounded-r-3xl"
             src="/assets/Image.png"
             width={500}
-            height={590}
+            height={600}
             alt="image"
           />
         </div>
