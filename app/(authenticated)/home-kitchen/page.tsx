@@ -1,7 +1,15 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Calendar, DatePicker, Card, Input, InputNumber, Modal, message } from "antd";
+import {
+  Calendar,
+  DatePicker,
+  Card,
+  Input,
+  InputNumber,
+  Modal,
+  message,
+} from "antd";
 import Image from "next/image";
 import FullRoundedButton from "#/app/Component/fullRoundedButton";
 import { PrinterOutlined, EditOutlined, SendOutlined } from "@ant-design/icons";
@@ -11,6 +19,10 @@ import { regularClassRepository } from "#/repository/regularClass";
 import { format } from "date-fns";
 import { kitchenRepository } from "#/repository/kitchen";
 import { mutate } from "swr";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import { Navigation } from 'swiper/modules';
 
 const HomeKitchen: React.FC = () => {
   const router = useRouter();
@@ -50,11 +62,11 @@ const HomeKitchen: React.FC = () => {
     "Sweet europe",
     "international cuisine",
   ];
-    const token = localStorage.getItem("access_token");
-    console.log(token, "toooooooooooooken")
-      
+  const token = localStorage.getItem("access_token");
+  console.log(token, "toooooooooooooken");
+
   const editKelas = (event: any) => {
-  console.log(event.key);
+    console.log(event.key);
   };
   let id: string = "";
   let email: string = "";
@@ -74,7 +86,7 @@ const HomeKitchen: React.FC = () => {
     }
   };
   // console.log(dataUser, "data uuuuuuuuuuuuuuuuser");
-  
+
   const [modalVisible, setModalVisible] = useState(false);
   const [courseName, setCourseName] = useState("");
   const [startDate, setStartDate] = useState("");
@@ -84,7 +96,7 @@ const HomeKitchen: React.FC = () => {
   const [description, setDescription] = useState("");
 
   const { data: dataUser } = kitchenRepository.hooks.getKitchenByUser();
-  console.log(dataUser, "data user")
+  console.log(dataUser, "data user");
   const handleOk = async () => {
     // console.log(`${id}, id
     // ${courseName} = course
@@ -114,8 +126,8 @@ const HomeKitchen: React.FC = () => {
       );
       // console.log(mengajukanKelas.body.data.adminFee, "price")
       // console.log(mengajukanKelas.body.data.courseName, "courseName")
-      // localStorage.setItem('price', mengajukanKelas.body.data.adminFee)
-      // localStorage.setItem('courseName', mengajukanKelas.body.courseName)
+      localStorage.setItem('price', mengajukanKelas.body.data.adminFee)
+      localStorage.setItem('courseName', mengajukanKelas.body.courseName)
       setCourseName("");
       setStartDate("");
       setEndDate("");
@@ -193,7 +205,7 @@ const HomeKitchen: React.FC = () => {
         />
       </Modal>
       <div className="text-2xl font-semibold mb-5">Jadwal</div>
-      <div className="flex">
+      <div className="">
         <div className=" w-[50%] mx-10 ">
           <Calendar
             fullscreen={false}
@@ -201,9 +213,11 @@ const HomeKitchen: React.FC = () => {
             className="bg-orange-300"
           />
         </div>
-        <div className="  w-[100%] rounded-3xl"
-        style={{border: "2px solid #FF7D04"}}>
-          <div className="flex justify-between">
+        <div
+          className="  w-[100%] rounded-3xl"
+          // style={{ border: "2px solid #FF7D04" }}
+        >
+          <div className="flex justify-between mt-6">
             <div
               className="px-8 py-4 bg-orange-400 rounded-tl-2xl font-bold rounded-br-3xl"
               style={{
@@ -218,36 +232,43 @@ const HomeKitchen: React.FC = () => {
               onclick={modalAjukanKelas}
             />
           </div>
-          <div className=" py-4 mx-10 flex">
-            {token &&
-              data?.data.map((item: any, index: any) => (
-                <Card
-                  style={{ width: 300 }}
-                  className="rounded-lg p-4 mr-2"
-                >
-                  <div className=" content-between ">
-                    <Image
-                      className=" rounded"
-                      src="/assets/Image.png"
-                      width={220}
-                      height={175}
-                      alt="Gambar"
-                    />
-                    <div className="flex justify-between">
-                      <div>
-                        <div className="text-xl font-bold">
-                          Tema: {item.courseName}
-                        </div>
-                        <div className=" font-bold">Dimulai pada:</div>
-                        <div className="font-bold">
-                          {item.startDate.substring(0, 10)} sampai{" "}
-                          {item.endDate.substring(0, 10)}
-                        </div>
+            <Swiper
+              spaceBetween={10}
+              navigation={true}
+              slidesPerView={5}
+              modules={[Navigation]}
+              className=" py-4 mx-10 flex mt-6"
+            >
+              {token &&
+                data?.data.map((item: any, index: any) => (
+                  <SwiperSlide key={index}>
+                    <Card
+                      style={{ width: 300 }}
+                      className="rounded-lg p-4 mx-6"
+                    >
+                      <div className=" content-between ">
+                        <Image
+                          className=" rounded"
+                          src="/assets/Image.png"
+                          width={220}
+                          height={175}
+                          alt="Gambar"
+                        />
+                        <div className="flex justify-between">
+                          <div>
+                            <div className="text-xl font-bold">
+                              {item.courseName}
+                            </div>
+                            <div className=" font-bold">Dimulai pada:</div>
+                            <div className="font-bold">
+                              {item.startDate.substring(0, 10)} sampai{" "}
+                              {item.endDate.substring(0, 10)}
+                            </div>
 
-                        <div className="mt-2">Chef: {item.chef_name}</div>
-                      </div>
-                    </div>
-                    {/* <div className="flex justify-between">
+                            <div className="mt-2">Chef: {item.chef_name}</div>
+                          </div>
+                        </div>
+                        {/* <div className="flex justify-between">
                       <FullRoundedButton
                         text="Lihat Detail"
                         icons={null}
@@ -255,10 +276,11 @@ const HomeKitchen: React.FC = () => {
                         //   onclick={showModal}
                       />
                     </div> */}
-                  </div>
-                </Card>
-              ))}
-          </div>
+                      </div>
+                    </Card>
+                  </SwiperSlide>
+                ))}
+            </Swiper>
         </div>
       </div>
       {/* <p>Selected Date: {selectedDate}</p> */}

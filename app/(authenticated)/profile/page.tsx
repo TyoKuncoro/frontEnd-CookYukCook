@@ -50,7 +50,7 @@ const Profile = () => {
 
   const token = localStorage.getItem("access_token")
   if (!token) {
-    message.error('Anda belum login, silahkan login')
+    setTimeout(message.error('Anda belum login, silahkan login'), 2000);
     router.push('login');
   }
 

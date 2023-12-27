@@ -10,6 +10,11 @@ import HomeKitchen from "../home-kitchen/page";
 import { parseJwt } from "#/app/Component/Helper/convert";
 import { regularClassRepository } from "#/repository/regularClass";
 import { kitchenRepository } from "#/repository/kitchen";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import { Navigation } from 'swiper/modules';
+
 
 function onPanelChange(value: any, mode: any) {
   console.log(value.format("YYYY-MM-DD"), mode);
@@ -110,8 +115,18 @@ const Home: React.FC = () => {
         >
           Pilihan Untukmu
         </div>
-        <div className=" py-4 mx-10 flex">
+        <div className=" py-4 mx-10 gap-4">
+        <Swiper
+              spaceBetween={100}
+              navigation={true}
+              slidesPerView={5}
+              modules={[Navigation]}
+              className=" py-4 mx-10"
+            >
+
           {dataKelas?.data.map((item: any, index:any) =>(
+                  <SwiperSlide key={index}>
+            
             <Card
               title={item.courseName}
               className="mr-2"
@@ -151,7 +166,9 @@ const Home: React.FC = () => {
                 </div>
               </div>
             </Card>
+            </SwiperSlide>
           ))}
+          </Swiper>
         </div>
       </div>
         <div className="flex justify-between">
@@ -259,7 +276,7 @@ const Home: React.FC = () => {
           </div>
         </div>
       <Modal
-        title="Daftar Kelas Regular"
+        title={selectedData?.courseName}
         open={isModalOpen}
         // onOk={handleOk}
         onCancel={handleCancel}
@@ -274,7 +291,7 @@ const Home: React.FC = () => {
               height={100}
               alt="Gambar"
             />
-            <div className="font-bold">{selectedData?.courseName}</div>
+            <div className="font-bold">Daftar Kelas Regular</div>
             <div className=" text-xs">Quota : {selectedData?.numberOfBenches}</div>
             <div className=" text-xs">Dimulai pada:</div>
             <div className=" text-xs">{selectedData?.startDate.substring(0, 10)} sampai {selectedData?.endDate.substring(0, 10)}</div>
