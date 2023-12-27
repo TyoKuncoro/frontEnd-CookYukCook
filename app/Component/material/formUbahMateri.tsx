@@ -3,10 +3,10 @@ import { LinkOutlined } from "@ant-design/icons";
 import { Button, Form, Input } from "antd";
 import { useState, useEffect } from "react";
 
-const FormUbahMateri = ({ idClass, idMateri }: any) => {
-  console.log(idClass, "haiiii");
+const FormUbahMateri = ({ idMateri, onclose, mutate }: any) => {
+  // console.log(idClass, "haiiii");
   const [form] = Form.useForm();
-  const { data: dataMateri } =
+  const { data: dataMateri} =
     materiRepository.hooks.findMaterialById(idMateri);
   const [updateMateri, setUpdateMateri] = useState({
     namaMateri: dataMateri?.data?.name,
@@ -24,21 +24,22 @@ const FormUbahMateri = ({ idClass, idMateri }: any) => {
   }, [dataMateri]);
 
   console.log(dataMateri, "halo");
-  const onFinish = (values: any) => {
+  const onFinish =async (values: any) => {
     console.log(values, "halloooo");
     console.log("Success:", values);
-    try {
+    try{
       const data = {
-        idclass: idClass,
-        name: values?.namaMateri,
-        link: values?.link,
+        name: values.namaMateri,
+        link: values.link,
       };
-      const updateMateri =
+      const updateMateri = await
         materiRepository.manipulateData.updateMaterialByClass(
-          data,
-          dataMateri.data.id
+          dataMateri.data.id,
+          data
         );
       console.log(updateMateri, "hasil");
+      mutate()
+      onclose()
     } catch (e) {
       console.log(e);
     }
@@ -111,14 +112,14 @@ const FormUbahMateri = ({ idClass, idMateri }: any) => {
             />
           </Form.Item>
         </div>
-        <Form.Item
+        {/* <Form.Item
           name="idclass"
           label="Jenis Kelas"
           initialValue={idClass}
           hidden
         >
           <Input />
-        </Form.Item>
+        </Form.Item> */}
         <Form.Item>
           <Button key="submit" type="primary" htmlType="submit">
             Simpan

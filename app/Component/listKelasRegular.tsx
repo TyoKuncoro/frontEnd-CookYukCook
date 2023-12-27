@@ -9,18 +9,19 @@ import Column from "antd/es/table/Column";
 import TambahMateri from "./material/modal";
 
 const {Panel} = Collapse;
-const ListKelasRegular = ( {classData} ) => {
+const ListKelasRegular = ( {classData,mutate} ) => {
     const [active, setActive] = useState<string>('')
     return (
         <div>
             <Collapse
+            accordion
                 size="small"
                 className="w-[1000px] bg-white m-auto text-lg border-list"
                 collapsible="icon"
                 // activeKey={active} ghost={true}
             >
                 {classData.material?.map((material:any) => (
-            <Panel header={material.name} key={material.id} extra={<UbahMateri idClass={classData.id} idMateri={material.id}/>}>
+            <Panel header={material.name} key={material.id} extra={<UbahMateri idMateri={material.id} mutate={mutate}/>}>
                     <div>
                         <a href={material.link} target="_blank"> <LinkOutlined/> {material.link}</a>
                     </div>

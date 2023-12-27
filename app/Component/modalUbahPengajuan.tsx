@@ -1,8 +1,8 @@
 import { Button, Modal } from "antd"
-import FormUbahMateri from "./formUbahMateri";
 import { useState } from "react";
+import FormUbahPengajuan from "./formUbahPengajuan";
 
-const UbahMateri = ({idMateri, mutate}:any) => {
+const UbahPengajuan = ({idClass}:any) => {
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false)
   const showModal = () => {
@@ -23,21 +23,20 @@ const UbahMateri = ({idMateri, mutate}:any) => {
     return (
         <div>
         <Button type="primary" onClick={showModal}>
-        Ubah Materi
+        Ubah Pengajuan
       </Button>
       <Modal
         open={open}
-        title="Ubah Materi"
+        title="Ubah Pengajuan Kelas"
         className="text-center"
         width={483}
         // onOk={handleOk}
         onCancel={handleCancel}
         footer={[,]}
       >
-        
-        <FormUbahMateri idMateri={idMateri} onclose={handleOk} mutate={mutate}/>
+        <FormUbahPengajuan idClass={idClass}/>
       </Modal>
         </div>
     )
 }
-export default UbahMateri;
+export default UbahPengajuan;

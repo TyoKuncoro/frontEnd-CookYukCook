@@ -7,18 +7,25 @@ import { Table } from "antd/lib";
 import { useEffect, useState } from "react";
 import ModalPengajuan from "./createPengajuan";
 import FormPengajuanKelas from "./formPengajuan";
-import FormTambahTema from "./formTambahTema";
-import ModalTambahTema from "./material/modalTambahTema";
 import TambahTema from "./material/modalTambahTema";
 import UbahMateriBtn from "./buttonUbahMateri";
+import { parseJwt } from "./Helper/convert";
 
 
 export default function TemaKelas (){
     const[modalOpen, setModalOpen] = useState(false);
     const [selectedTheme, setSelectedTheme] = useState(null);
     const [tema, setTema] =useState([]);
-    const [openModal, setOpenModal] = useState(false)
-    const {data} = temaKelasRepository.hooks.findAllTema();
+    const [openModal, setOpenModal] = useState(false);
+    const [id, setId] = useState(null);
+    const token = localStorage.getItem("access_token");
+    useEffect(() =>{
+      if (token) {
+        setId(parseJwt(token).id)
+      }
+    }, [token])
+
+    const {data, mutate:mutateData} = temaKelasRepository.hooks.findTemaByUsers(id);
     console.log(data)
     useEffect(() => {
         setTema(data?.data)
@@ -60,26 +67,26 @@ export default function TemaKelas (){
           dataIndex: 'price',
           key: 'price',
         },
-        {
-          title: 'Pilih Tema',
-          key: 'action',
-          render: (_, record) => (
-            <Space size="middle">
-              <a onClick={() => handleClick(record)}>Ajukan Kelas {record.name}</a>
-            </Space>
-          ),
-        },
+        // {
+        //   title: 'Pilih Tema',
+        //   key: 'action',
+        //   render: (_, record) => (
+        //     <Space size="middle">
+        //       <a onClick={() => handleClick(record)}>Ajukan Kelas {record.name}</a>
+        //     </Space>
+        //   ),
+        // },
       ];
     return (
         <div>
-          <UbahMateriBtn key={null} text="Tambah Tema Kelas" onclick={handleOpenModal}/>
+          <UbahMateriBtn key={null} text="Tambah Tema Kelas" onclick={handleOpenModal} />
             <Table className="mt-5 text-xl" columns={columns} dataSource={tema} />
             <ModalPengajuan 
             title="pengajuan Kelas" 
             closeModal={handleClose} 
             visible={modalOpen}
-            content={<FormPengajuanKelas/>}/>
-            <TambahTema open={openModal} closeModal={handleCloseModal}/>
+            content={<FormPengajuanKelas mutateData={mutateData}/>}/>
+            <TambahTema open={openModal} closeModal={handleCloseModal} mutate={mutateData}/>
         </div>
     )
 }
