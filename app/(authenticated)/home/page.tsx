@@ -115,7 +115,7 @@ const Home: React.FC = () => {
         >
           Pilihan Untukmu
         </div>
-        <div className=" py-4 mx-10 gap-4">
+        <div className=" py-4 mx-10 h-64">
         <Swiper
               spaceBetween={100}
               navigation={true}
