@@ -63,7 +63,6 @@ const FormUbahPengajuan = ({idClass}:any) => {
         // onFinishFailed={onFinishFailed}
         autoComplete="off"
       >
-        <p>{dataReg?.data?.id} halo</p>
         <div>
           <p className="text-base font-medium text-start">Nama Kelas</p>
           <Form.Item<FieldType>

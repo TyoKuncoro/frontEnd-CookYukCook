@@ -1,20 +1,24 @@
-import { Button, Modal } from "antd"
+import { Button, Modal, message } from "antd"
 import FormUbahMateri from "./formUbahMateri";
 import { useState } from "react";
 
-const UbahMateri = ({idMateri, mutate}:any) => {
+const UbahMateri = ({idMateri, mutate, onClose}:any) => {
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false)
   const showModal = () => {
     setOpen(true);
   };
 
-  const handleOk = () => {
+  const handleOk = async () => {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
       setOpen(false);
+      // setOpenModal(false)
+      onClose();
+      message.success('Materi berhasil diubah')
     }, 500);
+    await mutate
   };
 
   const handleCancel = () => {
@@ -30,7 +34,8 @@ const UbahMateri = ({idMateri, mutate}:any) => {
         title="Ubah Materi"
         className="text-center"
         width={483}
-        // onOk={handleOk}
+        // onOk={setOpenModal}
+        onOk={handleOk}
         onCancel={handleCancel}
         footer={[,]}
       >

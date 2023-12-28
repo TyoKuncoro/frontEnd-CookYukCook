@@ -37,8 +37,8 @@ const FormUbahMateri = ({ idMateri, onclose, mutate }: any) => {
           dataMateri.data.id,
           data
         );
-      console.log(updateMateri, "hasil");
-      mutate()
+      console.log(mutate, "hasil");
+      await mutate
       onclose()
     } catch (e) {
       console.log(e);

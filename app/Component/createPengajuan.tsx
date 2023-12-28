@@ -11,11 +11,11 @@ import FormPengajuanKelas from "./formPengajuan";
 //   title: string;
 //   content: React.ReactNode;
 // }
-const ModalPengajuan=(props:any)=> {
-  const {title, closeModal, content, visible} = props;
+const ModalCustom=(props:any)=> {
+  const {title, closeModal, content, visible, width} = props;
   return (
     <Modal
-    width={720}
+    width={width}
     className="text-center"
       title={title}
       visible={visible}
@@ -26,4 +26,4 @@ const ModalPengajuan=(props:any)=> {
     </Modal>
   );
 };
-export default ModalPengajuan;
+export default ModalCustom;
