@@ -89,7 +89,7 @@ const Profile = () => {
   }
 
    
-  return  role === "Trainee" ? 
+  return  role === "Trainee" ?
     <div className="flex w-[100%]">
       <div>
         <Modal
