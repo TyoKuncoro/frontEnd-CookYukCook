@@ -18,7 +18,7 @@ const PembayaranKitchen = () => {
   // const [temaKelas, setTemaKelas] = useState("Pembuatan Kue Kering");
   const [harga, setHarga] = useState(0);
   const [tipeKelas, setTipeKelas] = useState("Regular");
-  const [courseName, setCourseName] = useState('-')
+  const [courseName, setCourseName] = useState("-");
   // end dummy data
 
   // from midtrans
@@ -29,10 +29,10 @@ const PembayaranKitchen = () => {
   });
 
   useEffect(() => {
-    const courseGet = localStorage.getItem('courseName')
+    const courseGet = localStorage.getItem("courseName");
     setCourseName(courseGet);
-    console.log(courseName, 'courseName')
-    const hargaGet = localStorage.getItem('price')
+    console.log(courseName, "courseName");
+    const hargaGet = localStorage.getItem("price");
     setHarga(hargaGet);
     // console.log(harga, "harga")
     const snapScript = "https://app.sandbox.midtrans.com/snap/snap.js";
@@ -50,27 +50,30 @@ const PembayaranKitchen = () => {
     };
   }, []);
   const handleCheckout = async () => {
-    const uuidGenerator = uuidv4();
-    // console.log(uuidGenerator, "ini uuid cook");
+    if (harga == 0) {
+      const uuidGenerator = uuidv4();
+      // console.log(uuidGenerator, "ini uuid cook");
 
-    const data = {
-      id: uuidGenerator,
-      productName: courseName,
-      price: harga,
-      quantity: 1,
-    };
-    const response = await fetch("api/token", {
-      method: "POST",
-      body: JSON.stringify(data),
-    });
-    const requestData = await response.json();
-    // console.log(requestData, "dataaa coook")
-    localStorage.removeItem('courseName')
-    localStorage.removeItem('price')
-    window.snap.pay(requestData.token);
-
-    // console.log("test")
-  };
+      const data = {
+        id: uuidGenerator,
+        productName: courseName,
+        price: harga,
+        quantity: 1,
+      };
+      const response = await fetch("api/token", {
+        method: "POST",
+        body: JSON.stringify(data),
+      });
+      const requestData = await response.json();
+      // console.log(requestData, "dataaa coook")
+      localStorage.removeItem("courseName");
+      localStorage.removeItem("price");
+      window.snap.pay(requestData.token);
+      // console.log("test")
+    }else {
+      message.error('Belum Ada Pesanan')
+    }
+  } 
   //end for midtrans
 
   // Handle webHooks Midtrans
@@ -90,8 +93,8 @@ const PembayaranKitchen = () => {
     role = parseJwt(token).role;
     id = parseJwt(token).id;
     nama = parseJwt(token).name;
-    console.log(role, 'ini role');
-    console.log(id, 'ini id');
+    console.log(role, "ini role");
+    console.log(id, "ini id");
   }
   if (!token) {
     setTimeout(message.error("Anda belum login, silahkan login"), 2000);
@@ -100,9 +103,7 @@ const PembayaranKitchen = () => {
 
   return (
     <div className="mt-20">
-      <div className=" mx-80 py-16 flex place-content-center rounded-2xl"
-      
-      >
+      <div className=" mx-80 py-16 flex place-content-center rounded-2xl">
         <div className=" w-[75%]">
           <div className="text-2xl font-bold text-orange-500">
             Pengajuan kelas {tipeKelas}
@@ -121,7 +122,7 @@ const PembayaranKitchen = () => {
               </tr>
               <tr>
                 <td className="w-48">Biaya Pengajuan Kelas</td>
-                <td>:  Rp. {harga}</td>
+                <td>: Rp. {harga}</td>
               </tr>
             </tbody>
           </div>

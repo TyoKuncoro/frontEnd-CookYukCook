@@ -4,13 +4,16 @@ import useSWR from "swr"
 const url = {
     getAllUser: () => "/users",
     updatePassword: (id:any) => `/users/password/${id}`,
-    updateUsers: (id:any) => `/users/:id`
-
+    updateUsers: (id:any) => `/users/${id}`,
+    getUsersById: (id:any) => `/users/${id}`
 }
 
 const hooks = {
     useGetAllUsers(){
         return useSWR(url.getAllUser(), http.fetcher)
+    },
+    getUsersById (id: any){
+        return useSWR(url.getUsersById(id), http.fetcher)
     }
 },
 

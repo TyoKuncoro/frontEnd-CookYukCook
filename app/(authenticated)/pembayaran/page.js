@@ -15,7 +15,6 @@ const Pembayaran = () => {
   const router = useRouter();
 
   //dummy data
-  const [nama, SetNama] = useState("Cecil");
   const [namaKelas, setNamaKelas] = useState("Membuat Kue Khas Lebaran");
   const [temaKelas, setTemaKelas] = useState("Pembuatan Kue Kering");
   const [harga, setHarga] = useState(120000);
@@ -51,7 +50,7 @@ const Pembayaran = () => {
   }, []);
 
   const handleCheckout = async () => {
-    
+    if (price == 0){
     const uuidGenerator = uuidv4();
     console.log(uuidGenerator, "ini uuid cook");
     const data = {
@@ -66,8 +65,12 @@ const Pembayaran = () => {
     });
     const requestData = await response.json();
     // console.log(requestData, "dataaa coook")
+    localStorage.removeItem('priceTrainee')
+    localStorage.removeItem('courseTrainee')
     window.snap.pay(requestData.token);
-
+    } else {
+      message.error('Belum Ada Pesanan')
+    }
     // console.log("test")
   };
   //end for midtrans
@@ -82,6 +85,7 @@ const Pembayaran = () => {
 
   const todayDate = `${day} - ${month} - ${year}`;
   const token = localStorage.getItem("access_token")
+  let nama = "";
   if (!token) {
     setTimeout(message.error('Anda belum login, silahkan login'), 2000);
     router.push('login');
@@ -90,6 +94,8 @@ const Pembayaran = () => {
   let role = "";
   if (token) {
     role = parseJwt(token).role;
+    nama = parseJwt(token).name;
+
     // console.log(role, 'ini role');
   }
 
@@ -107,7 +113,7 @@ const Pembayaran = () => {
             Detail Pesanan
           </div>
           <div className="text-l font-bold bg-orange-200 px-10 w-[50%] py-5 rounded-lg">
-            <div className="mb-2">{course}</div>
+            <div className="mb-2">Tema: {course}</div>
             {/* <div className="mb-5">Tema: {temaKelas}</div> */}
             <div>Harga: Rp. {price}</div>
           </div>

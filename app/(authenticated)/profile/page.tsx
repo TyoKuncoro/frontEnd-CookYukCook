@@ -39,17 +39,14 @@ const Profile = () => {
   const [gender, setGender] = useState("Pria");
 
   const onFinishKitchen = async(values: any) => {
-    console.log(values, "Form values:");
-    try {
-      const data = {
-        nama: values.nama,
-        email: values.email,
-        phoneNumber: values.whatsapp,
-        gender: values.gender
-      }
-    } catch (e) {
-      
-    }
+    message.error('wiring is in process')
+    setVisible(false)
+    // console.log(values, "Form values:");
+    //     nama: values.nama,
+    //     email: values.email,
+    //     phoneNumber: values.whatsapp,
+    //     gender: values.gender,
+    //     tanggalLahir: values.$y + values.$M + values.$D
 
   };
 
@@ -167,10 +164,10 @@ const Profile = () => {
               </Select>
             </Form.Item>
             <Form.Item
-              name="Tanggal lahir"
-              rules={[
-                { required: true, message: "Silakan pilih tanggal lahir!" },
-              ]}
+              name="TanggalLahir"
+              // rules={[
+              //   { required: true, message: "Silakan pilih tanggal lahir!" },
+              // ]}
             >
               <DatePicker
                 style={{ width: "100%" }}
