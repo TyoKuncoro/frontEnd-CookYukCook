@@ -51,7 +51,7 @@ const ListRegular = () => {
   };
   const modalDetailClose = () => {
     setModalDetail(false);
-    mutateData
+    mutateData()
   };
   interface DataType {
     key: string;
@@ -128,7 +128,7 @@ const ListRegular = () => {
       title="Pengajuan Kelas"
       closeModal={handleClose}
       visible={modalOpen}
-      content={<FormPengajuanKelas mutateData={mutateData}/>}/>
+      content={<FormPengajuanKelas onClose={handleClose} mutateData={mutateData}/>}/>
       <hr />
       <p className="text-3xl font-bold">Tema Kelas</p>
       <TemaKelas />

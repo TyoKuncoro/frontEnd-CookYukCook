@@ -15,8 +15,9 @@ import { temaKelasRepository } from "#/repository/tema";
 import { useEffect, useState } from "react";
 import { kitchenRepository } from "#/repository/kitchen";
 
-const FormPengajuanKelas = ({mutateData}) => {
+const FormPengajuanKelas = ({mutateData, onClose}) => {
   const [form] = Form.useForm();
+  const [loading, setLoading] = useState(false)
   const token = localStorage.getItem("access_token");
   let id:any;
   if (token) {
@@ -27,6 +28,7 @@ const FormPengajuanKelas = ({mutateData}) => {
   const {data: dataKitchen} = kitchenRepository.hooks.getKitchenById(id)
   const onFinish = async (values: any) => {
     try {
+      setLoading(true)
       const data = {
         theme_id: values?.tema,
         kitchen_id: dataKitchen.data.id,
@@ -41,7 +43,10 @@ const FormPengajuanKelas = ({mutateData}) => {
       const pengajuan =
         await regularClassRepository.manipulateData.createKelasReg(data);
       console.log(pengajuan, "ini dia");
-      message.success("Pengajuan Kelas Berhasil");
+      setTimeout(()=>{
+        onClose()
+        message.success("Pengajuan Kelas Berhasil");
+      }, 2000)
       form.resetFields()
       mutateData()
     } catch (error) {

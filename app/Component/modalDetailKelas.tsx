@@ -14,6 +14,7 @@ function DetailKelasRegular({classData, mutate, usersData, onClose }: any) {
   };
   const closeModal = () => {
     setModalVisible(false);
+    onClose()
   };
   return (
     <div className="w-[900px] m-auto">
