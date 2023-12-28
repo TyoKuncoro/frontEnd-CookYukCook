@@ -11,25 +11,40 @@ import {
   MailOutlined,
   PhoneOutlined,
   UploadOutlined,
-  PlusCircleOutlined
+  PlusCircleOutlined,
 } from "@ant-design/icons";
 import LogoutButton from "#/app/Component/button";
 import { useRouter } from "next/navigation";
-import { Button, Form, Input, Modal, Select, Upload } from "antd";
+import { Button, Form, Input, Modal, Select, Upload, message } from "antd";
 import { useForm } from "antd/es/form/Form";
 import { regularClassRepository } from "#/repository/regularClass";
+import { usersRepository } from "#/repository/user";
+import { parseJwt } from "#/app/Component/Helper/convert";
 
 const { Option } = Select;
 
 const ProfileKitchen = () => {
+  const token = localStorage.getItem("access_token");
+  
+  const [Nama, setNama] = useState("Kitchen Tyo");
+  const [Email, setEmail] = useState("tyo@kitchen.com");
+  const [Chef, setChef] = useState(10);
+  const [Alamat, setAlamat] = useState("Bandung");
+  const [Whatsapp, setWhatsapp] = useState("08814550324");
+  // const [nama, setnama] = useState("");
+  // const [email, setemail] = useState("");
+  // const [chef, setchef] = useState(0);
+  // const [alamat, setalamat] = useState("");
+  // const [whatsapp, setwhatsapp] = useState("");
+
   const router = useRouter();
   const [form] = useForm();
   const data = {
-    Nama: "Dapur Rey",
-    Email: "Darey@admin.com",
-    Chef: 10,
+    // Nama: "Dapur Rey",
+    // Email: "Darey@admin.com",
+    // Chef: 10,
   };
-  
+
   const [legalitasFileList, setLegalitasFileList] = useState([]);
 
   const handleLogOut = () => {
@@ -47,9 +62,40 @@ const ProfileKitchen = () => {
   const handleCancelPassword = () => {
     setVisiblePassword(false);
   };
+  let role: string = "";
+  let id: string = "";
+  if (token) {
+    role = parseJwt(token).role;
+    id = parseJwt(token).id;
+    // console.log(role, "role coookecoke");
+  }
 
-  const onFinishPassword = (values: any) => {
-    console.log("Form values:", values);
+  const onFinishPassword = async(values: any) => {
+    if (values.passwordBaru !== values.konfirmasiPassword) {
+      message.error("Konfirmasi Password Gagal");
+    } else {
+      try {
+        const data = { password: values.konfirmasiPassword };
+        const updatePassword =
+          await usersRepository.manipulatedData.updatePassword(id, data);
+        console.log(updatePassword, "password");
+        setVisiblePassword(false)
+        message.success('Password Berhasil Diganti')
+      } catch (e) {
+        throw e
+      }
+    }
+  };
+
+  const onFinish = (values: any) => {
+    console.log(values, "Values");
+    setNama(values.kitchen);
+    setWhatsapp(values.whatsapp);
+    setChef(values.chef);
+    setAlamat(values.alamat);
+    setEmail(values.email);
+    setVisibleProfile(false)
+
   };
 
   const handleLegalitas = () => {
@@ -88,68 +134,94 @@ const ProfileKitchen = () => {
         visible={visibleProfile}
         onCancel={handleCancelprofile}
       >
-        <Input prefix={<UserOutlined />} placeholder="Nama Kitchen Studio" />
-        <Input
-          prefix={<MailOutlined />}
-          placeholder="Email"
-          style={{ marginTop: "1rem" }}
-        />
-        <Input
-          prefix={<PhoneOutlined />}
-          placeholder="WhatsApp Number"
-          style={{ marginTop: "1rem" }}
-        />
-        <Select
-          placeholder="Jumlah Chef"
-          style={{ width: "100%", marginTop: "1rem" }}
+        <Form
+          form={form}
+          name="edit profile"
+          onFinish={onFinish}
+          labelCol={{ span: 6 }}
+          wrapperCol={{ span: 32 }}
+          initialValues={{ remember: true }}
         >
-              {[...Array(10)].map((_, index) => (
-                <Option key={index + 1} value={index + 1}>
-                  {index + 1}
-                </Option>
-              ))}
-        </Select>
-
-        <Form.Item
-          className="w-[100%] mt-4 mb-[-4]"
-          name="legalitas"
-          rules={[{ required: true, message: "Silakan pilih file legalitas" }]}
-        >
-          <Upload
-            {...uploadProps}
-            fileList={legalitasFileList}
-            onChange={({ fileList }: any) => setLegalitasFileList(fileList)}
+          <Form.Item
+          name="kitchen"
           >
-            <Button icon={<UploadOutlined />} style={{ width: "100%" }}>
-              Pilih Legalitas
+            <Input
+              prefix={<UserOutlined />}
+              placeholder="Nama Kitchen Studio"
+            />
+          </Form.Item>
+          <Form.Item
+          name="email">
+            <Input
+              prefix={<MailOutlined />}
+              placeholder="Email"
+              style={{ marginTop: "1rem" }}
+            />
+          </Form.Item>
+          <Form.Item
+          name="whatsapp"
+          >
+            <Input
+              prefix={<PhoneOutlined />}
+              placeholder="WhatsApp Number"
+              style={{ marginTop: "1rem" }}
+            />
+          </Form.Item>
+          <Form.Item
+          name="chef"
+          >
+            <Input placeholder="Jumlah Chef" type="number" className="mt-4" />
+          </Form.Item>
+          {/* <Form.Item
+            className="w-[100%] mt-4 mb-[-4]"
+            name="legalitas"
+            rules={[
+              { required: true, message: "Silakan pilih file legalitas" },
+            ]}
+          >
+            <Upload
+              {...uploadProps}
+              fileList={legalitasFileList}
+              onChange={({ fileList }: any) => setLegalitasFileList(fileList)}
+            >
+              <Button icon={<UploadOutlined />} style={{ width: "100%" }}>
+                Pilih Legalitas
+              </Button>
+            </Upload>
+          </Form.Item> */}
+          <Form.Item
+          name="alamat"
+          >
+            <Input
+              prefix={<EnvironmentOutlined />}
+              placeholder="Alamat"
+              style={{ marginTop: "1rem" }}
+            />
+          </Form.Item>
+          {/* <div className="flex justify-between mt-6">
+            <Image
+              className=" rounded"
+              src="/assets/galeri1.png"
+              width={200}
+              height={200}
+              alt="Gambar Pengguna"
+            />
+            <FullRoundedButton
+              text="Tambah Foto"
+              icons={<PlusCircleOutlined />}
+            />
+          </div> */}
+          <Form.Item>
+            <Button
+              className="mt-4"
+              type="primary"
+              htmlType="submit"
+              style={{ backgroundColor: "#FF7D04", borderColor: "#FF7D04" }}
+            >
+              Simpan
             </Button>
-          </Upload>
-        </Form.Item>
-        <Input
-          prefix={<EnvironmentOutlined />}
-          placeholder="Alamat"
-          style={{ marginTop: "1rem" }}
-        />
-        <div className="flex justify-between mt-6">
-          <Image
-            className=" rounded"
-            src="/assets/galeri1.png"
-            width={200}
-            height={200}
-            alt="Gambar Pengguna"
-          />
-          <FullRoundedButton text="Tambah Foto" icons={<PlusCircleOutlined />} />
-        </div>
-        <Form.Item>
-          <Button
-            className="mt-4"
-            type="primary"
-            htmlType="submit"
-            style={{ backgroundColor: "#FF7D04", borderColor: "#FF7D04" }}
-          >
-            Simpan
-          </Button>
-        </Form.Item>
+          </Form.Item>
+        </Form>
       </Modal>
       <Modal
         footer={null}
@@ -159,13 +231,13 @@ const ProfileKitchen = () => {
         onCancel={handleCancelPassword}
       >
         <Form form={form} layout="vertical" onFinish={onFinishPassword}>
-          <Form.Item name="password lama">
+          <Form.Item name="passwordLama">
             <Input type="password" placeholder="Masukan Password Lama" />
           </Form.Item>
-          <Form.Item name="password baru">
+          <Form.Item name="passwordBaru">
             <Input type="password" placeholder="Masukan Password Baru" />
           </Form.Item>
-          <Form.Item name="konfirmasi password">
+          <Form.Item name="konfirmasiPassword">
             <Input type="password" placeholder="Konfirmasi Password Baru" />
           </Form.Item>
           <Form.Item>
@@ -203,7 +275,7 @@ const ProfileKitchen = () => {
         </div>
         <div>
           <div className="flex mb-12 justify-between">
-            <div className="text-3xl font-extrabold">{data.Nama}</div>
+            <div className="text-3xl font-extrabold">{Nama}</div>
             <FullRoundedButton
               text="Ubah Profile"
               icons={<EditOutlined />}
@@ -215,7 +287,7 @@ const ProfileKitchen = () => {
               <tr>
                 <td className="w-48">Email</td>
                 <td>:</td>
-                <td className="pl-8">{data.Email}</td>
+                <td className="pl-8">{Email}</td>
               </tr>
               <tr>
                 <td className="w-48">Password</td>
@@ -231,17 +303,17 @@ const ProfileKitchen = () => {
               <tr>
                 <td className="w-48">Jumlah Chef</td>
                 <td>:</td>
-                <td className="pl-8">{data.Chef}</td>
+                <td className="pl-8">{Chef}</td>
               </tr>
               <tr>
                 <td className="w-48">Alamat</td>
                 <td>:</td>
-                <td className="pl-8">{data.Email}</td>
+                <td className="pl-8">{Alamat}</td>
               </tr>
               <tr>
                 <td className="w-48">WhatsApp</td>
                 <td>:</td>
-                <td className="pl-8">08814550324</td>
+                <td className="pl-8">{Whatsapp}</td>
               </tr>
               <tr>
                 <td className="w-48">Legalitas</td>

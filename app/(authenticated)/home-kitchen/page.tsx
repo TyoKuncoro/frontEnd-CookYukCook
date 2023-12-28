@@ -35,33 +35,6 @@ const HomeKitchen: React.FC = () => {
   const handleDateSelect = (date: any) => {
     setSelectedDate(date.format("YYYY-MM-DD"));
   };
-  const data1 = {
-    Chef: "Nazhwa",
-    Trainee: "user2000",
-  };
-  const kelas = [
-    {
-      jenisKelas: "Regular",
-      judul: "membuat tawar roti",
-      tema: "memanggang roti",
-    },
-    {
-      jenisKelas: "Regular",
-      judul: "membuat kue khas lebaran",
-      tema: "kue kering",
-    },
-    {
-      jenisKelas: "Private",
-      judul: "Bolu mumer",
-      tema: "pembuatan kue",
-    },
-  ];
-
-  const kelasPengajuan = [
-    "Chinese main dish",
-    "Sweet europe",
-    "international cuisine",
-  ];
   const token = localStorage.getItem("access_token");
   console.log(token, "toooooooooooooken");
 
@@ -94,8 +67,9 @@ const HomeKitchen: React.FC = () => {
   const [price, setPrice] = useState(0);
   const [numberOfBenches, setNumberOfBenches] = useState(0);
   const [description, setDescription] = useState("");
+  const[selectedDataKitchen, setSelectedDataKitchen] = useState<any>(null)
 
-  const { data: dataUser } = kitchenRepository.hooks.getKitchenByUser();
+  const { data: dataUser } = kitchenRepository.hooks.getKitchenByUser(id);
   console.log(dataUser, "data user");
   const handleOk = async () => {
     // console.log(`${id}, id
@@ -105,8 +79,8 @@ const HomeKitchen: React.FC = () => {
     // ${price} = price
     // ${numberOfBenches} = benches
     // ${description} = description`)
-    console.log(startDate, "startDate");
-    console.log(endDate, "endDate");
+    // console.log(startDate, "startDate");
+    // console.log(endDate, "endDate");
     try {
       let data = {
         kitchen_id: dataUser?.data?.id,
@@ -127,7 +101,7 @@ const HomeKitchen: React.FC = () => {
       // console.log(mengajukanKelas.body.data.adminFee, "price")
       // console.log(mengajukanKelas.body.data.courseName, "courseName")
       localStorage.setItem('price', mengajukanKelas.body.data.adminFee)
-      localStorage.setItem('courseName', mengajukanKelas.body.courseName)
+      localStorage.setItem('courseName', courseName)
       setCourseName("");
       setStartDate("");
       setEndDate("");
@@ -135,8 +109,7 @@ const HomeKitchen: React.FC = () => {
       setNumberOfBenches(0);
       setDescription("");
       router.push("/pembayaran");
-
-      // mutate(regularClassRepository.url.findRegClassByKitchen(id));
+      mutate(regularClassRepository.url.findRegClassByKitchen(id));
     } catch (e) {
       console.log(e, "eror mengajukan data");
     }
@@ -146,9 +119,10 @@ const HomeKitchen: React.FC = () => {
   const handleCancel = () => {
     setModalVisible(false);
   };
-
-  const { data } = regularClassRepository.hooks.findRegClassByKitchen(id);
-  console.log(data?.data, "data kelas regular");
+  // const { data } = regularClassRepository.hooks.findRegClassByKitchen(id);
+  // console.log(data, "data kelas regular");
+  const { data } = regularClassRepository.hooks.findAllRegularClass();
+  console.log(data?.data, "a data kelas regular");
 
   const changeTanggalMulai = (date: any, dateString: any) => {
     setStartDate(dateString);

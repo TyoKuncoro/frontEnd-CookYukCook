@@ -28,8 +28,13 @@ const Pembayaran = () => {
     serverKey: process.env.SECRET,
     clientKey: process.env.NEXT_PUBLIC_CLIENT,
   });
-
+  const [price, setPrice]= useState(0)
+  const [course, setCourse] = useState('-')
   useEffect(() => {
+    const priceGet = localStorage.getItem("priceTrainee")
+    setPrice(priceGet);
+    const courseGet = localStorage.getItem('courseTrainee')
+    setCourse(courseGet)
     const snapScript = "https://app.sandbox.midtrans.com/snap/snap.js";
     const clientKey = process.env.NEXT_PUBLIC_CLIENT;
 
@@ -51,8 +56,8 @@ const Pembayaran = () => {
     console.log(uuidGenerator, "ini uuid cook");
     const data = {
       id: uuidGenerator,
-      productName: "Kelas Masak",
-      price: 120000,
+      productName: course,
+      price: price,
       quantity: 1,
     };
     const response = await fetch("api/token", {
@@ -102,9 +107,9 @@ const Pembayaran = () => {
             Detail Pesanan
           </div>
           <div className="text-l font-bold bg-orange-200 px-10 w-[50%] py-5 rounded-lg">
-            <div className="mb-2">{namaKelas}</div>
-            <div className="mb-5">Tema: {temaKelas}</div>
-            <div>Harga: Rp. {harga}</div>
+            <div className="mb-2">{course}</div>
+            {/* <div className="mb-5">Tema: {temaKelas}</div> */}
+            <div>Harga: Rp. {price}</div>
           </div>
         </div>
         <div>

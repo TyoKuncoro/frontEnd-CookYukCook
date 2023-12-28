@@ -71,8 +71,15 @@ const Home: React.FC = () => {
   };
 
   const handleDaftar = () => {
-    message.error("wiring is in process");
-    setIsModalOpen(false);
+  //   message.error("wiring is in process");
+    console.log(selectedData, "selected data")
+    let actualPrice:any = selectedData?.price - selectedData?.adminFee
+    localStorage.setItem('priceTrainee', actualPrice)
+    localStorage.setItem('courseTrainee', selectedData?.courseName)
+    router.push('/pembayaran')
+
+    // setIsModalOpen(false);
+
   };
   const handleCancel = () => {
     setIsModalOpen(false);
@@ -95,6 +102,7 @@ const Home: React.FC = () => {
     role = parseJwt(token).role;
     id = parseJwt(token).id;
     console.log(role, 'ini role');
+    console.log(id, 'ini id');
   }
   const { data: dataKelas } =
     regularClassRepository.hooks.findAllRegularClass();
@@ -115,7 +123,7 @@ const Home: React.FC = () => {
         >
           Pilihan Untukmu
         </div>
-        <div className=" py-4 mx-10 h-64">
+        <div className=" py-4 mx-10 h-80">
         <Swiper
               spaceBetween={100}
               navigation={true}
@@ -152,7 +160,7 @@ const Home: React.FC = () => {
                   </div>
                   <div className=" font-bold text-lg mt-3">Cuma: {item.price - item.adminFee}</div>
                   <div className=" font-bold">
-                    Quota: {item.numberOfBenches}
+                    Kuota: {item.numberOfBenches}
                   </div>
                 </div>
                 <div className=" content-between">

@@ -6,6 +6,7 @@ import Mistrans from "midtrans-client";
 import { v4 as uuidv4 } from "uuid";
 import { useRouter } from "next/navigation";
 import { message } from "antd";
+import { parseJwt } from "#/app/Component/Helper/convert";
 
 // import snap from "midtrans-client"
 
@@ -13,7 +14,6 @@ const PembayaranKitchen = () => {
   const router = useRouter();
 
   //dummy data
-  const [nama, SetNama] = useState("Cecil");
   const [namaKelas, setNamaKelas] = useState("Membuat Kue Khas Lebaran");
   // const [temaKelas, setTemaKelas] = useState("Pembuatan Kue Kering");
   const [harga, setHarga] = useState(0);
@@ -83,6 +83,16 @@ const PembayaranKitchen = () => {
 
   const todayDate = `${day} - ${month} - ${year}`;
   const token = localStorage.getItem("access_token");
+  let role = "";
+  let id = "";
+  let nama = "";
+  if (token) {
+    role = parseJwt(token).role;
+    id = parseJwt(token).id;
+    nama = parseJwt(token).name;
+    console.log(role, 'ini role');
+    console.log(id, 'ini id');
+  }
   if (!token) {
     setTimeout(message.error("Anda belum login, silahkan login"), 2000);
     router.push("login");
@@ -101,18 +111,18 @@ const PembayaranKitchen = () => {
           <div className="text-xl font-bold text-orange-500 mb-5">
             Detail Pesanan
           </div>
-          <div className="text-l font-bold bg-orange-200 px-10 w-[55%] py-5 rounded-lg">
+          <div className="text-l font-bold bg-orange-200 px-10 w-[75%] py-5 rounded-lg">
             {/* <div className="mb-2">{namaKelas}</div> */}
-            <div className="mb-5">Tema: {courseName}</div>
+            {/* <div className="mb-5">Tema: {courseName}</div> */}
             <tbody>
               <tr>
-                <td className="w-48">Biaya Pengajuan Kelas</td>
-                <td>: Rp. {harga}</td>
+                <td className="w-48">Tema</td>
+                <td>: {courseName}</td>
               </tr>
-              {/* <tr>
-                <td className="w-48">Total Harga (admin 10%)</td>
-                <td>: Rp. {harga + harga / 10}</td>
-              </tr> */}
+              <tr>
+                <td className="w-48">Biaya Pengajuan Kelas</td>
+                <td>:  Rp. {harga}</td>
+              </tr>
             </tbody>
           </div>
         </div>

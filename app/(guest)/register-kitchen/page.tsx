@@ -138,8 +138,7 @@ const RegisterKitchen = () => {
         style={{ backgroundColor: "#FFD8B4", width: "25%" }}
       >
         <div
-          className=" font-bold text-4xl text-center mb-10 mt-5"
-          style={{ color: "white" }}
+          className=" font-bold text-4xl text-center mb-10 mt-5 text-orange-600"
         >
           Studio Masak
         </div>
@@ -188,13 +187,7 @@ const RegisterKitchen = () => {
           </Form.Item>
 
           <Form.Item name="jumlahChef">
-            <Select placeholder="Jumlah Chef">
-              {[...Array(10)].map((_, index) => (
-                <Option key={index + 1} value={index + 1}>
-                  {index + 1}
-                </Option>
-              ))}
-            </Select>
+            <Input placeholder="jumlah chef" type="number"/>
           </Form.Item>
 
           <Form.Item name="alamat">

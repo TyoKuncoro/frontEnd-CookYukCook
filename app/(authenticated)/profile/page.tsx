@@ -24,9 +24,10 @@ import {
 } from "@ant-design/icons";
 import LogoutButton from "#/app/Component/button";
 import { useRouter } from "next/navigation";
-import ProfileKitchen from "../profile-kitchen/page"
+import ProfileKitchen from "../profile-kitchen/page";
 import { parseJwt } from "../../Component/Helper/convert";
 import ProfileAdmin from "../profile-admin/page";
+import { usersRepository } from "#/repository/user";
 
 const { Option } = Select;
 
@@ -37,23 +38,30 @@ const Profile = () => {
   const [form] = Form.useForm();
   const [gender, setGender] = useState("Pria");
 
-  const onFinish = (values: any) => {
-    console.log("Form values:", values);
-  };
-  const onFinishPassword = (values: any) => {
-    console.log("Form values:", values);
+  const onFinishKitchen = async(values: any) => {
+    console.log(values, "Form values:");
+    try {
+      const data = {
+        nama: values.nama,
+        email: values.email,
+        phoneNumber: values.whatsapp,
+        gender: values.gender
+      }
+    } catch (e) {
+      
+    }
+
   };
 
   const handleGenderChange = (value: any) => {
     setGender(value);
   };
 
-  const token = localStorage.getItem("access_token")
+  const token = localStorage.getItem("access_token");
   if (!token) {
-    setTimeout(message.error('Anda belum login, silahkan login'), 2000);
-    router.push('login');
+    setTimeout(message.error("Anda belum login, silahkan login"), 2000);
+    router.push("login");
   }
-
 
   const handleLogOut = () => {
     localStorage.removeItem("access_token");
@@ -76,20 +84,39 @@ const Profile = () => {
     setVisiblePassword(false);
   };
 
-  let role: string= "";
+  let role: string = "";
+  let id: string = "";
   if (token) {
     role = parseJwt(token).role;
+    id = parseJwt(token).id;
     // console.log(role, "role coookecoke");
   }
+  const onFinishPassword = async (values: any) => {
+    if (values.passwordBaru !== values.konfirmasiPassword) {
+      message.error("Konfirmasi Password Gagal");
+    } else {
+      try {
+        const data = { password: values.konfirmasiPassword };
+        const updatePassword =
+          await usersRepository.manipulatedData.updatePassword(id, data);
+        console.log(updatePassword, "password");
+        setVisiblePassword(false)
+        message.success('Password Berhasil Diganti')
+      } catch (e) {
+        throw e
+      }
+    }
+  };
 
-  const data: any ={
+  const data: any = {
     whatsapp: "0895320076636",
     gender: "Wanita",
-    tanggaLahir: "2003-12-24"
+    tanggaLahir: "2003-12-24",
+  };
+  const handleUpdateProfile = async(values: any) => {
   }
 
-   
-  return  role === "Trainee" ? 
+  return role === "Trainee" ? (
     <div className="flex w-[100%]">
       <div>
         <Modal
@@ -100,13 +127,13 @@ const Profile = () => {
           onCancel={handleCancelPassword}
         >
           <Form form={form} layout="vertical" onFinish={onFinishPassword}>
-          <Form.Item name="password lama">
+            <Form.Item name="passwordLama">
               <Input type="password" placeholder="Masukan Password Lama" />
             </Form.Item>
-            <Form.Item name="password baru">
+            <Form.Item name="passwordBaru">
               <Input type="password" placeholder="Masukan Password Baru" />
             </Form.Item>
-            <Form.Item name="konfirmasi password">
+            <Form.Item name="konfirmasiPassword">
               <Input type="password" placeholder="Konfirmasi Password Baru" />
             </Form.Item>
             <Form.Item>
@@ -120,10 +147,10 @@ const Profile = () => {
           footer={null}
           title="Ubah Profile"
           visible={visible}
-          // onOk={handleOk}
+          // onOk={handleUpdateProfile}
           onCancel={handleCancel}
         >
-          <Form form={form} layout="vertical" onFinish={onFinish}>
+          <Form form={form} layout="vertical" onFinish={onFinishKitchen}>
             <Form.Item name="nama">
               <Input placeholder="Nama Trainee" prefix={<UserOutlined />} />
             </Form.Item>
@@ -226,11 +253,11 @@ const Profile = () => {
         />
       </div>
     </div>
-    :
-    role === "Kitchen Studio" ? 
-    <ProfileKitchen /> :
+  ) : role === "Kitchen Studio" ? (
+    <ProfileKitchen />
+  ) : (
     <ProfileAdmin />
-  
+  );
 };
 
 export default Profile;

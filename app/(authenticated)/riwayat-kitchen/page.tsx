@@ -8,6 +8,7 @@ import FullRoundedButton from "#/app/Component/fullRoundedButton";
 import { PrinterOutlined } from "@ant-design/icons";
 import Image from "next/image";
 import { Pagination } from "antd";
+import { regularClassRepository } from "#/repository/regularClass";
 
 const { TabPane } = Tabs;
 const { Option } = Select;
@@ -70,6 +71,9 @@ const RiwayatKitchen: React.FC = () => {
       harga: 1200000,
     },
   ];
+  const { data: dataKelas } =
+    regularClassRepository.hooks.findAllRegularClass();
+  console.log(dataKelas, "Data Kelas");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handleCancel = () => {
     setIsModalOpen(false);
@@ -94,10 +98,10 @@ const RiwayatKitchen: React.FC = () => {
           <WeekPickerComponent />
           <div> atau </div>
           <MonthPickerComponent />
-            <Select placeholder="Status">
-              <Option value="berhasil">Berhasil</Option>
-              <Option value="gagal">Gagal</Option>
-            </Select>
+          <Select placeholder="Status">
+            <Option value="berhasil">Berhasil</Option>
+            <Option value="gagal">Gagal</Option>
+          </Select>
           <FullRoundedButton text="Terapkan" />
         </div>
         <FullRoundedButton
@@ -106,9 +110,10 @@ const RiwayatKitchen: React.FC = () => {
           onclick={showModal}
         />
       </div>
-      <div className="flex justify-between border-4"
-            style={{ borderTop: "1px solid", borderBottom: "1px solid" }}
-            >
+      <div
+        className="flex justify-between border-4"
+        style={{ borderTop: "1px solid", borderBottom: "1px solid" }}
+      >
         <div className="text-lg font-bold ">Waktu dan Tanggal</div>
         <div className="text-lg font-bold pr-[6%]">Nama Kelas</div>
         <div className="text-lg font-bold">Harga</div>
@@ -132,7 +137,7 @@ const RiwayatKitchen: React.FC = () => {
         className=" justify-between"
       >
         <TabPane tab="Berhasil" key="2">
-          {data1.map((item) => (
+          {dataKelas?.data?.map((item: any) => (
             <div
               className="flex p-3 justify-between items-center rounded-lg my-3"
               style={{ border: "1px solid #FF7D04" }}
@@ -147,13 +152,13 @@ const RiwayatKitchen: React.FC = () => {
                   />
                 </div>
                 <div className="ml-6">
-                  <div className="text-xs">{item.tanggal}</div>
-                  <div className="text-lg font-bold">{item.jenisKelas}</div>
-                  <div className=" text-lg">{item.judul}</div>
+                  <div className="text-xs">{item.createdAt.substring(0, 10)}</div>
+                  <div className="text-lg font-bold">Kelas Regular</div>
+                  <div className=" text-lg">{item.courseName}</div>
                 </div>
               </div>
               <div>
-                <div className="font-bold text-lg">Rp. {item.harga}</div>
+                <div className="font-bold text-lg">Rp. {item.adminFee}</div>
                 {/* <FullRoundedButton text="Lihat Detail" /> */}
               </div>
             </div>

@@ -105,8 +105,7 @@ const Register = () => {
           style={{ backgroundColor: "#FFD8B4", width: "30%" }}
         >
           <div
-            className=" font-bold text-4xl text-center mb-20 mt-5"
-            style={{ color: "white" }}
+            className=" font-bold text-4xl text-center mb-20 mt-5 text-orange-600"
           >
             Peserta
           </div>
