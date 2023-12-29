@@ -23,9 +23,14 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from 'swiper/modules';
+import UbahMateriBtn from "#/app/Component/buttonUbahMateri";
+import ModalCustom from "#/app/Component/createPengajuan";
+import FormPengajuanKelas from "#/app/Component/formPengajuan";
 
 const HomeKitchen: React.FC = () => {
   const router = useRouter();
+  const [modalOpen, setModalOpen] = useState(false);
+  
   const [tema, setTema] = useState("Judul Tema");
 
   const [selectedDate, setSelectedDate] = useState<string>("");
@@ -71,58 +76,64 @@ const HomeKitchen: React.FC = () => {
 
   const { data: dataUser } = kitchenRepository.hooks.getKitchenByUser(id);
   console.log(dataUser, "data user");
-  const handleOk = async () => {
-    // console.log(`${id}, id
-    // ${courseName} = course
-    // ${startDate} = startDate
-    // ${endDate} = endDate
-    // ${price} = price
-    // ${numberOfBenches} = benches
-    // ${description} = description`)
-    // console.log(startDate, "startDate");
-    // console.log(endDate, "endDate");
-    try {
-      let data = {
-        kitchen_id: dataUser?.data?.id,
-        // theme_id: ,
-        courseName: courseName,
-        startDate: startDate,
-        endDate: endDate,
-        price: price,
-        numberOfBenches: numberOfBenches,
-        description: description,
-      };
-      const mengajukanKelas =
-        await regularClassRepository.manipulateData.createKelasReg(data);
-      console.log(
-        mengajukanKelas,
-        "Meeeeeeeeeeeeeeeeeeeeeeeeeeeeeeengajukan kelas"
-      );
-      // console.log(mengajukanKelas.body.data.adminFee, "price")
-      // console.log(mengajukanKelas.body.data.courseName, "courseName")
-      localStorage.setItem('price', mengajukanKelas.body.data.adminFee)
-      localStorage.setItem('courseName', courseName)
-      setCourseName("");
-      setStartDate("");
-      setEndDate("");
-      setPrice(0);
-      setNumberOfBenches(0);
-      setDescription("");
-      router.push("/pembayaran");
-      mutate(regularClassRepository.url.findRegClassByKitchen(id));
-    } catch (e) {
-      console.log(e, "eror mengajukan data");
-    }
-    setModalVisible(false);
-  };
+  // const handleOk = async () => {
+  //   // console.log(`${id}, id
+  //   // ${courseName} = course
+  //   // ${startDate} = startDate
+  //   // ${endDate} = endDate
+  //   // ${price} = price
+  //   // ${numberOfBenches} = benches
+  //   // ${description} = description`)
+  //   // console.log(startDate, "startDate");
+  //   // console.log(endDate, "endDate");
+  //   try {
+  //     let data = {
+  //       kitchen_id: dataUser?.data?.id,
+  //       // theme_id: ,
+  //       courseName: courseName,
+  //       startDate: startDate,
+  //       endDate: endDate,
+  //       price: price,
+  //       numberOfBenches: numberOfBenches,
+  //       description: description,
+  //     };
+  //     const mengajukanKelas =
+  //       await regularClassRepository.manipulateData.createKelasReg(data);
+  //     console.log(
+  //       mengajukanKelas,
+  //       "Meeeeeeeeeeeeeeeeeeeeeeeeeeeeeeengajukan kelas"
+  //     );
+  //     // console.log(mengajukanKelas.body.data.adminFee, "price")
+  //     // console.log(mengajukanKelas.body.data.courseName, "courseName")
+  //     localStorage.setItem('price', mengajukanKelas.body.data.adminFee)
+  //     localStorage.setItem('courseName', courseName)
+  //     setCourseName("");
+  //     setStartDate("");
+  //     setEndDate("");
+  //     setPrice(0);
+  //     setNumberOfBenches(0);
+  //     setDescription("");
+  //     router.push("/pembayaran");
+  //     mutate(regularClassRepository.url.findRegClassByKitchen(id));
+  //   } catch (e) {
+  //     console.log(e, "eror mengajukan data");
+  //   }
+  //   setModalVisible(false);
+  // };
 
   const handleCancel = () => {
     setModalVisible(false);
   };
+  const handleOK = () => {
+    setModalOpen(true);
+  };
+  const handleClose = () => {
+    setModalOpen(false);
+  };
   // const { data } = regularClassRepository.hooks.findRegClassByKitchen(id);
   // console.log(data, "data kelas regular");
-  const { data } = regularClassRepository.hooks.findAllRegularClass();
-  console.log(data?.data, "a data kelas regular");
+  const { data, mutate:mutateData } = regularClassRepository.hooks.findAllRegularClass();
+  console.log(data?.data, "data kelas regular");
 
   const changeTanggalMulai = (date: any, dateString: any) => {
     setStartDate(dateString);
@@ -133,7 +144,7 @@ const HomeKitchen: React.FC = () => {
 
   return (
     <div>
-      <Modal
+      {/* <Modal
         title="Pengajuan Kelas Regular"
         visible={modalVisible}
         onOk={handleOk}
@@ -177,7 +188,7 @@ const HomeKitchen: React.FC = () => {
           onChange={(e) => setDescription(e.target.value)}
           style={{ marginBottom: "1rem" }}
         />
-      </Modal>
+      </Modal> */}
       <div className="text-2xl font-semibold mb-5">Jadwal</div>
       <div className="">
         <div className=" w-[50%] mx-10 ">
@@ -200,11 +211,12 @@ const HomeKitchen: React.FC = () => {
             >
               Kelas Anda
             </div>
-            <FullRoundedButton
+            <UbahMateriBtn text="Ajukan Kelas" key={null} onclick={handleOK} />
+            {/* <FullRoundedButton
               text="Ajukan Kelas"
               icons={<SendOutlined />}
               onclick={modalAjukanKelas}
-            />
+            /> */}
           </div>
             <Swiper
               spaceBetween={10}
@@ -257,6 +269,12 @@ const HomeKitchen: React.FC = () => {
             </Swiper>
         </div>
       </div>
+      <ModalCustom 
+      width={843}
+      title="Pengajuan Kelas"
+      closeModal={handleClose}
+      visible={modalOpen}
+      content={<FormPengajuanKelas onClose={handleClose} mutateData={mutateData}/>}/>
       {/* <p>Selected Date: {selectedDate}</p> */}
       {/* <div className="flex mt-3">
         <div className="w-[50%] bg-orange-300 rounded mr-20">

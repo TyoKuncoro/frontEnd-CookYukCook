@@ -155,10 +155,10 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
   ];
   const path =  window.location.pathname
   return (
-    <Layout className=" bg-white">
+    <Layout className=" bg-white h-full">
       <Sider
         width={220}
-        style={{ background: "#FFEBD1", borderTopRightRadius: 60 }}
+        style={{ background: "#FFEBD1", borderTopRightRadius: 60}}
       >
         <div className="flex py-6 justify-center">
           <Image
@@ -174,7 +174,7 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
           selectedKeys={[path]}
           // defaultOpenKeys={['sub1']}
           style={{
-            height: "100%",
+            height: "auto",
             borderRight: 0,
             background: "#FFEBD1",
             fontWeight: "bold",
