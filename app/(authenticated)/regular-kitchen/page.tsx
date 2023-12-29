@@ -21,6 +21,7 @@ import { ColumnsType } from "antd/es/table";
 import ModalCustom from "#/app/Component/createPengajuan";
 import DetailKelasRegular from "#/app/Component/modalDetailKelas";
 import { mutate } from "swr";
+import FormMengajukan from "#/app/Component/formMengajukan";
 
 const ListRegular = () => {
   //ambil id
@@ -91,14 +92,13 @@ const ListRegular = () => {
       ),
     },
   ];
-
+  const [modalVisible, setModalVisible] = useState(false);
   return (
     <div className="bg-white p-20 w-full space-y-16">
+      <FormMengajukan visible={modalVisible} />
       <div>
         <div className="float-right mr-3">
-          <UbahMateriBtn text="Ajukan Kelas" key={null} 
-          // onclick={handleOK}
-          />
+          <UbahMateriBtn text="Ajukan Kelas" key={null} onclick={handleOK} />
         </div>
         <p className="text-3xl font-bold">Kelas Regular</p>
       </div>

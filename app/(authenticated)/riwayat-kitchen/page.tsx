@@ -9,6 +9,7 @@ import { PrinterOutlined } from "@ant-design/icons";
 import Image from "next/image";
 import { Pagination } from "antd";
 import { regularClassRepository } from "#/repository/regularClass";
+import { parseJwt } from "#/app/Component/Helper/convert";
 
 const { TabPane } = Tabs;
 const { Option } = Select;
@@ -71,9 +72,20 @@ const RiwayatKitchen: React.FC = () => {
       harga: 1200000,
     },
   ];
-  const { data: dataKelas } =
-    regularClassRepository.hooks.findAllRegularClass();
-  console.log(dataKelas, "Data Kelas");
+
+  const token:any = localStorage.getItem('access_token')
+  let id: string = "";
+  if (token) {
+    id = parseJwt(token).id;
+    console.log(id, "id");
+  }
+
+  // const { data: dataKelas } =
+  //   regularClassRepository.hooks.findAllRegularClass();
+  // console.log(dataKelas, "Data Kelas");
+  const { data: dataKelas } = regularClassRepository.hooks.findRegClassByKitchen(id);
+  console.log(data, "data kelas regular");
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handleCancel = () => {
     setIsModalOpen(false);

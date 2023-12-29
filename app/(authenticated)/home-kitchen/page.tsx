@@ -119,10 +119,10 @@ const HomeKitchen: React.FC = () => {
   const handleCancel = () => {
     setModalVisible(false);
   };
-  // const { data } = regularClassRepository.hooks.findRegClassByKitchen(id);
-  // console.log(data, "data kelas regular");
-  const { data } = regularClassRepository.hooks.findAllRegularClass();
-  console.log(data?.data, "a data kelas regular");
+  const { data } = regularClassRepository.hooks.findRegClassByKitchen(id);
+  console.log(data, "data kelas regular");
+  // const { data } = regularClassRepository.hooks.findAllRegularClass();
+  // console.log(data?.data, "a data kelas regular");
 
   const changeTanggalMulai = (date: any, dateString: any) => {
     setStartDate(dateString);
