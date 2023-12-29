@@ -74,7 +74,7 @@ const Login = () => {
       <div className="flex place-content-center">
         <div
           className="rounded-l-3xl"
-          style={{ backgroundColor: "#FFD8B4", width: "28%" }}
+          style={{ backgroundColor: "#FFD8B4", width: "35%" }}
         >
           <div
             className=" font-bold text-7xl text-center mb-32 mt-5 text-orange-600"

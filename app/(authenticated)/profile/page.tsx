@@ -82,10 +82,13 @@ const Profile = () => {
   };
 
   let role: string = "";
+  let name: string = "";
   let id: string = "";
+  console.log(token, "token")
   if (token) {
     role = parseJwt(token).role;
     id = parseJwt(token).id;
+    name = parseJwt(token).name;
     // console.log(role, "role coookecoke");
   }
   const onFinishPassword = async (values: any) => {
@@ -196,7 +199,7 @@ const Profile = () => {
             />
           </div>
           <div className=" ps-8 mt-14">
-            <div className=" text-3xl font-bold mb-10">Cecilila Siregar</div>
+            <div className=" text-3xl font-bold mb-10">{name}</div>
             <table>
               <tbody className="flex flex-col gap-4 text-xl">
                 <tr>

@@ -27,13 +27,13 @@ const Pembayaran = () => {
     serverKey: process.env.SECRET,
     clientKey: process.env.NEXT_PUBLIC_CLIENT,
   });
-  const [price, setPrice]= useState(0)
-  const [course, setCourse] = useState('-')
+  const [price, setPrice] = useState(0);
+  const [course, setCourse] = useState("-");
   useEffect(() => {
-    const priceGet = localStorage.getItem("priceTrainee")
+    const priceGet = localStorage.getItem("priceTrainee");
     setPrice(priceGet);
-    const courseGet = localStorage.getItem('courseTrainee')
-    setCourse(courseGet)
+    const courseGet = localStorage.getItem("courseTrainee");
+    setCourse(courseGet);
     const snapScript = "https://app.sandbox.midtrans.com/snap/snap.js";
     const clientKey = process.env.NEXT_PUBLIC_CLIENT;
 
@@ -50,28 +50,24 @@ const Pembayaran = () => {
   }, []);
 
   const handleCheckout = async () => {
-    if (price == 0){
-    const uuidGenerator = uuidv4();
-    console.log(uuidGenerator, "ini uuid cook");
-    const data = {
-      id: uuidGenerator,
-      productName: course,
-      price: price,
-      quantity: 1,
-    };
-    const response = await fetch("api/token", {
-      method: "POST",
-      body: JSON.stringify(data),
-    });
-    const requestData = await response.json();
-    // console.log(requestData, "dataaa coook")
-    localStorage.removeItem('priceTrainee')
-    localStorage.removeItem('courseTrainee')
-    window.snap.pay(requestData.token);
-    } else {
-      message.error('Belum Ada Pesanan')
-    }
-    // console.log("test")
+      const uuidGenerator = uuidv4();
+      console.log(uuidGenerator, "ini uuid cook");
+      const data = {
+        id: uuidGenerator,
+        productName: course,
+        price: price,
+        quantity: 1,
+      };
+      const response = await fetch("api/token", {
+        method: "POST",
+        body: JSON.stringify(data),
+      });
+      const requestData = await response.json();
+      // console.log(requestData, "dataaa coook")
+      localStorage.removeItem("priceTrainee");
+      localStorage.removeItem("courseTrainee");
+      window.snap.pay(requestData.token);
+      // console.log("test")
   };
   //end for midtrans
 
@@ -84,11 +80,11 @@ const Pembayaran = () => {
   const year = today.getFullYear();
 
   const todayDate = `${day} - ${month} - ${year}`;
-  const token = localStorage.getItem("access_token")
+  const token = localStorage.getItem("access_token");
   let nama = "";
   if (!token) {
-    setTimeout(message.error('Anda belum login, silahkan login'), 2000);
-    router.push('login');
+    setTimeout(message.error("Anda belum login, silahkan login"), 2000);
+    router.push("login");
   }
 
   let role = "";
@@ -101,8 +97,9 @@ const Pembayaran = () => {
 
   return role === "Trainee" ? (
     <div className="mt-20">
-      <div className=" mx-80 py-16 flex place-content-center rounded-2xl"
-      // style={{border: "2px solid #FF7D04"}}
+      <div
+        className=" mx-80 py-16 flex place-content-center rounded-2xl"
+        // style={{border: "2px solid #FF7D04"}}
       >
         <div className=" w-[75%]">
           <div className="text-2xl font-bold text-orange-500">
@@ -132,7 +129,7 @@ const Pembayaran = () => {
     </div>
   ) : (
     <PembayaranKitchen />
-  )
+  );
 };
 
 export default Pembayaran;

@@ -326,13 +326,13 @@ const ProfileKitchen = () => {
                   />
                 </td>
               </tr>
-              <tr>
+              {/* <tr>
                 <td className="w-48">Galeri</td>
                 <td>:</td>
-              </tr>
+              </tr> */}
             </tbody>
           </table>
-          <div className="flex">
+          {/* <div className="flex">
             {gambar.map((item, index) => {
               return (
                 <div>
@@ -347,7 +347,7 @@ const ProfileKitchen = () => {
                 </div>
               );
             })}
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="fixed top-8 right-36">
