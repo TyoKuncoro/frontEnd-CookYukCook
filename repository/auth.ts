@@ -2,7 +2,7 @@ import { http } from "#/utils/http";
 
 const url = {
   login: () => "/auth/login",
-  register: () => "/auth/reg",
+  register: () => "/auth/register",
   uploadLegalitas: () => "/kitchen-studio/upload-legalitas",
   uploadPhotoTrainee: () => "/users/upload",
   uploadLogo: () => "/kitchen-studio/upload-logo",

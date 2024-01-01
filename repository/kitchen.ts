@@ -2,7 +2,7 @@ import { http } from "#/utils/http"
 import useSWR from "swr"
 
 const url = {
-    getKitchenById: (id:any) => `/kitchen-studio/users/${id}`,
+    getKitchenById: (id:any) => `/kitchen-studio/${id}`,
     getKitchenPending: (status) => `/kitchen-studio/users?status=${status}`
 }
 
