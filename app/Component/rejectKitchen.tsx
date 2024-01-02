@@ -5,6 +5,7 @@ import TextArea from "antd/es/input/TextArea";
 
 function RejectKitchen({idUsers, onClose, mutate}:any) {
     const idUser = idUsers
+    console.log(idUser, "ID USERS")
     const [form] = useForm();
     const { TextArea } = Input;
 
@@ -36,13 +37,14 @@ function RejectKitchen({idUsers, onClose, mutate}:any) {
                 className="flex flex-col justify-centers items-center"
                 size="middle"
                 onFinish={onFinish}>
+                    <p>{idUser}</p>
                     <p className="text-base font-medium text-start">Alasan Menolak Studio Masak</p>
                     <Form.Item name={'alasan'}>
                     <TextArea
                         showCount
                         maxLength={100}
                         onChange={onChange}
-                        placeholder="disable resize"
+                        placeholder="Masukan alasan menolak"
                         style={{ height: 120, resize: 'none' }}
                     />
                     </Form.Item>

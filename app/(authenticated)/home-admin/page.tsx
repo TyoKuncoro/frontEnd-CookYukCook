@@ -1,5 +1,7 @@
 "use client";
+import UbahMateriBtn from "#/app/Component/buttonUbahMateri";
 import ModalCustom from "#/app/Component/createPengajuan";
+import DetailKitchen from "#/app/Component/detailKitchen";
 import RejectKitchen from "#/app/Component/rejectKitchen";
 import { kitchenRepository } from "#/repository/kitchen";
 import { usersRepository } from "#/repository/user";
@@ -16,17 +18,8 @@ function HomeAdmin() {
     interface DataType {
         key: string;
         users: string;
-        legality: string;
+        logos: string;
     }
-    const approve = async (idUsers, kitchenName) => {
-        try{
-            await usersRepository.manipulatedData.approveKitchen(idUsers);
-            mutateData()
-            message.success(`${kitchenName} telah disetujui`)
-        }catch(e){
-            message.error('Gagal menyetujui studio masak');
-        }
-    } 
     const handleOpen = (record) => {
         setShowModal(true)
         setDetail(record)
@@ -41,8 +34,10 @@ function HomeAdmin() {
             key: 'legality',
             render: (_, record) => (
                 <Image
-                    width={200}
-                    src={`http://localhost:3222/kitchen-studio/upload-legalitas/${record.legality}/image`}
+                    width={150}
+                    height={150}
+                    // className="rounded-full shadow-sm"
+                    src={`http://localhost:3222/kitchen-studio/upload-logo/${record.logos}/image`}
                 />
             )
         },
@@ -69,8 +64,9 @@ function HomeAdmin() {
             key: 'aksi',
             render: (_, record) => (
                 <Space size="middle">
-                    <a key={record.users.id} onClick={()=>approve(record.users.id, record.users.name)}>Menyetujui</a>
-                    <a key={record.users.id} onClick={() => handleOpen(record)}>Menolak</a>
+                    <UbahMateriBtn key={record.key} onclick={() => handleOpen(record)} text={"Lihat Detail"}/>
+                    {/* <a key={record.users.id} onClick={()=>approve(record.users.id, record.users.name)}>Menyetujui</a>
+                    <a key={record.users.id} onClick={() => handleOpen(record)}>Menolak</a> */}
                 </Space>
             )
         }
@@ -80,12 +76,12 @@ function HomeAdmin() {
             <p className="text-2xl font-bold">Verifikasi Studio Masak</p>
             <Table columns={columns} dataSource={data?.data} />
             <ModalCustom
-            width={600}
-            title = {'Alasan Menolak Studio Masak'}
+            width={700}
+            title = {'Detail Studio Masak'}
             closeModal={handleClose}
             visible={showModal}
             content= {
-                <RejectKitchen onClose={handleClose} idUsers={detail?.users?.id} mutate={mutateData}/>
+                <DetailKitchen idKitchen={detail?.id} onclose={handleClose} mutate={mutateData}/>
             }
             />
         </div>
