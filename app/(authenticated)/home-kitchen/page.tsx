@@ -70,7 +70,7 @@ const HomeKitchen: React.FC = () => {
   const[selectedDataKitchen, setSelectedDataKitchen] = useState<any>(null)
 
   const { data: dataUser } = kitchenRepository.hooks.getKitchenByUser(id);
-  console.log(dataUser, "data user");
+  // console.log(dataUser, "data user");
   const handleOk = async () => {
     // console.log(`${id}, id
     // ${courseName} = course

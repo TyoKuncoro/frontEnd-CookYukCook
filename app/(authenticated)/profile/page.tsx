@@ -1,7 +1,7 @@
 "use client";
 import FullRoundedButton from "#/app/Component/fullRoundedButton";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   DatePicker,
@@ -28,27 +28,15 @@ import ProfileKitchen from "../profile-kitchen/page";
 import { parseJwt } from "../../Component/Helper/convert";
 import ProfileAdmin from "../profile-admin/page";
 import { usersRepository } from "#/repository/user";
+import { mutate } from "swr";
 
 const { Option } = Select;
 
 const Profile = () => {
-  const [email, setEmail] = useState("trainee@gmail.com");
   const router = useRouter();
-
+  const [dateBirth, setDateBirth] = useState("YYYY-MM-DD");
   const [form] = Form.useForm();
   const [gender, setGender] = useState("Pria");
-
-  const onFinishKitchen = async(values: any) => {
-    message.error('wiring is in process')
-    setVisible(false)
-    // console.log(values, "Form values:");
-    //     nama: values.nama,
-    //     email: values.email,
-    //     phoneNumber: values.whatsapp,
-    //     gender: values.gender,
-    //     tanggalLahir: values.$y + values.$M + values.$D
-
-  };
 
   const handleGenderChange = (value: any) => {
     setGender(value);
@@ -86,7 +74,8 @@ const Profile = () => {
   if (token) {
     role = parseJwt(token).role;
     id = parseJwt(token).id;
-    // console.log(role, "role coookecoke");
+    // console.log(role, "ini role");
+    // console.log(id, "ini id trainee");
   }
   const onFinishPassword = async (values: any) => {
     if (values.passwordBaru !== values.konfirmasiPassword) {
@@ -97,21 +86,44 @@ const Profile = () => {
         const updatePassword =
           await usersRepository.manipulatedData.updatePassword(id, data);
         console.log(updatePassword, "password");
-        setVisiblePassword(false)
-        message.success('Password Berhasil Diganti')
+        setVisiblePassword(false);
+        message.success("Password Berhasil Diganti");
       } catch (e) {
-        throw e
+        throw e;
       }
     }
   };
 
-  const data: any = {
-    whatsapp: "0895320076636",
-    gender: "Wanita",
-    tanggaLahir: "2003-12-24",
+  const onFinishKitchen = async (values: any) => {
+    // message.error("wiring is in process");
+    // console.log(values, "Form values:");
+    // console.log(dateBirth, "ini tanggal lahir");
+    let data = {
+      nama: dataUser?.data?.name,
+      email: values.email,
+      phoneNumber: values.whatsapp,
+      gender: values.gender,
+      dateOfBirth: dateBirth,
+    };
+    console.log(data, "ini data");
+    try {
+      const updateUser = await usersRepository.manipulatedData.updateUsers(id, data);
+      console.log(updateUser, 'ini update user')
+      message.success('Data Berhasil Diubah')
+      setVisible(false);
+      mutate(usersRepository.url.getUsersById(id))
+    } catch (e) {
+      message.error('Mengubah Data Gagal')
+      console.log(e, 'ini error')
+    }
   };
-  const handleUpdateProfile = async(values: any) => {
-  }
+
+  const { data: dataUser } = usersRepository.hooks.getUsersById(id);
+  // console.log(dataUser, "ini data trainee");
+
+  const changeTanggalLahir = (date: any, dateString: any) => {
+    setDateBirth(dateString);
+  };
 
   return role === "Trainee" ? (
     <div className="flex w-[100%]">
@@ -124,9 +136,9 @@ const Profile = () => {
           onCancel={handleCancelPassword}
         >
           <Form form={form} layout="vertical" onFinish={onFinishPassword}>
-            <Form.Item name="passwordLama">
+            {/* <Form.Item name="passwordLama">
               <Input type="password" placeholder="Masukan Password Lama" />
-            </Form.Item>
+            </Form.Item> */}
             <Form.Item name="passwordBaru">
               <Input type="password" placeholder="Masukan Password Baru" />
             </Form.Item>
@@ -148,30 +160,57 @@ const Profile = () => {
           onCancel={handleCancel}
         >
           <Form form={form} layout="vertical" onFinish={onFinishKitchen}>
-            <Form.Item name="nama">
+            {/* <Form.Item
+              name="nama"
+              rules={[{ required: true, message: "Nama Tidak Boleh Kosong" }]}
+            >
               <Input placeholder="Nama Trainee" prefix={<UserOutlined />} />
-            </Form.Item>
-            <Form.Item name="email">
+            </Form.Item> */}
+            <Form.Item
+              name="email"
+              rules={[
+                { required: true, message: "Email Tidak Boleh Kosong" },
+                { type: "email", message: "Alamat email tidak valid!" },
+              ]}
+            >
               <Input prefix={<MailOutlined />} placeholder="Email" />
             </Form.Item>
-            <Form.Item name="whatsapp">
-              <Input prefix={<PhoneOutlined />} placeholder="WhatsApp Number" />
+            <Form.Item
+              name="whatsapp"
+              rules={[
+                {
+                  required: true,
+                  message: "Nomor Whatsapp Tidak Boleh Kosong",
+                },
+              ]}
+            >
+              <Input prefix={<PhoneOutlined />} placeholder="Nomor Whatsapp" />
             </Form.Item>
-            <Form.Item name="gender">
-              <Select defaultValue="Pria" onChange={handleGenderChange}>
+            <Form.Item
+              name="gender"
+              rules={[
+                { required: true, message: "Jenis Kelamin Tidak Boleh Kosong" },
+              ]}
+            >
+              <Select
+                placeholder="Silahkan Pilih Jenis Kelamin"
+                onChange={handleGenderChange}
+              >
                 <Option value="Pria">Pria</Option>
                 <Option value="Wanita">Wanita</Option>
               </Select>
             </Form.Item>
             <Form.Item
               name="TanggalLahir"
-              // rules={[
-              //   { required: true, message: "Silakan pilih tanggal lahir!" },
-              // ]}
+              rules={[
+                { required: true, message: "Tanggal Lahir Tidak Boleh Kosong" },
+              ]}
             >
               <DatePicker
                 style={{ width: "100%" }}
+                format="YYYY-MM-DD"
                 placeholder="Tanggal Lahir"
+                onChange={changeTanggalLahir}
                 // prefix={<CalendarOutlined />}
               />
             </Form.Item>
@@ -196,33 +235,35 @@ const Profile = () => {
             />
           </div>
           <div className=" ps-8 mt-14">
-            <div className=" text-3xl font-bold mb-10">Cecilila Siregar</div>
+            <div className=" text-3xl font-bold mb-10">
+              {dataUser?.data?.name}
+            </div>
             <table>
-              <tbody className="flex flex-col gap-4 text-xl">
+              <tbody className="flex flex-col gap-6 text-xl">
                 <tr>
                   <td className=" w-48">Email</td>
                   <td>:</td>
-                  <td className=" pl-20">{email}</td>
+                  <td className=" pl-28">{dataUser?.data?.email}</td>
                 </tr>
                 <tr>
                   <td className="w-48">No. Whatsapp</td>
                   <td>:</td>
-                  <td className=" pl-20">{data.whatsapp}</td>
+                  <td className=" pl-28">{dataUser?.data?.phoneNumber}</td>
                 </tr>
                 <tr>
                   <td className="w-48">Gender</td>
                   <td>:</td>
-                  <td className=" pl-20">{data.gender}</td>
+                  <td className=" pl-28">{dataUser?.data?.gender}</td>
                 </tr>
                 <tr>
                   <td className="w-48">Tanggal Lahir</td>
                   <td>:</td>
-                  <td className=" pl-20">{data.tanggaLahir}</td>
+                  <td className=" pl-28">{dataUser?.data?.dateOfBirth}</td>
                 </tr>
                 <tr>
                   <td className="w-48">Password</td>
                   <td>:</td>
-                  <td className=" pl-20">
+                  <td className=" pl-28">
                     <FullRoundedButton
                       text="Ubah Password"
                       icons={<EditOutlined />}
