@@ -24,6 +24,7 @@ function RejectKitchen({idUsers, onClose, mutate}:any) {
             const reject = await usersRepository.manipulatedData.rejectKitchen(idUser, data);
             console.log(reject, "oke")
             mutate()
+            // console.log("oke oke")
             message.success("Alasan menolak berhasil terkirim")
             onClose()
         }catch(e){
@@ -33,19 +34,18 @@ function RejectKitchen({idUsers, onClose, mutate}:any) {
     return (
         <div>
             <Form
+            layout="vertical"
                 form={form}
                 className="flex flex-col justify-centers items-center"
                 size="middle"
                 onFinish={onFinish}>
-                    <p>{idUser}</p>
-                    <p className="text-base font-medium text-start">Alasan Menolak Studio Masak</p>
-                    <Form.Item name={'alasan'}>
+                    <Form.Item label={'Alasan'} name={'alasan'} rules={[{required:true, message: "Harap masukan alasan anda"}]}>
                     <TextArea
                         showCount
                         maxLength={100}
                         onChange={onChange}
                         placeholder="Masukan alasan menolak"
-                        style={{ height: 120, resize: 'none' }}
+                        style={{ height: 120, width: 300 ,resize: 'none' }}
                     />
                     </Form.Item>
 

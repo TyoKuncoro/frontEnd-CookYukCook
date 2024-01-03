@@ -197,20 +197,19 @@ const HomeKitchen: React.FC = () => {
       </Modal>
       <div className="text-2xl font-semibold mb-5">Jadwal</div>
       <div className="">
-        <div className=" w-[50%] mx-10 ">
+        <div className=" w-[50%]">
           <Calendar
             fullscreen={false}
             onSelect={handleDateSelect}
-            className="bg-orange-300"
+            className="bg-orange-300 w-96 shadow-md"
           />
         </div>
         <div
-          className="  w-[100%] rounded-3xl"
-          // style={{ border: "2px solid #FF7D04" }}
+          className="  w-[100%] h-[480px] rounded-3xl border border-solid border-button mt-4"
         >
-          <div className="flex justify-between mt-6">
+          <div className="flex justify-between">
             <div
-              className="px-8 py-4 bg-orange-400 rounded-tl-2xl font-bold rounded-br-3xl"
+              className="px-8 py-2 bg-orange-400 rounded-tl-3xl font-bold rounded-br-3xl"
               style={{
                 marginRight: "50%",
               }}
@@ -234,7 +233,7 @@ const HomeKitchen: React.FC = () => {
             {token &&
               data?.data.map((item: any, index: any) => (
                 <SwiperSlide key={index}>
-                  <Card style={{ width: 300 }} className="rounded-lg p-4 mx-6">
+                  <Card style={{ width: 300 }} className="rounded-lg p-2 ml-6 shadow-sm">
                     <div className=" content-between ">
                       <Image
                         className=" rounded"
@@ -254,7 +253,7 @@ const HomeKitchen: React.FC = () => {
                             {item.endDate.substring(0, 10)}
                           </div>
 
-                          <div className="mt-2">Chef: {item.chef_name}</div>
+                          <div className="mt-2">Chef: {item.theme.chef_name}</div>
                         </div>
                       </div>
                       {/* <div className="flex justify-between">

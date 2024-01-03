@@ -106,7 +106,7 @@
   }
   .ant-btn-primary:not(:disabled):not(.ant-btn-disabled):hover {
     background-color: white;
-    color:#eebbbb;
+    color:#FF7D04;
     border: #FF7D04 1px solid;
   }
   .ant-btn-primary:not(:disabled):not(.ant-btn-disabled):focus-visible {
@@ -156,7 +156,7 @@
   :where(.css-dev-only-do-not-overide-1u091qq).ant-select:not(.ant-select-disabled):not(.ant-select-customize-input):not(.ant-pagination-size-changer):hover .ant-select-selector{
     border:#FF7D04 1px solid;
   }
-  :where(.css-dev-only-do-not-overide-1u091qq).ant-select:not(.ant-select-disabled):not(.ant-select-customize-input):not(.ant-pagination-size-changer) .ant-select-selector{
+  :where(.css-dev-only-do-not-overide-1u091qq).ant-select:not(.ant-select-disabled):not(.ant-select-customize-input):not(.ant-pagination-size-changer) .ant-select-selector:focus{
     border:#FF7D04 1px solid;
   }
   :where(.css-dev-only-do-not-override-1u09lqq).ant-input-disabled, :where(.css-dev-only-do-not-override-1u09lqq).ant-input[disabled] {
@@ -173,3 +173,20 @@
 :where(.css-dev-only-do-not-override-1u09lqq).ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):hover {
   color: #FF7D04;
 }
+:where(.css-dev-only-do-not-override-1d8d5er).ant-menu-light .ant-menu-item-selected, :where(.css-dev-only-do-not-override-1d8d5er).ant-menu-light>.ant-menu .ant-menu-item-selected {
+  background-color: #FF7D04;
+  color:white;
+}
+:where(.css-dev-only-do-not-override-1d8d5er).ant-menu-light:not(.ant-menu-horizontal) .ant-menu-item:not(.ant-menu-item-selected):hover{
+  background-color: #f7a960;
+  color:white;
+}
+:where(.css-dev-only-do-not-override-1d8d5er).ant-menu-light .ant-menu-item:hover:not(.ant-menu-item-selected):not(.ant-menu-submenu-selected){
+  color:white
+}
+/* button: '#FF7D04',
+primary: '#FED08C',
+secondary: '#FFD8B4',
+tertiary: '#FFEBD1',
+quatenary: '#FDF7EF'
+}, */

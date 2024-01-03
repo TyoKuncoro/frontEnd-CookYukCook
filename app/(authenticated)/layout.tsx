@@ -15,11 +15,11 @@ import {
   BellOutlined,
   LogoutOutlined,
   IdcardOutlined,
-  UsergroupDeleteOutlined
+  UsergroupDeleteOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { Breadcrumb, Layout, Menu, theme } from "antd";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { parseJwt } from "../Component/Helper/convert";
 
 const { Header, Content, Sider } = Layout;
@@ -64,7 +64,7 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
   const {
     token: { colorBgContainer },
   } = theme.useToken();
-  
+
   const token = localStorage.getItem("access_token");
   let role: string = "Admin";
   // console.log(token, "hayoo udah nemu tokennya ");
@@ -73,12 +73,11 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
     console.log(role, "role coook");
   }
 
-
   const menu: MenuProps["items"] = [
     {
-    key: `/home`,
-    icon: <HomeOutlined />,
-    label: `Dashboard`,
+      key: `/home`,
+      icon: <HomeOutlined />,
+      label: `Dashboard`,
     },
     {
       key: `/regular`,
@@ -153,52 +152,109 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
       label: `Logout`,
     },
   ];
-  const path =  window.location.pathname
+  const pathname = usePathname();
+  const reguler = pathname === "/regular";
+  console.log(reguler, 'ini pathname');
+  
+  const path = window.location.pathname;
   return (
-    <Layout className=" bg-white h-full">
-      <Sider
-        width={220}
-        style={{ background: "#FFEBD1", borderTopRightRadius: 60}}
-      >
-        <div className="flex py-6 justify-center">
-          <Image
-            src="/assets/maskot.png"
-            width={150}
-            height={150}
-            alt="Cook Yuk Cook"
-          />
-        </div>
-        <Menu
-          className=""
-          mode="inline"
-          selectedKeys={[path]}
-          // defaultOpenKeys={['sub1']}
-          style={{
-            height: "auto",
-            borderRight: 0,
-            background: "#FFEBD1",
-            fontWeight: "bold",
-            color: "#FF7D04", 
-          }}
-          items={role == "Trainee" || "Kitchen Studio" ? menu : menuAdmin }
-          onClick={({ key }) => {
-            router.push(key);
-            // console.log(`key ${key} route not found`);
-          }}
-        />
-      </Sider>
-      <Layout style={{ height: "calc(100vh - 64px)" }}>
-        <Content
-          style={{
-            padding: 24,
-            minHeight: 200,
-            background: colorBgContainer,
-          }}
-        >
-          {children}
-        </Content>
-      </Layout>
-    </Layout>
+    <>
+      {reguler ? (
+        <Layout className=" bg-white h-[1200px]">
+          <Sider
+            width={220}
+            className="h-full"
+            style={{ background: "#FFEBD1", borderTopRightRadius: 60 }}
+          >
+            <div className="flex py-6 justify-center">
+              <Image
+                src="/assets/maskot.png"
+                width={150}
+                height={150}
+                alt="Cook Yuk Cook"
+              />
+            </div>
+            <Menu
+              className=""
+              mode="inline"
+              // defaultSelectedKeys={['1']}
+              // selectedKeys={[path]}
+              defaultOpenKeys={[path]}
+              style={{
+                height: "auto",
+                borderRight: 0,
+                background: "#FFEBD1",
+                fontWeight: "bold",
+                color: "#FF7D04",
+              }}
+              items={role == "Trainee" || "Kitchen Studio" ? menu : menuAdmin}
+              onClick={({ key }) => {
+                router.push(key);
+                // console.log(`key ${key} route not found`);
+              }}
+            />
+          </Sider>
+          <Layout style={{ height: "calc(100vh - 64px)" }}>
+            <Content
+              style={{
+                padding: 24,
+                minHeight: 200,
+                background: colorBgContainer,
+              }}
+            >
+              {children}
+            </Content>
+          </Layout>
+        </Layout>
+      ) : (
+        <Layout className=" bg-white h-full">
+          <Sider
+            width={220}
+            className="h-full"
+            style={{ background: "#FFEBD1", borderTopRightRadius: 60 }}
+          >
+            <div className="flex py-6 justify-center">
+              <Image
+                src="/assets/maskot.png"
+                width={150}
+                height={150}
+                alt="Cook Yuk Cook"
+              />
+            </div>
+            <Menu
+              className=""
+              mode="inline"
+              // defaultSelectedKeys={['1']}
+              // selectedKeys={[path]}
+              defaultOpenKeys={[path]}
+              style={{
+                height: "auto",
+                borderRight: 0,
+                background: "#FFEBD1",
+                fontWeight: "bold",
+                color: "#FF7D04",
+              }}
+              items={role == "Trainee" || "Kitchen Studio" ? menu : menuAdmin}
+              onClick={({ key }) => {
+                router.push(key);
+                // console.log(`key ${key} route not found`);
+              }}
+            />
+          </Sider>
+          <Layout style={{ height: "calc(100vh - 64px)" }}>
+            <Content
+              style={{
+                padding: 24,
+                minHeight: 200,
+                background: colorBgContainer,
+              }}
+            >
+              {children}
+            </Content>
+          </Layout>
+        </Layout>
+      )}
+    </>
   );
 };
 

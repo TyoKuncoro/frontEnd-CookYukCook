@@ -20,6 +20,7 @@ import UbahPengajuan from "#/app/Component/modalUbahPengajuan";
 import { ColumnsType } from "antd/es/table";
 import ModalCustom from "#/app/Component/createPengajuan";
 import DetailKelasRegular from "#/app/Component/modalDetailKelas";
+import { SendOutlined } from "@ant-design/icons";
 // import { mutate } from "swr";
 
 const ListRegular = () => {
@@ -92,7 +93,7 @@ const ListRegular = () => {
     <div className="bg-white p-20 w-full space-y-16">
       <div>
         <div className="float-right mr-3">
-          <UbahMateriBtn text="Ajukan Kelas" key={null} onclick={handleOK} />
+          <UbahMateriBtn text={"Ajukan Kelas"} icon={<SendOutlined/>} key={null} onclick={handleOK} />
         </div>
         <p className="text-3xl font-bold">Kelas Regular</p>
       </div>
