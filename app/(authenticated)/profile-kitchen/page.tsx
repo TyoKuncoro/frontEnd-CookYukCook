@@ -20,12 +20,13 @@ import { useForm } from "antd/es/form/Form";
 import { regularClassRepository } from "#/repository/regularClass";
 import { usersRepository } from "#/repository/user";
 import { parseJwt } from "#/app/Component/Helper/convert";
+import { kitchenRepository } from "#/repository/kitchen";
 
 const { Option } = Select;
 
 const ProfileKitchen = () => {
   const token = localStorage.getItem("access_token");
-  
+
   const [Nama, setNama] = useState("Kitchen Tyo");
   const [Email, setEmail] = useState("tyo@kitchen.com");
   const [Chef, setChef] = useState(10);
@@ -70,7 +71,7 @@ const ProfileKitchen = () => {
     // console.log(role, "role coookecoke");
   }
 
-  const onFinishPassword = async(values: any) => {
+  const onFinishPassword = async (values: any) => {
     if (values.passwordBaru !== values.konfirmasiPassword) {
       message.error("Konfirmasi Password Gagal");
     } else {
@@ -79,10 +80,10 @@ const ProfileKitchen = () => {
         const updatePassword =
           await usersRepository.manipulatedData.updatePassword(id, data);
         console.log(updatePassword, "password");
-        setVisiblePassword(false)
-        message.success('Password Berhasil Diganti')
+        setVisiblePassword(false);
+        message.success("Password Berhasil Diganti");
       } catch (e) {
-        throw e
+        throw e;
       }
     }
   };
@@ -94,8 +95,7 @@ const ProfileKitchen = () => {
     setChef(values.chef);
     setAlamat(values.alamat);
     setEmail(values.email);
-    setVisibleProfile(false)
-
+    setVisibleProfile(false);
   };
 
   const handleLegalitas = () => {
@@ -126,6 +126,9 @@ const ProfileKitchen = () => {
     },
   };
 
+  const {data: dataKitchen} = usersRepository.hooks.getUsersById(id);
+  // console.log(dataKitchen, 'ini data kitchen')
+
   return (
     <div>
       <Modal
@@ -143,7 +146,10 @@ const ProfileKitchen = () => {
           initialValues={{ remember: true }}
         >
           <Form.Item
-          name="kitchen"
+            name="kitchen"
+            rules={[
+              { required: true, message: "Nama Tidak Boleh Kosong" },
+            ]}
           >
             <Input
               prefix={<UserOutlined />}
@@ -151,7 +157,12 @@ const ProfileKitchen = () => {
             />
           </Form.Item>
           <Form.Item
-          name="email">
+            name="email"
+            rules={[
+              { required: true, message: "Alamat Email Tidak Boleh Kosong" },
+              { type: "email", message: "Alamat email tidak valid!" },
+            ]}
+          >
             <Input
               prefix={<MailOutlined />}
               placeholder="Email"
@@ -159,16 +170,22 @@ const ProfileKitchen = () => {
             />
           </Form.Item>
           <Form.Item
-          name="whatsapp"
+            name="whatsapp"
+            rules={[
+              { required: true, message: "Nomor Whatsapp Tidak Boleh Kosong" },
+            ]}
           >
             <Input
               prefix={<PhoneOutlined />}
-              placeholder="WhatsApp Number"
+              placeholder="Nomor Whatsapp"
               style={{ marginTop: "1rem" }}
             />
           </Form.Item>
           <Form.Item
-          name="chef"
+            name="chef"
+            rules={[
+              { required: true, message: "Jumlah Chef Tidak Boleh Kosong" },
+            ]}
           >
             <Input placeholder="Jumlah Chef" type="number" className="mt-4" />
           </Form.Item>
@@ -190,7 +207,10 @@ const ProfileKitchen = () => {
             </Upload>
           </Form.Item> */}
           <Form.Item
-          name="alamat"
+            name="alamat"
+            rules={[
+              { required: true, message: "Alamat Tidak Boleh Kosong" },
+            ]}
           >
             <Input
               prefix={<EnvironmentOutlined />}
@@ -231,9 +251,9 @@ const ProfileKitchen = () => {
         onCancel={handleCancelPassword}
       >
         <Form form={form} layout="vertical" onFinish={onFinishPassword}>
-          <Form.Item name="passwordLama">
+          {/* <Form.Item name="passwordLama">
             <Input type="password" placeholder="Masukan Password Lama" />
-          </Form.Item>
+          </Form.Item> */}
           <Form.Item name="passwordBaru">
             <Input type="password" placeholder="Masukan Password Baru" />
           </Form.Item>
@@ -259,7 +279,7 @@ const ProfileKitchen = () => {
             src="/assets/legalitas-foto 1.png"
             width={420}
             height={600}
-            alt="Gambar Pengguna"
+            alt="Gambar Legalitas"
           />
         </Form.Item>
       </Modal>
@@ -275,19 +295,14 @@ const ProfileKitchen = () => {
         </div>
         <div>
           <div className="flex mb-12 justify-between">
-            <div className="text-3xl font-extrabold">{Nama}</div>
-            <FullRoundedButton
-              text="Ubah Profile"
-              icons={<EditOutlined />}
-              onclick={showModal}
-            />
+            <div className="text-3xl font-extrabold">{dataKitchen?.data?.name}</div>
           </div>
           <table>
-            <tbody className="flex flex-col gap-4">
+            <tbody className="flex flex-col gap-6">
               <tr>
                 <td className="w-48">Email</td>
                 <td>:</td>
-                <td className="pl-8">{Email}</td>
+                <td className="pl-8">{dataKitchen?.data?.email}</td>
               </tr>
               <tr>
                 <td className="w-48">Password</td>
@@ -303,17 +318,17 @@ const ProfileKitchen = () => {
               <tr>
                 <td className="w-48">Jumlah Chef</td>
                 <td>:</td>
-                <td className="pl-8">{Chef}</td>
+                <td className="pl-8">{dataKitchen?.data?.numberOfChef}</td>
               </tr>
               <tr>
                 <td className="w-48">Alamat</td>
                 <td>:</td>
-                <td className="pl-8">{Alamat}</td>
+                <td className="pl-8">{dataKitchen?.data?.address}</td>
               </tr>
               <tr>
                 <td className="w-48">WhatsApp</td>
                 <td>:</td>
-                <td className="pl-8">{Whatsapp}</td>
+                <td className="pl-8">{dataKitchen?.data?.phoneNumber}</td>
               </tr>
               <tr>
                 <td className="w-48">Legalitas</td>
@@ -348,6 +363,13 @@ const ProfileKitchen = () => {
               );
             })}
           </div> */}
+          <div className="mt-16">
+            <FullRoundedButton
+              text="Ubah Profile"
+              icons={<EditOutlined />}
+              onclick={showModal}
+            />
+          </div>
         </div>
       </div>
       <div className="fixed top-8 right-36">

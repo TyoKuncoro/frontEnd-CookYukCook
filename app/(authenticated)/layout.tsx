@@ -70,7 +70,7 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
   // console.log(token, "hayoo udah nemu tokennya ");
   if (token) {
     role = parseJwt(token).role;
-    console.log(role, "role coook");
+    console.log(role, "ini role");
   }
 
   const menu: MenuProps["items"] = [

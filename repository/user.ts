@@ -36,7 +36,7 @@ manipulatedData= {
 }
 
 export const usersRepository = {
+    hooks,
     manipulatedData,
     url, 
-    hooks
 }
