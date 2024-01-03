@@ -30,6 +30,7 @@ export default function TemaKelas (){
     useEffect(() => {
         setTema(data?.data)
     })
+    console.log(tema, "ini tema")
     const handleClick = (record:any) => {
         setSelectedTheme(record)
         setModalOpen(true)
@@ -85,7 +86,7 @@ export default function TemaKelas (){
             title="pengajuan Kelas" 
             closeModal={handleClose} 
             visible={modalOpen}
-            content={<FormPengajuanKelas mutateData={mutateData}/>}/>
+            content={<FormPengajuanKelas onClose={handleClose} mutateData={mutateData}/>}/>
             <TambahTema open={openModal} closeModal={handleCloseModal} mutate={mutateData}/>
         </div>
     )

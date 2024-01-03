@@ -13,6 +13,7 @@ import {
   UserOutlined,
   LockOutlined,
 } from "@ant-design/icons";
+import { parseJwt } from "#/app/Component/Helper/convert";
 
 interface ErrorLogin {
   response: {
@@ -47,7 +48,14 @@ const Login = () => {
       console.log(masuk, "Hasil API Login");
       localStorage.setItem("access_token", masuk?.body?.data?.access_token);
       setTimeout(message.success(`Halo! Selamat Datang`), 2000)
-      router.push("home");
+      const cariToken = localStorage.getItem("access_token");
+      const role = parseJwt(cariToken).role
+      console.log(role, "halo");
+      if(role === "Admin"){
+        router.push("/home-admin")
+      }else{
+        router.push("home");
+      }
     } catch (error) {
       // message.error(error.response.body?.error)
       console.log(error, "errornya cook");
@@ -66,7 +74,7 @@ const Login = () => {
       <div className="flex place-content-center">
         <div
           className="rounded-l-3xl"
-          style={{ backgroundColor: "#FFD8B4", width: "28%" }}
+          style={{ backgroundColor: "#FFD8B4", width: "35%" }}
         >
           <div
             className=" font-bold text-7xl text-center mb-32 mt-5 text-orange-600"

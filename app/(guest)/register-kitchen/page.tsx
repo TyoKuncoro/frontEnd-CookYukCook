@@ -135,7 +135,7 @@ const RegisterKitchen = () => {
       </div>
       <div
         className="rounded-r-3xl px-16"
-        style={{ backgroundColor: "#FFD8B4", width: "25%" }}
+        style={{ backgroundColor: "#FFD8B4", width: "35%" }}
       >
         <div
           className=" font-bold text-4xl text-center mb-10 mt-5 text-orange-600"

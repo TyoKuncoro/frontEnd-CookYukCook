@@ -14,21 +14,26 @@ import { parseJwt } from "./Helper/convert";
 import { temaKelasRepository } from "#/repository/tema";
 import { useEffect, useState } from "react";
 import { kitchenRepository } from "#/repository/kitchen";
+import { useRouter } from "next/navigation";
 
 const FormPengajuanKelas = ({mutateData, onClose}) => {
   const [form] = Form.useForm();
+  const router = useRouter();
   const [loading, setLoading] = useState(false)
   const token = localStorage.getItem("access_token");
-  const [id, setId] = useState(null)
-  useEffect(() =>{
-    if (token) {
-      setId (parseJwt(token).id)
-      // console.log(id);
-    }
-    const {data: dataTema} = temaKelasRepository.hooks.findTemaByUsers(id)
-    const {data: dataKitchen} = kitchenRepository.hooks.getKitchenById(id)
+  let id:any;
+  if(token){
+    id = parseJwt(token).id
+  }
+  const {data: dataTema} = temaKelasRepository.hooks.findTemaByUsers(id)
+  const {data: dataKitchen} = kitchenRepository.hooks.getKitchenById(id)
+  // useEffect(() =>{
+  //   if (token) {
+  //     setId (parseJwt(token).id)
+  //     // console.log(id);
+  //   }
     
-  }, [token])
+  // }, [token])
   // let id:any;
   const onFinish = async (values: any) => {
     try {
@@ -52,6 +57,7 @@ const FormPengajuanKelas = ({mutateData, onClose}) => {
         message.success("Pengajuan Kelas Berhasil");
       }, 2000)
       form.resetFields()
+      router.push("/pembayaran")
       mutateData()
     } catch (error) {
       console.log(error);
@@ -132,6 +138,7 @@ const FormPengajuanKelas = ({mutateData, onClose}) => {
                 // className="custom-placeholder"
                 onChange={onChangeTema}
                 options={dataTema?.data?.map((value:any) =>{
+                  // {console.log(value.id)}
                   return {
                     value:value.id,
                     label: value.name

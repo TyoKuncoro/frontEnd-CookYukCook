@@ -22,10 +22,15 @@ import { mutate } from "swr";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
-import { Navigation } from 'swiper/modules';
+import { Navigation } from "swiper/modules";
+import UbahMateriBtn from "#/app/Component/buttonUbahMateri";
+import ModalCustom from "#/app/Component/createPengajuan";
+import FormPengajuanKelas from "#/app/Component/formPengajuan";
 
 const HomeKitchen: React.FC = () => {
   const router = useRouter();
+  const [modalOpen, setModalOpen] = useState(false);
+
   const [tema, setTema] = useState("Judul Tema");
 
   const [selectedDate, setSelectedDate] = useState<string>("");
@@ -67,20 +72,21 @@ const HomeKitchen: React.FC = () => {
   const [price, setPrice] = useState(0);
   const [numberOfBenches, setNumberOfBenches] = useState(0);
   const [description, setDescription] = useState("");
-  const[selectedDataKitchen, setSelectedDataKitchen] = useState<any>(null)
+  const [selectedDataKitchen, setSelectedDataKitchen] = useState<any>(null);
 
   const { data: dataUser } = kitchenRepository.hooks.getKitchenByUser(id);
   // console.log(dataUser, "data user");
   const handleOk = async () => {
-    // console.log(`${id}, id
-    // ${courseName} = course
-    // ${startDate} = startDate
-    // ${endDate} = endDate
-    // ${price} = price
-    // ${numberOfBenches} = benches
-    // ${description} = description`)
+    console.log(`${id}, id
+    ${courseName} = course
+    ${startDate} = startDate
+    ${endDate} = endDate
+    ${price} = price
+    ${numberOfBenches} = benches
+    ${description} = description`)
     // console.log(startDate, "startDate");
     // console.log(endDate, "endDate");
+
     try {
       let data = {
         kitchen_id: dataUser?.data?.id,
@@ -113,16 +119,27 @@ const HomeKitchen: React.FC = () => {
     } catch (e) {
       console.log(e, "eror mengajukan data");
     }
+    localStorage.setItem('price', price/10)
+    localStorage.setItem('courseName', courseName)
+    router.push("/pembayaran");
+
+
     setModalVisible(false);
   };
 
   const handleCancel = () => {
     setModalVisible(false);
   };
-  // const { data } = regularClassRepository.hooks.findRegClassByKitchen(id);
-  // console.log(data, "data kelas regular");
-  const { data } = regularClassRepository.hooks.findAllRegularClass();
-  console.log(data?.data, "a data kelas regular");
+  const handleOK = () => {
+    setModalOpen(true);
+  };
+  const handleClose = () => {
+    setModalOpen(false);
+  };
+  const { data } = regularClassRepository.hooks.findRegClassByKitchen(id);
+  console.log(data, "data kelas regular");
+  // const { data, mutate:mutateData } = regularClassRepository.hooks.findAllRegularClass();
+  // console.log(data?.data, "data kelas regular");
 
   const changeTanggalMulai = (date: any, dateString: any) => {
     setStartDate(dateString);
@@ -200,49 +217,47 @@ const HomeKitchen: React.FC = () => {
             >
               Kelas Anda
             </div>
+            {/* <UbahMateriBtn text="Ajukan Kelas" key={null} onclick={handleOK} /> */}
             <FullRoundedButton
               text="Ajukan Kelas"
               icons={<SendOutlined />}
               onclick={modalAjukanKelas}
             />
           </div>
-            <Swiper
-              spaceBetween={10}
-              navigation={true}
-              slidesPerView={5}
-              modules={[Navigation]}
-              className=" py-4 mx-10 flex mt-6"
-            >
-              {token &&
-                data?.data.map((item: any, index: any) => (
-                  <SwiperSlide key={index}>
-                    <Card
-                      style={{ width: 300 }}
-                      className="rounded-lg p-4 mx-6"
-                    >
-                      <div className=" content-between ">
-                        <Image
-                          className=" rounded"
-                          src="/assets/Image.png"
-                          width={220}
-                          height={175}
-                          alt="Gambar"
-                        />
-                        <div className="flex justify-between">
-                          <div>
-                            <div className="text-xl font-bold">
-                              {item.courseName}
-                            </div>
-                            <div className=" font-bold">Dimulai pada:</div>
-                            <div className="font-bold">
-                              {item.startDate.substring(0, 10)} sampai{" "}
-                              {item.endDate.substring(0, 10)}
-                            </div>
-
-                            <div className="mt-2">Chef: {item.chef_name}</div>
+          <Swiper
+            spaceBetween={10}
+            navigation={true}
+            slidesPerView={5}
+            modules={[Navigation]}
+            className=" py-4 mx-10 flex mt-6"
+          >
+            {token &&
+              data?.data.map((item: any, index: any) => (
+                <SwiperSlide key={index}>
+                  <Card style={{ width: 300 }} className="rounded-lg p-4 mx-6">
+                    <div className=" content-between ">
+                      <Image
+                        className=" rounded"
+                        src="/assets/Image.png"
+                        width={220}
+                        height={175}
+                        alt="Gambar"
+                      />
+                      <div className="flex justify-between">
+                        <div>
+                          <div className="text-xl font-bold">
+                            {item.courseName}
                           </div>
+                          <div className=" font-bold">Dimulai pada:</div>
+                          <div className="font-bold">
+                            {item.startDate.substring(0, 10)} sampai{" "}
+                            {item.endDate.substring(0, 10)}
+                          </div>
+
+                          <div className="mt-2">Chef: {item.chef_name}</div>
                         </div>
-                        {/* <div className="flex justify-between">
+                      </div>
+                      {/* <div className="flex justify-between">
                       <FullRoundedButton
                         text="Lihat Detail"
                         icons={null}
@@ -250,13 +265,22 @@ const HomeKitchen: React.FC = () => {
                         //   onclick={showModal}
                       />
                     </div> */}
-                      </div>
-                    </Card>
-                  </SwiperSlide>
-                ))}
-            </Swiper>
+                    </div>
+                  </Card>
+                </SwiperSlide>
+              ))}
+          </Swiper>
         </div>
       </div>
+      {/* <ModalCustom
+        width={843}
+        title="Pengajuan Kelas"
+        closeModal={handleClose}
+        visible={modalOpen}
+        content={
+          <FormPengajuanKelas onClose={handleClose} mutateData={mutateData} />
+        }
+      /> */}
       {/* <p>Selected Date: {selectedDate}</p> */}
       {/* <div className="flex mt-3">
         <div className="w-[50%] bg-orange-300 rounded mr-20">

@@ -164,9 +164,11 @@
   }
   .ant-table-wrapper .ant-table-thead >tr>th{
     font-size: 18px;
+    text-align: center;
   }
 .ant-table-wrapper .ant-table-tbody >tr >td {
   font-size: 16px;
+  text-align: center;
 }
 :where(.css-dev-only-do-not-override-1u09lqq).ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):hover {
   color: #FF7D04;

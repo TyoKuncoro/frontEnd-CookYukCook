@@ -50,7 +50,6 @@ const PembayaranKitchen = () => {
     };
   }, []);
   const handleCheckout = async () => {
-    if (harga == 0) {
       const uuidGenerator = uuidv4();
       // console.log(uuidGenerator, "ini uuid cook");
 
@@ -70,9 +69,6 @@ const PembayaranKitchen = () => {
       localStorage.removeItem("price");
       window.snap.pay(requestData.token);
       // console.log("test")
-    }else {
-      message.error('Belum Ada Pesanan')
-    }
   } 
   //end for midtrans
 

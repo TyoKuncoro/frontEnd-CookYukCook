@@ -70,12 +70,13 @@ const Profile = () => {
   };
 
   let role: string = "";
+  let name: string = "";
   let id: string = "";
+  console.log(token, "token")
   if (token) {
     role = parseJwt(token).role;
     id = parseJwt(token).id;
-    // console.log(role, "ini role");
-    // console.log(id, "ini id trainee");
+    // console.log(role, "role coookecoke");
   }
   const onFinishPassword = async (values: any) => {
     if (values.passwordBaru !== values.konfirmasiPassword) {
@@ -235,9 +236,7 @@ const Profile = () => {
             />
           </div>
           <div className=" ps-8 mt-14">
-            <div className=" text-3xl font-bold mb-10">
-              {dataUser?.data?.name}
-            </div>
+            <div className=" text-3xl font-bold mb-10">Cecilila Siregar</div>
             <table>
               <tbody className="flex flex-col gap-6 text-xl">
                 <tr>

@@ -127,7 +127,7 @@ const Home: React.FC = () => {
         <Swiper
               spaceBetween={100}
               navigation={true}
-              slidesPerView={5}
+              slidesPerView={3}
               modules={[Navigation]}
               className=" py-4 mx-10"
             >

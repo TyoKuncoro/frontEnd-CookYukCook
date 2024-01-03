@@ -5,7 +5,7 @@ import useSWR from "swr";
 const url = {
     findAllTema: () => "/training-theme",
     createTema: () => "/training-theme",
-    findTemaByUsers: (id:any) => `/training-theme/${id}`
+    findTemaByUsers: (id:any) => `/training-theme/find/${id}`
 };
 const hooks = {
     findAllTema(){
