@@ -65,7 +65,7 @@ const HomeKitchen: React.FC = () => {
   const [description, setDescription] = useState("");
   const [selectedDataKitchen, setSelectedDataKitchen] = useState<any>(null);
 
-  const { data: dataUser } = kitchenRepository.hooks.getKitchenByUser(id);
+  const { data: dataUser } = kitchenRepository.hooks.getKitchenByUser();
   console.log(dataUser, "data user");
   const handleOk = async () => {
     console.log(`${id}, id
@@ -122,9 +122,9 @@ const HomeKitchen: React.FC = () => {
   };
   const [modalOpen, setModalOpen] = useState(false);
   const handleOK = () => {
-    if(dataUser?.data?.status === "pending"){
+    if(dataUser?.data?.users?.status === "pending"){
       message.error("Mohon tunggu konfirmasi akun dari admin")
-    }else if(dataUser?.data?.status === "available"){
+    }else if(dataUser?.data?.users?.status === "active"){
       setModalOpen(true);
     }
   };
@@ -316,7 +316,7 @@ const HomeKitchen: React.FC = () => {
                             {item.endDate.substring(0, 10)}
                           </div>
 
-                          <div className="mt-2">Chef: {item.chef_name}</div>
+                          <div className="mt-2">Chef: {item.theme.chef_name}</div>
                         </div>
                       </div>
                       {/* <div className="flex justify-between">

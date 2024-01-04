@@ -27,7 +27,7 @@ const FormPengajuanKelas = ({mutateData, onClose}) => {
     console.log(id, "angjay")
   }
   const {data: dataTema} = temaKelasRepository.hooks.findTemaByUsers(id)
-  const {data: dataKitchen} = kitchenRepository.hooks.getKitchenByUser(id)
+  const {data: dataKitchen} = kitchenRepository.hooks.getKitchenByUser()
   console.log(dataKitchen, "halooo cuy")
   // useEffect(() =>{
   //   if (token) {
@@ -141,7 +141,7 @@ const FormPengajuanKelas = ({mutateData, onClose}) => {
                 // className="border border-solid border-button rounded-lg"
                 onChange={onChangeTema}
                 options={dataTema?.data?.map((value:any) =>{
-                  // {console.log(value.id)}
+                  {console.log(value.id, "ini id tema")}
                   return {
                     value:value.id,
                     label: value.name
@@ -182,7 +182,7 @@ const FormPengajuanKelas = ({mutateData, onClose}) => {
         </div>
         <div>
             <Form.Item<FieldType>
-              label="JumlaH Peserta"
+              label="Jumlah Peserta"
               name="bench"
               rules={[
                 { required: true, message: "Harap masukan Jumlah peserta" },

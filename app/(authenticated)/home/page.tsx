@@ -152,7 +152,7 @@ const Home: React.FC = () => {
             >
               <div className="flex justify-between">
                 <div>
-                  <div>Tema: {item.name}</div>
+                  <div>Tema: {item.theme.name}</div>
                   <div>Kelas Regular</div>
                   {/* <div>lokasi:</div>
                   <p className=" text-xs">{alamat}</p> */}
@@ -160,7 +160,7 @@ const Home: React.FC = () => {
                   <div className="text-xs">
                     {item.startDate.substring(0, 10)} sampai {item.endDate.substring(0, 10)}
                   </div>
-                  <div className=" font-bold text-lg mt-3">Harga: {item.price - item.adminFee}</div>
+                  <div className=" font-bold text-lg mt-3">Harga: {formatter.format(item.price - item.adminFee)}</div>
                   <div className=" font-bold">
                     Kuota: {item.numberOfBenches == 0 ? (<span className="text-red-500">Penuh</span>) : (`${item.numberOfBenches} Orang`) }
                   </div>
@@ -195,7 +195,7 @@ const Home: React.FC = () => {
               Kelas Regular Pilihanmu
             </div>
             <div className=" py-4 mx-10 h-64">
-            {/* {token && (
+            {token && (
               <Card
                 title={namaKelas}
                 extra={
@@ -230,7 +230,7 @@ const Home: React.FC = () => {
                   </div>
                 </div>
               </Card>
-            )} */}
+            )}
             </div>
           </div>
           <div
