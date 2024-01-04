@@ -159,7 +159,6 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
   const path = window.location.pathname;
   return (
     <>
-<<<<<<< HEAD
       {reguler ? (
         <Layout className=" bg-white h-[1200px]">
           <Sider
@@ -255,104 +254,6 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
           </Layout>
         </Layout>
       )}
-=======
-    {reguler ? (
-    <Layout className=" bg-white h-full">
-      <Sider
-        width={220}
-        style={{ background: "#FFEBD1", borderTopRightRadius: 60}}
-      >
-        <div className="flex py-6 justify-center">
-          <Image
-            src="/assets/maskot.png"
-            width={150}
-            height={150}
-            alt="Cook Yuk Cook"
-          />
-        </div>
-        <Menu
-          className=""
-          mode="inline"
-          defaultSelectedKeys={['/home']}
-          selectedKeys={[pathname]}
-          // defaultOpenKeys={['sub1']}
-          style={{
-            height: "auto",
-            borderRight: 0,
-            background: "#FFEBD1",
-            fontWeight: "bold",
-            color: "#FF7D04", 
-          }}
-          
-          items={role == "Trainee" || role == "Kitchen Studio" ? menu : menuAdmin }
-          onClick={({ key }) => {
-            router.push(key);
-            // console.log(`key ${key} route not found`);
-          }}
-        />
-      </Sider>
-      <Layout style={{ height: "calc(100vh - 64px)" }}>
-        <Content
-          style={{
-            padding: 24,
-            minHeight: 200,
-            background: colorBgContainer,
-          }}
-        >
-          {children}
-        </Content>
-      </Layout>
-    </Layout>
-
-    ) : (
-      <Layout className=" bg-white h-full">
-      <Sider
-        width={220}
-        style={{ background: "#FFEBD1", borderTopRightRadius: 60}}
-      >
-        <div className="flex py-6 justify-center">
-          <Image
-            src="/assets/maskot.png"
-            width={150}
-            height={150}
-            alt="Cook Yuk Cook"
-          />
-        </div>
-        <Menu
-          className=""
-          mode="inline"
-          defaultSelectedKeys={['/home']}
-          selectedKeys={[pathname]}
-          // defaultOpenKeys={['sub1']}
-          style={{
-            height: "auto",
-            borderRight: 0,
-            background: "#FFEBD1",
-            fontWeight: "bold",
-            color: "#FF7D04", 
-          }}
-          
-          items={role == "Trainee" || role == "Kitchen Studio" ? menu : menuAdmin }
-          onClick={({ key }) => {
-            router.push(key);
-            // console.log(`key ${key} route not found`);
-          }}
-        />
-      </Sider>
-      <Layout style={{ height: "calc(100vh - 64px)" }}>
-        <Content
-          style={{
-            padding: 24,
-            minHeight: 200,
-            background: colorBgContainer,
-          }}
-        >
-          {children}
-        </Content>
-      </Layout>
-    </Layout>
-    )}
->>>>>>> 7a2eb440fa827967a981998c63b73091ff7a0c18
     </>
     
   );

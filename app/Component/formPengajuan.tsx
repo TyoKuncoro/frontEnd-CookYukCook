@@ -1,3 +1,4 @@
+
 import { regularClassRepository } from "#/repository/regularClass";
 import {
   Button,
@@ -26,9 +27,10 @@ const FormPengajuanKelas = ({mutateData, onClose}) => {
     id = parseJwt(token).id
     console.log(id, "angjay")
   }
-  const {data: dataTema} = temaKelasRepository.hooks.findTemaByUsers(id)
-  const {data: dataKitchen} = kitchenRepository.hooks.getKitchenByUser()
-  console.log(dataKitchen, "halooo cuy")
+const {data: dataTema} = temaKelasRepository.hooks.findTemaByUsers(id)
+// const {data: dataKitchen} = kitchenRepository.hooks.getKitchenById(id)
+const {data: dataKitchen} = kitchenRepository.hooks.getKitchenByUser()
+console.log(dataKitchen, "halooo cuy")
   // useEffect(() =>{
   //   if (token) {
   //     setId (parseJwt(token).id)
@@ -59,17 +61,17 @@ const FormPengajuanKelas = ({mutateData, onClose}) => {
         message.success("Pengajuan Kelas Berhasil");
       }, 2000)
       form.resetFields()
-      localStorage.setItem("courseName", values?.namaKelas);
-      localStorage.setItem("price", values?.adminFee);
       router.push("/pembayaran")
       mutateData()
+      // localStorage.setItem("courseName", values?.namaKelas);
+      // localStorage.setItem("price", values?.adminFee);
     } catch (error) {
       console.log(error);
     }
   };
-  // const onFinish = (values: any) => {
-  //     console.log("Success:", values);
-  //   };
+//   // const onFinish = (values: any) => {
+//   //     console.log("Success:", values);
+//   //   };
 
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);

@@ -111,9 +111,9 @@ const PembayaranKitchen = () => {
           <div className="text-l font-bold bg-orange-200 px-10 w-[75%] py-5 rounded-lg">
             {/* <div className="mb-2">{namaKelas}</div> */}
             {/* <div className="mb-5">Tema: {courseName}</div> */}
-            <tbody>
+            <tbody className="w-80">
               <tr>
-                <td className="w-56">Tema</td>
+                <td>Tema</td>
                 <td>: {courseName}</td>
               </tr>
               <tr>
