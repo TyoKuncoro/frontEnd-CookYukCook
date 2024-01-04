@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { message } from "antd";
 import PembayaranKitchen from "../pembayaran-kitchen/page";
 import { parseJwt } from "#/app/Component/Helper/convert";
+import { regularClassRepository } from "#/repository/regularClass";
 
 // import snap from "midtrans-client"
 
@@ -29,11 +30,19 @@ const Pembayaran = () => {
   });
   const [price, setPrice] = useState(0);
   const [course, setCourse] = useState("-");
-  useEffect(() => {
+  
+  // const benches = localStorage.getItem("benches") - 1
+
+
+  const idKelasGet = localStorage.getItem("id")
+  console.log(idKelasGet, 'ini id kelas')
+
+   useEffect(() => {
     const priceGet = localStorage.getItem("priceTrainee");
     setPrice(priceGet);
     const courseGet = localStorage.getItem("courseTrainee");
     setCourse(courseGet);
+    
     const snapScript = "https://app.sandbox.midtrans.com/snap/snap.js";
     const clientKey = process.env.NEXT_PUBLIC_CLIENT;
 
@@ -49,11 +58,17 @@ const Pembayaran = () => {
     };
   }, []);
 
+  const {data: getKelas} = regularClassRepository.hooks.findRegClassById(idKelasGet)
+  // console.log(getKelas?.data?.id, 'ini data kelas')
+  const minusedOneBenches = parseInt(getKelas?.data?.numberOfBenches) - 1;
+  // console.log(minusedOneBenches, 'ini data benches dikurangi satu')
+
+
   const handleCheckout = async () => {
-      const uuidGenerator = uuidv4();
-      console.log(uuidGenerator, "ini uuid cook");
+      const uuidGenerator1 = uuidv4();
+      console.log(uuidGenerator1, "ini uuid cook");
       const data = {
-        id: uuidGenerator,
+        id: uuidGenerator1,
         productName: course,
         price: price,
         quantity: 1,
@@ -63,10 +78,23 @@ const Pembayaran = () => {
         body: JSON.stringify(data),
       });
       const requestData = await response.json();
+      const dataBenches = {
+        numberOfBenches: minusedOneBenches
+      }
+      // console.log(dataBenches, 'ini data benches')
+      // console.log(getKelas?.data?.id, 'ini id kelas')
+      try {
+      const updateBenches = await regularClassRepository.manipulateData.updateBenches(getKelas?.data?.id, dataBenches)
+      // console.log(updateBenches, 'ini data update benches')
       // console.log(requestData, "dataaa coook")
+      localStorage.removeItem("id")
       localStorage.removeItem("priceTrainee");
       localStorage.removeItem("courseTrainee");
       window.snap.pay(requestData.token);
+        
+      } catch (e) {
+        console.log(e, 'ini error')
+      }
       // console.log("test")
   };
   //end for midtrans

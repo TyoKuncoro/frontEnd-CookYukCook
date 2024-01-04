@@ -43,8 +43,84 @@ const HomeKitchen: React.FC = () => {
     id = parseJwt(token).id;
     console.log(id, "id");
   }
-  const [modalOpen, setModalOpen] = useState(false);
+  // const ajukanKelas = () => {};
+
+  const [modalAjukan, setModalAjukan] = useState(false);
+  const modalAjukanKelas = () => {
+    if (!token) {
+      message.error("silahkan login");
+      router.push("/login");
+    } else {
+      setModalVisible(true);
+    }
+  };
+  // console.log(dataUser, "data uuuuuuuuuuuuuuuuser");
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const [courseName, setCourseName] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [price, setPrice] = useState(0);
+  const [numberOfBenches, setNumberOfBenches] = useState(0);
+  const [description, setDescription] = useState("");
+  const [selectedDataKitchen, setSelectedDataKitchen] = useState<any>(null);
+
   const { data: dataUser } = kitchenRepository.hooks.getKitchenByUser();
+  console.log(dataUser, "data user");
+  const handleOk = async () => {
+    console.log(`${id}, id
+    ${courseName} = course
+    ${startDate} = startDate
+    ${endDate} = endDate
+    ${price} = price
+    ${numberOfBenches} = benches
+    ${description} = description`);
+    // console.log(startDate, "startDate");
+    // console.log(endDate, "endDate");
+
+    try {
+      let data = {
+        kitchen_id: dataUser?.data?.id,
+        // theme_id: ,
+        courseName: courseName,
+        startDate: startDate,
+        endDate: endDate,
+        price: price,
+        numberOfBenches: numberOfBenches,
+        description: description,
+      };
+      const mengajukanKelas =
+        await regularClassRepository.manipulateData.createKelasReg(data);
+      console.log(
+        mengajukanKelas,
+        "Meeeeeeeeeeeeeeeeeeeeeeeeeeeeeeengajukan kelas"
+      );
+      // console.log(mengajukanKelas.body.data.adminFee, "price")
+      // console.log(mengajukanKelas.body.data.courseName, "courseName")
+      localStorage.setItem("price", mengajukanKelas.body.data.adminFee);
+      localStorage.setItem("courseName", courseName);
+      setCourseName("");
+      setStartDate("");
+      setEndDate("");
+      setPrice(0);
+      setNumberOfBenches(0);
+      setDescription("");
+      router.push("/pembayaran");
+      // mutate(regularClassRepository.url.findRegClassByKitchen(id));
+    } catch (e) {
+      console.log(e, "eror mengajukan data");
+    }
+    // localStorage.setItem("price", price / 10);
+    // localStorage.setItem("courseName", courseName);
+    // router.push("/pembayaran");
+
+    setModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setModalVisible(false);
+  };
+  const [modalOpen, setModalOpen] = useState(false);
   const handleOK = () => {
     if(dataUser?.data?.users?.status === "pending"){
       message.error("Mohon tunggu konfirmasi akun dari admin")
@@ -55,13 +131,8 @@ const HomeKitchen: React.FC = () => {
   const handleClose = () => {
     setModalOpen(false);
   };
-  // const [modalOpen, setModalOpen] = useState(false);
-
-  // const [tema, setTema] = useState("Judul Tema");
 
   const [selectedDate, setSelectedDate] = useState<string>("");
-
-  // const [variableKelas, setVariableKelas] = useState("");
 
   const handleDateSelect = (date: any) => {
     setSelectedDate(date.format("YYYY-MM-DD"));
@@ -164,12 +235,12 @@ const HomeKitchen: React.FC = () => {
   // // const { data, mutate:mutateData } = regularClassRepository.hooks.findAllRegularClass();
   // // console.log(data?.data, "data kelas regular");
 
-  // const changeTanggalMulai = (date: any, dateString: any) => {
-  //   setStartDate(dateString);
-  // };
-  // const changeTanggalSelesai = (date: any, dateString: any) => {
-  //   setEndDate(dateString);
-  // };
+  const changeTanggalMulai = (date: any, dateString: any) => {
+    setStartDate(dateString);
+  };
+  const changeTanggalSelesai = (date: any, dateString: any) => {
+    setEndDate(dateString);
+  };
   // const onChange: DatePickerProps["onChange"] = (date, dateString) => {
   //   console.log(date, dateString);
   // };
@@ -187,51 +258,6 @@ const HomeKitchen: React.FC = () => {
   // }
   return (
     <div>
-      {/* <Modal
-        title="Pengajuan Kelas Regular"
-        visible={modalVisible}
-        // onOk={handleOk}
-        onCancel={handleCancel}
-      >
-        <Input
-          placeholder="Nama Course"
-          value={courseName}
-          onChange={(e) => setCourseName(e.target.value)}
-          style={{ marginBottom: "1rem" }}
-        />
-        <DatePicker
-          placeholder="Tanggal Mulai"
-          format="YYYY-MM-DD"
-          onChange={changeTanggalMulai}
-          style={{ marginBottom: "1rem", display: "block" }}
-        />
-        <DatePicker
-          placeholder="Tanggal Selesai"
-          format="YYYY-MM-DD"
-          onChange={changeTanggalSelesai}
-          style={{ marginBottom: "1rem", display: "block" }}
-        />
-        Harga :
-        <InputNumber
-          placeholder="Harga"
-          value={price}
-          onChange={(value) => setPrice(value)}
-          style={{ marginBottom: "1rem", display: "block" }}
-        />
-        Jumlah Benches :
-        <InputNumber
-          placeholder="Jumlah Bangku"
-          value={numberOfBenches}
-          onChange={(value) => setNumberOfBenches(value)}
-          style={{ marginBottom: "1rem", display: "block" }}
-        />
-        <Input.TextArea
-          placeholder="Deskripsi"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          style={{ marginBottom: "1rem" }}
-        />
-      </Modal> */}
       <ModalCustom 
       width={843}
       title="Pengajuan Kelas"

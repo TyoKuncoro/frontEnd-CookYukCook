@@ -59,6 +59,8 @@ const FormPengajuanKelas = ({mutateData, onClose}) => {
         message.success("Pengajuan Kelas Berhasil");
       }, 2000)
       form.resetFields()
+      localStorage.setItem("courseName", values?.namaKelas);
+      localStorage.setItem("price", values?.adminFee);
       router.push("/pembayaran")
       mutateData()
     } catch (error) {
@@ -139,7 +141,7 @@ const FormPengajuanKelas = ({mutateData, onClose}) => {
                 // className="border border-solid border-button rounded-lg"
                 onChange={onChangeTema}
                 options={dataTema?.data?.map((value:any) =>{
-                  // {console.log(value.id)}
+                  {console.log(value.id, "ini id tema")}
                   return {
                     value:value.id,
                     label: value.name
@@ -180,7 +182,7 @@ const FormPengajuanKelas = ({mutateData, onClose}) => {
         </div>
         <div>
             <Form.Item<FieldType>
-              label="JumlaH Peserta"
+              label="Jumlah Peserta"
               name="bench"
               rules={[
                 { required: true, message: "Harap masukan Jumlah peserta" },

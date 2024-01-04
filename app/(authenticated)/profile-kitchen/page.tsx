@@ -21,37 +21,22 @@ import { regularClassRepository } from "#/repository/regularClass";
 import { usersRepository } from "#/repository/user";
 import { parseJwt } from "#/app/Component/Helper/convert";
 import { kitchenRepository } from "#/repository/kitchen";
+import { mutate } from "swr";
 
 const { Option } = Select;
 
 const ProfileKitchen = () => {
   const token = localStorage.getItem("access_token");
 
-  const [Nama, setNama] = useState("Kitchen Tyo");
-  const [Email, setEmail] = useState("tyo@kitchen.com");
-  const [Chef, setChef] = useState(10);
-  const [Alamat, setAlamat] = useState("Bandung");
-  const [Whatsapp, setWhatsapp] = useState("08814550324");
-  // const [nama, setnama] = useState("");
-  // const [email, setemail] = useState("");
-  // const [chef, setchef] = useState(0);
-  // const [alamat, setalamat] = useState("");
-  // const [whatsapp, setwhatsapp] = useState("");
-
   const router = useRouter();
   const [form] = useForm();
-  const data = {
-    // Nama: "Dapur Rey",
-    // Email: "Darey@admin.com",
-    // Chef: 10,
-  };
 
   const [legalitasFileList, setLegalitasFileList] = useState([]);
 
-  const handleLogOut = () => {
-    localStorage.removeItem("access_token");
-    router.push("login");
-  };
+  // const handleLogOut = () => {
+  //   localStorage.removeItem("access_token");
+  //   router.push("login");
+  // };
 
   const formPassword = () => {
     setVisiblePassword(true);
@@ -68,7 +53,7 @@ const ProfileKitchen = () => {
   if (token) {
     role = parseJwt(token).role;
     id = parseJwt(token).id;
-    // console.log(role, "role coookecoke");
+    console.log(id, "ini id");
   }
 
   const onFinishPassword = async (values: any) => {
@@ -88,14 +73,27 @@ const ProfileKitchen = () => {
     }
   };
 
-  const onFinish = (values: any) => {
-    console.log(values, "Values");
-    setNama(values.kitchen);
-    setWhatsapp(values.whatsapp);
-    setChef(values.chef);
-    setAlamat(values.alamat);
-    setEmail(values.email);
-    setVisibleProfile(false);
+  const onFinish = async(values: any) => {
+    let data1 = {
+      nama: dataKitchen?.data?.name,
+      email: values.email,
+      phoneNumber: values.whatsapp,
+      numberOfChef: values.chef,
+      address: values.alamat
+    }
+    // console.log(data1)
+
+    try {
+      const updateKitchen = await usersRepository.manipulatedData.updateUsers(id, data1);
+      console.log(updateKitchen, 'ini data update kitchen')
+      message.success('Data Berhasil Diubah')
+      setVisibleProfile(false);
+      mutate(usersRepository.url.getUsersById(id))
+    } catch (e) {
+      message.error('Mengubah Data Gagal')
+      console.log(e, 'ini error')
+    }
+
   };
 
   const handleLegalitas = () => {
@@ -145,7 +143,7 @@ const ProfileKitchen = () => {
           wrapperCol={{ span: 32 }}
           initialValues={{ remember: true }}
         >
-          <Form.Item
+          {/* <Form.Item
             name="kitchen"
             rules={[{ required: true, message: "Nama Tidak Boleh Kosong" }]}
           >
@@ -153,7 +151,7 @@ const ProfileKitchen = () => {
               prefix={<UserOutlined />}
               placeholder="Nama Kitchen Studio"
             />
-          </Form.Item>
+          </Form.Item> */}
           <Form.Item
             name="email"
             rules={[
@@ -251,10 +249,10 @@ const ProfileKitchen = () => {
             <Input type="password" placeholder="Masukan Password Lama" />
           </Form.Item> */}
           <Form.Item name="passwordBaru">
-            <Input type="password" placeholder="Masukan Password Baru" />
+            <Input.Password type="password" placeholder="Masukan Password Baru" />
           </Form.Item>
           <Form.Item name="konfirmasiPassword">
-            <Input type="password" placeholder="Konfirmasi Password Baru" />
+            <Input.Password type="password" placeholder="Konfirmasi Password Baru" />
           </Form.Item>
           <Form.Item>
             <Button type="primary" htmlType="submit">

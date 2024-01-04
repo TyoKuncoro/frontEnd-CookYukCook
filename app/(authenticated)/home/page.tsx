@@ -76,6 +76,8 @@ const Home: React.FC = () => {
     let actualPrice:any = selectedData?.price - selectedData?.adminFee
     localStorage.setItem('priceTrainee', actualPrice)
     localStorage.setItem('courseTrainee', selectedData?.courseName)
+    localStorage.setItem('id', selectedData?.id)
+    // localStorage.setItem('benches', selectedData?.numberOfBenches)
     router.push('/pembayaran')
 
     // setIsModalOpen(false);
@@ -143,7 +145,7 @@ const Home: React.FC = () => {
                   text="Lihat Detail"
                   icons={null}
                   type={"primary"}
-                  onclick={() => showModal(item)}
+                  onclick={() => item.numberOfBenches == 0 ? message.error('Kuota sudah Penuh') : showModal(item)}
                 />
               }
               style={{ width: 300 }}
@@ -160,7 +162,7 @@ const Home: React.FC = () => {
                   </div>
                   <div className=" font-bold text-lg mt-3">Harga: {formatter.format(item.price - item.adminFee)}</div>
                   <div className=" font-bold">
-                    Kuota: {item.numberOfBenches} orang
+                    Kuota: {item.numberOfBenches == 0 ? (<span className="text-red-500">Penuh</span>) : (`${item.numberOfBenches} Orang`) }
                   </div>
                 </div>
                 <div className=" content-between">
@@ -193,7 +195,7 @@ const Home: React.FC = () => {
               Kelas Regular Pilihanmu
             </div>
             <div className=" py-4 mx-10 h-64">
-            {/* {token && (
+            {token && (
               <Card
                 title={namaKelas}
                 extra={
@@ -228,7 +230,7 @@ const Home: React.FC = () => {
                   </div>
                 </div>
               </Card>
-            )} */}
+            )}
             </div>
           </div>
           <div

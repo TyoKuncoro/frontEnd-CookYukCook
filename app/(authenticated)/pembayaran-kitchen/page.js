@@ -113,11 +113,11 @@ const PembayaranKitchen = () => {
             {/* <div className="mb-5">Tema: {courseName}</div> */}
             <tbody>
               <tr>
-                <td className="w-48">Tema</td>
+                <td className="w-56">Tema</td>
                 <td>: {courseName}</td>
               </tr>
               <tr>
-                <td className="w-48">Biaya Pengajuan Kelas</td>
+                <td className="w-56">Biaya Pengajuan Kelas (10%)</td>
                 <td>: Rp. {harga}</td>
               </tr>
             </tbody>
