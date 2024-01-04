@@ -24,9 +24,11 @@ const FormPengajuanKelas = ({mutateData, onClose}) => {
   let id:any;
   if(token){
     id = parseJwt(token).id
+    console.log(id, "angjay")
   }
   const {data: dataTema} = temaKelasRepository.hooks.findTemaByUsers(id)
-  const {data: dataKitchen} = kitchenRepository.hooks.getKitchenById(id)
+  const {data: dataKitchen} = kitchenRepository.hooks.getKitchenByUser()
+  console.log(dataKitchen, "halooo cuy")
   // useEffect(() =>{
   //   if (token) {
   //     setId (parseJwt(token).id)
@@ -100,8 +102,8 @@ const FormPengajuanKelas = ({mutateData, onClose}) => {
     <Form
       form={form}
       name="basic"
-      labelCol={{ span: 4 }}
-      wrapperCol={{ span: 16 }}
+      // labelCol={{ span: 4 }}
+      // wrapperCol={{ span: 16 }}
       layout="vertical"
       // style={{ maxWidth: 600 }}
       className="flex flex-col justify-centers items-center"
@@ -113,29 +115,28 @@ const FormPengajuanKelas = ({mutateData, onClose}) => {
     >
       <div className="flex flex-row gap-10">
         <div>
-          <div>
-            <p className="text-base font-medium text-start">Nama Kelas</p>
             <Form.Item<FieldType>
+              label="Nama Kelas"
               name="namaKelas"
               // className="font-bold text-2xl"
               rules={[{ required: true, message: "Harap masukan nama kelas" }]}
             >
               <Input
                 placeholder="Nama Kelas"
-                className="custom-placeholder h-11 w-80 rounded-lg border-orange-300"
+                className="custom-placeholder h-9 w-80 rounded-lg border-orange-300"
               />
             </Form.Item>
-          </div>
-          <div>
-            <p className="text-base font-medium text-start">Tema Kelas</p>
             <Form.Item<FieldType>
+              label="Tema Kelas"
               name="tema"
               rules={[{ required: true, message: "Harap masukan tema kelas" }]}
             >
               <Select 
                 defaultValue="Pilih Tema"
-                style={{ width: 320}}
-                // className="custom-placeholder"
+                // class='selecttema'
+                style={{ width: 320, height:36, lineHeight:44}}
+                // className="selecttema"
+                // className="border border-solid border-button rounded-lg"
                 onChange={onChangeTema}
                 options={dataTema?.data?.map((value:any) =>{
                   // {console.log(value.id)}
@@ -151,23 +152,19 @@ const FormPengajuanKelas = ({mutateData, onClose}) => {
                 className="custom-placeholder h-11 w-80 rounded-lg border-orange-300"
               /> */}
             </Form.Item>
-          </div>
-          <div>
-            <p className="text-base font-medium text-start">Tanggal Mulai</p>
             <Form.Item<FieldType>
+              label="Tanggal Mulai"
               name="tglMulai"
               rules={[{ required: true, message: "Pilih tanggal mulai kelas" }]}
             >
               <DatePicker
                 onChange={onChange}
                 placeholder="Tanggal Mulai"
-                className="custom-placeholder h-11 w-80 rounded-lg border-orange-300"
+                className="custom-placeholder h-9 w-80 rounded-lg border-orange-300"
               />
             </Form.Item>
-          </div>
-          <div>
-            <p className="text-base font-medium text-start">Tanggal Selesai</p>
             <Form.Item<FieldType>
+              label="Tanggal Selesai"
               name="tglSelesai"
               className="flex "
               rules={[
@@ -177,15 +174,13 @@ const FormPengajuanKelas = ({mutateData, onClose}) => {
               <DatePicker
                 onChange={onChange}
                 placeholder="Tanggal Selesai"
-                className="custom-placeholder h-11 w-80 rounded-lg border-orange-300"
+                className="custom-placeholder h-9 w-80 rounded-lg border-orange-300"
               />
             </Form.Item>
-          </div>
         </div>
         <div>
-          <div>
-            <p className="text-base font-medium text-start">Jumlah Peserta</p>
             <Form.Item<FieldType>
+              label="JumlaH Peserta"
               name="bench"
               rules={[
                 { required: true, message: "Harap masukan Jumlah peserta" },
@@ -194,43 +189,37 @@ const FormPengajuanKelas = ({mutateData, onClose}) => {
               <InputNumber
                 // defaultValue={0}
                 onChange={onChange1}
-                className="custom-placeholder h-11 w-80 rounded-lg border-orange-300"
+                className="custom-placeholder h-9 w-80 rounded-lg border-orange-300"
                 placeholder="Jumlah Peserta"
               />
             </Form.Item>
-          </div>
-          <div>
-            <p className="text-base font-medium text-start">Harga</p>
             <Form.Item<FieldType>
+              label="Harga"
               name="harga"
               rules={[{ required: true, message: "Harap masukan harga kelas" }]}
             >
               <InputNumber
                 // defaultValue={0}
                 onChange={handleAdminFee}
-                className="custom-placeholder h-11 w-80 rounded-lg border-orange-300"
+                className="custom-placeholder h-9 w-80 rounded-lg border-orange-300"
                 placeholder="Harga"
               />
             </Form.Item>
-          </div>
-          <div>
-            <p className="text-base font-medium text-start">Biaya Admin</p>
             <Form.Item<FieldType>
+              label="Biaya Admin"
               name="adminFee"
               rules={[{ required: true, message: "" }]}
               // val={form.getFieldValue('harga')}
             >
               <Input
-                disabled
+                readOnly
                 value={'pp'}
-                className="custom-placeholder h-11 w-80 rounded-lg border-orange-300"
+                className="custom-placeholder h-9 w-80 text-base rounded-lg border-orange-300"
                 // placeholder="Biaya Admin"
               />
             </Form.Item>
-          </div>
-          <div>
-            <p className="text-base font-medium text-start">Deskripsi Kelas</p>
             <Form.Item<FieldType>
+              label="Deskripsi Kelas"
               name="desc"
               rules={
                 [
@@ -240,10 +229,9 @@ const FormPengajuanKelas = ({mutateData, onClose}) => {
             >
               <Input
                 placeholder="Deskripsi"
-                className="custom-placeholder h-11 w-80 rounded-lg border-orange-300"
+                className="custom-placeholder h-9 w-80 rounded-lg border-orange-300"
               />
             </Form.Item>
-          </div>
         </div>
       </div>
 

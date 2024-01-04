@@ -61,8 +61,9 @@ const TambahTema = (props: any) => {
         <Form
           form={form}
           name="basic"
-          labelCol={{ span: 4 }}
-          wrapperCol={{ span: 16 }}
+          layout="vertical"
+          // labelCol={{ span: 4 }}
+          // wrapperCol={{ span: 16 }}
           // style={{ maxWidth: 600 }}
           className="flex flex-col justify-centers items-center"
           size="middle"
@@ -70,9 +71,8 @@ const TambahTema = (props: any) => {
           // onFinishFailed={onFinishFailed}
           autoComplete="off"
         >
-          <div>
-            <p className="text-base font-medium text-start">Tema Kelas</p>
             <Form.Item<FieldType>
+              label="Tema Kelas"
               name="name"
               rules={[
                 { required: true, message: "Harap masukan nama tema kelas" },
@@ -83,10 +83,8 @@ const TambahTema = (props: any) => {
                 className="custom-placeholder h-11 w-80 rounded-lg border-orange-300"
               />
             </Form.Item>
-          </div>
-          <div>
-          <p className="text-base font-medium text-start">Nama Chef</p>
           <Form.Item<FieldType>
+            label="Nama Chef"
             name="chef_name"
             rules={[{ required: true, message: "Harap masukan nama chef" }]}
           >
@@ -96,10 +94,8 @@ const TambahTema = (props: any) => {
               className="custom-placeholder h-11 w-80 rounded-lg border-orange-300"
             />
           </Form.Item>
-        </div>
-        <div>
-          <p className="text-base font-medium text-start">Harga</p>
           <Form.Item<FieldType>
+            label="Harga"
             name="price"
             rules={[{ required: true, message: "Harap masukan harga" }]}
           >
@@ -108,7 +104,6 @@ const TambahTema = (props: any) => {
               className="custom-placeholder h-11 w-80 rounded-lg border-orange-300"
             />
           </Form.Item>
-        </div>
           <Form.Item>
             <Button key="submit" type="primary" htmlType="submit">
               Simpan

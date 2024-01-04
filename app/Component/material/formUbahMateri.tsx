@@ -57,8 +57,9 @@ const FormUbahMateri = ({ idMateri, onclose, mutate }: any) => {
       <Form
         form={form}
         name="basic"
-        labelCol={{ span: 4 }}
-        wrapperCol={{ span: 16 }}
+        layout="vertical"
+        // labelCol={{ span: 4 }}
+        // wrapperCol={{ span: 16 }}
         // style={{ maxWidth: 600 }}
         className="flex flex-col justify-centers items-center"
         size="middle"
@@ -67,9 +68,8 @@ const FormUbahMateri = ({ idMateri, onclose, mutate }: any) => {
         onFinishFailed={onFinishFailed}
         autoComplete="off"
       >
-        <div>
-          <p>Materi</p>
           <Form.Item<FieldType>
+            label="Materi"
             name="namaMateri"
             rules={[
               {
@@ -89,10 +89,8 @@ const FormUbahMateri = ({ idMateri, onclose, mutate }: any) => {
               className="custom-placeholder h-11 w-80 rounded-lg border-orange-300"
             />
           </Form.Item>
-        </div>
-        <div>
-          <p>Tautan Video</p>
           <Form.Item<FieldType>
+            label="Link Video"
             name="link"
             rules={[
               {
@@ -111,7 +109,6 @@ const FormUbahMateri = ({ idMateri, onclose, mutate }: any) => {
               className="custom-placeholder h-11 w-80 rounded-lg border-orange-300"
             />
           </Form.Item>
-        </div>
         {/* <Form.Item
           name="idclass"
           label="Jenis Kelas"

@@ -29,12 +29,12 @@ const TambahMateri = ({ idClass, typeClass, onClose , mutateData}: any) => {
     <div>
       <Form
       form={form}
+      layout="vertical"
       className="flex flex-col justify-centers items-center"
       size="middle" 
       onFinish={onFinish}>
-        <div>
-          <p className="text-base font-medium text-start">Materi</p>
           <Form.Item
+          label="Materi"
             name="namaMateri"
             rules={[{ required: true, message: "Nama Materi harus diisi" }]}
           >
@@ -42,10 +42,8 @@ const TambahMateri = ({ idClass, typeClass, onClose , mutateData}: any) => {
             placeholder="Materi Kelas" 
             className="custom-placeholder h-11 w-80 rounded-lg border-orange-300" />
           </Form.Item>
-        </div>
-        <div>
-          <p className="text-base font-medium text-start">Tautan Video</p>
           <Form.Item
+          label="Link Video"
             name="link"
             rules={[{ required: true, message: "Link Materi harus diisi" }]}
           >
@@ -54,7 +52,6 @@ const TambahMateri = ({ idClass, typeClass, onClose , mutateData}: any) => {
             prefix={<LinkOutlined className="text-2xl text-slate-500"/>} 
             className="custom-placeholder h-11 w-80 rounded-lg border-orange-300" />
           </Form.Item>
-        </div>
 
         <Form.Item
           name="type"
