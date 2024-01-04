@@ -54,7 +54,7 @@ const Login = () => {
       if(role === "Admin"){
         router.push("/home-admin")
       }else{
-        router.push("/home");
+        router.push("home");
       }
     } catch (error) {
       // message.error(error.response.body?.error)

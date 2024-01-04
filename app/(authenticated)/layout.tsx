@@ -154,7 +154,7 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
   ];
   const pathname = usePathname();
   const reguler = pathname === "/regular";
-  console.log(reguler, 'ini pathname');
+  console.log(pathname, 'ini pathname');
   
   const path = window.location.pathname;
   return (
@@ -177,9 +177,9 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
             <Menu
               className=""
               mode="inline"
-              // defaultSelectedKeys={['1']}
-              // selectedKeys={[path]}
-              defaultOpenKeys={[path]}
+              // defaultSelectedKeys={['/home']}
+              selectedKeys={[pathname]}
+              // defaultOpenKeys={[pathname]}
               style={{
                 height: "auto",
                 borderRight: 0,
@@ -224,9 +224,9 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
             <Menu
               className=""
               mode="inline"
-              // defaultSelectedKeys={['1']}
-              // selectedKeys={[path]}
-              defaultOpenKeys={[path]}
+              defaultSelectedKeys={['/home']}
+              selectedKeys={[pathname]}
+              // defaultOpenKeys={[path]}
               style={{
                 height: "auto",
                 borderRight: 0,

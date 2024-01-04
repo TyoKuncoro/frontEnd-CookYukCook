@@ -215,3 +215,6 @@ quatenary: '#FDF7EF'
   width: 320px;
   height: 44px;
 }
+:where(.css-dev-only-do-not-override-1d8d5er).ant-tabs .ant-tabs-tab {
+  font-size: 20px;
+}
