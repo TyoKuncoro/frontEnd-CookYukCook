@@ -28,7 +28,7 @@ manipulatedData= {
         return http.put(url.updateUsers(id)).send(data)
     },
     approveKitchen(id:any){
-        return http.put(url.approveKitchen(id)).send()
+        return http.put(url.approveKitchen(id))
     },
     rejectKitchen(id:any, data:any){
         return http.put(url.rejectKitchen(id)).send(data)

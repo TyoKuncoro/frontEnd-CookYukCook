@@ -48,13 +48,13 @@ const ProfileAdmin = () => {
             </table>
           </div>
         </div>
-      <div className="fixed top-8 right-36">
+      {/* <div className="fixed top-8 right-36">
         <LogoutButton
           text="Keluar"
           icons={<LogoutOutlined />}
           onclick={handleLogOut}
         />
-      </div>
+      </div> */}
     </div>
   );
 };

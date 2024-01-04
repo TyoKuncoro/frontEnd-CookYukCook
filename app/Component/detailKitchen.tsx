@@ -5,33 +5,24 @@ import ModalCustom from "./createPengajuan";
 import RejectKitchen from "./rejectKitchen";
 import { useState } from "react";
 
-function DetailKitchen({ idKitchen,onclose, mutate }: any) {
+function DetailKitchen({ idKitchen,onclose }: any) {
   console.log(idKitchen, "HAI");
   const { data: dataKitchen } =
     kitchenRepository.hooks.getKitchenById(idKitchen);
   console.log(dataKitchen?.data, "yap yap");
-  const [modalOpen, setModalOpen] = useState(false);
-  const [detailKitchen, setDetailKitchen] = useState();
-  console.log(detailKitchen, "detail");
-  const handleOpen = (record) => {
-    setModalOpen(true);
-    setDetailKitchen(record);
-  };
-  const handleClose = () => {
-    setModalOpen(false);
-  };
-  const approve = async ({idUsers, kitchenName}: any) => {
-    try {
-      await usersRepository.manipulatedData.approveKitchen(idUsers);
-      message.success(`${kitchenName} telah disetujui `);
-      mutate()
-      onclose()
-    } catch (e) {
-      message.error("Gagal Menyetujui Kitchen");
-    }
-  };
+  // const [modalOpen, setModalOpen] = useState(false);
+  // const [detailKitchen, setDetailKitchen] = useState();
+  // console.log(detailKitchen, "detail");
+  // const handleOpen = (record) => {
+  //   setModalOpen(true);
+  //   setDetailKitchen(record);
+  // };
+  // const handleClose = () => {
+  //   setModalOpen(false);
+  // };
+  
   return (
-    <div className="flex text-start justify-center">
+    <div className="flex text-start gap-10">
       <div>
         <div className=" w-28 h-28 bg-slate-50 rounded-full flex items-center justify-center shadow">
           <Image
@@ -78,16 +69,16 @@ function DetailKitchen({ idKitchen,onclose, mutate }: any) {
             src={`http://localhost:3222/kitchen-studio/upload-legalitas/${dataKitchen?.data?.legality}/image`}
           />
         </div>
-        <div className="flex gap-6 mt-6 float-right">
+        {/* <div className="flex gap-6 mt-6 float-right">
           <a
             className="text-blue-500 text-base font-semibold hover:text-blue-700"
-            onClick={() => approve(dataKitchen?.data?.users?.id)}
+            onClick={() => approve(dataKitchen?.data?.users?.id, dataKitchen?.data?.users?.name)}
           >
             Menyetujui
           </a>
-          <a
+          <a key={dataKitchen}
             className="text-red-500 text-base font-semibold hover:text-red-700"
-            onClick={() => handleOpen(dataKitchen?.data?.users?.id)}
+            onClick={() => handleOpen(dataKitchen?.data?.users.id)}
           >
             Menolak
           </a>
@@ -103,7 +94,7 @@ function DetailKitchen({ idKitchen,onclose, mutate }: any) {
               />
             }
           />
-        </div>
+        </div> */}
       </div>
     </div>
   );

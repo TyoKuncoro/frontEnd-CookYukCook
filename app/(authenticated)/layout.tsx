@@ -15,11 +15,11 @@ import {
   BellOutlined,
   LogoutOutlined,
   IdcardOutlined,
-  UsergroupDeleteOutlined
+  UsergroupDeleteOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { Breadcrumb, Layout, Menu, theme } from "antd";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { parseJwt } from "../Component/Helper/convert";
 
 const { Header, Content, Sider } = Layout;
@@ -64,7 +64,7 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
   const {
     token: { colorBgContainer },
   } = theme.useToken();
-  
+
   const token = localStorage.getItem("access_token");
   let role: string = "";
   // console.log(token, "hayoo udah nemu tokennya ");
@@ -73,12 +73,11 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
     console.log(role, "ini role");
   }
 
-
   const menu: MenuProps["items"] = [
     {
-    key: `/home`,
-    icon: <HomeOutlined />,
-    label: `Dashboard`,
+      key: `/home`,
+      icon: <HomeOutlined />,
+      label: `Dashboard`,
     },
     {
       key: `/regular`,
@@ -153,7 +152,11 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
       label: `Logout`,
     },
   ];
-  const path =  window.location.pathname
+  const pathname = usePathname();
+  const reguler = pathname === "/regular";
+  console.log(reguler, 'ini pathname');
+  
+  const path = window.location.pathname;
   return (
     <Layout className=" bg-white h-full">
       <Sider
@@ -180,6 +183,7 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
             fontWeight: "bold",
             color: "#FF7D04", 
           }}
+          
           items={role == "Trainee" || role == "Kitchen Studio" ? menu : menuAdmin }
           onClick={({ key }) => {
             router.push(key);

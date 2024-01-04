@@ -14,12 +14,14 @@ import { parseJwt } from "#/app/Component/Helper/convert";
 import { regularClassRepository } from "#/repository/regularClass";
 // import { materiRepository } from "#/repository/materi";
 // import CreateMateriModal from "#/app/Component/material/formTambahMateri";
-import { Button, Modal, Space, Table } from "antd";
+import { Button, Modal, Space, Table, message } from "antd";
 // import FormUbahPengajuan from "#/app/Component/formUbahPengajuan";
 import UbahPengajuan from "#/app/Component/modalUbahPengajuan";
 import { ColumnsType } from "antd/es/table";
 import ModalCustom from "#/app/Component/createPengajuan";
 import DetailKelasRegular from "#/app/Component/modalDetailKelas";
+import { SendOutlined } from "@ant-design/icons";
+import { kitchenRepository } from "#/repository/kitchen";
 // import { mutate } from "swr";
 
 const ListRegular = () => {
@@ -30,6 +32,8 @@ const ListRegular = () => {
     id = parseJwt(token).id;
   }
   console.log(id, "halo ini id ku")
+  const { data: dataUser } = kitchenRepository.hooks.getKitchenByUser();
+
   const [detail, setDetail] = useState();
   const [modalOpen, setModalOpen] = useState(false);
   const [modalDetail, setModalDetail] = useState(false);
@@ -37,7 +41,11 @@ const ListRegular = () => {
   console.log(data, "data regular ");
 
   const handleOK = () => {
-    setModalOpen(true);
+    if(dataUser?.data?.users?.status === "pending"){
+      message.error("Mohon tunggu konfirmasi akun dari admin")
+    }else if(dataUser?.data?.users?.status === "active"){
+      setModalOpen(true);
+    }
   };
   const handleClose = () => {
     setModalOpen(false);
@@ -92,7 +100,7 @@ const ListRegular = () => {
     <div className="bg-white p-20 w-full space-y-16">
       <div>
         <div className="float-right mr-3">
-          <UbahMateriBtn text="Ajukan Kelas" key={null} onclick={handleOK} />
+          <UbahMateriBtn text={"Ajukan Kelas"} icon={<SendOutlined/>} key={null} onclick={handleOK} />
         </div>
         <p className="text-3xl font-bold">Kelas Regular</p>
       </div>

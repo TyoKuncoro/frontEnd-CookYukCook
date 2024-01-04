@@ -5,7 +5,7 @@ import MonthPickerComponent from "#/app/Component/Mpicker/page";
 import { Button, Dropdown, Form, Select } from "antd";
 import { MenuProps, Tabs, Modal } from "antd";
 import FullRoundedButton from "#/app/Component/fullRoundedButton";
-import { PrinterOutlined } from "@ant-design/icons";
+import { CheckCircleOutlined, PrinterOutlined } from "@ant-design/icons";
 import Image from "next/image";
 import { Pagination } from "antd";
 import { regularClassRepository } from "#/repository/regularClass";
@@ -152,12 +152,13 @@ const RiwayatKitchen: React.FC = () => {
             >
               <div className="flex items-center ml-4"> 
                 <div className="">
-                  <Image
+                  <CheckCircleOutlined className="text-5xl text-green-600" />
+                  {/* <Image
                     src="/assets/CheckCircleOutlined.png"
                     width={50}
                     height={50}
                     alt="clock"
-                  />
+                  /> */}
                 </div>
                 <div className="ml-6">
                   <div className="text-xs">{item.createdAt.substring(0, 10)}</div>

@@ -109,7 +109,8 @@ const Home: React.FC = () => {
   const { data: dataKelas } =
     regularClassRepository.hooks.findAllRegularClass();
   console.log(dataKelas, "Data Kelas");
-
+  const formatter = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' });
+  // const formattedPrice = formatter.format(price);
   // const { data } = regularClassRepository.hooks.findRegClassByKitchen(dataUser?.data.id);
   // console.log(data, "ini data")
   return role === "Kitchen Studio" ? (
@@ -127,11 +128,10 @@ const Home: React.FC = () => {
         </div>
         <div className=" py-4 mx-10 h-80">
         <Swiper
-              spaceBetween={100}
               navigation={true}
               slidesPerView={4}
               modules={[Navigation]}
-              className=" py-4 mx-10"
+              className=" py-4 mx-10 flex justify-stretch gap-x-10"
             >
 
           {dataKelas?.data.map((item: any, index:any) =>(
@@ -139,7 +139,7 @@ const Home: React.FC = () => {
             
             <Card
               title={item.courseName}
-              className="mr-2"
+              className="mr-2 w-80"
               extra={
                 <FullRoundedButton
                   text="Lihat Detail"
@@ -152,7 +152,7 @@ const Home: React.FC = () => {
             >
               <div className="flex justify-between">
                 <div>
-                  <div>Tema: {item.courseName}</div>
+                  <div>Tema: {item.name}</div>
                   <div>Kelas Regular</div>
                   {/* <div>lokasi:</div>
                   <p className=" text-xs">{alamat}</p> */}
@@ -162,7 +162,7 @@ const Home: React.FC = () => {
                   </div>
                   <div className=" font-bold text-lg mt-3">Harga: {item.price - item.adminFee}</div>
                   <div className=" font-bold">
-                    Kuota: {item.numberOfBenches == 0 ? (<span className="text-red-500">Penuh</span>) : item.numberOfBenches}
+                    Kuota: {item.numberOfBenches == 0 ? (<span className="text-red-500">Penuh</span>) : (`${item.numberOfBenches} Orang`) }
                   </div>
                 </div>
                 <div className=" content-between">
@@ -302,7 +302,7 @@ const Home: React.FC = () => {
               alt="Gambar"
             />
             <div className="font-bold">Daftar Kelas Regular</div>
-            <div className=" text-xs">Quota : {selectedData?.numberOfBenches}</div>
+            <div className=" text-xs">Quota : {selectedData?.numberOfBenches} orang</div>
             <div className=" text-xs">Dimulai pada:</div>
             <div className=" text-xs">{selectedData?.startDate.substring(0, 10)} sampai {selectedData?.endDate.substring(0, 10)}</div>
           </div>
@@ -313,8 +313,8 @@ const Home: React.FC = () => {
                 <div key={index}>{items}</div>
               ))}
             </div>
-            <div className="flex justify-between mt-2">
-              <div className=" font-bold text-lg items-center">Rp. {selectedData?.price - selectedData?.adminFee}</div>
+            <div className="flex justify-between gap-4 mt-2">
+              <div className=" font-bold text-lg items-center"> {formatter.format(selectedData?.price - selectedData?.adminFee)}</div>
               <div>
                 <FullRoundedButton
                   text={"Daftar"}

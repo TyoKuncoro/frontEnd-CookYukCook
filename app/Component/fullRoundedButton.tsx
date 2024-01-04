@@ -9,7 +9,8 @@ const FullRoundedButton = ({text, icons, type, onclick}:props) => {
     <Button
     type="primary"
     shape="round"
-    style={{backgroundColor: '#FF7D04'}}
+    // style={{backgroundColor: '#FF7D04'}}
+    className='text-white bg-button hover:text-button hover:bg-white'
     onClick={onclick}
     htmlType={type} 
 >
