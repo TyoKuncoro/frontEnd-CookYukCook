@@ -48,10 +48,10 @@ const Profile = () => {
     router.push("login");
   }
 
-  const handleLogOut = () => {
-    localStorage.removeItem("access_token");
-    router.push("login");
-  };
+  // const handleLogOut = () => {
+  //   localStorage.removeItem("access_token");
+  //   router.push("login");
+  // };
   const [visible, setVisible] = useState(false);
   const [visiblePassword, setVisiblePassword] = useState(false);
 
@@ -141,10 +141,10 @@ const Profile = () => {
               <Input type="password" placeholder="Masukan Password Lama" />
             </Form.Item> */}
             <Form.Item name="passwordBaru">
-              <Input type="password" placeholder="Masukan Password Baru" />
+              <Input.Password type="password" placeholder="Masukan Password Baru" />
             </Form.Item>
             <Form.Item name="konfirmasiPassword">
-              <Input type="password" placeholder="Konfirmasi Password Baru" />
+              <Input.Password type="password" placeholder="Konfirmasi Password Baru" />
             </Form.Item>
             <Form.Item>
               <Button type="primary" htmlType="submit">
@@ -282,13 +282,13 @@ const Profile = () => {
           </div>
         </div>
       </div>
-      <div className="ml-20 mt-10">
+      {/* <div className="ml-20 mt-10">
         <LogoutButton
           text="Keluar"
           icons={<LogoutOutlined />}
           onclick={handleLogOut}
         />
-      </div>
+      </div> */}
     </div>
   ) : role === "Kitchen Studio" ? (
     <ProfileKitchen />

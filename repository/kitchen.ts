@@ -11,8 +11,8 @@ const hooks = {
     getKitchenById(id:any){
         return useSWR(url.getKitchenById(id), http.fetcher)
     },
-    getKitchenByUser(){
-        return useSWR(url.getKitchenByUser(), http.fetcher)
+    getKitchenByUser(id: any){
+        return useSWR(url.getKitchenByUser(id), http.fetcher)
     },
     getKitchenPending(status:any){
         return useSWR(url.getKitchenPending(status), http.fetcher)

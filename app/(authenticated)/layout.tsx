@@ -66,7 +66,7 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
   } = theme.useToken();
   
   const token = localStorage.getItem("access_token");
-  let role: string = "Admin";
+  let role: string = "";
   // console.log(token, "hayoo udah nemu tokennya ");
   if (token) {
     role = parseJwt(token).role;
@@ -180,7 +180,7 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
             fontWeight: "bold",
             color: "#FF7D04", 
           }}
-          items={role == "Trainee" || "Kitchen Studio" ? menu : menuAdmin }
+          items={role == "Trainee" || role == "Kitchen Studio" ? menu : menuAdmin }
           onClick={({ key }) => {
             router.push(key);
             // console.log(`key ${key} route not found`);

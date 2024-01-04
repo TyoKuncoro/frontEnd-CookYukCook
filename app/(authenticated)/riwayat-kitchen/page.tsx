@@ -101,7 +101,7 @@ const RiwayatKitchen: React.FC = () => {
         <FullRoundedButton text="Export Data" />
       </Modal>
       <div className="text-2xl font-bold">Riwayat Pembayaran</div>
-      <div className="flex justify-between">
+      {/* <div className="flex justify-between">
         <div className="flex">
           <WeekPickerComponent />
           <div> atau </div>
@@ -137,20 +137,20 @@ const RiwayatKitchen: React.FC = () => {
             <div>{item.harga}</div>
           </div>
         );
-      })}
+      })} */}
 
       <Tabs
         defaultActiveKey="1"
         onChange={handleTabChange}
         className=" justify-between"
       >
-        <TabPane tab="Berhasil" key="2">
+        <TabPane key="2">
           {dataKelas?.data?.map((item: any) => (
             <div
               className="flex p-3 justify-between items-center rounded-lg my-3"
               style={{ border: "1px solid #FF7D04" }}
             >
-              <div className="flex items-center ml-4">
+              <div className="flex items-center ml-4"> 
                 <div className="">
                   <Image
                     src="/assets/CheckCircleOutlined.png"
@@ -171,47 +171,12 @@ const RiwayatKitchen: React.FC = () => {
               </div>
             </div>
           ))}
-          <Pagination
+          {/* <Pagination
             defaultCurrent={1}
             total={50}
             onChange={onChange}
             className="flex justify-center pt-48 pb-12"
-          />
-        </TabPane>
-        <TabPane tab="Gagal" key="3">
-          {/* Konten untuk status "Gagal" */}
-          {data1.map((item) => (
-            <div
-              className="flex p-3 justify-between items-center rounded-lg my-3"
-              style={{ border: "1px solid #FF7D04" }}
-            >
-              <div className="flex items-center ml-4">
-                <div className="">
-                  <Image
-                    src="/assets/solar_danger-circle-outline.png"
-                    width={50}
-                    height={50}
-                    alt="clock"
-                  />
-                </div>
-                <div className="ml-6">
-                  <div className="text-xs">{item.tanggal}</div>
-                  <div className="text-lg font-bold">{item.jenisKelas}</div>
-                  <div className=" text-lg">{item.judul}</div>
-                </div>
-              </div>
-              <div>
-                <div className="font-bold text-lg">Rp. {item.harga}</div>
-                {/* <FullRoundedButton text="Lihat Detail" /> */}
-              </div>
-            </div>
-          ))}
-          <Pagination
-            defaultCurrent={1}
-            total={50}
-            onChange={onChange}
-            className="flex justify-center pt-48 pb-12"
-          />
+          /> */}
         </TabPane>
       </Tabs>
     </div>

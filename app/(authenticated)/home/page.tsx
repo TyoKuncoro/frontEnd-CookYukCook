@@ -76,6 +76,8 @@ const Home: React.FC = () => {
     let actualPrice:any = selectedData?.price - selectedData?.adminFee
     localStorage.setItem('priceTrainee', actualPrice)
     localStorage.setItem('courseTrainee', selectedData?.courseName)
+    localStorage.setItem('id', selectedData?.id)
+    // localStorage.setItem('benches', selectedData?.numberOfBenches)
     router.push('/pembayaran')
 
     // setIsModalOpen(false);
@@ -127,7 +129,7 @@ const Home: React.FC = () => {
         <Swiper
               spaceBetween={100}
               navigation={true}
-              slidesPerView={3}
+              slidesPerView={4}
               modules={[Navigation]}
               className=" py-4 mx-10"
             >
@@ -143,7 +145,7 @@ const Home: React.FC = () => {
                   text="Lihat Detail"
                   icons={null}
                   type={"primary"}
-                  onclick={() => showModal(item)}
+                  onclick={() => item.numberOfBenches == 0 ? message.error('Kuota sudah Penuh') : showModal(item)}
                 />
               }
               style={{ width: 300 }}
@@ -158,9 +160,9 @@ const Home: React.FC = () => {
                   <div className="text-xs">
                     {item.startDate.substring(0, 10)} sampai {item.endDate.substring(0, 10)}
                   </div>
-                  <div className=" font-bold text-lg mt-3">Cuma: {item.price - item.adminFee}</div>
+                  <div className=" font-bold text-lg mt-3">Harga: {item.price - item.adminFee}</div>
                   <div className=" font-bold">
-                    Kuota: {item.numberOfBenches}
+                    Kuota: {item.numberOfBenches == 0 ? (<span className="text-red-500">Penuh</span>) : item.numberOfBenches}
                   </div>
                 </div>
                 <div className=" content-between">

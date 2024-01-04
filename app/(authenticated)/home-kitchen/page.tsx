@@ -75,7 +75,7 @@ const HomeKitchen: React.FC = () => {
   const [selectedDataKitchen, setSelectedDataKitchen] = useState<any>(null);
 
   const { data: dataUser } = kitchenRepository.hooks.getKitchenByUser(id);
-  // console.log(dataUser, "data user");
+  console.log(dataUser, "data user");
   const handleOk = async () => {
     console.log(`${id}, id
     ${courseName} = course
@@ -83,7 +83,7 @@ const HomeKitchen: React.FC = () => {
     ${endDate} = endDate
     ${price} = price
     ${numberOfBenches} = benches
-    ${description} = description`)
+    ${description} = description`);
     // console.log(startDate, "startDate");
     // console.log(endDate, "endDate");
 
@@ -106,8 +106,8 @@ const HomeKitchen: React.FC = () => {
       );
       // console.log(mengajukanKelas.body.data.adminFee, "price")
       // console.log(mengajukanKelas.body.data.courseName, "courseName")
-      localStorage.setItem('price', mengajukanKelas.body.data.adminFee)
-      localStorage.setItem('courseName', courseName)
+      localStorage.setItem("price", mengajukanKelas.body.data.adminFee);
+      localStorage.setItem("courseName", courseName);
       setCourseName("");
       setStartDate("");
       setEndDate("");
@@ -115,14 +115,13 @@ const HomeKitchen: React.FC = () => {
       setNumberOfBenches(0);
       setDescription("");
       router.push("/pembayaran");
-      mutate(regularClassRepository.url.findRegClassByKitchen(id));
+      // mutate(regularClassRepository.url.findRegClassByKitchen(id));
     } catch (e) {
       console.log(e, "eror mengajukan data");
     }
-    localStorage.setItem('price', price/10)
-    localStorage.setItem('courseName', courseName)
-    router.push("/pembayaran");
-
+    // localStorage.setItem("price", price / 10);
+    // localStorage.setItem("courseName", courseName);
+    // router.push("/pembayaran");
 
     setModalVisible(false);
   };
@@ -174,20 +173,28 @@ const HomeKitchen: React.FC = () => {
           onChange={changeTanggalSelesai}
           style={{ marginBottom: "1rem", display: "block" }}
         />
-        Harga :
-        <InputNumber
-          placeholder="Harga"
-          value={price}
-          onChange={(value) => setPrice(value)}
-          style={{ marginBottom: "1rem", display: "block" }}
-        />
-        Jumlah Benches :
-        <InputNumber
-          placeholder="Jumlah Bangku"
-          value={numberOfBenches}
-          onChange={(value) => setNumberOfBenches(value)}
-          style={{ marginBottom: "1rem", display: "block" }}
-        />
+        {/* <div className="flex justify-evenly">
+          <div> */}
+            Harga :
+            <InputNumber
+              placeholder="Harga"
+              className="w-[100%]"
+              value={price}
+              onChange={(value) => setPrice(value)}
+              style={{ marginBottom: "1rem", display: "block" }}
+            />
+          {/* </div>
+          <div> */}
+            Jumlah Benches :
+            <InputNumber
+              placeholder="Jumlah Bangku"
+              className="w-[100%]"
+              value={numberOfBenches}
+              onChange={(value) => setNumberOfBenches(value)}
+              style={{ marginBottom: "1rem", display: "block" }}
+            />
+          {/* </div>
+        </div> */}
         <Input.TextArea
           placeholder="Deskripsi"
           value={description}
@@ -234,7 +241,7 @@ const HomeKitchen: React.FC = () => {
             {token &&
               data?.data.map((item: any, index: any) => (
                 <SwiperSlide key={index}>
-                  <Card style={{ width: 300 }} className="rounded-lg p-4 mx-6">
+                  <Card style={{ width: 300, height: 400 }} className="rounded-lg p-4 mx-6">
                     <div className=" content-between ">
                       <Image
                         className=" rounded"

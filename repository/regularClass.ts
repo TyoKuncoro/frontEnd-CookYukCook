@@ -7,7 +7,8 @@ const url = {
   findRegClassBykitchenPending: (id:any) => `/regular-class/find-pending/${id}`,
   findRegClassById: (id:any) => `/regular-class/${id}`,
   createKelas: () => '/regular-class/create-pengajuan',
-  updatePengajuan: (id:any) => `/regular-class/update-pengajuan/${id}`
+  updatePengajuan: (id:any) => `/regular-class/update-pengajuan/${id}`,
+  updateBenches: (id: any) => `/regular-class/benches/${id}`
 };
 const hooks = {
 	findAllRegularClass() {
@@ -29,6 +30,9 @@ const manipulateData = {
   },
   updatePengajuanKelasReg(id:any, data:any){
     return http.put(url.updatePengajuan(id)).send(data)
+  },
+  updateBenches(id: any, data: any){
+    return http.put(url.updateBenches(id)).send(data)
   }
 };
 
