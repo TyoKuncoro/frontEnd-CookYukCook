@@ -90,7 +90,7 @@ const Pembayaran = () => {
       localStorage.removeItem("id")
       localStorage.removeItem("priceTrainee");
       localStorage.removeItem("courseTrainee");
-      // window.snap.pay(requestData.token);
+      window.snap.pay(requestData.token);
         
       } catch (e) {
         console.log(e, 'ini error')

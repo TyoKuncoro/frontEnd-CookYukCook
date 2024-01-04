@@ -27,7 +27,7 @@ const FormPengajuanKelas = ({mutateData, onClose}) => {
     console.log(id, "angjay")
   }
   const {data: dataTema} = temaKelasRepository.hooks.findTemaByUsers(id)
-  const {data: dataKitchen} = kitchenRepository.hooks.getKitchenByUser()
+  const {data: dataKitchen} = kitchenRepository.hooks.getKitchenByUser(id)
   console.log(dataKitchen, "halooo cuy")
   // useEffect(() =>{
   //   if (token) {
@@ -59,6 +59,8 @@ const FormPengajuanKelas = ({mutateData, onClose}) => {
         message.success("Pengajuan Kelas Berhasil");
       }, 2000)
       form.resetFields()
+      localStorage.setItem("courseName", values?.namaKelas);
+      localStorage.setItem("price", values?.adminFee);
       router.push("/pembayaran")
       mutateData()
     } catch (error) {

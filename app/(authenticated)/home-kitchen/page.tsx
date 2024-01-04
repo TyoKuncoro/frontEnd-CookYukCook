@@ -124,20 +124,15 @@ const HomeKitchen: React.FC = () => {
   const handleOK = () => {
     if(dataUser?.data?.status === "pending"){
       message.error("Mohon tunggu konfirmasi akun dari admin")
-    }else if(dataUser?.data?.status === "active"){
+    }else if(dataUser?.data?.status === "available"){
       setModalOpen(true);
     }
   };
   const handleClose = () => {
     setModalOpen(false);
   };
-  // const [modalOpen, setModalOpen] = useState(false);
-
-  // const [tema, setTema] = useState("Judul Tema");
 
   const [selectedDate, setSelectedDate] = useState<string>("");
-
-  // const [variableKelas, setVariableKelas] = useState("");
 
   const handleDateSelect = (date: any) => {
     setSelectedDate(date.format("YYYY-MM-DD"));
@@ -263,59 +258,6 @@ const HomeKitchen: React.FC = () => {
   // }
   return (
     <div>
-      <Modal
-        title="Pengajuan Kelas Regular"
-        visible={modalVisible}
-        // onOk={handleOk}
-        onCancel={handleCancel}
-      >
-        <Input
-          placeholder="Nama Course"
-          value={courseName}
-          onChange={(e) => setCourseName(e.target.value)}
-          style={{ marginBottom: "1rem" }}
-        />
-        <DatePicker
-          placeholder="Tanggal Mulai"
-          format="YYYY-MM-DD"
-          onChange={changeTanggalMulai}
-          style={{ marginBottom: "1rem", display: "block" }}
-        />
-        <DatePicker
-          placeholder="Tanggal Selesai"
-          format="YYYY-MM-DD"
-          onChange={changeTanggalSelesai}
-          style={{ marginBottom: "1rem", display: "block" }}
-        />
-        {/* <div className="flex justify-evenly">
-          <div>
-            Harga :
-            <InputNumber
-              placeholder="Harga"
-              className="w-[100%]"
-              value={price}
-              onChange={(value) => setPrice(value)}
-              style={{ marginBottom: "1rem", display: "block" }}
-            />
-          {/* </div>
-          <div> */}
-            Jumlah Benches :
-            <InputNumber
-              placeholder="Jumlah Bangku"
-              className="w-[100%]"
-              value={numberOfBenches}
-              onChange={(value) => setNumberOfBenches(value)}
-              style={{ marginBottom: "1rem", display: "block" }}
-            />
-          {/* </div>
-        </div> */}
-        <Input.TextArea
-          placeholder="Deskripsi"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          style={{ marginBottom: "1rem" }}
-        />
-      </Modal>
       <ModalCustom 
       width={843}
       title="Pengajuan Kelas"
