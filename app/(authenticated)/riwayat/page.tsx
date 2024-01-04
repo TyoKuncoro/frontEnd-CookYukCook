@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState } from "react";
-import { ClockCircleOutlined } from "@ant-design/icons";
+import { CheckCircleOutlined, ClockCircleOutlined } from "@ant-design/icons";
 import { Tabs, message } from "antd";
 import Image from "next/image";
 import FullRoundedButton from "#/app/Component/fullRoundedButton";
@@ -15,25 +15,25 @@ const Riwayat: React.FC = () => {
   const handleTabChange = (key: any) => {
     console.log("Tab changed:", key);
   };
-
+  const formatter = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' });
   const data = [
     {
       tanggal: "14-Des-2023",
       jenisKelas: "Kelas Regular",
       judul: "membuat Kue Enak",
-      harga: "120000",
+      harga: 120000,
     },
     {
       tanggal: "15-Des-2023",
       jenisKelas: "Kelas Regular",
       judul: "Kue Lebaran Enak",
-      harga: "120000",
+      harga: 120000,
     },
     {
       tanggal: "16-Des-2023",
       jenisKelas: "Kelas Regular",
       judul: "Kue Tahun Baru Enak",
-      harga: "120000",
+      harga: 120000,
     },
   ];
 
@@ -88,7 +88,7 @@ const Riwayat: React.FC = () => {
                   </div>
                 </div>
                 <div>
-                  <div className="font-bold text-lg">Rp. {item.harga}</div>
+                  <div className="font-bold text-lg"> {formatter.format(item.harga)}</div>
                   {/* <FullRoundedButton text="Lihat Detail" /> */}
                 </div>
               </div>
@@ -108,12 +108,13 @@ const Riwayat: React.FC = () => {
               >
                 <div className="flex items-center ml-4">
                   <div className="">
-                    <Image
+                  <CheckCircleOutlined className="text-5xl text-green-600" />
+                    {/* <Image
                       src="/assets/CheckCircleOutlined.png"
                       width={50}
                       height={50}
                       alt="clock"
-                    />
+                    /> */}
                   </div>
                   <div className="ml-6">
                     <div className="text-xs">{item.tanggal}</div>
@@ -122,7 +123,7 @@ const Riwayat: React.FC = () => {
                   </div>
                 </div>
                 <div>
-                  <div className="font-bold text-lg">Rp. {item.harga}</div>
+                  <div className="font-bold text-lg">{formatter.format(item.harga)}</div>
                   {/* <FullRoundedButton text="Lihat Detail" /> */}
                 </div>
               </div>
@@ -157,7 +158,7 @@ const Riwayat: React.FC = () => {
                   </div>
                 </div>
                 <div>
-                  <div className="font-bold text-lg">Rp. {item.harga}</div>
+                  <div className="font-bold text-lg">{formatter.format(item.harga)}</div>
                   {/* <FullRoundedButton text="Lihat Detail" /> */}
                 </div>
               </div>

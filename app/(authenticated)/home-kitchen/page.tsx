@@ -40,12 +40,12 @@ const HomeKitchen: React.FC = () => {
   const handleDateSelect = (date: any) => {
     setSelectedDate(date.format("YYYY-MM-DD"));
   };
-  const token = localStorage.getItem("access_token");
-  console.log(token, "toooooooooooooken");
-
+  
   const editKelas = (event: any) => {
     console.log(event.key);
   };
+  const token = localStorage.getItem("access_token");
+  console.log(token, "toooooooooooooken");
   let id: string = "";
   let email: string = "";
   if (token) {
@@ -55,12 +55,18 @@ const HomeKitchen: React.FC = () => {
   // const ajukanKelas = () => {};
 
   const [modalAjukan, setModalAjukan] = useState(false);
+  const { data: dataUser } = kitchenRepository.hooks.getKitchenByUser();
+  console.log(dataUser?.data?.users?.status, 'iniStatus')
   const modalAjukanKelas = () => {
     if (!token) {
       message.error("silahkan login");
       router.push("/login");
     } else {
-      setModalVisible(true);
+      if(dataUser?.data?.users?.status === "pending"){
+        message.error('Mohon tunggu verifikasi akun dari admin')
+      }else if(dataUser?.data?.users?.status === "active"){
+        setModalVisible(true);
+      }
     }
   };
   // console.log(dataUser, "data uuuuuuuuuuuuuuuuser");
@@ -74,7 +80,6 @@ const HomeKitchen: React.FC = () => {
   const [description, setDescription] = useState("");
   const [selectedDataKitchen, setSelectedDataKitchen] = useState<any>(null);
 
-  const { data: dataUser } = kitchenRepository.hooks.getKitchenByUser(id);
   // console.log(dataUser, "data user");
   const handleOk = async () => {
     console.log(`${id}, id
@@ -122,8 +127,6 @@ const HomeKitchen: React.FC = () => {
     localStorage.setItem('price', price/10)
     localStorage.setItem('courseName', courseName)
     router.push("/pembayaran");
-
-
     setModalVisible(false);
   };
 

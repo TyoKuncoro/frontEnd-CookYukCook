@@ -21,6 +21,8 @@ import {
   UserOutlined,
   MailOutlined,
   PhoneOutlined,
+  EyeInvisibleOutlined,
+  EyeOutlined,
 } from "@ant-design/icons";
 import LogoutButton from "#/app/Component/button";
 import { useRouter } from "next/navigation";
@@ -72,7 +74,7 @@ const Profile = () => {
   let role: string = "";
   let name: string = "";
   let id: string = "";
-  console.log(token, "token")
+  console.log(token, "token");
   if (token) {
     role = parseJwt(token).role;
     id = parseJwt(token).id;
@@ -108,19 +110,23 @@ const Profile = () => {
     };
     console.log(data, "ini data");
     try {
-      const updateUser = await usersRepository.manipulatedData.updateUsers(id, data);
-      console.log(updateUser, 'ini update user')
-      message.success('Data Berhasil Diubah')
+      const updateUser = await usersRepository.manipulatedData.updateUsers(
+        id,
+        data
+      );
+      console.log(updateUser, "ini update user");
+      message.success("Data Berhasil Diubah");
       setVisible(false);
-      mutate(usersRepository.url.getUsersById(id))
+      mutate(usersRepository.url.getUsersById(id));
     } catch (e) {
-      message.error('Mengubah Data Gagal')
-      console.log(e, 'ini error')
+      message.error("Mengubah Data Gagal");
+      console.log(e, "ini error");
     }
   };
 
   const { data: dataUser } = usersRepository.hooks.getUsersById(id);
   // console.log(dataUser, "ini data trainee");
+  console.log(dataUser?.data, "ini data");
 
   const changeTanggalLahir = (date: any, dateString: any) => {
     setDateBirth(dateString);
@@ -226,17 +232,28 @@ const Profile = () => {
       </div>
       <div className="w-[65%] ml-20">
         <div className="flex rounded-3xl mt-20">
-          <div className=" ml-14 mt-14">
-            <Image
-              className=" rounded"
-              src="/assets/account.png"
-              width={150}
-              height={150}
-              alt="Gambar Pengguna"
-            />
+          <div className="flex flex-col ">
+            <div className=" ml-14 mt-14">
+              <Image
+                className=" rounded"
+                src="/assets/account.png"
+                width={150}
+                height={150}
+                alt="Gambar Pengguna"
+              />
+            </div>
+            <div className="ml-14 mt-5">
+              <FullRoundedButton
+                text="Ubah Profile"
+                icons={<EditOutlined />}
+                onclick={showModal}
+              />
+            </div>
           </div>
           <div className=" ps-8 mt-14">
-            <div className=" text-3xl font-bold mb-10">Cecilila Siregar</div>
+            <div className=" text-3xl font-bold mb-10">
+              {dataUser?.data?.name}
+            </div>
             <table>
               <tbody className="flex flex-col gap-6 text-xl">
                 <tr>
@@ -265,30 +282,23 @@ const Profile = () => {
                   <td className=" pl-28">
                     <FullRoundedButton
                       text="Ubah Password"
-                      icons={<EditOutlined />}
+                      icons={<EyeOutlined />}
                       onclick={showModalPassword}
                     />
                   </td>
                 </tr>
               </tbody>
             </table>
-            <div className="my-28">
-              <FullRoundedButton
-                text="Ubah Profile"
-                icons={<EditOutlined />}
-                onclick={showModal}
-              />
-            </div>
           </div>
         </div>
       </div>
-      <div className="ml-20 mt-10">
+      {/* <div className="ml-20 mt-10">
         <LogoutButton
           text="Keluar"
           icons={<LogoutOutlined />}
           onclick={handleLogOut}
         />
-      </div>
+      </div> */}
     </div>
   ) : role === "Kitchen Studio" ? (
     <ProfileKitchen />

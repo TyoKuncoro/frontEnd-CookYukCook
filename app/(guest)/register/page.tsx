@@ -53,7 +53,7 @@ const Register = () => {
         email: values?.email,
         password: values?.password,
         phoneNumber: values?.whatsapp,
-        dateOfBirth: values?.birhtdate,
+        dateOfBirth: values?.birthdate,
         gender: values?.gender,
         address: values?.alamat,
         photo: profilePhoto,

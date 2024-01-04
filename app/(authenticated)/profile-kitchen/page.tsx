@@ -126,7 +126,7 @@ const ProfileKitchen = () => {
     },
   };
 
-  const {data: dataKitchen} = usersRepository.hooks.getUsersById(id);
+  const { data: dataKitchen } = usersRepository.hooks.getUsersById(id);
   // console.log(dataKitchen, 'ini data kitchen')
 
   return (
@@ -147,9 +147,7 @@ const ProfileKitchen = () => {
         >
           <Form.Item
             name="kitchen"
-            rules={[
-              { required: true, message: "Nama Tidak Boleh Kosong" },
-            ]}
+            rules={[{ required: true, message: "Nama Tidak Boleh Kosong" }]}
           >
             <Input
               prefix={<UserOutlined />}
@@ -208,9 +206,7 @@ const ProfileKitchen = () => {
           </Form.Item> */}
           <Form.Item
             name="alamat"
-            rules={[
-              { required: true, message: "Alamat Tidak Boleh Kosong" },
-            ]}
+            rules={[{ required: true, message: "Alamat Tidak Boleh Kosong" }]}
           >
             <Input
               prefix={<EnvironmentOutlined />}
@@ -284,18 +280,29 @@ const ProfileKitchen = () => {
         </Form.Item>
       </Modal>
       <div className=" py-20 flex w-[70%] m-36 rounded-xl">
-        <div className=" mx-14 mt-14">
-          <Image
-            className=" rounded"
-            src="/assets/account.png"
-            width={150}
-            height={150}
-            alt="Gambar Pengguna"
-          />
+        <div className="flex flex-col">
+          <div className=" mx-14 mt-14">
+            <Image
+              className=" rounded"
+              src="/assets/account.png"
+              width={150}
+              height={150}
+              alt="Gambar Pengguna"
+            />
+          </div>
+          <div className=" mx-14 mt-5">
+            <FullRoundedButton
+              text="Ubah Profile"
+              icons={<EditOutlined />}
+              onclick={showModal}
+            />
+          </div>
         </div>
         <div>
           <div className="flex mb-12 justify-between">
-            <div className="text-3xl font-extrabold">{dataKitchen?.data?.name}</div>
+            <div className="text-3xl font-extrabold">
+              {dataKitchen?.data?.name}
+            </div>
           </div>
           <table>
             <tbody className="flex flex-col gap-6">
@@ -310,7 +317,7 @@ const ProfileKitchen = () => {
                 <td className="pl-8">
                   <FullRoundedButton
                     text="Ubah Password"
-                    icons={<EditOutlined />}
+                    icons={<EyeOutlined />}
                     onclick={formPassword}
                   />
                 </td>
@@ -363,22 +370,15 @@ const ProfileKitchen = () => {
               );
             })}
           </div> */}
-          <div className="mt-16">
-            <FullRoundedButton
-              text="Ubah Profile"
-              icons={<EditOutlined />}
-              onclick={showModal}
-            />
-          </div>
         </div>
       </div>
-      <div className="fixed top-8 right-36">
+      {/* <div className="fixed top-8 right-36">
         <LogoutButton
           text="Keluar"
           icons={<LogoutOutlined />}
           onclick={handleLogOut}
         />
-      </div>
+      </div> */}
     </div>
   );
 };

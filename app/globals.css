@@ -184,6 +184,12 @@
 :where(.css-dev-only-do-not-override-1d8d5er).ant-menu-light .ant-menu-item:hover:not(.ant-menu-item-selected):not(.ant-menu-submenu-selected){
   color:white
 }
+.swiper-button-next:after, .swiper-rtl .swiper-button-prev:after {
+  color:#FF7D04;
+}
+.swiper-button-prev:after, .swiper-rtl .swiper-button-next:after{
+  color:#FF7D04;
+}
 /* button: '#FF7D04',
 primary: '#FED08C',
 secondary: '#FFD8B4',
