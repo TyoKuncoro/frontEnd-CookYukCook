@@ -48,7 +48,7 @@ function HomeAdmin() {
   };
   const columns: ColumnsType<DataType> = [
     {
-      title: "Foto Legalitas",
+      title: "Logo Studio Masak",
       dataIndex: "logos",
       key: "logos",
       render: (_, record) => (

@@ -137,7 +137,7 @@ const Profile = () => {
       <div>
         <Modal
           footer={null}
-          title="Ubah Password"
+          title="Ubah Kata Sandi"
           visible={visiblePassword}
           // onOk={handleOk}
           onCancel={handleCancelPassword}
@@ -146,10 +146,10 @@ const Profile = () => {
             {/* <Form.Item name="passwordLama">
               <Input type="password" placeholder="Masukan Password Lama" />
             </Form.Item> */}
-            <Form.Item name="passwordBaru">
+            <Form.Item label="Kata Sandi Baru" name="passwordBaru">
               <Input.Password type="password" placeholder="Masukan Password Baru" />
             </Form.Item>
-            <Form.Item name="konfirmasiPassword">
+            <Form.Item label="Konfirmasi Kata Sandi Baru" name="konfirmasiPassword">
               <Input.Password type="password" placeholder="Konfirmasi Password Baru" />
             </Form.Item>
             <Form.Item>
@@ -161,7 +161,7 @@ const Profile = () => {
         </Modal>
         <Modal
           footer={null}
-          title="Ubah Profile"
+          title="Ubah Profil"
           visible={visible}
           // onOk={handleUpdateProfile}
           onCancel={handleCancel}
@@ -174,6 +174,7 @@ const Profile = () => {
               <Input placeholder="Nama Trainee" prefix={<UserOutlined />} />
             </Form.Item> */}
             <Form.Item
+            label="Email"
               name="email"
               rules={[
                 { required: true, message: "Email Tidak Boleh Kosong" },
@@ -183,6 +184,7 @@ const Profile = () => {
               <Input prefix={<MailOutlined />} placeholder="Email" />
             </Form.Item>
             <Form.Item
+            label="No WhatsApp"
               name="whatsapp"
               rules={[
                 {
@@ -194,6 +196,7 @@ const Profile = () => {
               <Input prefix={<PhoneOutlined />} placeholder="Nomor Whatsapp" />
             </Form.Item>
             <Form.Item
+            label="Gender"
               name="gender"
               rules={[
                 { required: true, message: "Jenis Kelamin Tidak Boleh Kosong" },
@@ -208,6 +211,7 @@ const Profile = () => {
               </Select>
             </Form.Item>
             <Form.Item
+            label="Tanggal Lahir"
               name="TanggalLahir"
               rules={[
                 { required: true, message: "Tanggal Lahir Tidak Boleh Kosong" },
@@ -244,7 +248,7 @@ const Profile = () => {
             </div>
             <div className="ml-14 mt-5">
               <FullRoundedButton
-                text="Ubah Profile"
+                text="Ubah Profil"
                 icons={<EditOutlined />}
                 onclick={showModal}
               />
@@ -277,11 +281,11 @@ const Profile = () => {
                   <td className=" pl-28">{dataUser?.data?.dateOfBirth}</td>
                 </tr>
                 <tr>
-                  <td className="w-48">Password</td>
+                  <td className="w-48">Kata Sandi</td>
                   <td>:</td>
                   <td className=" pl-28">
                     <FullRoundedButton
-                      text="Ubah Password"
+                      text="Ubah Kata Sandi"
                       icons={<EyeOutlined />}
                       onclick={showModalPassword}
                     />
