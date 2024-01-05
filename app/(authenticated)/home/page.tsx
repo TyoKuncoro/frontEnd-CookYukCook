@@ -312,7 +312,7 @@ const Home: React.FC = () => {
           <div>
             <div className=" bg-orange-50 rounded-lg p-2">
               <div>Materi Kelas yang dipelajari:</div>
-              {materi.map((items, index)=> (
+              {dataKelas.data.map((items, index)=> (
                 <li key={index}>{items}</li>
               ))}
             </div>
