@@ -122,6 +122,7 @@ const HomeKitchen: React.FC = () => {
     setModalVisible(false);
   };
   const [modalOpen, setModalOpen] = useState(false);
+  // console.log(dataUser?.data?.users?.status, "ini status")
   const handleOK = () => {
     if(dataUser?.data?.users?.status === "pending"){
       message.error("Mohon tunggu konfirmasi akun dari admin")
@@ -265,7 +266,7 @@ const HomeKitchen: React.FC = () => {
       closeModal={handleClose}
       visible={modalOpen}
       content={<FormPengajuanKelas onClose={handleClose} mutateData={null}/>}/>
-      <div className="text-2xl font-semibold mb-5">Jadwal</div>
+      <div className="text-2xl font-semibold mb-3">Jadwal</div>
       <div className="">
         <div className=" w-[50%]">
           <Calendar
@@ -275,9 +276,9 @@ const HomeKitchen: React.FC = () => {
           />
         </div>
         <div
-          className="  w-[100%] h-max pb-8 rounded-3xl border border-solid border-button mt-4 shadow-md"
+          className="  w-full mt-5 rounded-3xl border border-solid border-button shadow-md"
         >
-          <div className="flex justify-between m-5">
+          <div className="flex justify-between m-2">
             
              <p className="font-bold text-2xl">Kelas Anda</p>
             {/* <UbahMateriBtn text="Ajukan Kelas" key={null} onclick={handleOK} /> */}
@@ -292,9 +293,9 @@ const HomeKitchen: React.FC = () => {
           <Swiper
             spaceBetween={10}
             navigation={true}
-            slidesPerView={5}
+            slidesPerView={4}
             modules={[Navigation]}
-            className=" py-4 mx-10 flex mt-6"
+            className=" py-2 flex gap-4 mb-4"
           >
             {token &&
               data?.data.map((item: any, index: any) => (
