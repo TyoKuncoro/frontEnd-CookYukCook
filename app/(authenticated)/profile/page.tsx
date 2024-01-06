@@ -147,10 +147,16 @@ const Profile = () => {
               <Input type="password" placeholder="Masukan Password Lama" />
             </Form.Item> */}
             <Form.Item name="passwordBaru">
-              <Input.Password type="password" placeholder="Masukan Password Baru" />
+              <Input.Password
+                type="password"
+                placeholder="Masukan Password Baru"
+              />
             </Form.Item>
             <Form.Item name="konfirmasiPassword">
-              <Input.Password type="password" placeholder="Konfirmasi Password Baru" />
+              <Input.Password
+                type="password"
+                placeholder="Konfirmasi Password Baru"
+              />
             </Form.Item>
             <Form.Item>
               <Button type="primary" htmlType="submit">
@@ -230,26 +236,64 @@ const Profile = () => {
           </Form>
         </Modal>
       </div>
-      <div className="w-[65%] ml-20">
-        <div className="flex rounded-3xl mt-20">
-          <div className="flex flex-col ">
-            <div className=" ml-14 mt-14">
-              <Image
-                className=" rounded"
-                src="/assets/account.png"
-                width={150}
-                height={150}
-                alt="Gambar Pengguna"
-              />
-            </div>
-            <div className="ml-14 mt-5">
-              <FullRoundedButton
-                text="Ubah Profile"
-                icons={<EditOutlined />}
-                onclick={showModal}
-              />
-            </div>
+      <div className="flex gap-32">
+        <div className="flex flex-col items-center ">
+          <div className=" ml-14 mt-14">
+            <Image
+              className=" rounded"
+              src="/assets/account.png"
+              width={300}
+              height={300}
+              alt="Gambar Pengguna"
+            />
           </div>
+          <div className="ml-16 mt-5">
+            <FullRoundedButton
+              text="Ubah Profile"
+              icons={<EditOutlined />}
+              onclick={showModal}
+            />
+          </div>
+        </div>
+        <table className="">
+          <tr>
+            <p className="text-3xl">{dataUser?.data?.name}</p>
+          </tr>
+          <tr className="text-xl">
+            <th className="text-start">Email</th>
+            <th className="pl-10 pr-5">:</th>
+            <td>{dataUser?.data?.email}</td>
+          </tr>
+          <tr className="text-xl">
+            <th className="text-start">No WhatsApp</th>
+            <th className="pl-10 pr-5">:</th>
+            <td>{dataUser?.data?.phoneNumber}</td>
+          </tr>
+          <tr className="text-xl">
+            <th className="text-start">Gender</th>
+            <th className="pl-10 pr-5">:</th>
+            <td>{dataUser?.data?.gender}</td>
+          </tr>
+          <tr className="text-xl">
+            <th className="text-start">Tanggal Lahir</th>
+            <th className="pl-10 pr-5">:</th>
+            <td>{dataUser?.data?.dateOfBirth}</td>
+          </tr>
+          <tr className="text-xl">
+            <th className="text-start">Kata Sandi</th>
+            <th className="pl-10 pr-5">:</th>
+            <td>
+              <FullRoundedButton
+                text="Ubah Password"
+                icons={<EyeOutlined />}
+                onclick={showModalPassword}
+              />
+            </td>
+          </tr>
+          
+        </table>
+      </div>
+      {/* <div className="flex rounded-3xl mt-20">
           <div className=" ps-8 mt-14">
             <div className=" text-3xl font-bold mb-10">
               {dataUser?.data?.name}
@@ -280,18 +324,13 @@ const Profile = () => {
                   <td className="w-48">Password</td>
                   <td>:</td>
                   <td className=" pl-28">
-                    <FullRoundedButton
-                      text="Ubah Password"
-                      icons={<EyeOutlined />}
-                      onclick={showModalPassword}
-                    />
+                    
                   </td>
                 </tr>
               </tbody>
             </table>
           </div>
-        </div>
-      </div>
+        </div> */}
       {/* <div className="ml-20 mt-10">
         <LogoutButton
           text="Keluar"

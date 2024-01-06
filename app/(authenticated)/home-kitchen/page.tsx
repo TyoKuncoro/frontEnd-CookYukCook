@@ -12,6 +12,7 @@ import {
   Form,
   Select,
   Button,
+  Empty,
 } from "antd";
 import Image from "next/image";
 import FullRoundedButton from "#/app/Component/fullRoundedButton";
@@ -286,6 +287,8 @@ const HomeKitchen: React.FC = () => {
               onclick={handleOK}
             />
           </div>
+          {!data ? (
+            <div>
           <Swiper
             spaceBetween={10}
             navigation={true}
@@ -332,6 +335,14 @@ const HomeKitchen: React.FC = () => {
                 </SwiperSlide>
               ))}
           </Swiper>
+          </div>
+          ): (
+            <Empty
+              image={Empty.PRESENTED_IMAGE_SIMPLE} 
+              description={
+                <span>Kelas Masih Kosong</span>
+              }/>
+          )}
         </div>
       </div>
       {/* <ModalCustom

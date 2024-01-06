@@ -59,7 +59,7 @@ const Register = () => {
         photo: profilePhoto,
       };
       const register = await authRepository.manipulateData.register(data);
-      setTimeout(message.success("Anda Berhasil Register"), 2000);
+      setTimeout(message.success("Anda Berhasil Register"), 5000);
       console.log(register, "ini hasil register");
       router.push("/login");
     } catch (error) {

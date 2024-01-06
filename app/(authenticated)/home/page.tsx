@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import { Button, Calendar, Card, Modal, message } from "antd";
+import { Button, Calendar, Card, Empty, Modal, message } from "antd";
 import FullRoundedButton from "../../Component/fullRoundedButton";
 import { store } from "#/store";
 import { sampleRepository } from "#/repository/sample";
@@ -245,7 +245,12 @@ const Home: React.FC = () => {
             >
               Kelas Private Pilihanmu
             </div>
-            <div className=" py-4 mx-10">
+            <div className=" py-4 m-auto leading-6 mx-10">
+            <Empty
+              image={Empty.PRESENTED_IMAGE_SIMPLE} 
+              description={
+                <span>Kelas Privat Masih Kosong</span>
+              }/>
               {/* {token && (
               <Card
                 title={namaKelas}
@@ -302,15 +307,21 @@ const Home: React.FC = () => {
               alt="Gambar"
             />
             <div className="font-bold">Daftar Kelas Regular</div>
-            <div className=" text-xs">Quota : {selectedData?.numberOfBenches} orang</div>
+            <div className=" text-xs">Kuota : {selectedData?.numberOfBenches} orang</div>
             <div className=" text-xs">Dimulai pada:</div>
             <div className=" text-xs">{selectedData?.startDate.substring(0, 10)} sampai {selectedData?.endDate.substring(0, 10)}</div>
           </div>
           <div>
             <div className=" bg-orange-50 rounded-lg p-2">
               <div>Materi Kelas yang dipelajari:</div>
-              {materi.map((items, index) => (
-                <div key={index}>{items}</div>
+              {dataKelas?.data?.map((items) => (
+                <div>
+                 {console.log(items, "halo ini items")}
+                {items.material.map((values)=> {
+                  {console.log(values, "halo ini values")}
+                  <div key={values.id}>{values.name}</div>
+                })}
+               </div>
               ))}
             </div>
             <div className="flex justify-between gap-4 mt-2">

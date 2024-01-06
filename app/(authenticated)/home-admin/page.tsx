@@ -96,13 +96,13 @@ function HomeAdmin() {
       key: "aksi",
       render: (_, record) => (
         <Space size="middle">
-          <div className="w-30 flex gap-2 bg-blue-50 p-1 text-center rounded border-solid border border-blue-600 hover:bg-blue-100 hover:text-blue-700 ">
+          <div className="w-30 flex gap-2 bg-blue-50 p-1 text-center rounded border-solid border border-green-600 hover:bg-blue-100 hover:text-blue-700 ">
             <a
-              className="text-blue-500 text-base font-semibold flex gap-2 hover:text-blue-700"
+              className="text-green-500 text-base font-semibold flex gap-2 hover:text-green-700"
               key={record.users.id}
               onClick={() => approve(record.users.id, record.users.name)}
             >
-            <CheckOutlined className="text-blue-500 hover:text-blue-700" />
+            <CheckOutlined className="text-green-500 hover:text-green-700" />
               Menyetujui
             </a>
           </div>
