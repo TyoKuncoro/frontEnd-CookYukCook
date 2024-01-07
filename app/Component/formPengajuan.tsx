@@ -60,10 +60,9 @@ const FormPengajuanKelas = ({ mutateData, onClose }) => {
         message.success("Pengajuan Kelas Berhasil");
       }, 2000);
       form.resetFields();
+      localStorage.setItem("idKelas", pengajuan?.body?.data?.id)
       router.push("/pembayaran");
       mutateData();
-      // localStorage.setItem("courseName", values?.namaKelas);
-      // localStorage.setItem("price", values?.adminFee);
     } catch (error) {
       console.log(error);
     }
@@ -100,7 +99,7 @@ const FormPengajuanKelas = ({ mutateData, onClose }) => {
   const handleAdminFee = (value: number) => {
     form.setFieldValue("adminFee", (value * 10) / 100);
   };
-  const parsePrice = (value) => {
+  const parsePrice = (value: number) => {
     return parseInt(value.replace(/[^0-9]/g, ""), 10);
   };
   return (

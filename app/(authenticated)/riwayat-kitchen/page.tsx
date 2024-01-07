@@ -10,6 +10,7 @@ import Image from "next/image";
 import { Pagination } from "antd";
 import { regularClassRepository } from "#/repository/regularClass";
 import { parseJwt } from "#/app/Component/Helper/convert";
+import { useRouter } from "next/navigation";
 
 const { TabPane } = Tabs;
 const { Option } = Select;
@@ -18,6 +19,8 @@ const RiwayatKitchen: React.FC = () => {
   const handleTabChange = (key: any) => {
     console.log("Tab changed:", key);
   };
+  const router = useRouter();
+
 
   const data1 = [
     {
@@ -79,16 +82,23 @@ const RiwayatKitchen: React.FC = () => {
     id = parseJwt(token).id;
     console.log(id, "id");
   }
-  const { data: dataKelas } =
-    regularClassRepository.hooks.findRegClassByKitchen(id);
+  const { data: dataKelasPending } = regularClassRepository.hooks.findRegClassByKitchenPending(id);
+  console.log(dataKelasPending, "Data Kelas Pending")
+  const { data: dataKelas } = regularClassRepository.hooks.findRegClassByKitchen(id);
   console.log(dataKelas, "Data Kelas");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handleCancel = () => {
     setIsModalOpen(false);
   };
   const showModal = () => {
-    setIsModalOpen(true);
+    setIsModalOpen(true); 
   };
+
+  const handleModalBayar = (data: any) => {
+    // console.log(data.id, "ini data bayar")
+    localStorage.setItem("idKelas", data.id)
+    router.push("/pembayaran");
+  }
   return (
     <div>
       <Modal
@@ -144,8 +154,43 @@ const RiwayatKitchen: React.FC = () => {
         onChange={handleTabChange}
         className=" justify-between"
       >
-        <TabPane key="2">
-          {dataKelas?.data?.map((item: any) => (
+        <TabPane key="1" tab="Belum Bayar">
+          {dataKelasPending?.data?.map((item: any) => (
+            <div
+              className="flex p-3 justify-between items-center rounded-lg my-3"
+              style={{ border: "1px solid #FF7D04" }}
+            >
+              <div className="flex items-center ml-4"> 
+                <div className="">
+                  <CheckCircleOutlined className="text-5xl text-green-600" />
+                  {/* <Image
+                    src="/assets/CheckCircleOutlined.png"
+                    width={50}
+                    height={50}
+                    alt="clock"
+                  /> */}
+                </div>
+                <div className="ml-6">
+                  <div className="text-xs">{item.createdAt.substring(0, 10)}</div>
+                  <div className="text-lg font-bold">Kelas Regular</div>
+                  <div className=" text-lg">{item.courseName}</div>
+                </div>
+              </div>
+              <div>
+                <div className="font-bold text-lg">Rp. {item.adminFee}</div>
+                <FullRoundedButton text="Bayar" onclick={() => handleModalBayar(item)}/>
+              </div>
+            </div>
+          ))}
+          {/* <Pagination
+            defaultCurrent={1}
+            total={50}
+            onChange={onChange}
+            className="flex justify-center pt-48 pb-12"
+          /> */}
+        </TabPane>
+        <TabPane key="2" tab="Sudah Bayar">
+          {dataKelas?.data?.map((item: any, index: any) => (
             <div
               className="flex p-3 justify-between items-center rounded-lg my-3"
               style={{ border: "1px solid #FF7D04" }}

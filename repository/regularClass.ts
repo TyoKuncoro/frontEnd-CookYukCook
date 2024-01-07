@@ -8,7 +8,8 @@ const url = {
   findRegClassById: (id:any) => `/regular-class/${id}`,
   createKelas: () => '/regular-class/create-pengajuan',
   updatePengajuan: (id:any) => `/regular-class/update-pengajuan/${id}`,
-  updateBenches: (id: any) => `/regular-class/benches/${id}`
+  updateBenches: (id: any) => `/regular-class/benches/${id}`,
+  updateApprove: (id: any) => `/regular-class/approve/${id}`
 };
 const hooks = {
 	findAllRegularClass() {
@@ -33,6 +34,9 @@ const manipulateData = {
   },
   updateBenches(id: any, data: any){
     return http.put(url.updateBenches(id)).send(data)
+  },
+  updateApprove(id: any, data: any){
+    return http.put(url.updateApprove(id)).send(data)
   }
 };
 
