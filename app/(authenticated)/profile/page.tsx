@@ -132,24 +132,6 @@ const Profile = () => {
   const changeTanggalLahir = (date: any, dateString: any) => {
     setDateBirth(dateString);
   };
-  const containerStyle = {
-    position: 'relative',
-    overflow: 'hidden',
-    borderRadius: '50%', // initial border-radius
-  };
-
-  const imageStyle = {
-    width: '100%', // adjust the width as needed
-    height: 'auto', // maintain aspect ratio
-    transition: 'border-radius 0.3s', // add transition for smooth hover effect
-  };
-  const handleMouseEnter = () => {
-    imageStyle.borderRadius = '50%'; // set rounded border on hover
-  };
-
-  const handleMouseLeave = () => {
-    imageStyle.borderRadius = '50%'; // revert to initial rounded border on leave
-  };
   return role === "Trainee" ? (
     <div className="m-auto flex justify-center items-center h-full w-[100%]">
       <div>

@@ -23,7 +23,7 @@ const hooks = {
   },
   findRegClassByKitchenPending(id:any){
     return useSWR(url.findRegClassBykitchenPending(id), http.fetcher)
-  }
+  },
 }
 const manipulateData = {
   createKelasReg(data:any){

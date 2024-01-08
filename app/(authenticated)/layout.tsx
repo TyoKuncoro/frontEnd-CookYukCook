@@ -158,8 +158,7 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
   
   const path = window.location.pathname;
   return (
-    <>
-      {reguler ? (
+    <>{reguler ? (
         <Layout className=" bg-white h-[1200px]">
           <Sider
             width={220}
@@ -187,7 +186,7 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
                 fontWeight: "bold",
                 color: "#FF7D04",
               }}
-              items={role == "Trainee" || "Kitchen Studio" ? menu : menuAdmin}
+              items={role == "Trainee" || role == "Kitchen Studio" ? menu : menuAdmin}
               onClick={({ key }) => {
                 router.push(key);
                 // console.log(`key ${key} route not found`);
