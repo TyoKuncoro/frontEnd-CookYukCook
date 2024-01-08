@@ -207,7 +207,7 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
           </Layout>
         </Layout>
       ) : (
-        <Layout className=" bg-white h-[800px]">
+        <Layout className=" bg-white h-full">
           <Sider
             width={220}
             className="h-full"

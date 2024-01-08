@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import Image from "next/image";
 import FullRoundedButton from "#/app/Component/fullRoundedButton";
 import {
   EditOutlined,
@@ -15,7 +14,7 @@ import {
 } from "@ant-design/icons";
 import LogoutButton from "#/app/Component/button";
 import { useRouter } from "next/navigation";
-import { Button, Form, Input, Modal, Select, Upload, message } from "antd";
+import { Button, Form, Input, Modal, Select, Tag, Upload, message, Image } from "antd";
 import { useForm } from "antd/es/form/Form";
 import { regularClassRepository } from "#/repository/regularClass";
 import { usersRepository } from "#/repository/user";
@@ -73,27 +72,29 @@ const ProfileKitchen = () => {
     }
   };
 
-  const onFinish = async(values: any) => {
+  const onFinish = async (values: any) => {
     let data1 = {
       nama: dataKitchen?.data?.name,
       email: values.email,
       phoneNumber: values.whatsapp,
       numberOfChef: values.chef,
-      address: values.alamat
-    }
+      address: values.alamat,
+    };
     // console.log(data1)
 
     try {
-      const updateKitchen = await usersRepository.manipulatedData.updateUsers(id, data1);
-      console.log(updateKitchen, 'ini data update kitchen')
-      message.success('Data Berhasil Diubah')
+      const updateKitchen = await usersRepository.manipulatedData.updateUsers(
+        id,
+        data1
+      );
+      console.log(updateKitchen, "ini data update kitchen");
+      message.success("Data Berhasil Diubah");
       setVisibleProfile(false);
-      mutate(usersRepository.url.getUsersById(id))
+      mutate(usersRepository.url.getUsersById(id));
     } catch (e) {
-      message.error('Mengubah Data Gagal')
-      console.log(e, 'ini error')
+      message.error("Mengubah Data Gagal");
+      console.log(e, "ini error");
     }
-
   };
 
   const handleLegalitas = () => {
@@ -124,11 +125,12 @@ const ProfileKitchen = () => {
     },
   };
 
-  const { data: dataKitchen } = usersRepository.hooks.getUsersById(id);
-  // console.log(dataKitchen, 'ini data kitchen')
+  const { data: dataKitchen } = kitchenRepository.hooks.getKitchenByUser();
+
+  console.log(dataKitchen?.data, "ini data kitchen");
 
   return (
-    <div>
+    <div className="m-auto flex justify-center items-center h-full w-[100%]">
       <Modal
         footer={null}
         title="Informasi Kitchen Studio"
@@ -249,10 +251,16 @@ const ProfileKitchen = () => {
             <Input type="password" placeholder="Masukan Password Lama" />
           </Form.Item> */}
           <Form.Item name="passwordBaru">
-            <Input.Password type="password" placeholder="Masukan Password Baru" />
+            <Input.Password
+              type="password"
+              placeholder="Masukan Password Baru"
+            />
           </Form.Item>
           <Form.Item name="konfirmasiPassword">
-            <Input.Password type="password" placeholder="Konfirmasi Password Baru" />
+            <Input.Password
+              type="password"
+              placeholder="Konfirmasi Password Baru"
+            />
           </Form.Item>
           <Form.Item>
             <Button type="primary" htmlType="submit">
@@ -277,107 +285,96 @@ const ProfileKitchen = () => {
           />
         </Form.Item>
       </Modal>
-      <div className=" py-20 flex w-[70%] m-36 rounded-xl">
-        <div className="flex flex-col">
-          <div className=" mx-14 mt-14">
-            <Image
-              className=" rounded"
-              src="/assets/account.png"
-              width={150}
-              height={150}
-              alt="Gambar Pengguna"
-            />
-          </div>
-          <div className=" mx-14 mt-5">
-            <FullRoundedButton
-              text="Ubah Profile"
-              icons={<EditOutlined />}
-              onclick={showModal}
-            />
-          </div>
-        </div>
-        <div>
-          <div className="flex mb-12 justify-between">
-            <div className="text-3xl font-extrabold">
-              {dataKitchen?.data?.name}
+        <div className="flex gap-12 bg-white border border-solid border-slate-100 shadow-xl rounded-sm">
+          <div className="flex flex-col items-center justify-center rounded p-10">
+            <div>
+              {dataKitchen?.data?.photo && (
+                <Image
+                  className="rounded-md"
+                  src={`http://localhost:3222/kitchen-studio/upload-logo/${dataKitchen?.data.logos}/image`}
+                  width={250}
+                  height={250}
+                  alt="Gambar Pengguna"
+                />
+              )}
+            </div>
+            <div className="mt-10 text-xl">
+              <FullRoundedButton
+                text="Ubah Profile"
+                icons={<EditOutlined />}
+                onclick={showModal}
+              />
             </div>
           </div>
-          <table>
-            <tbody className="flex flex-col gap-6">
-              <tr>
-                <td className="w-48">Email</td>
-                <td>:</td>
-                <td className="pl-8">{dataKitchen?.data?.email}</td>
-              </tr>
-              <tr>
-                <td className="w-48">Password</td>
-                <td>:</td>
-                <td className="pl-8">
+          <div>
+            <div className="text-justify bg-white py-7 px-10 rounded w-[900px]">
+              <div className="flex">
+                <p className="text-4xl font-bold">{dataKitchen?.data?.users.name}</p>
+                <Tag color="green" className="mt-2  ml-10 text-xl h-8">
+                  {dataKitchen?.data?.status}
+                </Tag>
+              </div>
+              <div className="flex text-xl">
+                <p className=" font-semibold mr-5">No WhatsApp</p>
+                <p className="mr-2"></p>
+                <p>{dataKitchen?.data?.phoneNumber}</p>
+              </div>
+              <div className="flex text-xl">
+                <p className=" font-semibold mr-20">Alamat</p>
+                <p className="mr-2"></p>
+                <p>
+                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                  Debitis minima iure nisi architecto odio ex consequuntur
+                  eligendi ratione natus quisquam.
+                </p>
+              </div>
+              <div className="flex text-xl">
+                <p className=" font-semibold mr-24">Email</p>
+                <p className="mr-2"></p>
+                <p>{dataKitchen?.data?.users.email}</p>
+              </div>
+              <div className="flex text-xl">
+                <p className=" font-semibold mr-12">Kata Sandi</p>
+                <p className="mr-2"></p>
+                <p className="text-xl">
                   <FullRoundedButton
                     text="Ubah Password"
                     icons={<EyeOutlined />}
                     onclick={formPassword}
                   />
-                </td>
-              </tr>
-              <tr>
-                <td className="w-48">Jumlah Chef</td>
-                <td>:</td>
-                <td className="pl-8">{dataKitchen?.data?.numberOfChef}</td>
-              </tr>
-              <tr>
-                <td className="w-48">Alamat</td>
-                <td>:</td>
-                <td className="pl-8">{dataKitchen?.data?.address}</td>
-              </tr>
-              <tr>
-                <td className="w-48">WhatsApp</td>
-                <td>:</td>
-                <td className="pl-8">{dataKitchen?.data?.phoneNumber}</td>
-              </tr>
-              <tr>
-                <td className="w-48">Legalitas</td>
-                <td>:</td>
-                <td className="pl-8">
+                </p>
+              </div>
+              <div className="flex text-xl">
+                <p className=" font-semibold mr-12">Legalitas</p>
+                <p className="mr-2"></p>
+                <p className="text-xl">
                   <FullRoundedButton
                     text="Lihat Legalitas"
                     icons={<EyeOutlined />}
                     onclick={handleLegalitas}
                   />
-                </td>
-              </tr>
-              {/* <tr>
-                <td className="w-48">Galeri</td>
-                <td>:</td>
-              </tr> */}
-            </tbody>
-          </table>
-          {/* <div className="flex">
-            {gambar.map((item, index) => {
-              return (
-                <div>
-                  <Image
-                    key={index}
-                    className=" rounded"
-                    src={`/assets/${item}`}
-                    width={150}
-                    height={150}
-                    alt={`Image ${index}`}
-                  />
-                </div>
-              );
-            })}
-          </div> */}
+                </p>
+              </div>
+              <div className="flex text-xl">
+                <p className=" font-semibold mr-20">Alamat</p>
+                <p className="mr-2"></p>
+                <p>
+                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                  Debitis minima iure nisi architecto odio ex consequuntur
+                  eligendi ratione natus quisquam.
+                </p>
+              </div>
+              <div className="flex text-xl">
+                <p className=" font-semibold mr-20">Jumlah Chef</p>
+                <p className="mr-2"></p>
+                <p>
+                  {dataKitchen?.data?.numberOfChefs} orang
+                </p>
+              </div>
+            </div>
         </div>
       </div>
-      {/* <div className="fixed top-8 right-36">
-        <LogoutButton
-          text="Keluar"
-          icons={<LogoutOutlined />}
-          onclick={handleLogOut}
-        />
-      </div> */}
-    </div>
-  );
+</div>
+  )
 };
 export default ProfileKitchen;

@@ -8,7 +8,8 @@ const url = {
     updateUsers: (id:any) => `/users/${id}`,
     getUsersById: (id:any) => `/users/${id}`,
     approveKitchen: (id:any) => `/users/approve/${id}`,
-    rejectKitchen: (id:any) => `/users/reject/${id}`
+    rejectKitchen: (id:any) => `/users/reject/${id}`,
+    
 }
 
 const hooks = {
