@@ -52,9 +52,9 @@ const Login = () => {
       const role = parseJwt(cariToken).role
       console.log(role, "halo");
       if(role === "Admin"){
-        router.push("/home-admin")
+        router.push("home-admin")
       }else{
-        router.push("/home");
+        router.push("home");
       }
     } catch (error) {
       // message.error(error.response.body?.error)

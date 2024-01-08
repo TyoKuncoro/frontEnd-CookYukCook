@@ -98,6 +98,8 @@ const ListRegular = () => {
   ];
   return (
     <div className="bg-white p-20 w-full space-y-16">
+      <TemaKelas />
+      <hr />
       <div>
         <div className="float-right mr-3">
           <UbahMateriBtn text={"Ajukan Kelas"} icon={<SendOutlined/>} key={null} onclick={handleOK} />
@@ -133,9 +135,6 @@ const ListRegular = () => {
       closeModal={handleClose}
       visible={modalOpen}
       content={<FormPengajuanKelas onClose={handleClose} mutateData={mutateData}/>}/>
-      <hr />
-      <p className="text-3xl font-bold">Tema Kelas</p>
-      <TemaKelas />
     </div>
   );
 };

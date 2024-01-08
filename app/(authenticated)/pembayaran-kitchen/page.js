@@ -7,6 +7,8 @@ import { v4 as uuidv4 } from "uuid";
 import { useRouter } from "next/navigation";
 import { message } from "antd";
 import { parseJwt } from "#/app/Component/Helper/convert";
+import { regularClassRepository } from "#/repository/regularClass";
+import axios from "axios";
 
 // import snap from "midtrans-client"
 
@@ -14,11 +16,7 @@ const PembayaranKitchen = () => {
   const router = useRouter();
 
   //dummy data
-  const [namaKelas, setNamaKelas] = useState("Membuat Kue Khas Lebaran");
   // const [temaKelas, setTemaKelas] = useState("Pembuatan Kue Kering");
-  const [harga, setHarga] = useState(0);
-  const [tipeKelas, setTipeKelas] = useState("Regular");
-  const [courseName, setCourseName] = useState("-");
   // end dummy data
 
   // from midtrans
@@ -29,12 +27,6 @@ const PembayaranKitchen = () => {
   });
 
   useEffect(() => {
-    const courseGet = localStorage.getItem("courseName");
-    setCourseName(courseGet);
-    console.log(courseName, "courseName");
-    const hargaGet = localStorage.getItem("price");
-    setHarga(hargaGet);
-    // console.log(harga, "harga")
     const snapScript = "https://app.sandbox.midtrans.com/snap/snap.js";
     const clientKey = process.env.NEXT_PUBLIC_CLIENT;
 
@@ -49,27 +41,36 @@ const PembayaranKitchen = () => {
       document.body.removeChild(script);
     };
   }, []);
-  const handleCheckout = async () => {
-      const uuidGenerator = uuidv4();
-      // console.log(uuidGenerator, "ini uuid cook");
 
-      const data = {
-        id: uuidGenerator,
-        productName: courseName,
-        price: harga,
-        quantity: 1,
-      };
-      const response = await fetch("api/token", {
-        method: "POST",
-        body: JSON.stringify(data),
-      });
-      const requestData = await response.json();
-      // console.log(requestData, "dataaa coook")
-      localStorage.removeItem("courseName");
-      localStorage.removeItem("price");
-      window.snap.pay(requestData.token);
-      // console.log("test")
-  } 
+  const dataKelas = localStorage.getItem("idKelas");
+  console.log(dataKelas, "ini data kelas");
+  const { data: dataBayar } =
+    regularClassRepository.hooks.findRegClassById(dataKelas);
+  console.log(dataBayar, "ini data bayar");
+
+  const handleCheckout = async () => {
+    const uuidGenerator = uuidv4();
+    // console.log(uuidGenerator, "ini uuid cook");
+
+    const data = {
+      id: uuidGenerator,
+      productName: dataBayar?.data?.courseName,
+      price: dataBayar?.data?.adminFee,
+      quantity: 1,
+    };
+
+    
+    // console.log(data, "api midtrans")
+    const response = await fetch("api/token", {
+      method: "POST",
+      body: JSON.stringify(data),
+    });
+    const requestData = await response.json();
+    // console.log(requestData, "dataaa coook")
+    localStorage.removeItem("idKelas")
+    window.snap.pay(requestData.token);
+    // console.log("test")
+  };
   //end for midtrans
 
   // Handle webHooks Midtrans
@@ -102,7 +103,7 @@ const PembayaranKitchen = () => {
       <div className=" mx-80 py-16 flex place-content-center rounded-2xl">
         <div className=" w-[75%]">
           <div className="text-2xl font-bold text-orange-500">
-            Pengajuan kelas {tipeKelas}
+            Pengajuan kelas Regular
           </div>
           <div className="text-xl mb-20">Nama: {nama}</div>
           <div className="text-xl font-bold text-orange-500 mb-5">
@@ -111,14 +112,14 @@ const PembayaranKitchen = () => {
           <div className="text-l font-bold bg-orange-200 px-10 w-[75%] py-5 rounded-lg">
             {/* <div className="mb-2">{namaKelas}</div> */}
             {/* <div className="mb-5">Tema: {courseName}</div> */}
-            <tbody>
+            <tbody className="w-80">
               <tr>
-                <td className="w-56">Tema</td>
-                <td>: {courseName}</td>
+                <td>Tema</td>
+                <td>: {dataBayar?.data?.courseName}</td>
               </tr>
               <tr>
                 <td className="w-56">Biaya Pengajuan Kelas (10%)</td>
-                <td>: Rp. {harga}</td>
+                <td>: Rp. {dataBayar?.data?.adminFee}</td>
               </tr>
             </tbody>
           </div>

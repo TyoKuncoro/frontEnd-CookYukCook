@@ -9,6 +9,8 @@ import { Pagination } from "antd";
 import { useRouter } from "next/navigation";
 import { parseJwt } from "#/app/Component/Helper/convert";
 import RiwayatKitchen from "../riwayat-kitchen/page";
+import { usersPaymentRepository } from "#/repository/usersPayment";
+import { Span } from "next/dist/trace";
 const { TabPane } = Tabs;
 
 const Riwayat: React.FC = () => {
@@ -49,12 +51,15 @@ const Riwayat: React.FC = () => {
   }
 
   let role: string = "";
+  let id: string = "";
   if (token) {
     role = parseJwt(token).role;
+    id = parseJwt(token).id;
     console.log(role, 'ini role');
   }
 
-
+  const { data: dataPending } = usersPaymentRepository.hooks.getTraineeRegPending(id)
+  console.log(dataPending, 'ini data kelas Pending')
   
   return role === 'Trainee' ?
     <div className="flex place-content-center ">
@@ -66,41 +71,36 @@ const Riwayat: React.FC = () => {
           onChange={handleTabChange}
           className=" justify-between"
         >
-          <TabPane tab="Sedang Diproses" key="1">
-            {data.map((item) => (
+          <TabPane tab="Belum Bayar" key="1">
+            {dataPending?.data?.map((item: any, index: any) => (
               <div
                 className="flex p-3 justify-between items-center rounded-lg my-3"
                 style={{ border: "1px solid #FF7D04" }}
               >
                 <div className="flex items-center ml-4">
                   <div className="">
-                    <Image
-                      src="/assets/ClockCircleOutlined.png"
-                      width={50}
-                      height={50}
-                      alt="clock"
-                    />
+                  <ClockCircleOutlined className="text-5xl text-red-600" />
                   </div>
                   <div className="ml-6">
-                    <div className="text-xs">{item.tanggal}</div>
-                    <div className="text-lg font-bold">{item.jenisKelas}</div>
-                    <div className=" text-lg">{item.judul}</div>
+                    <div className="text-xs">{item.createdAt.substring(0, 10)}</div>
+                    <div className="text-lg font-bold">{!item.regular ? "Kelas Private" : "Kelas Regular"}</div>
+                    <div className=" text-lg">{item.regular?.courseName}</div>
                   </div>
                 </div>
                 <div>
-                  <div className="font-bold text-lg"> {formatter.format(item.harga)}</div>
+                  <div className="font-bold text-lg"> {formatter.format(item.regular?.price - item.regular?.adminFee)}</div>
                   {/* <FullRoundedButton text="Lihat Detail" /> */}
                 </div>
               </div>
             ))}
-            <Pagination
+            {/* <Pagination
               defaultCurrent={1}
               total={50}
               onChange={onChange}
               className="flex justify-center pt-48 pb-12"
-            />
+            /> */}
           </TabPane>
-          <TabPane tab="Berhasil" key="2">
+          <TabPane tab="Sudah Bayar" key="2">
             {data.map((item) => (
               <div
                 className="flex p-3 justify-between items-center rounded-lg my-3"
@@ -109,12 +109,6 @@ const Riwayat: React.FC = () => {
                 <div className="flex items-center ml-4">
                   <div className="">
                   <CheckCircleOutlined className="text-5xl text-green-600" />
-                    {/* <Image
-                      src="/assets/CheckCircleOutlined.png"
-                      width={50}
-                      height={50}
-                      alt="clock"
-                    /> */}
                   </div>
                   <div className="ml-6">
                     <div className="text-xs">{item.tanggal}</div>
@@ -134,42 +128,6 @@ const Riwayat: React.FC = () => {
               onChange={onChange}
               className="flex justify-center pt-48 pb-12"
             />
-          </TabPane>
-          <TabPane tab="Gagal" key="3">
-            {/* Konten untuk status "Gagal" */}
-            {data.map((item) => (
-              <div
-                className="flex p-3 justify-between items-center rounded-lg my-3"
-                style={{ border: "1px solid #FF7D04" }}
-              >
-                <div className="flex items-center ml-4">
-                  <div className="">
-                    <Image
-                      src="/assets/solar_danger-circle-outline.png"
-                      width={50}
-                      height={50}
-                      alt="clock"
-                    />
-                  </div>
-                  <div className="ml-6">
-                    <div className="text-xs">{item.tanggal}</div>
-                    <div className="text-lg font-bold">{item.jenisKelas}</div>
-                    <div className=" text-lg">{item.judul}</div>
-                  </div>
-                </div>
-                <div>
-                  <div className="font-bold text-lg">{formatter.format(item.harga)}</div>
-                  {/* <FullRoundedButton text="Lihat Detail" /> */}
-                </div>
-              </div>
-            ))}
-            <Pagination
-              defaultCurrent={1}
-              total={50}
-              onChange={onChange}
-              className="flex justify-center pt-48 pb-12"
-            />
-
           </TabPane>
         </Tabs>
       </div>

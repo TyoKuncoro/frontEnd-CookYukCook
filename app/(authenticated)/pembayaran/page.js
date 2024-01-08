@@ -81,6 +81,13 @@ const Pembayaran = () => {
       const dataBenches = {
         numberOfBenches: minusedOneBenches
       }
+
+      try {
+        
+      } catch (e) {
+        
+      }
+
       try {
       const updateBenches = await regularClassRepository.manipulateData.updateBenches(getKelas?.data?.id, dataBenches)
       console.log(updateBenches, 'ini hasil post update benches')

@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import { Button, Calendar, Card, Modal, message } from "antd";
+import { Button, Calendar, Card, Empty, Modal, message } from "antd";
 import FullRoundedButton from "../../Component/fullRoundedButton";
 import { store } from "#/store";
 import { sampleRepository } from "#/repository/sample";
@@ -14,6 +14,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from 'swiper/modules';
+import { materiRepository } from "#/repository/materi";
 
 
 function onPanelChange(value: any, mode: any) {
@@ -108,9 +109,9 @@ const Home: React.FC = () => {
   }
   const { data: dataKelas } =
     regularClassRepository.hooks.findAllRegularClass();
-  const { data: dataRegular } = regularClassRepository.hooks.findRegClassByTrainee(id);
-  console.log(dataRegular, 'Data Regular')
-  console.log(dataKelas, "Data Kelas");
+  // console.log(dataKelas?.data?.[0].material, "Data Kelas");
+  // const cariKelas = dataKelas?.data?.map((items)=> items.id)
+  // const {data: dataMateri} = materiRepository.hooks.findMaterialByClass(dataKelas?.data?.map((items) => items.id))
   const formatter = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' });
   // const formattedPrice = formatter.format(price);
   // const { data } = regularClassRepository.hooks.findRegClassByKitchen(dataUser?.data.id);
@@ -121,19 +122,19 @@ const Home: React.FC = () => {
     <div className="p-5 bg-white">
       <div className="  rounded-3xl" style={{ border: "2px solid #FF7D04" }}>
         <div
-          className="px-8 py-4 bg-orange-400 rounded-tl-2xl rounded-br-3xl font-bold"
+          className="px-3 py-3 bg-orange-400 rounded-tl-2xl rounded-br-3xl font-bold text-xl"
           style={{
-            marginRight: "75%",
+            marginRight: "82%",
           }}
         >
           Pilihan Untukmu
         </div>
-        <div className=" py-4 mx-10 h-80">
+        <div className=" py-4 mx-10 h-70">
         <Swiper
               navigation={true}
               slidesPerView={4}
               modules={[Navigation]}
-              className=" py-4 mx-10 flex justify-stretch gap-x-10"
+              className=" py-4 mx-3 flex"
             >
 
           {dataKelas?.data.map((item: any, index:any) =>(
@@ -141,7 +142,7 @@ const Home: React.FC = () => {
             
             <Card
               title={item.courseName}
-              className="mr-2 w-80"
+              className="mr-10 w-[20%]"
               extra={
                 <FullRoundedButton
                   text="Lihat Detail"
@@ -162,7 +163,7 @@ const Home: React.FC = () => {
                   <div className="text-xs">
                     {item.startDate.substring(0, 10)} sampai {item.endDate.substring(0, 10)}
                   </div>
-                  <div className=" font-bold text-lg mt-3">Harga: {item.price - item.adminFee}</div>
+                  <div className=" font-bold text-lg mt-3">Harga: {formatter.format(item.price - item.adminFee)}</div>
                   <div className=" font-bold">
                     Kuota: {item.numberOfBenches == 0 ? (<span className="text-red-500">Penuh</span>) : (`${item.numberOfBenches} Orang`) }
                   </div>
@@ -185,11 +186,11 @@ const Home: React.FC = () => {
       </div>
         <div className="flex justify-between">
           <div
-            className=" mt-6 rounded-3xl mr-10 w-[50%]"
+            className=" mt-6 rounded-3xl mr-10 w-[80%]"
             style={{ border: "2px solid #FF7D04" }}
           >
             <div
-              className="px-8 py-4 bg-orange-400 rounded-tl-2xl rounded-br-3xl  font-bold"
+              className="px-2 py-2 bg-orange-400 rounded-tl-2xl rounded-br-3xl font-bold text-xl"
               style={{
                 marginRight: 320,
               }}
@@ -197,7 +198,7 @@ const Home: React.FC = () => {
               Kelas Regular Pilihanmu
             </div>
             <div className=" py-4 mx-10 h-64">
-            {/* {token && (
+            {token && (
               <Card
                 title={namaKelas}
                 extra={
@@ -232,22 +233,27 @@ const Home: React.FC = () => {
                   </div>
                 </div>
               </Card>
-            )} */}
+            )}
             </div>
           </div>
           <div
-            className=" mt-6 rounded-3xl w-[50%]"
+            className=" mt-6 rounded-3xl w-[80%]"
             style={{ border: "2px solid #FF7D04" }}
           >
             <div
-              className="px-8 py-4 bg-orange-400 rounded-tl-2xl rounded-br-3xl font-bold"
+              className="px-2 py-2 bg-orange-400 rounded-tl-2xl rounded-br-3xl font-bold text-xl"
               style={{
                 marginRight: 320,
               }}
             >
               Kelas Private Pilihanmu
             </div>
-            <div className=" py-4 mx-10">
+            <div className=" py-4 m-auto leading-6 mx-10">
+            <Empty
+              image={Empty.PRESENTED_IMAGE_SIMPLE} 
+              description={
+                <span>Kelas Privat Masih Kosong</span>
+              }/>
               {/* {token && (
               <Card
                 title={namaKelas}
@@ -304,15 +310,21 @@ const Home: React.FC = () => {
               alt="Gambar"
             />
             <div className="font-bold">Daftar Kelas Regular</div>
-            <div className=" text-xs">Quota : {selectedData?.numberOfBenches} orang</div>
+            <div className=" text-xs">Kuota : {selectedData?.numberOfBenches} orang</div>
             <div className=" text-xs">Dimulai pada:</div>
             <div className=" text-xs">{selectedData?.startDate.substring(0, 10)} sampai {selectedData?.endDate.substring(0, 10)}</div>
           </div>
           <div>
             <div className=" bg-orange-50 rounded-lg p-2">
               <div>Materi Kelas yang dipelajari:</div>
-              {materi.map((items, index) => (
-                <div key={index}>{items}</div>
+              {dataKelas?.data?.map((items) => (
+                <div>
+                 {console.log(items, "halo ini items")}
+                {items.material.map((values)=> {
+                  {console.log(values, "halo ini values")}
+                  <div key={values.id}>{values.name}</div>
+                })}
+               </div>
               ))}
             </div>
             <div className="flex justify-between gap-4 mt-2">
@@ -351,9 +363,9 @@ const Home: React.FC = () => {
           <div>
             <div className=" bg-orange-50 rounded-lg p-2">
               <div>Materi Kelas yang dipelajari:</div>
-              {materi.map((items, index) => (
+              {/* {materi.map((items, index) => (
                 <li key={index}>{items}</li>
-              ))}
+              ))} */}
             </div>
           </div>
         </div>
@@ -390,9 +402,9 @@ const Home: React.FC = () => {
           <div>
             <div className=" bg-orange-50 rounded-lg p-2">
               <div>Materi Kelas yang dipelajari:</div>
-              {materi.map((items) => (
+              {/* {materi.map((items) => (
                 <li>{items}</li>
-              ))}
+              ))} */}
             </div>
           </div>
         </div>

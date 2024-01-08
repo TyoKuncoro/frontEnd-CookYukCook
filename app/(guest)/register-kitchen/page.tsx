@@ -272,6 +272,7 @@ const RegisterKitchen = () => {
                   // fileList={logoFileList}
                   maxCount={1}
                   onChange={uploadLogoKitchen}
+                  // beforeUpload={}
                 >
                   <Button icon={<UploadOutlined />} className=" h-[35px] w-72">
                     Unggah Logo

@@ -9,7 +9,7 @@ const url = {
   createKelas: () => '/regular-class/create-pengajuan',
   updatePengajuan: (id:any) => `/regular-class/update-pengajuan/${id}`,
   updateBenches: (id: any) => `/regular-class/benches/${id}`,
-  findRegClassByTrainee: (id: any) => `/regular-class/find/${id}`
+  updateApprove: (id: any) => `/regular-class/approve/${id}`
 };
 const hooks = {
 	findAllRegularClass() {
@@ -24,9 +24,6 @@ const hooks = {
   findRegClassByKitchenPending(id:any){
     return useSWR(url.findRegClassBykitchenPending(id), http.fetcher)
   },
-  findRegClassByTrainee(id: any){
-    return useSWR(url.findRegClassByTrainee(id), http.fetcher)
-  }
 }
 const manipulateData = {
   createKelasReg(data:any){
@@ -37,6 +34,9 @@ const manipulateData = {
   },
   updateBenches(id: any, data: any){
     return http.put(url.updateBenches(id)).send(data)
+  },
+  updateApprove(id: any, data: any){
+    return http.put(url.updateApprove(id)).send(data)
   }
 };
 
