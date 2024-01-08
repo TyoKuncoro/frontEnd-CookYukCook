@@ -8,7 +8,8 @@ const url = {
   findRegClassById: (id:any) => `/regular-class/${id}`,
   createKelas: () => '/regular-class/create-pengajuan',
   updatePengajuan: (id:any) => `/regular-class/update-pengajuan/${id}`,
-  updateBenches: (id: any) => `/regular-class/benches/${id}`
+  updateBenches: (id: any) => `/regular-class/benches/${id}`,
+  findRegClassByTrainee: (id: any) => `/regular-class/find/${id}`
 };
 const hooks = {
 	findAllRegularClass() {
@@ -22,6 +23,9 @@ const hooks = {
   },
   findRegClassByKitchenPending(id:any){
     return useSWR(url.findRegClassBykitchenPending(id), http.fetcher)
+  },
+  findRegClassByTrainee(id: any){
+    return useSWR(url.findRegClassByTrainee(id), http.fetcher)
   }
 }
 const manipulateData = {

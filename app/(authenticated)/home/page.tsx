@@ -108,6 +108,8 @@ const Home: React.FC = () => {
   }
   const { data: dataKelas } =
     regularClassRepository.hooks.findAllRegularClass();
+  const { data: dataRegular } = regularClassRepository.hooks.findRegClassByTrainee(id);
+  console.log(dataRegular, 'Data Regular')
   console.log(dataKelas, "Data Kelas");
   const formatter = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' });
   // const formattedPrice = formatter.format(price);

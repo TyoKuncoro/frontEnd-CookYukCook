@@ -81,21 +81,17 @@ const Pembayaran = () => {
       const dataBenches = {
         numberOfBenches: minusedOneBenches
       }
-      // console.log(dataBenches, 'ini data benches')
-      // console.log(getKelas?.data?.id, 'ini id kelas')
       try {
       const updateBenches = await regularClassRepository.manipulateData.updateBenches(getKelas?.data?.id, dataBenches)
-      // console.log(updateBenches, 'ini data update benches')
-      // console.log(requestData, "dataaa coook")
+      console.log(updateBenches, 'ini hasil post update benches')
       localStorage.removeItem("id")
       localStorage.removeItem("priceTrainee");
       localStorage.removeItem("courseTrainee");
       window.snap.pay(requestData.token);
         
       } catch (e) {
-        console.log(e, 'ini error')
+        console.log(e, 'ini error update benches')
       }
-      // console.log("test")
   };
   //end for midtrans
 
@@ -108,6 +104,9 @@ const Pembayaran = () => {
   const year = today.getFullYear();
 
   const todayDate = `${day} - ${month} - ${year}`;
+
+  const date = `${year}-${month}-${day}`
+
   const token = localStorage.getItem("access_token");
   let nama = "";
   if (!token) {

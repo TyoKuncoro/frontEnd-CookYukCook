@@ -31,10 +31,11 @@ import ModalCustom from "#/app/Component/createPengajuan";
 import FormPengajuanKelas from "#/app/Component/formPengajuan";
 import { useForm } from "antd/es/form/Form";
 import { DatePickerProps } from "antd/lib";
+import { temaKelasRepository } from "#/repository/tema";
 
 const HomeKitchen: React.FC = () => {
   const router = useRouter();
-  const [form] = useForm()
+  const [form] = useForm();
   const token = localStorage.getItem("access_token");
   console.log(token, "toooooooooooooken");
   let id: string = "";
@@ -68,15 +69,13 @@ const HomeKitchen: React.FC = () => {
   const { data: dataUser } = kitchenRepository.hooks.getKitchenByUser(id);
   console.log(dataUser, "data user");
   const handleOk = async () => {
-    console.log(`${id}, id
-    ${courseName} = course
-    ${startDate} = startDate
-    ${endDate} = endDate
-    ${price} = price
-    ${numberOfBenches} = benches
-    ${description} = description`);
-    // console.log(startDate, "startDate");
-    // console.log(endDate, "endDate");
+    // console.log(`${id}, id
+    // ${courseName} = course
+    // ${startDate} = startDate
+    // ${endDate} = endDate
+    // ${price} = price
+    // ${numberOfBenches} = benches
+    // ${description} = description`);
 
     try {
       let data = {
@@ -95,8 +94,6 @@ const HomeKitchen: React.FC = () => {
         mengajukanKelas,
         "Meeeeeeeeeeeeeeeeeeeeeeeeeeeeeeengajukan kelas"
       );
-      // console.log(mengajukanKelas.body.data.adminFee, "price")
-      // console.log(mengajukanKelas.body.data.courseName, "courseName")
       localStorage.setItem("price", mengajukanKelas.body.data.adminFee);
       localStorage.setItem("courseName", courseName);
       setCourseName("");
@@ -110,9 +107,6 @@ const HomeKitchen: React.FC = () => {
     } catch (e) {
       console.log(e, "eror mengajukan data");
     }
-    // localStorage.setItem("price", price / 10);
-    // localStorage.setItem("courseName", courseName);
-    // router.push("/pembayaran");
 
     setModalVisible(false);
   };
@@ -122,9 +116,9 @@ const HomeKitchen: React.FC = () => {
   };
   const [modalOpen, setModalOpen] = useState(false);
   const handleOK = () => {
-    if(dataUser?.data?.status === "pending"){
-      message.error("Mohon tunggu konfirmasi akun dari admin")
-    }else if(dataUser?.data?.status === "available"){
+    if (dataUser?.data?.status === "pending") {
+      message.error("Mohon tunggu konfirmasi akun dari admin");
+    } else if (dataUser?.data?.status === "available") {
       setModalOpen(true);
     }
   };
@@ -137,103 +131,9 @@ const HomeKitchen: React.FC = () => {
   const handleDateSelect = (date: any) => {
     setSelectedDate(date.format("YYYY-MM-DD"));
   };
-  
-  // const editKelas = (event: any) => {
-  //   console.log(event.key);
-  // };
-  // // const ajukanKelas = () => {};
 
-  // const [modalAjukan, setModalAjukan] = useState(false);
-  // console.log(dataUser?.data?.users?.status, 'iniStatus')
-  // const modalAjukanKelas = () => {
-  //   if (!token) {
-  //     message.error("silahkan login");
-  //     router.push("/login");
-  //   } else {
-  //     if(dataUser?.data?.users?.status === "pending"){
-  //       message.error('Mohon tunggu verifikasi akun dari admin')
-  //     }else if(dataUser?.data?.users?.status === "active"){
-  //       setModalVisible(true);
-  //     }
-  //   }
-  // };
-  // // console.log(dataUser, "data uuuuuuuuuuuuuuuuser");
-
-  // const [modalVisible, setModalVisible] = useState(false);
-  // const [courseName, setCourseName] = useState("");
-  // const [startDate, setStartDate] = useState("");
-  // const [endDate, setEndDate] = useState("");
-  // const [theme, settheme] = useState("");
-  // const [price, setPrice] = useState(0);
-  // const [numberOfBenches, setNumberOfBenches] = useState(0);
-  // const [description, setDescription] = useState("");
-  // const [selectedDataKitchen, setSelectedDataKitchen] = useState<any>(null);
-
-  // // console.log(dataUser, "data user");
-  // const onFinish = async () => {
-  //   console.log(`${id}, id
-  //   ${courseName} = course
-  //   ${startDate} = startDate
-  //   ${endDate} = endDate
-  //   ${price} = price
-  //   ${theme} = theme
-  //   ${numberOfBenches} = benches
-  //   ${description} = description`)
-  //   // console.log(startDate, "startDate");
-  //   // console.log(endDate, "endDate");
-
-  //   try {
-  //     let data = {
-  //       kitchen_id: dataUser?.data?.id,
-  //       theme_id:theme ,
-  //       courseName: courseName,
-  //       startDate: startDate,
-  //       endDate: endDate,
-  //       price: price,
-  //       numberOfBenches: numberOfBenches,
-  //       description: description,
-  //     };
-  //     const mengajukanKelas =
-  //       await regularClassRepository.manipulateData.createKelasReg(data);
-  //     console.log(
-  //       mengajukanKelas,
-  //       "Meeeeeeeeeeeeeeeeeeeeeeeeeeeeeeengajukan kelas"
-  //     );
-  //     // console.log(mengajukanKelas.body.data.adminFee, "price")
-  //     // console.log(mengajukanKelas.body.data.courseName, "courseName")
-  //     localStorage.setItem('price', mengajukanKelas.body.data.adminFee)
-  //     localStorage.setItem('courseName', courseName)
-  //     setCourseName("");
-  //     setStartDate("");
-  //     setEndDate("");
-  //     setPrice(0);
-  //     settheme("");
-  //     setNumberOfBenches(0);
-  //     setDescription("");
-  //     router.push("/pembayaran");
-  //     mutate(regularClassRepository.url.findRegClassByKitchen(id));
-  //   } catch (e) {
-  //     console.log(e, "eror mengajukan data");
-  //   }
-  //   localStorage.setItem('price', price/10)
-  //   localStorage.setItem('courseName', courseName)
-  //   router.push("/pembayaran");
-  //   setModalVisible(false);
-  // };
-
-  // const handleCancel = () => {
-  //   setModalVisible(false);
-  // };
-  // const handleOK = () => {
-  //   setModalOpen(true);
-  // };
-  // const handleClose = () => {
-  //   setModalOpen(false);
-  // };
   const { data } = regularClassRepository.hooks.findRegClassByKitchen(id);
   console.log(data, "data kelas regular");
-  // // const { data, mutate:mutateData } = regularClassRepository.hooks.findAllRegularClass();
-  // // console.log(data?.data, "data kelas regular");
 
   const changeTanggalMulai = (date: any, dateString: any) => {
     setStartDate(dateString);
@@ -241,147 +141,96 @@ const HomeKitchen: React.FC = () => {
   const changeTanggalSelesai = (date: any, dateString: any) => {
     setEndDate(dateString);
   };
-  // const onChange: DatePickerProps["onChange"] = (date, dateString) => {
-  //   console.log(date, dateString);
-  // };
 
-  // const onChange1 = (value: number) => {
-  //   console.log("changed", value);
-  //   // form.setFieldValue('adminFee', value * 10 / 100)
-  // };
-  // const onChangeTema = (value :string[]) => {
-  //   console.log(`selected ${value}`)
+  const { data: dataTema } = temaKelasRepository.hooks.findTemaByUsers(id);
+  console.log(dataTema, "ini data tema");
 
-  // }
-  // const handleAdminFee = (value: number) =>{
-  //   form.setFieldValue('adminFee', value * 10 / 100)
-  // }
   return (
     <div>
-      <ModalCustom 
-      width={843}
-      title="Pengajuan Kelas"
-      closeModal={handleClose}
-      visible={modalOpen}
-      content={<FormPengajuanKelas onClose={handleClose} mutateData={null}/>}/>
-      <div className="text-2xl font-semibold mb-5">Jadwal</div>
-      <div className="">
-        <div className=" w-[50%]">
+      <ModalCustom
+        width={843}
+        title="Pengajuan Kelas"
+        closeModal={handleClose}
+        visible={modalOpen}
+        content={<FormPengajuanKelas onClose={handleClose} mutateData={null} />}
+      />
+      <div className="flex">
+        <div>
+          <div className="text-2xl font-semibold mb-5">Jadwal</div>
           <Calendar
             fullscreen={false}
             onSelect={handleDateSelect}
             className="bg-orange-300 w-96 shadow-md"
           />
         </div>
-        <div
-          className="  w-[100%] h-max pb-8 rounded-3xl border border-solid border-button mt-4 shadow-md"
-        >
-          <div className="flex justify-between m-5">
-            
-             <p className="font-bold text-2xl">Kelas Anda</p>
-            {/* <UbahMateriBtn text="Ajukan Kelas" key={null} onclick={handleOK} /> */}
-            <FullRoundedButton
-              text="Ajukan Kelas"
-              icons={<SendOutlined />}
-              onclick={handleOK}
-            />
-          </div>
-          <Swiper
-            spaceBetween={10}
-            navigation={true}
-            slidesPerView={5}
-            modules={[Navigation]}
-            className=" py-4 mx-10 flex mt-6"
-          >
-            {token &&
-              data?.data.map((item: any, index: any) => (
-                <SwiperSlide key={index}>
-                  <Card style={{ width: 300 }} className="rounded-lg p-2 ml-6 shadow-sm">
-                    <div className=" content-between ">
-                      <Image
-                        className=" rounded"
-                        src="/assets/Image.png"
-                        width={220}
-                        height={175}
-                        alt="Gambar"
-                      />
-                      <div className="flex justify-between">
-                        <div>
-                          <div className="text-xl font-bold">
-                            {item.courseName}
-                          </div>
-                          <div className=" font-bold">Dimulai pada:</div>
-                          <div className="font-bold">
-                            {item.startDate.substring(0, 10)} sampai{" "}
-                            {item.endDate.substring(0, 10)}
-                          </div>
-
-                          <div className="mt-2">Chef: {item.chef_name}</div>
-                        </div>
-                      </div>
-                      {/* <div className="flex justify-between">
-                      <FullRoundedButton
-                        text="Lihat Detail"
-                        icons={null}
-                        type={"primary"}
-                        //   onclick={showModal}
-                      />
-                    </div> */}
-                    </div>
-                  </Card>
-                </SwiperSlide>
-              ))}
-          </Swiper>
-        </div>
-      </div>
-      {/* <ModalCustom
-        width={843}
-        title="Pengajuan Kelas"
-        closeModal={handleClose}
-        visible={modalOpen}
-        content={
-          <FormPengajuanKelas onClose={handleClose} mutateData={mutateData} />
-        }
-      /> */}
-      {/* <p>Selected Date: {selectedDate}</p> */}
-      {/* <div className="flex mt-3">
-        <div className="w-[50%] bg-orange-300 rounded mr-20">
-          {token &&
-            kelas.map((item, index) => (
-              <div
-                key={index}
-                className="rounded-xl flex justify-between m-3 p-5 bg-white"
-                style={{ border: "2px solid #FF7D04" }}
-              >
+        <div className="mb-5 ml-10">
+          <p className="font-bold text-2xl"> Tema Kelas Anda</p>
+          <div className="border border-solid border-button w-96 h-80 rounded-lg shadow-sm">
+            {dataTema?.data.map((item: any, index: any) => (
+              <div className="m-5">
                 <div>
-                  <div
-                    className={`text-xl font-bold ${
-                      item.jenisKelas === "Regular"
-                        ? "text-orange-500"
-                        : "text-red-600"
-                    }`}
-                  >
-                    Kelas {item.jenisKelas}
-                  </div>
-                  <div>{item.judul}</div>
-                  <div>Tema: {item.tema}</div>
-                  {item.jenisKelas === "Regular" && (
-                    <div
-                      className="font-semibold text-orange-500 mt-2"
-                      // onClick={showExport}
-                    >
-                      <PrinterOutlined onClick={() => console.log("chat")} />{" "}
-                      export
-                    </div>
-                  )}
-                </div>
-                <div className="mt-4">
-                  <FullRoundedButton text="Lihat Kelas" />
+                  - <span className="font-bold">{item?.name}</span> <span className="text-xs">oleh {item?.chef_name}</span>
                 </div>
               </div>
             ))}
+            <div className="ml-5">
+            <FullRoundedButton text="Tambah" />
+            </div>
+          </div>
         </div>
-      </div> */}
+      </div>
+      <div className="  w-[100%] h-max pb-8 rounded-3xl border border-solid border-button mt-4 shadow-md">
+        <div className="flex justify-between m-5">
+          <p className="font-bold text-2xl">Kelas Anda</p>
+          {/* <UbahMateriBtn text="Ajukan Kelas" key={null} onclick={handleOK} /> */}
+          <FullRoundedButton
+            text="Ajukan Kelas"
+            icons={<SendOutlined />}
+            onclick={handleOK}
+          />
+        </div>
+        <Swiper
+          spaceBetween={10}
+          navigation={true}
+          slidesPerView={5}
+          modules={[Navigation]}
+          className=" py-4 mx-10 flex mt-6"
+        >
+          {token &&
+            data?.data.map((item: any, index: any) => (
+              <SwiperSlide key={index}>
+                <Card
+                  style={{ width: 300 }}
+                  className="rounded-lg p-2 ml-6 shadow-sm"
+                >
+                  <div className=" content-between ">
+                    <Image
+                      className=" rounded"
+                      src="/assets/Image.png"
+                      width={220}
+                      height={175}
+                      alt="Gambar"
+                    />
+                    <div className="flex justify-between">
+                      <div>
+                        <div className="text-xl font-bold">
+                          {item.courseName}
+                        </div>
+                        <div className=" font-bold">Dimulai pada:</div>
+                        <div className="font-bold">
+                          {item.startDate.substring(0, 10)} sampai{" "}
+                          {item.endDate.substring(0, 10)}
+                        </div>
+
+                        <div className="mt-2">Chef: {item.chef_name}</div>
+                      </div>
+                    </div>
+                  </div>
+                </Card>
+              </SwiperSlide>
+            ))}
+        </Swiper>
+      </div>
     </div>
   );
 };
