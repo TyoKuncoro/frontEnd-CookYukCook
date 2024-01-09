@@ -15,6 +15,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import { materiRepository } from "#/repository/materi";
+import { usersPaymentRepository } from "#/repository/usersPayment";
 
 
 function onPanelChange(value: any, mode: any) {
@@ -115,6 +116,9 @@ const Home: React.FC = () => {
   // const formattedPrice = formatter.format(price);
   // const { data } = regularClassRepository.hooks.findRegClassByKitchen(dataUser?.data.id);
   // console.log(data, "ini data")
+  const { data:dataApprove } = usersPaymentRepository.hooks.getTraineeRegApprove(id)
+  console.log(dataApprove, "ini data approve")
+
   return role === "Kitchen Studio" ? (
     <HomeKitchen />
   ) : (
@@ -207,9 +211,14 @@ const Home: React.FC = () => {
               Kelas Regular Pilihanmu
             </div>
             <div className=" py-4 mx-10 h-64">
-            {token && (
+            {dataApprove?.data?.map((item: any, index: any)=> !dataApprove ? (
+              <Empty
+              image={Empty.PRESENTED_IMAGE_SIMPLE}
+              description={<span>Kelas Privat Masih Kosong</span>}
+            />
+            ) : (
               <Card
-                title={namaKelas}
+                title={item?.regular?.courseName}
                 extra={
                   <FullRoundedButton
                     text="Lihat Detail"
@@ -222,13 +231,13 @@ const Home: React.FC = () => {
               >
                 <div className="flex justify-between">
                   <div>
-                    <div>Tema: {tema}</div>
+                    <div>Tema: {item?.regular?.description}</div>
                     <div>Kelas Regular</div>
                     <div>lokasi:</div>
-                    <p className=" text-xs">{alamat}</p>
+                    <p className=" text-xs">{item?.users?.address}</p>
                     <div className=" text-xs">Dimulai pada:</div>
                     <div className="text-xs">
-                      {startDate}-{endDate}
+                      {item?.regular?.startDate.substring(0, 10)} sampai {item?.regular?.endDate.substring(0, 10)}
                     </div>
                   </div>
                   <div className=" content-between">
@@ -242,7 +251,7 @@ const Home: React.FC = () => {
                   </div>
                 </div>
               </Card>
-            )}
+            ))}
             </div>
           </div>
           <div
