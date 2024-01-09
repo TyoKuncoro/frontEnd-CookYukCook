@@ -158,7 +158,7 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
   
   const path = window.location.pathname;
   return (
-    <>
+    <>{reguler ? (
         <Layout className=" bg-white h-[1200px]">
           <Sider
             width={220}
@@ -205,6 +205,54 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
             </Content>
           </Layout>
         </Layout>
+      ) : (
+        <Layout className=" bg-white h-full">
+          <Sider
+            width={220}
+            className="h-full"
+            style={{ background: "#FFEBD1", borderTopRightRadius: 60 }}
+          >
+            <div className="flex py-6 justify-center">
+              <Image
+                src="/assets/maskot.png"
+                width={150}
+                height={150}
+                alt="Cook Yuk Cook"
+              />
+            </div>
+            <Menu
+              className=""
+              mode="inline"
+              defaultSelectedKeys={['/home']}
+              selectedKeys={[pathname]}
+              // defaultOpenKeys={[path]}
+              style={{
+                height: "auto",
+                borderRight: 0,
+                background: "#FFEBD1",
+                fontWeight: "bold",
+                color: "#FF7D04",
+              }}
+              items={role == "Trainee" || "Kitchen Studio" ? menu : menuAdmin}
+              onClick={({ key }) => {
+                router.push(key);
+                // console.log(`key ${key} route not found`);
+              }}
+            />
+          </Sider>
+          <Layout style={{ height: "calc(100vh - 64px)" }}>
+            <Content
+              style={{
+                padding: 24,
+                minHeight: 200,
+                background: colorBgContainer,
+              }}
+            >
+              {children}
+            </Content>
+          </Layout>
+        </Layout>
+      )}
     </>
     
   );

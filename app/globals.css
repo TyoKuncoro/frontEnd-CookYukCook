@@ -13,6 +13,12 @@
   border-color: #FF7D04;
   border-width: 1px;
 }
+
+.swiper-wrapper {
+  margin-inline-start:40px;
+  margin-inline-end: 40px;
+}
+
   .ant-input-affix-wrapper-focused {
     border: 1px solid #FF7D04 !important;
     box-shadow: 0 0 0 2px #FF7D04 !important;

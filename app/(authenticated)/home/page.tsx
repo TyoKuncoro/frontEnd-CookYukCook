@@ -15,7 +15,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import { materiRepository } from "#/repository/materi";
-import { usersPaymentRepository } from "#/repository/usersPayment";
+
 
 function onPanelChange(value: any, mode: any) {
   console.log(value.format("YYYY-MM-DD"), mode);
@@ -108,25 +108,22 @@ const Home: React.FC = () => {
   }
   const { data: dataKelas } =
     regularClassRepository.hooks.findAllRegularClass();
-  console.log(dataKelas, "ini data kelas");
-  const formatter = new Intl.NumberFormat("id-ID", {
-    style: "currency",
-    currency: "IDR",
-  });
+  // console.log(dataKelas?.data?.[0].material, "Data Kelas");
+  // const cariKelas = dataKelas?.data?.map((items)=> items.id)
+  // const {data: dataMateri} = materiRepository.hooks.findMaterialByClass(dataKelas?.data?.map((items) => items.id))
+  const formatter = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' });
   // const formattedPrice = formatter.format(price);
-  const { data: dataApprove } =
-    usersPaymentRepository.hooks.getTraineeRegApprove(id);
-  console.log(dataApprove, "ini data approve ");
-
+  // const { data } = regularClassRepository.hooks.findRegClassByKitchen(dataUser?.data.id);
+  // console.log(data, "ini data")
   return role === "Kitchen Studio" ? (
     <HomeKitchen />
   ) : (
     <div className="p-5 bg-white">
-      <div className="  rounded-3xl" style={{ border: "2px solid #FF7D04" }}>
+      <div className=" rounded-3xl" style={{ border: "2px solid #FF7D04" }}>
         <div
           className="px-3 py-3 bg-orange-400 rounded-tl-2xl rounded-br-3xl font-bold text-xl"
           style={{
-            marginRight: "82%",
+            marginRight: "88%",
           }}
         >
           Pilihan Untukmu
@@ -196,90 +193,71 @@ const Home: React.FC = () => {
           </Swiper>
         </div>
       </div>
-      <div className="flex justify-between">
-        <div
-          className=" mt-6 rounded-3xl mr-10 w-[80%]"
-          style={{ border: "2px solid #FF7D04" }}
-        >
+        <div className="flex justify-between">
           <div
-            className="px-2 py-2 bg-orange-400 rounded-tl-2xl rounded-br-3xl font-bold text-xl"
-            style={{
-              marginRight: 320,
-            }}
+            className=" mt-6 rounded-3xl mr-10 w-[80%]"
+            style={{ border: "2px solid #FF7D04" }}
           >
-            Kelas Regular Pilihanmu
-          </div>
-          <div className=" py-4 mx-10 h-64">
-          <Swiper
-            navigation={true}
-            slidesPerView={2}
-            modules={[Navigation]}
-            className=" py-4 mx-3 flex"
-          >
-            {dataApprove?.data.map((item: any, index: any) =>
-              item.length !== 0 ? (
-                <SwiperSlide key={index}>
-                  <Card
-                    title={item?.regular?.courseName}
-                    extra={
-                      <FullRoundedButton
-                        text="Lihat Detail"
-                        icons={null}
-                        type={"primary"}
-                        onclick={showModal1}
-                      />
-                    }
-                    style={{ width: 300 }}
-                  >
-                    <div className="flex justify-between">
-                      <div>
-                        <div>Tema: {item?.regular?.description}</div>
-                        <div>
-                          {!item?.regular ? "Kelas Private" : "Kelas Regular"}
-                        </div>
-                        <div>lokasi:</div>
-                        <p className=" text-xs">{item?.users?.address}</p>
-                        <div className=" text-xs">Dimulai pada:</div>
-                        <div className="text-xs">
-                          {item?.regular?.startDate.substring(0, 10)} sampai{" "}
-                          {item?.regular?.endDate.substring(0, 10)}
-                        </div>
-                      </div>
-                      <div className=" content-between">
-                        <Image
-                          className=" rounded"
-                          src="/assets/Image.png"
-                          width={40}
-                          height={40}
-                          alt="Gambar"
-                        />
-                      </div>
+            <div
+              className="px-2 py-2 bg-orange-400 rounded-tl-2xl rounded-br-3xl font-bold text-xl"
+              style={{
+                marginRight: 320,
+              }}
+            >
+              Kelas Regular Pilihanmu
+            </div>
+            <div className=" py-4 mx-10 h-64">
+            {token && (
+              <Card
+                title={namaKelas}
+                extra={
+                  <FullRoundedButton
+                    text="Lihat Detail"
+                    icons={null}
+                    type={"primary"}
+                    onclick={showModal1}
+                  />
+                }
+                style={{ width: 300 }}
+              >
+                <div className="flex justify-between">
+                  <div>
+                    <div>Tema: {tema}</div>
+                    <div>Kelas Regular</div>
+                    <div>lokasi:</div>
+                    <p className=" text-xs">{alamat}</p>
+                    <div className=" text-xs">Dimulai pada:</div>
+                    <div className="text-xs">
+                      {startDate}-{endDate}
                     </div>
-                  </Card>
-                  </SwiperSlide>
-              ) : (
-                <Empty
-                  image={Empty.PRESENTED_IMAGE_SIMPLE}
-                  description={<span>Kelas Privat Masih Kosong</span>}
-                />
-              )
+                  </div>
+                  <div className=" content-between">
+                    <Image
+                      className=" rounded"
+                      src="/assets/Image.png"
+                      width={40}
+                      height={40}
+                      alt="Gambar"
+                    />
+                  </div>
+                </div>
+              </Card>
             )}
-            </Swiper>
+            </div>
           </div>
-        </div>
-        <div
-          className=" mt-6 rounded-3xl w-[80%]"
-          style={{ border: "2px solid #FF7D04" }}
-        >
           <div
-            className="px-2 py-2 bg-orange-400 rounded-tl-2xl rounded-br-3xl font-bold text-xl"
-            style={{
-              marginRight: 320,
-            }}
+            className=" mt-6 rounded-3xl w-[80%]"
+            style={{ border: "2px solid #FF7D04" }}
           >
-            Kelas Private Pilihanmu
-          </div>
-          <div className=" py-4 m-auto leading-6 mx-10">
+            <div
+              className="px-2 py-2 bg-orange-400 rounded-tl-2xl rounded-br-3xl font-bold text-xl"
+              style={{
+                marginRight: 320,
+              }}
+            >
+              Kelas Private Pilihanmu
+            </div>
+            <div className=" py-4 m-auto leading-6 mx-10">
             <Empty
               image={Empty.PRESENTED_IMAGE_SIMPLE}
               description={<span>Kelas Privat Masih Kosong</span>}
@@ -354,14 +332,12 @@ const Home: React.FC = () => {
               <div>Materi Kelas yang dipelajari:</div>
               {dataKelas?.data?.map((items: any) => (
                 <div>
-                  {/* {console.log(items, "halo ini items")} */}
-                  {items.material.map((values: any) => {
-                    {
-                      console.log(values, "halo ini values");
-                    }
-                    // <div key={values.id}>{values.name}</div>
-                  })}
-                </div>
+                 {console.log(items, "halo ini items")}
+                {items.material.map((values: any)=> {
+                  {console.log(values, "halo ini values")}
+                  <div key={values.id}>{values.name}</div>
+                })}
+               </div>
               ))}
             </div>
             <div className="flex justify-between gap-4 mt-2">

@@ -6,6 +6,7 @@ import {
   Input,
   InputNumber,
   Select,
+  Space,
   message,
 } from "antd";
 import { Option } from "antd/es/mentions";
@@ -15,7 +16,9 @@ import { temaKelasRepository } from "#/repository/tema";
 import { useEffect, useState } from "react";
 import { kitchenRepository } from "#/repository/kitchen";
 import { useRouter } from "next/navigation";
+import { RangePickerProps } from "antd/es/date-picker";
 
+const { RangePicker } = DatePicker;
 const FormPengajuanKelas = ({ mutateData, onClose }) => {
   const [form] = Form.useForm();
   const router = useRouter();
@@ -60,7 +63,7 @@ const FormPengajuanKelas = ({ mutateData, onClose }) => {
         message.success("Pengajuan Kelas Berhasil");
       }, 2000);
       form.resetFields();
-      localStorage.setItem("idKelas", pengajuan?.body?.data?.id)
+      localStorage.setItem("idKelas", pengajuan?.body?.data?.id);
       router.push("/pembayaran");
       mutateData();
     } catch (error) {
@@ -85,9 +88,9 @@ const FormPengajuanKelas = ({ mutateData, onClose }) => {
     desc: string;
   };
 
-  const onChange: DatePickerProps["onChange"] = (date, dateString) => {
-    console.log(date, dateString);
-  };
+  // const onChange: DatePickerProps["onChange"] = (date, dateString) => {
+  //   console.log(date, dateString);
+  // };
 
   const onChange1 = (value: number) => {
     console.log("changed", value);
@@ -101,6 +104,19 @@ const FormPengajuanKelas = ({ mutateData, onClose }) => {
   };
   const parsePrice = (value: number) => {
     return parseInt(value.replace(/[^0-9]/g, ""), 10);
+  };
+  const onChange = (
+    value: DatePickerProps["value"] | RangePickerProps["value"],
+    dateString: [string, string] | string
+  ) => {
+    console.log("Selected Time: ", value);
+    console.log("Formatted Selected Time: ", dateString);
+  };
+
+  const onOk = (
+    value: DatePickerProps["value"] | RangePickerProps["value"]
+  ) => {
+    console.log("onOk: ", value);
   };
   return (
     <Form
@@ -163,6 +179,7 @@ const FormPengajuanKelas = ({ mutateData, onClose }) => {
             rules={[{ required: true, message: "Pilih tanggal mulai kelas" }]}
           >
             <DatePicker
+              showTime
               onChange={onChange}
               placeholder="Tanggal Mulai"
               className="custom-placeholder h-9 w-80 rounded-lg border-orange-300"
@@ -175,6 +192,7 @@ const FormPengajuanKelas = ({ mutateData, onClose }) => {
             rules={[{ required: true, message: "Pilih tanggal selesai kelas" }]}
           >
             <DatePicker
+              showTime
               onChange={onChange}
               placeholder="Tanggal Selesai"
               className="custom-placeholder h-9 w-80 rounded-lg border-orange-300"
