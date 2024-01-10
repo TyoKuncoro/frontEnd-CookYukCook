@@ -18,26 +18,6 @@ const Riwayat: React.FC = () => {
     console.log("Tab changed:", key);
   };
   const formatter = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' });
-  const data = [
-    {
-      tanggal: "14-Des-2023",
-      jenisKelas: "Kelas Regular",
-      judul: "membuat Kue Enak",
-      harga: 120000,
-    },
-    {
-      tanggal: "15-Des-2023",
-      jenisKelas: "Kelas Regular",
-      judul: "Kue Lebaran Enak",
-      harga: 120000,
-    },
-    {
-      tanggal: "16-Des-2023",
-      jenisKelas: "Kelas Regular",
-      judul: "Kue Tahun Baru Enak",
-      harga: 120000,
-    },
-  ];
 
   function onChange(pageNumber: any) {
     console.log("Halaman:", pageNumber);
@@ -61,10 +41,12 @@ const Riwayat: React.FC = () => {
   const { data: dataPending } = usersPaymentRepository.hooks.getTraineeRegPending(id)
   // console.log(dataPending, 'ini data kelas Pending')
   const { data:dataApprove } = usersPaymentRepository.hooks.getTraineeRegApprove(id)
-  // console.log(dataApprove, "ini data approve")
+  console.log(dataApprove, "ini data approve")
 
   const handleBayar = (data: any) => {
-    console.log(data.id, "ini data id")
+    console.log(data, "ini data id")
+    localStorage.setItem("idBayar", data.id);
+    router.push('/pembayaran')
   }
    
   return role === 'Trainee' ?
@@ -119,7 +101,7 @@ const Riwayat: React.FC = () => {
                   <div className="ml-6">
                     <div className="text-xs">{item.createdAt.substring(0, 10)}</div>
                     <div className="text-lg font-bold">{!item.regular ? "Kelas Private" : "Kelas Regular"}</div>
-                    <div className=" text-lg">{item.courseName}</div>
+                    <div className=" text-lg">{item?.regular?.courseName}</div>
                   </div>
                 </div>
                 <div>

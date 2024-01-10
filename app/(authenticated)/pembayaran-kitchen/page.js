@@ -48,6 +48,10 @@ const PembayaranKitchen = () => {
     regularClassRepository.hooks.findRegClassById(dataKelas);
   console.log(dataBayar, "ini data bayar");
 
+  const approve = {
+    
+  }
+
   const handleCheckout = async () => {
     const uuidGenerator = uuidv4();
     // console.log(uuidGenerator, "ini uuid cook");
@@ -58,9 +62,9 @@ const PembayaranKitchen = () => {
       price: dataBayar?.data?.adminFee,
       quantity: 1,
     };
-
-    
-    // console.log(data, "api midtrans")
+    console.log(dataBayar?.data.id, "ini data id")
+    const approving = await regularClassRepository.manipulateData.updateApprove(dataBayar?.data.id)
+    console.log(approving, "ini approving")
     const response = await fetch("api/token", {
       method: "POST",
       body: JSON.stringify(data),
