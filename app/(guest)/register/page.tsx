@@ -123,9 +123,9 @@ const Register = () => {
     <div className=" h-full flex m-auto items-center justify-center shadow-xl">
       <div
         className="rounded-l-3xl px-10 shadow-md h-[680px]"
-        style={{ backgroundColor: "#FFD8B4", width: "35%" }}
+        style={{ backgroundColor: "#FFD8B4", width: "620px" }}
       >
-        <div className=" font-bold text-4xl text-center mb-10 mt-5 text-orange-600">
+        <div className=" font-bold text-4xl text-center mb-10 mt-10 text-orange-600">
           Peserta
         </div>
         <div>
@@ -140,7 +140,7 @@ const Register = () => {
             autoComplete="off"
           >
             <div className="flex gap-8">
-              <div className="w-96">
+              <div>
                 <Form.Item
                   label="Nama"
                   name="name"
@@ -148,7 +148,7 @@ const Register = () => {
                 >
                   <Input
                     prefix={<UserOutlined className="text-slate-500" />}
-                    className="h-[35px]"
+                    className="h-[35px] w-64"
                     placeholder="Nama"
                   />
                 </Form.Item>
@@ -164,7 +164,7 @@ const Register = () => {
                 >
                   <Input
                     prefix={<PhoneOutlined className="text-slate-500" />}
-                    className="h-[35px]"
+                    className="h-[35px] w-64"
                     placeholder="No Whatsapp"
                   />
                 </Form.Item>
@@ -177,7 +177,7 @@ const Register = () => {
                 >
                   <DatePicker
                     style={{ width: "100%" }}
-                    className="h-[35px]"
+                    className="h-[35px] w-64"
                     placeholder="Tanggal Lahir"
                     prefix={<CalendarOutlined className="text-slate-500" />}
                   />
@@ -192,7 +192,7 @@ const Register = () => {
                 >
                   <Select
                     placeholder="Pilih jenis kelamin"
-                    className="h-[35px]"
+                    className="h-[35px] w-64"
                     onChange={onGenderChange}
                     allowClear
                   >
@@ -201,7 +201,7 @@ const Register = () => {
                   </Select>
                 </Form.Item>
               </div>
-              <div className="w-96">
+              <div>
                 <Form.Item
                   label="Email"
                   name="email"
@@ -212,7 +212,7 @@ const Register = () => {
                 >
                   <Input
                     prefix={<MailOutlined className="text-slate-500" />}
-                    className="h-[35px]"
+                    className="h-[35px] w-64"
                     placeholder="Email"
                   />
                 </Form.Item>
@@ -227,7 +227,7 @@ const Register = () => {
                 >
                   <Input.Password
                     prefix={<LockOutlined />}
-                    className="h-[35px]"
+                    className="h-[35px] w-64"
                     placeholder="Kata Sandi"
                   />
                 </Form.Item>
@@ -256,7 +256,7 @@ const Register = () => {
                 >
                   <Input.Password
                     prefix={<LockOutlined />}
-                    className="h-[35px]"
+                    className="h-[35px] w-64"
                     placeholder="Konfirmasi Kata Sandi"
                   />
                 </Form.Item>
@@ -276,7 +276,7 @@ const Register = () => {
                     <Button
                       icon={<UploadOutlined />}
                       // style={{ width: "100%" }}
-                      className="h-[35px] w-72"
+                      className="h-[35px] w-64"
                     >
                       Unggah Foto Profil
                     </Button>
@@ -285,14 +285,14 @@ const Register = () => {
               </div>
             </div>
             <Form.Item label="Alamat" name="alamat">
-                  <Input placeholder="Alamat" className="h-[50px]" />
+                  <Input placeholder="Alamat" className="h-[50px] w-[540px]" />
                 </Form.Item>
-            <Form.Item wrapperCol={{ offset: 9, span: 12 }}>
+            <Form.Item wrapperCol={{ offset: 9, span: 15 }}>
               <Button
                 type="primary"
                 htmlType="submit"
                 // style={{ backgroundColor: "#FF7D04", borderColor: "#FF7D04" }}
-                className="w-28 float-right mt-3 hover:bg-white hover:text-button"
+                className="w-64 float-right mt-3 hover:bg-white hover:text-button"
               >
                 Daftar
               </Button>

@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import { Button, Calendar, Card, Empty, Modal, message } from "antd";
+import { Button, Calendar, Card, Empty, List, Modal, message } from "antd";
 import FullRoundedButton from "../../Component/fullRoundedButton";
 import { store } from "#/store";
 import { sampleRepository } from "#/repository/sample";
@@ -15,6 +15,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import { materiRepository } from "#/repository/materi";
+import { ReadOutlined } from "@ant-design/icons";
 
 function onPanelChange(value: any, mode: any) {
   console.log(value.format("YYYY-MM-DD"), mode);
@@ -118,7 +119,7 @@ const Home: React.FC = () => {
   // const { data } = regularClassRepository.hooks.findRegClassByKitchen(dataUser?.data.id);
   // console.log(data, "ini data")
   const datas = dataKelas?.data;
-  console.log(typeof datas, "ini dataS")
+  console.log(typeof datas, "ini dataS");
   // const cardFour = []
   // for(let i = 0; i < datas.length; i += 4){
   //   cardFour.push(datas.slice(i, i+4))
@@ -136,9 +137,7 @@ const Home: React.FC = () => {
         >
           Pilihan Untukmu
         </div>
-        <div 
-        className="mx-3 py-2 h-70"
-        >
+        <div className="mx-3 py-10 h-70">
           <Swiper
             navigation={true}
             slidesPerView={3}
@@ -163,15 +162,22 @@ const Home: React.FC = () => {
                 >
                   <div className="flex">
                     <div>
-                      <div className="text-lg font-semibold mb-2"> Kelas Regular</div>
+                      <div className="text-lg font-semibold mb-2">
+                        {" "}
+                        Kelas Regular
+                      </div>
                       <div className="text-base"> Tema : {item.theme.name}</div>
-                      <div className="text-base"> Lokasi : {item.kitchen.users.address}</div>
+                      <div className="text-base">
+                        {" "}
+                        Lokasi : {item.kitchen.users.address}
+                      </div>
                       <div className="text-base mb-3 flex gap-1">
                         {" "}
-                        Dimulai pada: 
+                        Dimulai pada:
                         <div className="font-medium">
-                          {item.startDate.substring(0, 10)} sampai {""} {item.endDate.substring(0, 10)}
-                          </div>
+                          {item.startDate.substring(0, 10)} sampai {""}{" "}
+                          {item.endDate.substring(0, 10)}
+                        </div>
                       </div>
                     </div>
                     <div>
@@ -335,8 +341,9 @@ const Home: React.FC = () => {
         // onOk={handleOk}
         onCancel={handleCancel}
         footer={null}
+       width={620}
       >
-        <div className="flex justify-between">
+        <div className="flex justify-around">
           <div>
             <Image
               className=" rounded"
@@ -345,30 +352,31 @@ const Home: React.FC = () => {
               height={100}
               alt="Gambar"
             />
-            <div className="font-bold">Daftar Kelas Regular</div>
-            <div className=" text-xs">
+            <div className="font-bold text-xl mt-3">Daftar Kelas Regular</div>
+            <div className=" text-base font-medium mt-4">
               Kuota : {selectedData?.numberOfBenches} orang
             </div>
-            <div className=" text-xs">Dimulai pada:</div>
-            <div className=" text-xs">
+            <div className=" text-base font-medium">Dimulai pada:</div>
+            <div className=" text-base font-medium">
               {selectedData?.startDate.substring(0, 10)} sampai{" "}
               {selectedData?.endDate.substring(0, 10)}
             </div>
           </div>
           <div>
             <div className=" bg-orange-50 rounded-lg p-2">
-              <div>Materi Kelas yang dipelajari:</div>
-              {dataKelas?.data?.map((items) => (
-                <div>
-                  {console.log(items, "halo ini items")}
-                  {items.material.map((values) => {
-                    {
-                      console.log(values, "halo ini values");
-                    }
-                    <div key={values.id}>{values.name}</div>;
-                  })}
-                </div>
-              ))}
+              <List
+                size="small"
+                // bordered
+                header={
+                  <div className="text-lg font-medium"><ReadOutlined /> Materi Kelas yang dipelajari:</div>
+                }
+                dataSource={selectedData?.material}
+                renderItem={(item, index) => (
+                  <List.Item className="text-base text-start">
+                    {index + 1}. {item.name}
+                  </List.Item>
+                )}
+              />
             </div>
             <div className="flex justify-between gap-4 mt-2">
               <div className=" font-bold text-lg items-center">

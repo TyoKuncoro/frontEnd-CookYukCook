@@ -88,7 +88,7 @@ export default function TemaKelas() {
             onclick={handleOpenModal}
           />
       </div>
-      <Table className="mt-5 text-xl" columns={columns} dataSource={tema} />
+      <Table className="mt-5 text-xl border border-solid border-primary rounded-sm" columns={columns} dataSource={tema} pagination={false} scroll={{y:200}}/>
       <ModalPengajuan
         title="pengajuan Kelas"
         closeModal={handleClose}
