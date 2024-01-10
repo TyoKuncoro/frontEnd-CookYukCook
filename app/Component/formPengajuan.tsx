@@ -100,7 +100,7 @@ const FormPengajuanKelas = ({ mutateData, onClose }) => {
     console.log(`selected ${value}`);
   };
   const handleAdminFee = (value: number) => {
-    form.setFieldValue("adminFee", (value * 10) / 100);
+    form.setFieldValue("adminFee", `${(value * 10)/ 100}`.replace(/\B(?=(\d{3})+(?!\d))/g, ","));
   };
   const parsePrice = (value: number) => {
     return parseInt(value.replace(/[^0-9]/g, ""), 10);

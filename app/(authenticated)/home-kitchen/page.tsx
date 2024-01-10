@@ -78,7 +78,7 @@ const HomeKitchen: React.FC = () => {
   console.log(dataTema, "ini data tema");
 
   return (
-    <div className="p-5">
+    <div className="px-3">
       <ModalCustom
         width={843}
         title="Pengajuan Kelas"
