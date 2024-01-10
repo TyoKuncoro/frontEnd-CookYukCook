@@ -18,26 +18,6 @@ const Riwayat: React.FC = () => {
     console.log("Tab changed:", key);
   };
   const formatter = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' });
-  const data = [
-    {
-      tanggal: "14-Des-2023",
-      jenisKelas: "Kelas Regular",
-      judul: "membuat Kue Enak",
-      harga: 120000,
-    },
-    {
-      tanggal: "15-Des-2023",
-      jenisKelas: "Kelas Regular",
-      judul: "Kue Lebaran Enak",
-      harga: 120000,
-    },
-    {
-      tanggal: "16-Des-2023",
-      jenisKelas: "Kelas Regular",
-      judul: "Kue Tahun Baru Enak",
-      harga: 120000,
-    },
-  ];
 
   function onChange(pageNumber: any) {
     console.log("Halaman:", pageNumber);

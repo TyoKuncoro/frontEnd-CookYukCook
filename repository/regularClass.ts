@@ -35,8 +35,8 @@ const manipulateData = {
   updateBenches(id: any, data: any){
     return http.put(url.updateBenches(id)).send(data)
   },
-  updateApprove(id: any, data: any){
-    return http.put(url.updateApprove(id)).send(data)
+  updateApprove(id: any){
+    return http.put(url.updateApprove(id))
   }
 };
 

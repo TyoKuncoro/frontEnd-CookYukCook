@@ -104,11 +104,10 @@ const Home: React.FC = () => {
   // console.log(data, "ini data")
   const { data: dataApprove } =
     usersPaymentRepository.hooks.getTraineeRegApprove(id);
-  // console.log(dataApprove, "ini data approve")
+  console.log(dataApprove, "ini data approve")
 
   const handleDaftar = async () => {
     // console.log(selectedData, "selected data");
-    localStorage.setItem("idKelas", selectedData?.id);
 
     const dataDaftar = {
       users: id,
@@ -234,7 +233,7 @@ const Home: React.FC = () => {
                 !dataApprove ? (
                   <Empty
                     image={Empty.PRESENTED_IMAGE_SIMPLE}
-                    description={<span>Kelas Privat Masih Kosong</span>}
+                    description={<span>Kelas Regular Masih Kosong</span>}
                   />
                 ) : (
                   <SwiperSlide key={index}>
@@ -252,7 +251,7 @@ const Home: React.FC = () => {
                     >
                       <div className="flex justify-between">
                         <div>
-                          {/* <div>Tema: {item?.regular?.description}</div> */}
+                          <div>Tema: {item?.regular.theme.name}</div>
                           <div className="font-bold">Kelas Regular</div>
                           <div>lokasi:</div>
                           <p className=" text-xs">{item?.users?.address}</p>

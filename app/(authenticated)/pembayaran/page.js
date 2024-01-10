@@ -17,11 +17,6 @@ const Pembayaran = () => {
   const router = useRouter();
 
   //dummy data
-  const [namaKelas, setNamaKelas] = useState("Membuat Kue Khas Lebaran");
-  const [temaKelas, setTemaKelas] = useState("Pembuatan Kue Kering");
-  const [harga, setHarga] = useState(120000);
-  const [tipeKelas, setTipeKelas] = useState("Regular");
-  // end dummy data
 
   // from midtrans
   let snap = new Mistrans.Snap({
@@ -29,8 +24,7 @@ const Pembayaran = () => {
     serverKey: process.env.SECRET,
     clientKey: process.env.NEXT_PUBLIC_CLIENT,
   });
-  const [price, setPrice] = useState(0);
-  const [course, setCourse] = useState("-");
+  const formatter = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' });
 
   useEffect(() => {
     const snapScript = "https://app.sandbox.midtrans.com/snap/snap.js";
@@ -57,13 +51,18 @@ const Pembayaran = () => {
     nama = parseJwt(token).name;
     id = parseJwt(token).id;
   }
-  // const { data: isUserPay } = usersPaymentRepository.hooks.getUserPayByRegClass(dataKelas?.data?.id)
-  // console.log(isUserPay, "ini userPay")
   const idBayar = localStorage.getItem("idBayar")
   console.log(idBayar, "ini idBayar")
   const {data: dataBayar} = usersPaymentRepository.hooks.getUserPayById(idBayar)
   console.log(dataBayar, "ini dataBayar")
 
+  const uuidGenerator1 = uuidv4();
+  const data = {
+    id: uuidGenerator1,
+    productName: dataBayar?.data?.regular?.courseName,
+    price: dataBayar?.data?.regular?.price - dataBayar?.data?.regular.adminFee,
+    quantity: 1,
+  };
 
 
   const handleCheckout = async () => {
@@ -71,14 +70,6 @@ const Pembayaran = () => {
       method: "POST",
       body: JSON.stringify(data),
     });
-    const uuidGenerator1 = uuidv4();0
-    // console.log(uuidGenerator1, "ini uuid cook");
-    const data = {
-      id: uuidGenerator1,
-      productName: dataBayar?.data?.regular?.courseName,
-      price: dataBayar?.data?.regular?.price - dataBayar?.data?.regular.adminFee,
-      quantity: 1,
-    };
     const requestData = await response.json();
 
     try {      
@@ -118,7 +109,7 @@ const Pembayaran = () => {
       >
         <div className=" w-[75%]">
           <div className="text-2xl font-bold text-orange-500">
-            Pendaftaran Kelas {tipeKelas}
+            Pendaftaran Kelas {!dataBayar?.data.regular ? "Private" : "Regular"}
           </div>
           <div className="text-xl mb-20">Nama: {nama}</div>
           <div className="text-xl font-bold text-orange-500 mb-5">
