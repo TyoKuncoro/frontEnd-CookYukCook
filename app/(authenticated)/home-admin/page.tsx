@@ -6,7 +6,7 @@ import RejectKitchen from "#/app/Component/rejectKitchen";
 import { kitchenRepository } from "#/repository/kitchen";
 import { usersRepository } from "#/repository/user";
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
-import { Image, Space, Table, message } from "antd";
+import { Card, Empty, Image, Space, Table, message } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { useState } from "react";
 
@@ -82,7 +82,7 @@ function HomeAdmin() {
       key: "detail",
       render: (_, record) => (
         <Space size="middle">
-            {/* <a className="text-button hover:text-button hover:underline">Lihat Detail</a> */}
+          {/* <a className="text-button hover:text-button hover:underline">Lihat Detail</a> */}
           <UbahMateriBtn
             key={record.key}
             onclick={() => showDetail(record)}
@@ -102,7 +102,7 @@ function HomeAdmin() {
               key={record.users.id}
               onClick={() => approve(record.users.id, record.users.name)}
             >
-            <CheckOutlined className="text-green-500 hover:text-green-700" />
+              <CheckOutlined className="text-green-500 hover:text-green-700" />
               Menyetujui
             </a>
           </div>
@@ -113,7 +113,7 @@ function HomeAdmin() {
               key={record.users.id}
               onClick={() => handleOpen(record)}
             >
-            <CloseOutlined className="text-red-500 hover:text-red-700" />
+              <CloseOutlined className="text-red-500 hover:text-red-700" />
               Menolak
             </a>
           </div>
@@ -145,6 +145,26 @@ function HomeAdmin() {
         visible={modalOpen}
         content={<DetailKitchen idKitchen={detail?.id} />}
       />
+      <div className="flex flex-col w-full">
+        <div className="border  border-solid border-button w-[800px]">
+          <p>Kelas Regular</p>
+          <div>
+          <Empty
+              image={Empty.PRESENTED_IMAGE_SIMPLE}
+              description={<span>Kelas Regular Masih Kosong</span>}
+            />
+          </div>
+        </div>
+        <div  className="border  border-solid border-button w-[800px]">
+          <p>Kelas Privat</p>
+          <div>
+          <Empty
+              image={Empty.PRESENTED_IMAGE_SIMPLE}
+              description={<span>Kelas Regular Masih Kosong</span>}
+            />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

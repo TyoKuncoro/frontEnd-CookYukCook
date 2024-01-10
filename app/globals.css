@@ -15,8 +15,9 @@
 }
 
 .swiper-wrapper {
-  margin-inline-start:40px;
-  margin-inline-end: 40px;
+  padding: 2px;
+  margin-inline-start:36px;
+  /* margin-inline-end: -30px; */
 }
 
   .ant-input-affix-wrapper-focused {
@@ -223,4 +224,7 @@ quatenary: '#FDF7EF'
 }
 :where(.css-dev-only-do-not-override-1d8d5er).ant-tabs .ant-tabs-tab {
   font-size: 20px;
+}
+:where(.css-dev-only-do-not-override-1d8d5er).ant-list .ant-list-item {
+  border: none;
 }

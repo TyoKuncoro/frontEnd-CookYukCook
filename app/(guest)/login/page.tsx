@@ -73,11 +73,11 @@ const Login = () => {
     <div className="mt-20">
       <div className="flex place-content-center">
         <div
-          className="rounded-l-3xl"
+          className="rounded-l-3xl shadow-md"
           style={{ backgroundColor: "#FFD8B4", width: "35%" }}
         >
           <div
-            className=" font-bold text-7xl text-center mb-32 mt-5 text-orange-600"
+            className=" font-bold text-7xl text-center mb-32 mt-14 text-orange-600"
           >
             Login
           </div>
@@ -137,10 +137,10 @@ const Login = () => {
         </div>
         <div>
           <Image
-            className="rounded-r-3xl"
+            className="rounded-r-3xl shadow-md"
             src="/assets/Image.png"
             width={500}
-            height={600}
+            height={630}
             alt="image"
           />
         </div>

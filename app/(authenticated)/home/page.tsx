@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import { Button, Calendar, Card, Empty, Modal, message } from "antd";
+import { Button, Calendar, Card, Empty, List, Modal, message } from "antd";
 import FullRoundedButton from "../../Component/fullRoundedButton";
 import { store } from "#/store";
 import { sampleRepository } from "#/repository/sample";
@@ -15,8 +15,6 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import { materiRepository } from "#/repository/materi";
-import { usersPaymentRepository } from "#/repository/usersPayment";
-
 
 function onPanelChange(value: any, mode: any) {
   console.log(value.format("YYYY-MM-DD"), mode);
@@ -132,7 +130,9 @@ const Home: React.FC = () => {
         >
           Pilihan Untukmu
         </div>
-        <div className=" py-4 mx-10 h-70">
+        <div 
+        className="mx-3 py-2 h-70"
+        >
           <Swiper
             navigation={true}
             slidesPerView={4}
@@ -160,14 +160,15 @@ const Home: React.FC = () => {
                 >
                   <div className="flex justify-between">
                     <div>
-                      <div>Tema: {item?.description}</div>
-                      <div>Kelas Regular</div>
-                      {/* <div>lokasi:</div>
-                  <p className=" text-xs">{alamat}</p> */}
-                      <div className=" text-xs">Dimulai pada:</div>
-                      <div className="text-xs">
-                        {item.startDate.substring(0, 10)} sampai{" "}
-                        {item.endDate.substring(0, 10)}
+                      <div className="text-lg font-semibold mb-2"> Kelas Regular</div>
+                      <div className="text-base"> Tema : {item.theme.name}</div>
+                      <div className="text-base"> Lokasi : {item.kitchen.users.address}</div>
+                      <div className="text-base mb-3 flex gap-1">
+                        {" "}
+                        Dimulai pada: 
+                        <div className="font-medium">
+                          {item.startDate.substring(0, 10)} sampai {""} {item.endDate.substring(0, 10)}
+                          </div>
                       </div>
                       <div className=" font-bold text-lg mt-3">
                         Harga: {formatter.format(item.price - item.adminFee)}
@@ -316,8 +317,9 @@ const Home: React.FC = () => {
         // onOk={handleOk}
         onCancel={handleCancel}
         footer={null}
+       width={620}
       >
-        <div className="flex justify-between">
+        <div className="flex justify-around">
           <div>
             <Image
               className=" rounded"
@@ -326,12 +328,12 @@ const Home: React.FC = () => {
               height={100}
               alt="Gambar"
             />
-            <div className="font-bold">Daftar Kelas Regular</div>
-            <div className=" text-xs">
+            <div className="font-bold text-xl mt-3">Daftar Kelas Regular</div>
+            <div className=" text-base font-medium mt-4">
               Kuota : {selectedData?.numberOfBenches} orang
             </div>
-            <div className=" text-xs">Dimulai pada:</div>
-            <div className=" text-xs">
+            <div className=" text-base font-medium">Dimulai pada:</div>
+            <div className=" text-base font-medium">
               {selectedData?.startDate.substring(0, 10)} sampai{" "}
               {selectedData?.endDate.substring(0, 10)}
             </div>

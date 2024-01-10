@@ -158,14 +158,14 @@ const RegisterKitchen = () => {
       </div>
       <div
         className="rounded-r-3xl px-10 shadow-md h-[680px]"
-        style={{ backgroundColor: "#FFD8B4", width: "35%" }}
+        style={{ backgroundColor: "#FFD8B4", width: "620px" }}
       >
-        <div className=" font-bold text-4xl text-center mb-10 mt-5 text-orange-600">
+        <div className=" font-bold text-4xl text-center mb-10 mt-8 text-orange-600">
           Studio Masak
         </div>
         <Form layout="vertical" onFinish={onFinish} autoComplete="off">
           <div className="flex gap-8">
-            <div className="w-96 mt-0">
+            <div>
               <Form.Item
                 label="Nama"
                 name="nama"
@@ -176,7 +176,7 @@ const RegisterKitchen = () => {
                   },
                 ]}
               >
-                <Input prefix={<UserOutlined className="text-slate-500" />} className="h-[35px]" placeholder="Nama kitchen studio" />
+                <Input prefix={<UserOutlined className="text-slate-500" />} className="h-[35px] w-64" placeholder="Nama kitchen studio" />
               </Form.Item>
               <Form.Item
                 label="No WhatsApp"
@@ -188,7 +188,7 @@ const RegisterKitchen = () => {
                   },
                 ]}
               >
-                <Input prefix={<PhoneOutlined className="text-slate-500" />} className="h-[35px]" placeholder="No Whatsapp" />
+                <Input prefix={<PhoneOutlined className="text-slate-500" />} className="h-[35px] w-64" placeholder="No Whatsapp" />
               </Form.Item>
 
               <Form.Item
@@ -201,7 +201,7 @@ const RegisterKitchen = () => {
                   },
                 ]}
               >
-                <Input className="h-[35px]" placeholder="jumlah chef" type="number" />
+                <Input className="h-[35px] w-64" placeholder="jumlah chef" type="number" />
               </Form.Item>
               <Form.Item
                 label="Alamat"
@@ -213,7 +213,7 @@ const RegisterKitchen = () => {
                   },
                 ]}
               >
-                <Input prefix={<EnvironmentOutlined className="text-slate-500"/>} className="h-[35px]" placeholder="Alamat" />
+                <Input prefix={<EnvironmentOutlined className="text-slate-500"/>} className="h-[35px] w-64" placeholder="Alamat" />
               </Form.Item>
               <Form.Item label="Deskripsi" name="desc">
                 <Input className="h-[35px]" placeholder="Deskripsi" />
@@ -230,7 +230,7 @@ const RegisterKitchen = () => {
                   },
                 ]}
               >
-                <Input prefix={<MailOutlined className="text-slate-500" />} className="h-[35px]" placeholder="Email" />
+                <Input prefix={<MailOutlined className="text-slate-500" />} className="h-[35px] w-64" placeholder="Email" />
               </Form.Item>
               <Form.Item
                 label="Kata Sandi"
@@ -242,7 +242,7 @@ const RegisterKitchen = () => {
                   },
                 ]}
               >
-                <Input.Password prefix={<LockOutlined className="text-slate-500" />} className="h-[35px]" placeholder="Kata Sandi" />
+                <Input.Password prefix={<LockOutlined className="text-slate-500" />} className="h-[35px] w-64" placeholder="Kata Sandi" />
               </Form.Item>
 
               <Form.Item
@@ -258,7 +258,7 @@ const RegisterKitchen = () => {
               >
                 <Input.Password
                 prefix={<LockOutlined className="text-slate-500"/>}
-                  className="h-[34px]"
+                  className="h-[34px] w-64"
                   placeholder="Konfirmasi Kata Sandi"
                 />
               </Form.Item>
@@ -274,7 +274,7 @@ const RegisterKitchen = () => {
                   onChange={uploadLogoKitchen}
                   // beforeUpload={}
                 >
-                  <Button icon={<UploadOutlined />} className=" h-[35px] w-72">
+                  <Button icon={<UploadOutlined />} className=" h-[35px] w-64">
                     Unggah Logo
                   </Button>
                 </Upload>
@@ -293,7 +293,7 @@ const RegisterKitchen = () => {
                   maxCount={1}
                   onChange={uploadLegalitas}
                 >
-                  <Button icon={<UploadOutlined />} className="h-[35px] w-72">
+                  <Button icon={<UploadOutlined />} className="h-[35px] w-64">
                     Unggah Legalitas
                   </Button>
                 </Upload>
@@ -305,7 +305,7 @@ const RegisterKitchen = () => {
             <Button
               type="primary"
               htmlType="submit"
-              className="w-28 float-right mr-4 mt-3 hover:bg-white hover:text-button"
+              className="w-28 float-right mt-3 hover:bg-white hover:text-button"
               // style={{ backgroundColor: "#FF7D04", borderColor: "#FF7D04" }}
             >
               Daftar
