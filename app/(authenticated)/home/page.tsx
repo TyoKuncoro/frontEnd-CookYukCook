@@ -15,7 +15,6 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import { materiRepository } from "#/repository/materi";
-import { ReadOutlined } from "@ant-design/icons";
 
 function onPanelChange(value: any, mode: any) {
   console.log(value.format("YYYY-MM-DD"), mode);
@@ -111,15 +110,12 @@ const Home: React.FC = () => {
   // console.log(dataKelas?.data?.[0].material, "Data Kelas");
   // const cariKelas = dataKelas?.data?.map((items)=> items.id)
   // const {data: dataMateri} = materiRepository.hooks.findMaterialByClass(dataKelas?.data?.map((items) => items.id))
-  const formatter = new Intl.NumberFormat("id-ID", {
-    style: "currency",
-    currency: "IDR",
-  });
+  const formatter = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' });
   // const formattedPrice = formatter.format(price);
   // const { data } = regularClassRepository.hooks.findRegClassByKitchen(dataUser?.data.id);
   // console.log(data, "ini data")
   const datas = dataKelas?.data;
-  console.log(typeof datas, "ini dataS");
+  console.log(typeof datas, "ini dataS")
   // const cardFour = []
   // for(let i = 0; i < datas.length; i += 4){
   //   cardFour.push(datas.slice(i, i+4))
@@ -137,65 +133,50 @@ const Home: React.FC = () => {
         >
           Pilihan Untukmu
         </div>
-        <div className="mx-3 py-10 h-70">
+        <div 
+        className="mx-3 py-2 h-70"
+        >
           <Swiper
             navigation={true}
-            slidesPerView={3}
+            slidesPerView={4}
             modules={[Navigation]}
-            className="swiper-wrapper"
+            className=" py-4 mx-3 flex"
           >
-            {dataKelas?.data?.map((item: any, index: any) => (
+            {dataKelas?.data.map((item: any, index: any) => (
               <SwiperSlide key={index}>
                 <Card
                   title={item.courseName}
-                  // className="mr-20 w-80"
-                  // extra={
-                  //   <FullRoundedButton
-                  //     text="Lihat Detail"
-                  //     icons={null}
-                  //     type={"primary"}
-                  //     onclick={() => item.numberOfBenches == 0 ? message.error('Kuota sudah Penuh') : showModal(item)}
-                  //   />
-                  // }
-                  headStyle={{ fontSize: 20, fontWeight: "bold" }}
-                  style={{ width: 450 }}
+                  className="mr-10 w-[20%]"
+                  extra={
+                    <FullRoundedButton
+                      text="Lihat Detail"
+                      icons={null}
+                      type={"primary"}
+                      onclick={() =>
+                        item.numberOfBenches == 0
+                          ? message.error("Kuota sudah Penuh")
+                          : showModal(item)
+                      }
+                    />
+                  }
+                  style={{ width: 300 }}
                 >
-                  <div className="flex">
+                  <div className="flex justify-between">
                     <div>
-                      <div className="text-lg font-semibold mb-2">
-                        {" "}
-                        Kelas Regular
-                      </div>
+                      <div className="text-lg font-semibold mb-2"> Kelas Regular</div>
                       <div className="text-base"> Tema : {item.theme.name}</div>
-                      <div className="text-base">
-                        {" "}
-                        Lokasi : {item.kitchen.users.address}
-                      </div>
+                      <div className="text-base"> Lokasi : {item.kitchen.users.address}</div>
                       <div className="text-base mb-3 flex gap-1">
                         {" "}
-                        Dimulai pada:
+                        Dimulai pada: 
                         <div className="font-medium">
-                          {item.startDate.substring(0, 10)} sampai {""}{" "}
-                          {item.endDate.substring(0, 10)}
-                        </div>
+                          {item.startDate.substring(0, 10)} sampai {""} {item.endDate.substring(0, 10)}
+                          </div>
                       </div>
-                    </div>
-                    <div>
-                      <Image
-                        className=" rounded"
-                        src="/assets/Image.png"
-                        width={60}
-                        height={60}
-                        alt="Gambar"
-                      />
-                    </div>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <div>
-                      <div className=" font-semibold text-lg">
+                      <div className=" font-bold text-lg mt-3">
                         Harga: {formatter.format(item.price - item.adminFee)}
                       </div>
-                      <div className=" font-semibold">
+                      <div className=" font-bold">
                         Kuota:{" "}
                         {item.numberOfBenches == 0 ? (
                           <span className="text-red-500">Penuh</span>
@@ -204,16 +185,13 @@ const Home: React.FC = () => {
                         )}
                       </div>
                     </div>
-                    <div>
-                      <FullRoundedButton
-                        text="Lihat Detail"
-                        icons={null}
-                        type={"primary"}
-                        onclick={() =>
-                          item.numberOfBenches == 0
-                            ? message.error("Kuota sudah Penuh")
-                            : showModal(item)
-                        }
+                    <div className=" content-between">
+                      <Image
+                        className=" rounded"
+                        src="/assets/Image.png"
+                        width={40}
+                        height={40}
+                        alt="Gambar"
                       />
                     </div>
                   </div>
@@ -223,27 +201,28 @@ const Home: React.FC = () => {
           </Swiper>
         </div>
       </div>
-      <div className="flex justify-between mt-10">
-        <div
-          className=" mt-6 rounded-3xl mr-10 w-[80%]"
-          style={{ border: "2px solid #FF7D04" }}
-        >
+        <div className="flex justify-between">
           <div
-            className="px-2 py-2 bg-orange-400 rounded-tl-2xl rounded-br-3xl font-bold text-xl"
-            style={{
-              marginRight: 320,
-            }}
+            className=" mt-6 rounded-3xl mr-10 w-[80%]"
+            style={{ border: "2px solid #FF7D04" }}
           >
-            Kelas Regular Pilihanmu
-          </div>
-          <div className=" py-4 mx-10 h-64">
-            <Empty
+            <div
+              className="px-2 py-2 bg-orange-400 rounded-tl-2xl rounded-br-3xl font-bold text-xl"
+              style={{
+                marginRight: 320,
+              }}
+            >
+              Kelas Regular Pilihanmu
+            </div>
+            <div className=" py-4 mx-10 h-64">
+            {dataApprove?.data?.map((item: any, index: any)=> !dataApprove ? (
+              <Empty
               image={Empty.PRESENTED_IMAGE_SIMPLE}
-              description={<span>Kelas Regular Masih Kosong</span>}
+              description={<span>Kelas Privat Masih Kosong</span>}
             />
-            {/* {token && (
+            ) : (
               <Card
-                title={namaKelas}
+                title={item?.regular?.courseName}
                 extra={
                   <FullRoundedButton
                     text="Lihat Detail"
@@ -256,13 +235,13 @@ const Home: React.FC = () => {
               >
                 <div className="flex justify-between">
                   <div>
-                    <div>Tema: {tema}</div>
+                    <div>Tema: {item?.regular?.description}</div>
                     <div>Kelas Regular</div>
                     <div>lokasi:</div>
-                    <p className=" text-xs">{alamat}</p>
+                    <p className=" text-xs">{item?.users?.address}</p>
                     <div className=" text-xs">Dimulai pada:</div>
                     <div className="text-xs">
-                      {startDate}-{endDate}
+                      {item?.regular?.startDate.substring(0, 10)} sampai {item?.regular?.endDate.substring(0, 10)}
                     </div>
                   </div>
                   <div className=" content-between">
@@ -276,22 +255,22 @@ const Home: React.FC = () => {
                   </div>
                 </div>
               </Card>
-            )} */}
+            ))}
+            </div>
           </div>
-        </div>
-        <div
-          className=" mt-6 rounded-3xl w-[80%]"
-          style={{ border: "2px solid #FF7D04" }}
-        >
           <div
-            className="px-2 py-2 bg-orange-400 rounded-tl-2xl rounded-br-3xl font-bold text-xl"
-            style={{
-              marginRight: 320,
-            }}
+            className=" mt-6 rounded-3xl w-[80%]"
+            style={{ border: "2px solid #FF7D04" }}
           >
-            Kelas Private Pilihanmu
-          </div>
-          <div className=" py-4 m-auto leading-6 mx-10">
+            <div
+              className="px-2 py-2 bg-orange-400 rounded-tl-2xl rounded-br-3xl font-bold text-xl"
+              style={{
+                marginRight: 320,
+              }}
+            >
+              Kelas Private Pilihanmu
+            </div>
+            <div className=" py-4 m-auto leading-6 mx-10">
             <Empty
               image={Empty.PRESENTED_IMAGE_SIMPLE}
               description={<span>Kelas Privat Masih Kosong</span>}
@@ -364,19 +343,18 @@ const Home: React.FC = () => {
           </div>
           <div>
             <div className=" bg-orange-50 rounded-lg p-2">
-              <List
-                size="small"
-                // bordered
-                header={
-                  <div className="text-lg font-medium"><ReadOutlined /> Materi Kelas yang dipelajari:</div>
-                }
-                dataSource={selectedData?.material}
-                renderItem={(item, index) => (
-                  <List.Item className="text-base text-start">
-                    {index + 1}. {item.name}
-                  </List.Item>
-                )}
-              />
+              <div>Materi Kelas yang dipelajari:</div>
+              {dataKelas?.data?.map((items) => (
+                <div>
+                  {console.log(items, "halo ini items")}
+                  {items.material.map((values) => {
+                    {
+                      console.log(values, "halo ini values");
+                    }
+                    <div key={values.id}>{values.name}</div>;
+                  })}
+                </div>
+              ))}
             </div>
             <div className="flex justify-between gap-4 mt-2">
               <div className=" font-bold text-lg items-center">

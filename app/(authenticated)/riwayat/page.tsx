@@ -59,8 +59,14 @@ const Riwayat: React.FC = () => {
   }
 
   const { data: dataPending } = usersPaymentRepository.hooks.getTraineeRegPending(id)
-  console.log(dataPending, 'ini data kelas Pending')
-  
+  // console.log(dataPending, 'ini data kelas Pending')
+  const { data:dataApprove } = usersPaymentRepository.hooks.getTraineeRegApprove(id)
+  // console.log(dataApprove, "ini data approve")
+
+  const handleBayar = (data: any) => {
+    console.log(data.id, "ini data id")
+  }
+   
   return role === 'Trainee' ?
     <div className="flex place-content-center ">
       <div className=" w-[85%] px-20 rounded-3xl"
@@ -84,12 +90,12 @@ const Riwayat: React.FC = () => {
                   <div className="ml-6">
                     <div className="text-xs">{item.createdAt.substring(0, 10)}</div>
                     <div className="text-lg font-bold">{!item.regular ? "Kelas Private" : "Kelas Regular"}</div>
-                    <div className=" text-lg">{item.regular?.courseName}</div>
+                    <div className=" text-lg">{item.regular.courseName}</div>
                   </div>
                 </div>
                 <div>
                   <div className="font-bold text-lg"> {formatter.format(item.regular?.price - item.regular?.adminFee)}</div>
-                  {/* <FullRoundedButton text="Lihat Detail" /> */}
+                  <FullRoundedButton text="Bayar" onclick={()=> handleBayar(item)} />
                 </div>
               </div>
             ))}
@@ -101,7 +107,7 @@ const Riwayat: React.FC = () => {
             /> */}
           </TabPane>
           <TabPane tab="Sudah Bayar" key="2">
-            {data.map((item) => (
+            {dataApprove?.data?.map((item: any, index: any) => (
               <div
                 className="flex p-3 justify-between items-center rounded-lg my-3"
                 style={{ border: "1px solid #FF7D04" }}
@@ -111,23 +117,23 @@ const Riwayat: React.FC = () => {
                   <CheckCircleOutlined className="text-5xl text-green-600" />
                   </div>
                   <div className="ml-6">
-                    <div className="text-xs">{item.tanggal}</div>
-                    <div className="text-lg font-bold">{item.jenisKelas}</div>
-                    <div className=" text-lg">{item.judul}</div>
+                    <div className="text-xs">{item.createdAt.substring(0, 10)}</div>
+                    <div className="text-lg font-bold">{!item.regular ? "Kelas Private" : "Kelas Regular"}</div>
+                    <div className=" text-lg">{item.courseName}</div>
                   </div>
                 </div>
                 <div>
-                  <div className="font-bold text-lg">{formatter.format(item.harga)}</div>
+                  <div className="font-bold text-lg">{formatter.format(item.regular.price - item.regular.adminFee)}</div>
                   {/* <FullRoundedButton text="Lihat Detail" /> */}
                 </div>
               </div>
             ))}
-            <Pagination
+            {/* <Pagination
               defaultCurrent={1}
               total={50}
               onChange={onChange}
               className="flex justify-center pt-48 pb-12"
-            />
+            /> */}
           </TabPane>
         </Tabs>
       </div>

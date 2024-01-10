@@ -22,59 +22,12 @@ const RiwayatKitchen: React.FC = () => {
   const router = useRouter();
 
 
-  const data1 = [
-    {
-      tanggal: "14-Des-2023",
-      jenisKelas: "Kelas Regular",
-      judul: "membuat Kue Enak",
-      harga: "120000",
-    },
-    {
-      tanggal: "15-Des-2023",
-      jenisKelas: "Kelas Regular",
-      judul: "Kue Lebaran Enak",
-      harga: "120000",
-    },
-    {
-      tanggal: "16-Des-2023",
-      jenisKelas: "Kelas Regular",
-      judul: "Kue Tahun Baru Enak",
-      harga: "120000",
-    },
-  ];
 
   function onChange(pageNumber: any) {
     console.log("Halaman:", pageNumber);
     // Anda bisa menambahkan logika lainnya di sini, misalnya memuat data untuk halaman yang dipilih.
   }
 
-  const data = [
-    {
-      tanggal: "27 Nov 2023",
-      judul: "Membuat Roti Tawar",
-      harga: 1200000,
-    },
-    {
-      tanggal: "27 Nov 2023",
-      judul: "Membuat Roti Tawar",
-      harga: 1200000,
-    },
-    {
-      tanggal: "27 Nov 2023",
-      judul: "Membuat Roti Tawar",
-      harga: 1200000,
-    },
-    {
-      tanggal: "27 Nov 2023",
-      judul: "Membuat Roti Tawar",
-      harga: 1200000,
-    },
-    {
-      tanggal: "27 Nov 2023",
-      judul: "Membuat Roti Tawar",
-      harga: 1200000,
-    },
-  ];
 
   const token = localStorage.getItem("access_token");
   let id: string = "";
