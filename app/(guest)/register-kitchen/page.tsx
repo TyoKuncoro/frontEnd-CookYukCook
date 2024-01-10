@@ -53,6 +53,7 @@ const RegisterKitchen = () => {
       };
       const register = await authRepository.manipulateData.register(data);
       console.log(register, "ini hasil register");
+      setTimeout(message.success("Anda Berhasil Register"), 5000);
       router.push("/login");
     } catch (error) {
       // message.error(error.response.body.message)

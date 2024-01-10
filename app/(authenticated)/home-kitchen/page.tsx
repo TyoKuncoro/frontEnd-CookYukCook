@@ -99,64 +99,65 @@ const HomeKitchen: React.FC = () => {
               />
             </div>
             {!dataRegular ? (
-              <Empty
-                image={Empty.PRESENTED_IMAGE_SIMPLE}
-                description={<span>Kelas Masih Kosong</span>}
-              />
-            ) : (
               <div>
-                <Swiper
-                  spaceBetween={10}
-                  navigation={true}
-                  slidesPerView={2}
-                  modules={[Navigation]}
-                  className=" swipper-wrapper py-2 flex gap-4 mb-4"
-                >
-                  {token &&
-                    dataRegular?.data.map((item: any, index: any) => (
-                      <SwiperSlide key={index}>
-                        <Card
-                          style={{ width: 300 }}
-                          className="rounded-lg p-2 ml-6 shadow-sm"
-                        >
-                          <div className=" content-between ">
-                            <Image
-                              className=" rounded"
-                              src="/assets/Image.png"
-                              width={220}
-                              height={175}
-                              alt="Gambar"
-                            />
-                            <div className="flex justify-between">
-                              <div>
-                                <div className="text-xl font-bold">
-                                  {item.courseName}
-                                </div>
-                                <div className=" font-bold">Dimulai pada:</div>
-                                <div className="font-bold">
-                                  {item.startDate.substring(0, 10)} sampai{" "}
-                                  {item.endDate.substring(0, 10)}
-                                </div>
+              <Swiper
+                spaceBetween={10}
+                navigation={true}
+                slidesPerView={2}
+                modules={[Navigation]}
+                className=" swipper-wrapper py-2 flex gap-4 mb-4"
+              >
+                {token &&
+                  dataRegular?.data.map((item: any, index: any) => (
+                    <SwiperSlide key={index}>
+                      <Card
+                        style={{ width: 300 }}
+                        className="rounded-lg p-2 ml-6 shadow-sm"
+                      >
+                        <div className=" content-between ">
+                          <Image
+                            className=" rounded"
+                            src="/assets/Image.png"
+                            width={220}
+                            height={175}
+                            alt="Gambar"
+                          />
+                          <div className="flex justify-between">
+                            <div>
+                              <div className="text-xl font-bold">
+                                {item.courseName}
+                              </div>
+                              <div className=" font-bold">Dimulai pada:</div>
+                              <div className="font-bold">
+                                {item.startDate.substring(0, 10)} sampai{" "}
+                                {item.endDate.substring(0, 10)}
+                              </div>
 
-                                <div className="mt-2">
-                                  Chef: {item.theme.chef_name}
-                                </div>
+                              <div className="mt-2">
+                                Chef: {item.theme.chef_name}
                               </div>
                             </div>
-                            {/* <div className="flex justify-between">
-                <FullRoundedButton
-                  text="Lihat Detail"
-                  icons={null}
-                  type={"primary"}
-                  //   onclick={showModal}
-                />
-              </div> */}
                           </div>
-                        </Card>
-                      </SwiperSlide>
-                    ))}
-                </Swiper>
-              </div>
+                          {/* <div className="flex justify-between">
+              <FullRoundedButton
+                text="Lihat Detail"
+                icons={null}
+                type={"primary"}
+                //   onclick={showModal}
+              />
+            </div> */}
+                        </div>
+                      </Card>
+                    </SwiperSlide>
+                  ))}
+              </Swiper>
+            </div>
+            ) : (
+              <Empty
+              image={Empty.PRESENTED_IMAGE_SIMPLE}
+              description={<span>Kelas Masih Kosong</span>}
+            />
+              
             )}
           </div>
         </div>

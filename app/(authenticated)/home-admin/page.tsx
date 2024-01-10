@@ -122,9 +122,9 @@ function HomeAdmin() {
     },
   ];
   return (
-    <div className="bg-white p-20 w-full space-y-16">
+    <div className="bg-white px-3 py-4 w-full">
       <p className="text-2xl font-bold">Verifikasi Studio Masak</p>
-      <Table columns={columns} dataSource={data?.data} />
+      <Table columns={columns} dataSource={data?.data} pagination={false} scroll={{y:300}}/>
       <ModalCustom
         width={450}
         title={"Menolak Studio Masak"}
@@ -145,23 +145,157 @@ function HomeAdmin() {
         visible={modalOpen}
         content={<DetailKitchen idKitchen={detail?.id} />}
       />
-      <div className="flex flex-col w-full">
-        <div className="border  border-solid border-button w-[800px]">
-          <p>Kelas Regular</p>
-          <div>
-          <Empty
-              image={Empty.PRESENTED_IMAGE_SIMPLE}
-              description={<span>Kelas Regular Masih Kosong</span>}
-            />
+      <div className="flex flex-col w-full mt-10 rounded-md border border-solid border-button p-3">
+        <div className="mb-4">
+          <p className="text-2xl font-bold">Kelas Regular</p>
+          <div className="flex gap-3 items-center justify-center">
+            <Card title="Kelas Memasak Makanan Simple" className="w-96 h-52">
+              <div className="flex justify-between">
+                <div>
+                  <p className="text-base">Tema: Memasak Nasi</p>
+                  <div className="text-base">Dimulai pada: </div>
+                  <div className="text-base">2024-01-09 sampai 2024-01-14</div>
+                  <p className="text-base font-semibold">Kuota: 10 orang</p>
+                </div>
+                <Image
+                  className=" rounded"
+                  src="/assets/Image.png"
+                  width={80}
+                  height={80}
+                  alt="Gambar"
+                />
+              </div>
+            </Card>
+            <Card title="Kelas Memasak Makanan Simple" className="w-96 h-52">
+              <div className="flex justify-between">
+                <div>
+                  <p className="text-base">Tema: Memasak Nasi</p>
+                  <div className="text-base">Dimulai pada: </div>
+                  <div className="text-base">2024-01-09 sampai 2024-01-14</div>
+                  <p className="text-base font-semibold">Kuota: 10 orang</p>
+                </div>
+                <Image
+                  className=" rounded"
+                  src="/assets/Image.png"
+                  width={80}
+                  height={80}
+                  alt="Gambar"
+                />
+              </div>
+            </Card>
+            <Card title="Kelas Memasak Makanan Simple" className="w-96 h-52">
+              <div className="flex justify-between">
+                <div>
+                  <p className="text-base">Tema: Memasak Nasi</p>
+                  <div className="text-base">Dimulai pada: </div>
+                  <div className="text-base">2024-01-09 sampai 2024-01-14</div>
+                  <p className="text-base font-semibold">Kuota: 10 orang</p>
+                </div>
+                <Image
+                  className=" rounded"
+                  src="/assets/Image.png"
+                  width={80}
+                  height={80}
+                  alt="Gambar"
+                />
+              </div>
+            </Card>
+            <Card title="Kelas Memasak Makanan Simple" className="w-96 h-52">
+              <div className="flex justify-between">
+                <div>
+                  <p className="text-base">Tema: Memasak Nasi</p>
+                  <div className="text-base">Dimulai pada: </div>
+                  <div className="text-base">2024-01-09 sampai 2024-01-14</div>
+                  <p className="text-base font-semibold">Kuota: 10 orang</p>
+                </div>
+                <Image
+                  className=" rounded"
+                  src="/assets/Image.png"
+                  width={80}
+                  height={80}
+                  alt="Gambar"
+                />
+              </div>
+            </Card>
           </div>
         </div>
-        <div  className="border  border-solid border-button w-[800px]">
-          <p>Kelas Privat</p>
+        <div className="">
+          <p className="text-2xl font-bold">Kelas Privat</p>
+          <div className="flex gap-3 items-center justify-center">
+            <Card title="Kelas Memasak Makanan Simple" className="w-96 h-52">
+              <div className="flex justify-between">
+                <div>
+                  <p className="text-base">Tema: Memasak Nasi</p>
+                  <div className="text-base">Dimulai pada: </div>
+                  <div className="text-base">2024-01-09 sampai 2024-01-14</div>
+                  <p className="text-base font-semibold">Kuota: 10 orang</p>
+                </div>
+                <Image
+                  className=" rounded"
+                  src="/assets/Image.png"
+                  width={80}
+                  height={80}
+                  alt="Gambar"
+                />
+              </div>
+            </Card>
+            <Card title="Kelas Memasak Makanan Simple" className="w-96 h-52">
+              <div className="flex justify-between">
+                <div>
+                  <p className="text-base">Tema: Memasak Nasi</p>
+                  <div className="text-base">Dimulai pada: </div>
+                  <div className="text-base">2024-01-09 sampai 2024-01-14</div>
+                  <p className="text-base font-semibold">Kuota: 10 orang</p>
+                </div>
+                <Image
+                  className=" rounded"
+                  src="/assets/Image.png"
+                  width={80}
+                  height={80}
+                  alt="Gambar"
+                />
+              </div>
+            </Card>
+            <Card title="Kelas Memasak Makanan Simple" className="w-96 h-52">
+              <div className="flex justify-between">
+                <div>
+                  <p className="text-base">Tema: Memasak Nasi</p>
+                  <div className="text-base">Dimulai pada: </div>
+                  <div className="text-base">2024-01-09 sampai 2024-01-14</div>
+                  <p className="text-base font-semibold">Kuota: 10 orang</p>
+                </div>
+                <Image
+                  className=" rounded"
+                  src="/assets/Image.png"
+                  width={80}
+                  height={80}
+                  alt="Gambar"
+                />
+              </div>
+            </Card>
+            <Card title="Kelas Memasak Makanan Simple" className="w-96 h-52">
+              <div className="flex justify-between">
+                <div>
+                  <p className="text-base">Tema: Memasak Nasi</p>
+                  <div className="text-base">Dimulai pada: </div>
+                  <div className="text-base">2024-01-09 sampai 2024-01-14</div>
+                  <p className="text-base font-semibold">Kuota: 10 orang</p>
+                </div>
+                <Image
+                  className=" rounded"
+                  src="/assets/Image.png"
+                  width={80}
+                  height={80}
+                  alt="Gambar"
+                />
+              </div>
+            </Card>
+          </div>
           <div>
-          <Empty
+            {/* <Empty
               image={Empty.PRESENTED_IMAGE_SIMPLE}
               description={<span>Kelas Regular Masih Kosong</span>}
-            />
+            /> */}
           </div>
         </div>
       </div>
