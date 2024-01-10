@@ -71,8 +71,8 @@ const PembayaranKitchen = () => {
     });
     const requestData = await response.json();
     // console.log(requestData, "dataaa coook")
-    // localStorage.removeItem("idKelas")
-    // window.snap.pay(requestData.token);
+    localStorage.removeItem("idKelas")
+    window.snap.pay(requestData.token);
     // console.log("test")
   };
   //end for midtrans
