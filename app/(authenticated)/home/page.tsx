@@ -72,18 +72,6 @@ const Home: React.FC = () => {
     }
   };
 
-  const handleDaftar = () => {
-    //   message.error("wiring is in process");
-    console.log(selectedData, "selected data");
-    let actualPrice: any = selectedData?.price - selectedData?.adminFee;
-    localStorage.setItem("priceTrainee", actualPrice);
-    localStorage.setItem("courseTrainee", selectedData?.courseName);
-    localStorage.setItem("id", selectedData?.id);
-    // localStorage.setItem('benches', selectedData?.numberOfBenches)
-    router.push("/pembayaran");
-
-    // setIsModalOpen(false);
-  };
   const handleCancel = () => {
     setIsModalOpen(false);
   };
@@ -92,10 +80,6 @@ const Home: React.FC = () => {
   };
   const handleCancel2 = () => {
     setIsModalOpen2(false);
-  };
-
-  const onFinish = () => {
-    console.log("submit button pressed");
   };
 
   const token = localStorage.getItem("access_token");
@@ -117,7 +101,23 @@ const Home: React.FC = () => {
   // const { data } = regularClassRepository.hooks.findRegClassByKitchen(dataUser?.data.id);
   // console.log(data, "ini data")
   const { data:dataApprove } = usersPaymentRepository.hooks.getTraineeRegApprove(id)
-  console.log(dataApprove, "ini data approve")
+  // console.log(dataApprove, "ini data approve")
+
+  const handleDaftar = async() => {
+    // console.log(selectedData, "selected data");
+    localStorage.setItem("idKelas", selectedData?.id);
+
+    const dataDaftar = {
+      users: id,
+      idclass: selectedData.id,
+      typePay: "regular class"
+    };
+    const daftar = await usersPaymentRepository.manipulatedData.createTraineeReg(dataDaftar);
+    console.log(daftar, "ini dataDaftar")
+    router.push("/pembayaran");
+
+    // setIsModalOpen(false);
+  };
 
   return role === "Kitchen Studio" ? (
     <HomeKitchen />
@@ -269,7 +269,7 @@ const Home: React.FC = () => {
             <div className=" py-4 m-auto leading-6 mx-10">
             <Empty
               image={Empty.PRESENTED_IMAGE_SIMPLE}
-              description={<span>Kelas Privat Masih Kosong</span>}
+              description={<span>Kelas Regular Masih Kosong</span>}
             />
             {/* {token && (
               <Card
@@ -341,9 +341,9 @@ const Home: React.FC = () => {
               <div>Materi Kelas yang dipelajari:</div>
               {dataKelas?.data?.map((items: any) => (
                 <div>
-                 {console.log(items, "halo ini items")}
+                 {/* {console.log(items, "halo ini items")} */}
                 {items.material.map((values: any)=> {
-                  {console.log(values, "halo ini values")}
+                  // {console.log(values, "halo ini values")}
                   <div key={values.id}>{values.name}</div>
                 })}
                </div>

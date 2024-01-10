@@ -9,6 +9,7 @@ import { message } from "antd";
 import PembayaranKitchen from "../pembayaran-kitchen/page";
 import { parseJwt } from "#/app/Component/Helper/convert";
 import { regularClassRepository } from "#/repository/regularClass";
+import { usersPaymentRepository } from "#/repository/usersPayment";
 
 // import snap from "midtrans-client"
 
@@ -30,22 +31,10 @@ const Pembayaran = () => {
   });
   const [price, setPrice] = useState(0);
   const [course, setCourse] = useState("-");
-  
-  // const benches = localStorage.getItem("benches") - 1
 
-
-  const idKelasGet = localStorage.getItem("id")
-  console.log(idKelasGet, 'ini id kelas')
-
-   useEffect(() => {
-    const priceGet = localStorage.getItem("priceTrainee");
-    setPrice(priceGet);
-    const courseGet = localStorage.getItem("courseTrainee");
-    setCourse(courseGet);
-    
+  useEffect(() => {
     const snapScript = "https://app.sandbox.midtrans.com/snap/snap.js";
     const clientKey = process.env.NEXT_PUBLIC_CLIENT;
-
     const script = document.createElement("script");
     script.src = snapScript;
     script.setAttribute("data-client-key", clientKey);
@@ -57,48 +46,63 @@ const Pembayaran = () => {
       document.body.removeChild(script);
     };
   }, []);
+  const token = localStorage.getItem("access_token");
 
-  const {data: getKelas} = regularClassRepository.hooks.findRegClassById(idKelasGet)
-  // console.log(getKelas?.data?.id, 'ini data kelas')
-  const minusedOneBenches = parseInt(getKelas?.data?.numberOfBenches) - 1;
-  // console.log(minusedOneBenches, 'ini data benches dikurangi satu')
+  const idKelas = localStorage.getItem("idKelas");
+  const { data: dataKelas } =
+    regularClassRepository.hooks.findRegClassById(idKelas);
+    // console.log(dataKelas, 'ini data kelas')
+
+  // const minusedOneBenches = parseInt(getKelas?.data?.numberOfBenches) - 1;
+
+  let role = "";
+  let id = "";
+  let nama = "";
+
+  if (token) {
+    role = parseJwt(token).role;
+    nama = parseJwt(token).name;
+    id = parseJwt(token).id;
+    // console.log(role, 'ini role');
+  }
+  const { data: isUserPay } = usersPaymentRepository.hooks.getUserPayByRegClass(dataKelas?.data?.id)
+  console.log(isUserPay, "ini userPay")
+
 
 
   const handleCheckout = async () => {
-      const uuidGenerator1 = uuidv4();
-      console.log(uuidGenerator1, "ini uuid cook");
-      const data = {
-        id: uuidGenerator1,
-        productName: course,
-        price: price,
-        quantity: 1,
-      };
-      const response = await fetch("api/token", {
-        method: "POST",
-        body: JSON.stringify(data),
-      });
-      const requestData = await response.json();
-      const dataBenches = {
-        numberOfBenches: minusedOneBenches
-      }
+    const uuidGenerator1 = uuidv4();
+    console.log(uuidGenerator1, "ini uuid cook");
+    const data = {
+      id: uuidGenerator1,
+      productName: dataKelas?.data?.courseName,
+      price: dataKelas?.data?.price - dataKelas?.data?.adminFee,
+      quantity: 1,
+    };
+    const response = await fetch("api/token", {
+      method: "POST",
+      body: JSON.stringify(data),
+    });
+    const requestData = await response.json();
+    // const dataBenches = {
+    //   numberOfBenches: minusedOneBenches
+    // }
+    const dataPay = {
+      status: "approve"
+    }
+  
 
-      try {
-        
-      } catch (e) {
-        
-      }
+    try {      
+      // const updateBenches = await regularClassRepository.manipulateData.updateBenches(getKelas?.data?.id, dataBenches)
+      // console.log(updateBenches, 'ini hasil post update benches')
 
-      try {
-      const updateBenches = await regularClassRepository.manipulateData.updateBenches(getKelas?.data?.id, dataBenches)
-      console.log(updateBenches, 'ini hasil post update benches')
-      localStorage.removeItem("id")
-      localStorage.removeItem("priceTrainee");
-      localStorage.removeItem("courseTrainee");
-      window.snap.pay(requestData.token);
-        
-      } catch (e) {
-        console.log(e, 'ini error update benches')
-      }
+      const approving = await usersPaymentRepository.manipulatedData.updateStatus(isUserPay.data)
+      console.log(approving, "ini data approving")
+      localStorage.removeItem("idKelas");
+      // window.snap.pay(requestData.token);
+    } catch (e) {
+      console.log(e, "ini error approving");
+    }
   };
   //end for midtrans
 
@@ -112,21 +116,11 @@ const Pembayaran = () => {
 
   const todayDate = `${day} - ${month} - ${year}`;
 
-  const date = `${year}-${month}-${day}`
+  const date = `${year}-${month}-${day}`;
 
-  const token = localStorage.getItem("access_token");
-  let nama = "";
   if (!token) {
     setTimeout(message.error("Anda belum login, silahkan login"), 2000);
     router.push("login");
-  }
-
-  let role = "";
-  if (token) {
-    role = parseJwt(token).role;
-    nama = parseJwt(token).name;
-
-    // console.log(role, 'ini role');
   }
 
   return role === "Trainee" ? (
@@ -144,9 +138,11 @@ const Pembayaran = () => {
             Detail Pesanan
           </div>
           <div className="text-l font-bold bg-orange-200 px-10 w-[50%] py-5 rounded-lg">
-            <div className="mb-2">Tema: {course}</div>
+            <div className="mb-2">Tema: {dataKelas?.data?.courseName}</div>
             {/* <div className="mb-5">Tema: {temaKelas}</div> */}
-            <div>Harga: Rp. {price}</div>
+            <div>
+              Harga: Rp. {dataKelas?.data?.price - dataKelas?.data?.adminFee}
+            </div>
           </div>
         </div>
         <div>
