@@ -48,13 +48,6 @@ const Pembayaran = () => {
   }, []);
   const token = localStorage.getItem("access_token");
 
-  const idKelas = localStorage.getItem("idKelas");
-  const { data: dataKelas } =
-    regularClassRepository.hooks.findRegClassById(idKelas);
-    // console.log(dataKelas, 'ini data kelas')
-
-  // const minusedOneBenches = parseInt(getKelas?.data?.numberOfBenches) - 1;
-
   let role = "";
   let id = "";
   let nama = "";
@@ -63,43 +56,37 @@ const Pembayaran = () => {
     role = parseJwt(token).role;
     nama = parseJwt(token).name;
     id = parseJwt(token).id;
-    // console.log(role, 'ini role');
   }
-  const { data: isUserPay } = usersPaymentRepository.hooks.getUserPayByRegClass(dataKelas?.data?.id)
-  console.log(isUserPay, "ini userPay")
+  // const { data: isUserPay } = usersPaymentRepository.hooks.getUserPayByRegClass(dataKelas?.data?.id)
+  // console.log(isUserPay, "ini userPay")
+  const idBayar = localStorage.getItem("idBayar")
+  console.log(idBayar, "ini idBayar")
+  const {data: dataBayar} = usersPaymentRepository.hooks.getUserPayById(idBayar)
+  console.log(dataBayar, "ini dataBayar")
 
 
 
   const handleCheckout = async () => {
-    const uuidGenerator1 = uuidv4();
-    console.log(uuidGenerator1, "ini uuid cook");
-    const data = {
-      id: uuidGenerator1,
-      productName: dataKelas?.data?.courseName,
-      price: dataKelas?.data?.price - dataKelas?.data?.adminFee,
-      quantity: 1,
-    };
     const response = await fetch("api/token", {
       method: "POST",
       body: JSON.stringify(data),
     });
+    const uuidGenerator1 = uuidv4();0
+    // console.log(uuidGenerator1, "ini uuid cook");
+    const data = {
+      id: uuidGenerator1,
+      productName: dataBayar?.data?.regular?.courseName,
+      price: dataBayar?.data?.regular?.price - dataBayar?.data?.regular.adminFee,
+      quantity: 1,
+    };
     const requestData = await response.json();
-    // const dataBenches = {
-    //   numberOfBenches: minusedOneBenches
-    // }
-    const dataPay = {
-      status: "approve"
-    }
-  
 
     try {      
-      // const updateBenches = await regularClassRepository.manipulateData.updateBenches(getKelas?.data?.id, dataBenches)
-      // console.log(updateBenches, 'ini hasil post update benches')
 
-      const approving = await usersPaymentRepository.manipulatedData.updateStatus(isUserPay.data)
+      const approving = await usersPaymentRepository.manipulatedData.updateStatus(idBayar)
       console.log(approving, "ini data approving")
-      localStorage.removeItem("idKelas");
-      // window.snap.pay(requestData.token);
+      localStorage.removeItem("idBayar");
+      window.snap.pay(requestData.token);
     } catch (e) {
       console.log(e, "ini error approving");
     }
@@ -138,10 +125,10 @@ const Pembayaran = () => {
             Detail Pesanan
           </div>
           <div className="text-l font-bold bg-orange-200 px-10 w-[50%] py-5 rounded-lg">
-            <div className="mb-2">Tema: {dataKelas?.data?.courseName}</div>
+            <div className="mb-2">Tema: {dataBayar?.data?.regular?.courseName}</div>
             {/* <div className="mb-5">Tema: {temaKelas}</div> */}
             <div>
-              Harga: Rp. {dataKelas?.data?.price - dataKelas?.data?.adminFee}
+              Harga: Rp. {dataBayar?.data?.regular?.price - dataBayar?.data?.regular?.adminFee}
             </div>
           </div>
         </div>

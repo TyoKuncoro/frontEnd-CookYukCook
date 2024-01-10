@@ -61,10 +61,12 @@ const Riwayat: React.FC = () => {
   const { data: dataPending } = usersPaymentRepository.hooks.getTraineeRegPending(id)
   // console.log(dataPending, 'ini data kelas Pending')
   const { data:dataApprove } = usersPaymentRepository.hooks.getTraineeRegApprove(id)
-  // console.log(dataApprove, "ini data approve")
+  console.log(dataApprove, "ini data approve")
 
   const handleBayar = (data: any) => {
-    console.log(data.id, "ini data id")
+    console.log(data, "ini data id")
+    localStorage.setItem("idBayar", data.id);
+    router.push('/pembayaran')
   }
    
   return role === 'Trainee' ?
@@ -119,7 +121,7 @@ const Riwayat: React.FC = () => {
                   <div className="ml-6">
                     <div className="text-xs">{item.createdAt.substring(0, 10)}</div>
                     <div className="text-lg font-bold">{!item.regular ? "Kelas Private" : "Kelas Regular"}</div>
-                    <div className=" text-lg">{item.courseName}</div>
+                    <div className=" text-lg">{item?.regular?.courseName}</div>
                   </div>
                 </div>
                 <div>
