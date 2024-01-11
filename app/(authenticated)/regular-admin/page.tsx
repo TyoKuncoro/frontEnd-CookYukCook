@@ -16,9 +16,11 @@ import { kitchenRepository } from "#/repository/kitchen";
 const ListRegular = () => {
   //ambil id
   const token = localStorage.getItem("access_token");
+  let role;
   let id;
   if (token) {
     id = parseJwt(token).id;
+    role = parseJwt(token).role;
   }
   console.log(id, "halo ini id ku")
   const { data: dataUser } = kitchenRepository.hooks.getKitchenByUser();
@@ -26,7 +28,12 @@ const ListRegular = () => {
   const [detail, setDetail] = useState();
   const [modalOpen, setModalOpen] = useState(false);
   const [modalDetail, setModalDetail] = useState(false);
-  const {data, mutate: mutateData,isLoading} = regularClassRepository.hooks.findRegClassByKitchen(id);
+  
+  if (role !== "Admin"){
+    var {data, mutate: mutateData,isLoading} = regularClassRepository.hooks.findRegClassByKitchen(id);
+  } else {
+    var {data, mutate: mutateData,isLoading} = regularClassRepository.hooks.findAllRegularClass();
+  }
   console.log(data, "data regular ");
 
   const handleOK = () => {
@@ -39,7 +46,7 @@ const ListRegular = () => {
   const handleClose = () => {
     setModalOpen(false);
   };
-  const modalDetailOpen = (record) => {
+  const modalDetailOpen = (record: any) => {
     setModalDetail(true);
     setDetail(record);
   };
@@ -85,20 +92,41 @@ const ListRegular = () => {
       ),
     },
   ];
+
+  const columnsAdmin: ColumnsType<DataType> = [
+    {
+      title: "Nama Kelas",
+      dataIndex: "courseName",
+      key: "courseName",
+      render: (text) => <p>{text}</p>,
+    },
+    {
+      title: "Tema",
+      dataIndex: "theme",
+      key: "theme",
+      render: (theme) => <p>{theme.name}</p>,
+    },
+    {
+      title: "Chef",
+      dataIndex: "theme",
+      key: "chef",
+      render: (chef) => <p>{chef.chef_name}</p>,
+    },
+  ];
   return (
-    <div className="bg-white p-20 w-full space-y-16">
-      <TemaKelas />
-      <hr />
+    <div className="bg-white px-20 w-full space-y-16 overflow-auto">
+      {/* <TemaKelas />
+      <hr /> */}
       <div>
         <div className="float-right mr-3">
-          <UbahMateriBtn text={"Ajukan Kelas"} icon={<SendOutlined/>} key={null} onclick={handleOK} />
+          {/* <UbahMateriBtn text={"Ajukan Kelas"} icon={<SendOutlined/>} key={null} onclick={handleOK} /> */}
         </div>
-        <p className="text-3xl font-bold">Kelas Regular</p>
+        <p className="text-3xl font-bold"> Kelas Regular {role == "Admin" && "Tersedia"}</p>
       </div>
       {!isLoading && (
         <div>
           <Table
-            columns={columns}
+            columns={role == "Admin" ? columnsAdmin :columns}
             dataSource={data.data}
             rowKey={(record) => record.key}
           />
@@ -129,84 +157,3 @@ const ListRegular = () => {
 };
 export default ListRegular;
 
-// return (
-//   <div className="bg-white p-20 w-full space-y-16">
-//     <div>
-//       <div className="float-right mr-3">
-//         <UbahMateriBtn onclick={handleOK} text="Ajukan Kelas" key={null} 
-//         // onclick={handleOK}
-//         />
-//       </div>
-//       <p className="text-3xl font-bold">Kelas Regular</p>
-//     </div>
-//     {!isLoading && (
-//       <div>
-//         {data?.data?.map((items: any) => {
-//           return (
-//             <div key={items.id}>
-//               <div className="flex justify-between">
-//                 <div className=" space-y-0">
-//                   <p className="text-4xl font-bold">{items?.courseName}</p>
-//                   <p className="text-2xl">Tema: {items?.theme?.name}</p>
-//                   <p className="text-xl">Chef: {items?.theme?.chef_name}</p>
-//                   {/* <FormUbahPengajuan idClass={items.id} /> */}
-//                   <UbahPengajuan idClass={items.id} />
-//                 </div>
-//               </div>
-
-//               <div className="flex w-full gap-52">
-//                 <div>
-//                   <div className="flex justify-between">
-//                     <p className="text-3xl font-bold">Materi Kelas</p>
-//                     <UbahMateriBtn
-//                       text="Tambah Materi"
-//                       key={null}
-//                       onclick={() =>showModal(items?.id, "Regular Class")}
-//                     />
-//                   </div>
-//                   <div className="div-list w-[1020px] h- p-2 rounded-lg">
-//                     <ListKelasRegular classData={items} mutate={mutateData} />
-//                   </div>
-//                 </div>
-//                 <div>
-//                   {items.usersPay && items.usersPay.length > 0 && (
-//                     <ListTrainee usersData={items} />
-//                   )}
-//                 </div>
-//               </div>
-//               <hr />
-//             </div>
-//           );
-//         })}
-//         <Table
-//           columns={columns}
-//           dataSource={data.data}
-//           rowKey={(record) => record.key}
-//         />
-//         <ModalCustom
-//           width={1000}
-//           title={`Detail Kelas`}
-//           closeModal={modalDetailClose}
-//           visible={modalDetail}
-//           content={
-//             <DetailKelasRegular
-//             onClose={modalDetailClose}
-//               classData={detail}
-//               mutate={mutateData}
-//               usersData={detail}
-//             />
-//           }
-//         />
-//       </div>
-//     )}
-//     <ModalCustom 
-//     width={843}
-//     title="Pengajuan Kelas"
-//     closeModal={handleClose}
-//     visible={modalOpen}
-//     content={<FormPengajuanKelas onClose={handleClose} mutateData={mutateData}/>}/>
-//     <hr />
-//     <p className="text-3xl font-bold">Tema Kelas</p>
-//     <TemaKelas />
-//   </div>
-// );

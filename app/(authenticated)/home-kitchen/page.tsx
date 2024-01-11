@@ -89,7 +89,7 @@ const HomeKitchen: React.FC = () => {
       <div className="flex justify-between">
         <div className="w-[930px]">
           <TemaKelas />
-          <div className="border border-solid border-primary mt-10 rounded-2xl shadow-md">
+          <div className="border border-solid border-primary mt-10 rounded-2xl shadow-md h-[55%]">
             <div className="flex justify-between p-2">
               <p className="font-bold text-3xl">Kelas Anda</p>
               <FullRoundedButton
@@ -98,7 +98,7 @@ const HomeKitchen: React.FC = () => {
                 onclick={handleOK}
               />
             </div>
-            {!dataRegular ? (
+            {dataRegular?.data.length == 0 ? (
               <Empty
                 image={Empty.PRESENTED_IMAGE_SIMPLE}
                 description={<span>Kelas Masih Kosong</span>}
