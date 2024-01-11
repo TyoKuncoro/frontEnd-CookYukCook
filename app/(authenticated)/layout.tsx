@@ -75,12 +75,12 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
 
   const menu: MenuProps["items"] = [
     {
-      key: `/home`,
+      key: `/home` || `'/home-kitchen`,
       icon: <HomeOutlined />,
       label: `Dashboard`,
     },
     {
-      key: `/regular`,
+      key: `/regular` || `/regular-kitchen`,
       icon: <AuditOutlined />,
       label: `Kelas Regular`,
     },
@@ -199,7 +199,7 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
             <Menu
               className=""
               mode="inline"
-              defaultSelectedKeys={["/home"]}
+              defaultSelectedKeys={["/home" || "/home-kitchen"]}
               selectedKeys={[pathname]}
               // defaultOpenKeys={[pathname]}
               style={{

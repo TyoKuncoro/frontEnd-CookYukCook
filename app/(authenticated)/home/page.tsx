@@ -15,6 +15,11 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import { materiRepository } from "#/repository/materi";
+import {
+  CalendarOutlined,
+  EnvironmentOutlined,
+  ReadOutlined,
+} from "@ant-design/icons";
 import { usersPaymentRepository } from "#/repository/usersPayment";
 
 function onPanelChange(value: any, mode: any) {
@@ -101,9 +106,14 @@ const Home: React.FC = () => {
   // const formattedPrice = formatter.format(price);
   // const { data } = regularClassRepository.hooks.findRegClassByKitchen(dataUser?.data.id);
   // console.log(data, "ini data")
+  const datas = dataKelas?.data;
+  console.log(typeof datas, "ini dataS");
+  // const cardFour = []
+  // for(let i = 0; i < datas.length; i += 4){
+  //   cardFour.push(datas.slice(i, i+4))
+  // }
   const { data: dataApprove } =
     usersPaymentRepository.hooks.getTraineeRegApprove(id);
-
   console.log(dataApprove, "ini data approve");
 
   const handleDaftar = async () => {
@@ -136,12 +146,12 @@ const Home: React.FC = () => {
         >
           Pilihan Untukmu
         </div>
-        <div className="mx-3 py-2 h-70">
+        <div className="mx-3 py-10 h-70">
           <Swiper
             navigation={true}
-            slidesPerView={4}
+            slidesPerView={3}
             modules={[Navigation]}
-            className=" py-4 mx-3 flex"
+            className=" swipper-wrapper"
           >
             {dataFiltered?.length == 0 ? (
               <Empty
@@ -217,7 +227,7 @@ const Home: React.FC = () => {
           </Swiper>
         </div>
       </div>
-      <div className="flex justify-between">
+      <div className="flex justify-between mt-10">
         <div
           className=" mt-6 rounded-3xl mr-10 w-[50%] "
           style={{ border: "2px solid #FF7D04" }}
@@ -371,16 +381,21 @@ const Home: React.FC = () => {
           </div>
           <div>
             <div className=" bg-orange-50 rounded-lg p-2">
-              <div>Materi Kelas yang dipelajari:</div>
-              {dataKelas?.data?.map((items: any) => (
-                <div>
-                  {/* {console.log(items, "halo ini items")} */}
-                  {items.material.map((values: any) => {
-                    // {console.log(values, "halo ini values")}
-                    <div key={values.id}>{values.name}</div>;
-                  })}
-                </div>
-              ))}
+              <List
+                size="small"
+                // bordered
+                header={
+                  <div className="text-lg font-medium">
+                    <ReadOutlined /> Materi Kelas yang dipelajari:
+                  </div>
+                }
+                dataSource={selectedData?.material}
+                renderItem={(item, index) => (
+                  <List.Item className="text-base text-start">
+                    {index + 1}. {item.name}
+                  </List.Item>
+                )}
+              />
             </div>
             <div className="flex justify-between gap-4 mt-2">
               <div className=" font-bold text-lg items-center">

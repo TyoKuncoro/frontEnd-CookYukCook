@@ -12,40 +12,47 @@ import ModalCustom from "#/app/Component/createPengajuan";
 import DetailKelasRegular from "#/app/Component/modalDetailKelas";
 import { SendOutlined } from "@ant-design/icons";
 import { kitchenRepository } from "#/repository/kitchen";
+import { useForm } from "antd/es/form/Form";
+// import { mutate } from "swr";
 
 const ListRegular = () => {
+  const [form] = useForm();
   //ambil id
   const token = localStorage.getItem("access_token");
   let id;
   if (token) {
     id = parseJwt(token).id;
   }
-  console.log(id, "halo ini id ku")
+  console.log(id, "halo ini id ku");
   const { data: dataUser } = kitchenRepository.hooks.getKitchenByUser();
 
   const [detail, setDetail] = useState();
   const [modalOpen, setModalOpen] = useState(false);
   const [modalDetail, setModalDetail] = useState(false);
-  const {data, mutate: mutateData,isLoading} = regularClassRepository.hooks.findRegClassByKitchen(id);
+  const {
+    data,
+    mutate: mutateData,
+    isLoading,
+  } = regularClassRepository.hooks.findRegClassByKitchen(id);
   console.log(data, "data regular ");
 
   const handleOK = () => {
-    if(dataUser?.data?.users?.status === "pending"){
-      message.error("Mohon tunggu konfirmasi akun dari admin")
-    }else if(dataUser?.data?.users?.status === "active"){
+    if (dataUser?.data?.users?.status === "pending") {
+      message.error("Mohon tunggu konfirmasi akun dari admin");
+    } else if (dataUser?.data?.users?.status === "active") {
       setModalOpen(true);
     }
   };
   const handleClose = () => {
     setModalOpen(false);
   };
-  const modalDetailOpen = (record) => {
+  const modalDetailOpen = (record: any) => {
     setModalDetail(true);
     setDetail(record);
   };
   const modalDetailClose = () => {
     setModalDetail(false);
-    mutateData()
+    mutateData();
   };
   interface DataType {
     key: string;
@@ -86,14 +93,21 @@ const ListRegular = () => {
     },
   ];
   return (
-    <div className="bg-white p-20 w-full space-y-16">
-      <TemaKelas />
+    <div className="bg-white px-3 w-full">
+      <div className="mb-10">
+        <TemaKelas />
+      </div>
       <hr />
       <div>
         <div className="float-right mr-3">
-          <UbahMateriBtn text={"Ajukan Kelas"} icon={<SendOutlined/>} key={null} onclick={handleOK} />
+          <UbahMateriBtn
+            text={"Ajukan Kelas"}
+            icon={<SendOutlined />}
+            key={null}
+            onclick={handleOK}
+          />
         </div>
-        <p className="text-3xl font-bold">Kelas Regular</p>
+        <p className="text-3xl font-bold mt-5">Kelas Regular</p>
       </div>
       {!isLoading && (
         <div>
@@ -101,15 +115,17 @@ const ListRegular = () => {
             columns={columns}
             dataSource={data.data}
             rowKey={(record) => record.key}
+            pagination={false}
+            scroll={{y:300}}
           />
           <ModalCustom
             width={1000}
-            title={'Detail Kelas'}
+            title={"Detail Kelas"}
             closeModal={modalDetailClose}
             visible={modalDetail}
             content={
               <DetailKelasRegular
-              onClose={modalDetailClose}
+                onClose={modalDetailClose}
                 classData={detail}
                 mutate={mutateData}
                 usersData={detail}
@@ -118,12 +134,15 @@ const ListRegular = () => {
           />
         </div>
       )}
-      <ModalCustom 
-      width={843}
-      title="Pengajuan Kelas"
-      closeModal={handleClose}
-      visible={modalOpen}
-      content={<FormPengajuanKelas onClose={handleClose} mutateData={mutateData}/>}/>
+      <ModalCustom
+        width={843}
+        title="Pengajuan Kelas"
+        closeModal={handleClose}
+        visible={modalOpen}
+        content={
+          <FormPengajuanKelas onClose={handleClose} mutateData={mutateData} />
+        }
+      />
     </div>
   );
 };
@@ -133,7 +152,7 @@ export default ListRegular;
 //   <div className="bg-white p-20 w-full space-y-16">
 //     <div>
 //       <div className="float-right mr-3">
-//         <UbahMateriBtn onclick={handleOK} text="Ajukan Kelas" key={null} 
+//         <UbahMateriBtn onclick={handleOK} text="Ajukan Kelas" key={null}
 //         // onclick={handleOK}
 //         />
 //       </div>
@@ -199,7 +218,7 @@ export default ListRegular;
 //         />
 //       </div>
 //     )}
-//     <ModalCustom 
+//     <ModalCustom
 //     width={843}
 //     title="Pengajuan Kelas"
 //     closeModal={handleClose}

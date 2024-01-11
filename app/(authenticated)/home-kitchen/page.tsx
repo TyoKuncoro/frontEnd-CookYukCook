@@ -78,7 +78,7 @@ const HomeKitchen: React.FC = () => {
   console.log(dataTema, "ini data tema");
 
   return (
-    <div className="p-5">
+    <div className="px-3">
       <ModalCustom
         width={843}
         title="Pengajuan Kelas"
@@ -105,58 +105,50 @@ const HomeKitchen: React.FC = () => {
               />
             ) : (
               <div>
-                <Swiper
-                  spaceBetween={10}
-                  navigation={true}
-                  slidesPerView={2}
-                  modules={[Navigation]}
-                  className=" swipper-wrapper py-2 flex gap-4 mb-4"
-                >
-                  {token &&
-                    dataRegular?.data.map((item: any, index: any) => (
-                      <SwiperSlide key={index}>
-                        <Card
-                          style={{ width: 300 }}
-                          className="rounded-lg p-2 ml-6 shadow-sm"
-                        >
-                          <div className=" content-between ">
-                            <Image
-                              className=" rounded"
-                              src="/assets/Image.png"
-                              width={220}
-                              height={175}
-                              alt="Gambar"
-                            />
-                            <div className="flex justify-between">
-                              <div>
-                                <div className="text-xl font-bold">
-                                  {item.courseName}
-                                </div>
-                                <div className=" font-bold">Dimulai pada:</div>
-                                <div className="font-bold">
-                                  {item.startDate.substring(0, 10)} sampai{" "}
-                                  {item.endDate.substring(0, 10)}
-                                </div>
+              <Swiper
+                spaceBetween={10}
+                navigation={true}
+                slidesPerView={2}
+                modules={[Navigation]}
+                className=" swipper-wrapper py-2 flex gap-4 mb-4"
+              >
+                {token &&
+                  dataRegular?.data.map((item: any, index: any) => (
+                    <SwiperSlide key={index}>
+                      <Card
+                        style={{ width: 300 }}
+                        className="rounded-lg p-2 ml-6 shadow-sm"
+                      >
+                        <div className=" content-between ">
+                          <Image
+                            className=" rounded"
+                            src="/assets/Image.png"
+                            width={220}
+                            height={175}
+                            alt="Gambar"
+                          />
+                          <div className="flex justify-between">
+                            <div>
+                              <div className="text-xl font-bold">
+                                {item.courseName}
+                              </div>
+                              <div className=" font-bold">Dimulai pada:</div>
+                              <div className="font-bold">
+                                {item.startDate.substring(0, 10)} sampai{" "}
+                                {item.endDate.substring(0, 10)}
+                              </div>
 
-                                <div className="mt-2">
-                                  Chef: {item.theme.chef_name}
-                                </div>
+                              <div className="mt-2">
+                                Chef: {item.theme.chef_name}
                               </div>
                             </div>
-                            {/* <div className="flex justify-between">
-                <FullRoundedButton
-                  text="Lihat Detail"
-                  icons={null}
-                  type={"primary"}
-                  //   onclick={showModal}
-                />
-              </div> */}
                           </div>
-                        </Card>
-                      </SwiperSlide>
-                    ))}
-                </Swiper>
-              </div>
+                        </div>
+                      </Card>
+                    </SwiperSlide>
+                  ))}
+              </Swiper>
+            </div>              
             )}
           </div>
         </div>
