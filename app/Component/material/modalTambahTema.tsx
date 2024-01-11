@@ -15,7 +15,7 @@ const TambahTema = (props: any) => {
   type FieldType = {
     name?: string;
     chef_name?: string;
-    price?: Date;
+    // price?: Date;
   };
 
   const token = localStorage.getItem("access_token");
@@ -32,7 +32,7 @@ const TambahTema = (props: any) => {
         kitchen: id,
         name: values?.name,
         chef_name: values?.chef_name,
-        price: values?.price,
+        // price: values?.price,
       };
       const createTema = await temaKelasRepository.manipulateData.createTema(
         data
@@ -94,7 +94,7 @@ const TambahTema = (props: any) => {
               className="custom-placeholder h-11 w-80 rounded-lg border-orange-300"
             />
           </Form.Item>
-          <Form.Item<FieldType>
+          {/* <Form.Item<FieldType>
             label="Harga"
             name="price"
             rules={[{ required: true, message: "Harap masukan harga" }]}
@@ -103,7 +103,7 @@ const TambahTema = (props: any) => {
               placeholder="Price"
               className="custom-placeholder h-11 w-80 rounded-lg border-orange-300"
             />
-          </Form.Item>
+          </Form.Item> */}
           <Form.Item>
             <Button key="submit" type="primary" htmlType="submit">
               Simpan

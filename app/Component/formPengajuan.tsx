@@ -17,6 +17,7 @@ import { useEffect, useState } from "react";
 import { kitchenRepository } from "#/repository/kitchen";
 import { useRouter } from "next/navigation";
 import { RangePickerProps } from "antd/es/date-picker";
+import { usersPaymentRepository } from "#/repository/usersPayment";
 
 const { RangePicker } = DatePicker;
 const FormPengajuanKelas = ({ mutateData, onClose }) => {
@@ -63,7 +64,9 @@ const FormPengajuanKelas = ({ mutateData, onClose }) => {
         message.success("Pengajuan Kelas Berhasil");
       }, 2000);
       form.resetFields();
-      localStorage.setItem("idKelas", pengajuan?.body?.data?.id);
+      const findUserPay = usersPaymentRepository.hooks.getUserPayByRegClass(pengajuan?.body?.data?.id)
+      console.log(findUserPay, "findd")
+      localStorage.setItem("idKelas", findUserPay.data);
       router.push("/pembayaran");
       mutateData();
     } catch (error) {
@@ -233,7 +236,7 @@ const FormPengajuanKelas = ({ mutateData, onClose }) => {
             />
           </Form.Item>
           <Form.Item<FieldType>
-            label="Biaya Admin"
+            label="Biaya Admin 10%"
             name="adminFee"
             rules={[{ required: true, message: "" }]}
             // val={form.getFieldValue('harga')}

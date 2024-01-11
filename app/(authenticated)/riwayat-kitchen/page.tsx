@@ -11,11 +11,24 @@ import { Pagination } from "antd";
 import { regularClassRepository } from "#/repository/regularClass";
 import { parseJwt } from "#/app/Component/Helper/convert";
 import { useRouter } from "next/navigation";
+import ModalCustom from "#/app/Component/createPengajuan";
+import DetailPembayaran from "#/app/Component/modalDetailPembayaran";
+import { usersPaymentRepository } from "#/repository/usersPayment";
 
 const { TabPane } = Tabs;
 const { Option } = Select;
 
 const RiwayatKitchen: React.FC = () => {
+  const [detail, setDetail] = useState()
+  const [modalOpen, setModalOpen] = useState(false)
+
+  const handleOpen = (record) => {
+    setModalOpen(true)
+    setDetail(record)
+  };
+  const handleClose = () => {
+    setModalOpen(false)
+  }
   const handleTabChange = (key: any) => {
     console.log("Tab changed:", key);
   };
@@ -35,9 +48,10 @@ const RiwayatKitchen: React.FC = () => {
     id = parseJwt(token).id;
     console.log(id, "id");
   }
-  const { data: dataKelasPending } = regularClassRepository.hooks.findRegClassByKitchenPending(id);
+  const { data: dataKelasPending } = usersPaymentRepository.hooks.getPengajuanPending(id);
   console.log(dataKelasPending, "Data Kelas Pending")
-  const { data: dataKelas } = regularClassRepository.hooks.findRegClassByKitchen(id);
+  const { data: dataKelas } = usersPaymentRepository.hooks.getPengajuanApprove(id);
+
   console.log(dataKelas, "Data Kelas");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handleCancel = () => {
@@ -126,12 +140,12 @@ const RiwayatKitchen: React.FC = () => {
                 <div className="ml-6">
                   <div className="text-xs">{item.createdAt.substring(0, 10)}</div>
                   <div className="text-lg font-bold">Kelas Regular</div>
-                  <div className=" text-lg">{item.courseName}</div>
+                  <div className=" text-lg">{item.regular.courseName}</div>
                 </div>
               </div>
               <div>
-                <div className="font-bold text-lg">Rp. {item.adminFee}</div>
-                <FullRoundedButton text="Bayar" onclick={() => handleModalBayar(item)}/>
+                <div className="font-bold text-lg">Rp. {item.regular.adminFee}</div>
+                <FullRoundedButton text="Bayar" key={item.id} onclick={() => handleModalBayar(item)}/>
               </div>
             </div>
           ))}
@@ -161,15 +175,22 @@ const RiwayatKitchen: React.FC = () => {
                 <div className="ml-6">
                   <div className="text-xs">{item.createdAt.substring(0, 10)}</div>
                   <div className="text-lg font-bold">Kelas Regular</div>
-                  <div className=" text-lg">{item.courseName}</div>
+                  <div className=" text-lg">{item.regular.courseName}</div>
                 </div>
               </div>
               <div>
-                <div className="font-bold text-lg">Rp. {item.adminFee}</div>
-                {/* <FullRoundedButton text="Lihat Detail" /> */}
+                <div className="font-bold text-lg">Rp. {item.regular.adminFee}</div>
+                <FullRoundedButton text="Lihat Detail" onclick={() => handleOpen(item)}/>
               </div>
             </div>
           ))}
+          <ModalCustom
+          title={"Detail Riwayat Transaksi"}
+          width={500}
+          closeModal={handleClose}
+          visible={modalOpen}
+          content={<DetailPembayaran dataApprove={detail}/>}
+          />
           {/* <Pagination
             defaultCurrent={1}
             total={50}

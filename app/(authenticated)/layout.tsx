@@ -219,11 +219,13 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
             />
           )}
         </Sider>
-        <Layout style={{ height: "calc(100vh - 64px)" }}>
+        <Layout style={{ height: "100%" }}>
           <Content
+          className="overflow-auto"
             style={{
+              height:"100%",
               padding: 24,
-              minHeight: 200,
+              // minHeight: 200,
               background: colorBgContainer,
             }}
           >

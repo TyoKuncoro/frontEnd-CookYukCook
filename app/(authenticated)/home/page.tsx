@@ -62,7 +62,7 @@ const Home: React.FC = () => {
   const showModal1 = () => {
     if (!localStorage.getItem("access_token")) {
       message.error("silahkan login");
-      router.push("login");
+      // router.push("login");
     } else {
       setIsModalOpen1(true);
     }
@@ -70,7 +70,7 @@ const Home: React.FC = () => {
   const showModal2 = () => {
     if (!localStorage.getItem("access_token")) {
       message.error("silahkan login");
-      router.push("login");
+      // router.push("login");
     } else {
       setIsModalOpen2(true);
     }
@@ -129,7 +129,7 @@ const Home: React.FC = () => {
       await usersPaymentRepository.manipulatedData.createTraineeReg(dataDaftar);
     console.log(daftar, "ini dataDaftar");
     localStorage.setItem("idBayar", daftar?.body?.data?.id);
-    // router.push("/pembayaran");
+    router.push("/pembayaran");
 
     // setIsModalOpen(false);
   };
@@ -155,7 +155,7 @@ const Home: React.FC = () => {
             className=" swipper-wrapper"
           >
             {dataKelas?.data.map((item: any, index: any) => (
-              <SwiperSlide key={index}>
+              <SwiperSlide key={index} className="cardSlider">
                 <Card
                   title={item.courseName}
                   // className="mr-10"
@@ -291,7 +291,7 @@ const Home: React.FC = () => {
                   navigation={true}
                   slidesPerView={2}
                   modules={[Navigation]}
-                  className="swiper-wrapper"
+                  className="swiper-wrapper flex justify-center"
                 >
                   {dataApprove?.data?.map((item: any, index: any) => (
                     <SwiperSlide key={index}>
@@ -344,7 +344,7 @@ const Home: React.FC = () => {
           </div>
         </div>
         <div
-          className=" mt-6 rounded-3xl w-[950px]"
+          className=" mt-6 rounded-3xl w-[50%]"
           style={{ border: "2px solid #FF7D04" }}
         >
           <div
@@ -355,10 +355,11 @@ const Home: React.FC = () => {
           >
             Kelas Private Pilihanmu
           </div>
-          <div className=" py-4 m-auto leading-6 mx-10">
+          <div className=" w-[100%] mt-32">
             <Empty
+            className="m-auto"
               image={Empty.PRESENTED_IMAGE_SIMPLE}
-              description={<span>Kelas Regular Masih Kosong</span>}
+              description={<span>Kelas Privat Masih Kosong</span>}
             />
             {/* {token && (
               <Card

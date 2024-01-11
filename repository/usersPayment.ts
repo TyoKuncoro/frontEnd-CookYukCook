@@ -9,7 +9,9 @@ const url = {
   getUserPayByRegClass: (id: any) => `/users-payment/regular/${id}`,
   getUserPayById: (id: any) => `/users-payment/${id}`,
   createTraineeReg: () => `/users-payment/booking-regular`,
-  updateStatus: (id:any) => `/users-payment/status/${id}`
+  updateStatus: (id:any) => `/users-payment/status/${id}`,
+  getPengajuanApporve: (id:any) => `/users-payment/approve-pengajuan/${id}`,
+  getPengajuanPending: (id:any) => `/users-payment/pending-pengajuan/${id}`
 
 };
 
@@ -25,6 +27,12 @@ const hooks = {
   },
   getUserPayById(id: any) {
     return useSWR(url.getUserPayById(id), http.fetcher);
+  },
+  getPengajuanApprove(id: any) {
+    return useSWR(url.getPengajuanApporve(id), http.fetcher);
+  },
+  getPengajuanPending(id: any) {
+    return useSWR(url.getPengajuanPending(id), http.fetcher);
   }
 };
 
