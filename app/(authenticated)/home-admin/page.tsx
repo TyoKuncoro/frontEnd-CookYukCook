@@ -5,7 +5,11 @@ import DetailKitchen from "#/app/Component/detailKitchen";
 import RejectKitchen from "#/app/Component/rejectKitchen";
 import { kitchenRepository } from "#/repository/kitchen";
 import { usersRepository } from "#/repository/user";
-import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
+import {
+  CheckOutlined,
+  CloseOutlined,
+  FileSearchOutlined,
+} from "@ant-design/icons";
 import { Card, Empty, Image, Space, Table, message } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { useState } from "react";
@@ -78,24 +82,21 @@ function HomeAdmin() {
       render: (phoneNumber) => <p>{phoneNumber.phoneNumber}</p>,
     },
     {
-      title: "Detail",
-      key: "detail",
-      render: (_, record) => (
-        <Space size="middle">
-          {/* <a className="text-button hover:text-button hover:underline">Lihat Detail</a> */}
-          <UbahMateriBtn
-            key={record.key}
-            onclick={() => showDetail(record)}
-            text={"Lihat Detail"}
-          />
-        </Space>
-      ),
-    },
-    {
       title: "Aksi",
       key: "aksi",
       render: (_, record) => (
         <Space size="middle">
+          <div className="w-[30] flex gap-2 bg-orange-50 p-1 text-center rounded border-solid border border-orange-600 hover:bg-blue-100 hover:text-orange-700 ">
+            <a
+              className="text-orange-500 text-base font-semibold flex gap-2 hover:text-orange-700"
+              key={record.key}
+              onClick={() => showDetail(record)}
+            >
+              <FileSearchOutlined  className="text-orange-500 hover:text-orange-700" />
+              Detail
+            </a>
+          </div>
+
           <div className="w-30 flex gap-2 bg-blue-50 p-1 text-center rounded border-solid border border-green-600 hover:bg-blue-100 hover:text-blue-700 ">
             <a
               className="text-green-500 text-base font-semibold flex gap-2 hover:text-green-700"

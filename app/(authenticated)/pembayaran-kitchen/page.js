@@ -49,10 +49,6 @@ const PembayaranKitchen = () => {
     usersPaymentRepository.hooks.getUserPayById(dataKelas);
   console.log(dataBayar, "ini data bayar");
 
-  const approve = {
-    
-  }
-
   const handleCheckout = async () => {
     const uuidGenerator = uuidv4();
     // console.log(uuidGenerator, "ini uuid cook");

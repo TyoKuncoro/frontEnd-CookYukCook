@@ -1,22 +1,12 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { CollapseProps } from "antd/lib";
-import ListKelasRegular from "#/app/Component/listKelasRegular";
 import UbahMateriBtn from "#/app/Component/buttonUbahMateri";
-import ListTrainee from "#/app/Component/listTrainee";
-// import ModalPengajuan from "#/app/Component/createPengajuan";
-// import TambahMateri from "#/app/Component/material/formTambahMateri";
-// import UbahMateri from "#/app/Component/material/modalUbahMateri";
 import FormPengajuanKelas from "#/app/Component/formPengajuan";
 import TemaKelas from "#/app/Component/temaKelas";
 import { parseJwt } from "#/app/Component/Helper/convert";
 import { regularClassRepository } from "#/repository/regularClass";
-// import { materiRepository } from "#/repository/materi";
-// import CreateMateriModal from "#/app/Component/material/formTambahMateri";
-import { Button, Modal, Space, Table, message } from "antd";
-// import FormUbahPengajuan from "#/app/Component/formUbahPengajuan";
-import UbahPengajuan from "#/app/Component/modalUbahPengajuan";
+import { Space, Table, message } from "antd";
 import { ColumnsType } from "antd/es/table";
 import ModalCustom from "#/app/Component/createPengajuan";
 import DetailKelasRegular from "#/app/Component/modalDetailKelas";
@@ -56,7 +46,7 @@ const ListRegular = () => {
   const handleClose = () => {
     setModalOpen(false);
   };
-  const modalDetailOpen = (record) => {
+  const modalDetailOpen = (record: any) => {
     setModalDetail(true);
     setDetail(record);
   };

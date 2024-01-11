@@ -46,7 +46,9 @@ const Regular = () => {
   let role: string = "";
   if (token) {
     role = parseJwt(token).role;
-    // console.log(role, "role coook");
+  }
+  if(role === "Admin") {
+    router.push('regular-admin')
   }
 
   const openModal = () => {

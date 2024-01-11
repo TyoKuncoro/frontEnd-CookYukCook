@@ -32,15 +32,7 @@ function onPanelChange1(value: any, mode: any) {
 const Home: React.FC = () => {
   //======================================================================trainee
   const [tema, setTema] = useState("Judul Tema");
-  const [namaKelas, setNamaKelas] = useState("Nama Kelas");
-  const [alamat, setAlamat] = useState("Alamat");
-  const [startDate, setStartDate] = useState("tanggal mulai");
-  const [endDate, setEndDate] = useState("tanggal selesai");
-  // const [price, setPrice] = useState(120000);
-  const [terisi, setTerisi] = useState(4);
-  const [availableBench, setAvailableBench] = useState(10);
   const [namaChef, setNamaChef] = useState("nama chef");
-  const [materi, setMateri] = useState([1, 2, 3, 4, 5]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpen1, setIsModalOpen1] = useState(false);
@@ -97,6 +89,13 @@ const Home: React.FC = () => {
   }
   const { data: dataKelas } =
     regularClassRepository.hooks.findAllRegularClass();
+
+  let dataFiltered: any = [];
+  dataKelas?.data.forEach((item: any) => {
+    if (item.numberOfBenches != 0) {
+      dataFiltered.push(item);
+    }
+  });
   // console.log(dataKelas?.data?.[0].material, "Data Kelas");
   // const cariKelas = dataKelas?.data?.map((items)=> items.id)
   // const {data: dataMateri} = materiRepository.hooks.findMaterialByClass(dataKelas?.data?.map((items) => items.id))
@@ -131,7 +130,7 @@ const Home: React.FC = () => {
     localStorage.setItem("idBayar", daftar?.body?.data?.id);
     router.push("/pembayaran");
 
-    // setIsModalOpen(false);
+    setIsModalOpen(false);
   };
 
   return role === "Kitchen Studio" ? (
@@ -223,6 +222,7 @@ const Home: React.FC = () => {
                       }
                     />
                   </div>
+                  </Card>
                   {/* <div className="flex justify-between">
                     <div>
                       <div className="text-lg font-semibold mb-2">
@@ -240,40 +240,83 @@ const Home: React.FC = () => {
                         <div className="font-medium">
                           {item.startDate.substring(0, 10)} sampai {""}{" "}
                           {item.endDate.substring(0, 10)}
+            {dataFiltered?.length == 0 ? (
+              <Empty
+                className="mt-4"
+                image={Empty.PRESENTED_IMAGE_SIMPLE}
+                description={
+                  <span>Kelas Rekomendasi Untukmu Masih Kosong</span>
+                }
+              />
+            ) : (
+              dataFiltered?.map((item: any, index: any) => (
+                <SwiperSlide key={index}>
+                  <Card
+                    title={item.courseName}
+                    className="mr-10 w-[20%]"
+                    extra={
+                      <FullRoundedButton
+                        text="Lihat Detail"
+                        icons={null}
+                        type={"primary"}
+                        onclick={() =>
+                          item.numberOfBenches == 0
+                            ? message.error("Kuota sudah Penuh")
+                            : showModal(item)
+                        }
+                      />
+                    }
+                    style={{ width: 300 }}
+                  >
+                    <div className="flex justify-between">
+                      <div>
+                        <div className="text-lg font-semibold mb-2">
+                          Kelas Regular
+                        </div>
+                        <div className="text-base">
+                          Tema : {item.theme.name}
+                        </div>
+                        <div className="text-base">
+                          Lokasi : {item.kitchen.users.address}
+                        </div>
+                        <div className="text-base">
+                          Dimulai pada: {item.startDate.substring(0, 10)}
+                        </div>
+                        <div className="text-base">
+                          Sampai: {item.endDate.substring(0, 10)}
+                        </div>
+                        <div className=" font-bold text-lg mt-3">
+                          Harga: {formatter.format(item.price - item.adminFee)}
+                        </div>
+                        <div className=" font-bold">
+                          Kuota:{" "}
+                          {item.numberOfBenches == 0 ? (
+                            <span className="text-red-500">Penuh</span>
+                          ) : (
+                            `${item.numberOfBenches} Orang`
+                          )}
                         </div>
                       </div>
-                      <div className=" font-bold text-lg mt-3">
-                        Harga: {formatter.format(item.price - item.adminFee)}
-                      </div>
-                      <div className=" font-bold">
-                        Kuota:{" "}
-                        {item.numberOfBenches == 0 ? (
-                          <span className="text-red-500">Penuh</span>
-                        ) : (
-                          `${item.numberOfBenches} Orang`
-                        )}
+                      <div className=" content-between">
+                        <Image
+                          className=" rounded"
+                          src="/assets/Image.png"
+                          width={40}
+                          height={40}
+                          alt="Gambar"
+                        />
                       </div>
                     </div>
-                    <div className=" content-between">
-                      <Image
-                        className=" rounded"
-                        src="/assets/Image.png"
-                        width={40}
-                        height={40}
-                        alt="Gambar"
-                      />
-                    </div>
-                  </div>
-                  </div> */}
-                </Card>
-              </SwiperSlide>
-            ))}
+                  </Card>
+                </SwiperSlide>
+              ))
+            )}
           </Swiper>
         </div>
       </div>
       <div className="flex justify-between mt-10">
         <div
-          className=" mt-6 rounded-3xl mr-10 w-[50%]"
+          className=" mt-6 rounded-3xl mr-10 w-[50%] "
           style={{ border: "2px solid #FF7D04" }}
         >
           <div
@@ -328,19 +371,60 @@ const Home: React.FC = () => {
                               height={40}
                               alt="Gambar"
                             />
+          <div className=" py-4 mx-10 h-64">
+            <Swiper
+              navigation={true}
+              slidesPerView={2}
+              modules={[Navigation]}
+              className=" py-4 mx-3 flex"
+            >
+              {dataApprove?.data.length == 0 ? (
+                <Empty
+                  image={Empty.PRESENTED_IMAGE_SIMPLE}
+                  description={<span>Kelas Regular Masih Kosong</span>}
+                />
+              ) : (
+                dataApprove?.data?.map((item: any, index: any) => (
+                  <SwiperSlide key={index}>
+                    <Card
+                      title={item?.regular?.courseName}
+                      extra={
+                        <FullRoundedButton
+                          text="Lihat Detail"
+                          icons={null}
+                          type={"primary"}
+                          onclick={showModal1}
+                        />
+                      }
+                      style={{ width: 300 }}
+                    >
+                      <div className="flex justify-between">
+                        <div>
+                          <div>Tema: {item?.regular.theme.name}</div>
+                          <div className="font-bold">Kelas Regular</div>
+                          <div>lokasi:</div>
+                          <p className=" text-xs">{item?.users?.address}</p>
+                          <div className=" text-xs">Dimulai pada:</div>
+                          <div className="text-xs">
+                            {item?.regular?.startDate.substring(0, 10)} sampai{" "}
+                            {item?.regular?.endDate.substring(0, 10)}
                           </div>
                         </div>
-                      </Card>
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
-              </div>
-            ) : (
-              <Empty
-                image={Empty.PRESENTED_IMAGE_SIMPLE}
-                description={<span>Kelas Regular Masih Kosong</span>}
-              />
-            )}
+                        <div className=" content-between">
+                          <Image
+                            className=" rounded"
+                            src="/assets/Image.png"
+                            width={40}
+                            height={40}
+                            alt="Gambar"
+                          />
+                        </div>
+                      </div>
+                    </Card>
+                  </SwiperSlide>
+                ))
+              )}
+            </Swiper>
           </div>
         </div>
         <div
@@ -360,6 +444,7 @@ const Home: React.FC = () => {
             className="m-auto"
               image={Empty.PRESENTED_IMAGE_SIMPLE}
               description={<span>Kelas Privat Masih Kosong</span>}
+              description={<span>Kelas Private Masih Kosong</span>}
             />
             {/* {token && (
               <Card

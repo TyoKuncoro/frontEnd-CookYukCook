@@ -89,8 +89,8 @@ const HomeKitchen: React.FC = () => {
       <div className="flex justify-between">
         <div className="w-[1090px]">
           <TemaKelas />
-          <div className="border border-solid border-primary mt-10 rounded-2xl shadow-md">
-            <div className="flex justify-between p-3">
+          <div className="border border-solid border-primary mt-10 rounded-2xl shadow-md h-[55%]">
+            <div className="flex justify-between p-2">
               <p className="font-bold text-3xl">Kelas Anda</p>
               <FullRoundedButton
                 text="Ajukan Kelas"
@@ -98,7 +98,12 @@ const HomeKitchen: React.FC = () => {
                 onclick={handleOK}
               />
             </div>
-            {dataRegular ? (
+            {dataRegular?.data.length == 0 ? (
+              <Empty
+                image={Empty.PRESENTED_IMAGE_SIMPLE}
+                description={<span>Kelas Masih Kosong</span>}
+              />
+            ) : (
               <div>
               <Swiper
                 navigation={true}
@@ -137,26 +142,12 @@ const HomeKitchen: React.FC = () => {
                               </div>
                             </div>
                           </div>
-                          {/* <div className="flex justify-between">
-              <FullRoundedButton
-                text="Lihat Detail"
-                icons={null}
-                type={"primary"}
-                //   onclick={showModal}
-              />
-            </div> */}
                         </div>
                       </Card>
                     </SwiperSlide>
                   ))}
               </Swiper>
-            </div>
-            ) : (
-              <Empty
-              image={Empty.PRESENTED_IMAGE_SIMPLE}
-              description={<span>Kelas Masih Kosong</span>}
-            />
-              
+            </div>              
             )}
           </div>
         </div>

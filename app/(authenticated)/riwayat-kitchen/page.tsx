@@ -129,7 +129,7 @@ const RiwayatKitchen: React.FC = () => {
             >
               <div className="flex items-center ml-4"> 
                 <div className="">
-                  <ClockCircleOutlined className="text-5xl text-red-600" />
+                  <ClockCircleOutlined className="text-5xl text-orange-500" />
                   {/* <Image
                     src="/assets/CheckCircleOutlined.png"
                     width={50}

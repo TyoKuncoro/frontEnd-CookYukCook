@@ -18,14 +18,21 @@ export default function TemaKelas() {
   const [openModal, setOpenModal] = useState(false);
   const [id, setId] = useState(null);
   const token = localStorage.getItem("access_token");
+  let role: string = "";
+  if (token) {
+    role = parseJwt(token).role;
+  }
+
   useEffect(() => {
     if (token) {
       setId(parseJwt(token).id);
     }
   }, [token]);
-
-  const { data, mutate: mutateData } =
-    temaKelasRepository.hooks.findTemaByUsers(id);
+  if (role !== "Admin"){
+    var { data, mutate: mutateData } = temaKelasRepository.hooks.findTemaByUsers(id);
+  } else {
+    var { data, mutate: mutateData } = temaKelasRepository.hooks.findAllTema()
+;  }
   console.log(data);
   useEffect(() => {
     setTema(data?.data);
@@ -81,12 +88,14 @@ export default function TemaKelas() {
   return (
     <div>
       <div className=" flex justify-between pb-8">
-        <div className="text-3xl font-bold">Tema Kelas</div>
+        <div className="text-3xl font-bold">{role !== "Admin" ? "Tema Kelas" : "Tema Tersedia"}</div>
+        {role !== "Admin" &&
           <UbahMateriBtn
             key={null}
             text="Tambah Tema Kelas"
             onclick={handleOpenModal}
           />
+        }
       </div>
       <Table className="mt-5 text-xl" columns={columns} dataSource={tema} pagination={false} scroll={{y:200}}/>
       <ModalPengajuan
