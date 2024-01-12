@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import WeekPickerComponent from "../../Component/Wpicker/page";
 import MonthPickerComponent from "#/app/Component/Mpicker/page";
-import { Button, Dropdown, Form, Select } from "antd";
+import { Button, Dropdown, Empty, Form, Select } from "antd";
 import { MenuProps, Tabs, Modal } from "antd";
 import FullRoundedButton from "#/app/Component/fullRoundedButton";
 import { CheckCircleOutlined, ClockCircleOutlined, PrinterOutlined } from "@ant-design/icons";
@@ -122,33 +122,45 @@ const RiwayatKitchen: React.FC = () => {
         className=" justify-between"
       >
         <TabPane key="1" tab="Belum Bayar">
-          {dataKelasPending?.data?.map((item: any) => (
-            <div
-              className="flex p-3 justify-between items-center rounded-lg my-3"
-              style={{ border: "1px solid #FF7D04" }}
-            >
-              <div className="flex items-center ml-4"> 
-                <div className="">
-                  <ClockCircleOutlined className="text-5xl text-orange-500" />
-                  {/* <Image
-                    src="/assets/CheckCircleOutlined.png"
-                    width={50}
-                    height={50}
-                    alt="clock"
-                  /> */}
+          {dataKelasPending?.data?.length === 0 ? (
+            <Empty
+            className="flex flex-col justify-center items-center mt-40"
+              imageStyle={{ width: 300 , margin:"auto"}}
+              image={"/assets/Audit-amico.png"}
+              description={<span>Belum ada transaksi</span>}
+            />
+          ):(
+            <div>
+
+              {dataKelasPending?.data?.map((item: any) => (
+                <div
+                  className="flex p-3 justify-between items-center rounded-lg my-3"
+                  style={{ border: "1px solid #FF7D04" }}
+                >
+                  <div className="flex items-center ml-4"> 
+                    <div className="">
+                      <ClockCircleOutlined className="text-5xl text-orange-500" />
+                      {/* <Image
+                        src="/assets/CheckCircleOutlined.png"
+                        width={50}
+                        height={50}
+                        alt="clock"
+                      /> */}
+                    </div>
+                    <div className="ml-6">
+                      <div className="text-xs">{item.createdAt.substring(0, 10)}</div>
+                      <div className="text-lg font-bold">Kelas Regular</div>
+                      <div className=" text-lg">{item.regular.courseName}</div>
+                    </div>
+                  </div>
+                  <div>
+                    <div className="font-bold text-lg">Rp. {item.regular.adminFee}</div>
+                    <FullRoundedButton text="Bayar" key={item.id} onclick={() => handleModalBayar(item)}/>
+                  </div>
                 </div>
-                <div className="ml-6">
-                  <div className="text-xs">{item.createdAt.substring(0, 10)}</div>
-                  <div className="text-lg font-bold">Kelas Regular</div>
-                  <div className=" text-lg">{item.regular.courseName}</div>
-                </div>
-              </div>
-              <div>
-                <div className="font-bold text-lg">Rp. {item.regular.adminFee}</div>
-                <FullRoundedButton text="Bayar" key={item.id} onclick={() => handleModalBayar(item)}/>
-              </div>
+              ))}
             </div>
-          ))}
+          )}
           {/* <Pagination
             defaultCurrent={1}
             total={50}
@@ -157,33 +169,45 @@ const RiwayatKitchen: React.FC = () => {
           /> */}
         </TabPane>
         <TabPane key="2" tab="Sudah Bayar">
-          {dataKelas?.data?.map((item: any, index: any) => (
-            <div
-              className="flex p-3 justify-between items-center rounded-lg my-3"
-              style={{ border: "1px solid #FF7D04" }}
-            >
-              <div className="flex items-center ml-4"> 
-                <div className="">
-                  <CheckCircleOutlined className="text-5xl text-green-600" />
-                  {/* <Image
-                    src="/assets/CheckCircleOutlined.png"
-                    width={50}
-                    height={50}
-                    alt="clock"
-                  /> */}
+          {dataKelas?.data?.length === 0 ? (
+            <Empty
+            className="flex flex-col justify-center items-center mt-40"
+              imageStyle={{ width: 300 , margin:"auto"}}
+              image={"/assets/Audit-amico.png"}
+              description={<span>Belum ada transaksi yang selesai</span>}
+            />
+          ):(
+            <div>
+
+              {dataKelas?.data?.map((item: any, index: any) => (
+                <div
+                  className="flex p-3 justify-between items-center rounded-lg my-3"
+                  style={{ border: "1px solid #FF7D04" }}
+                >
+                  <div className="flex items-center ml-4"> 
+                    <div className="">
+                      <CheckCircleOutlined className="text-5xl text-green-600" />
+                      {/* <Image
+                        src="/assets/CheckCircleOutlined.png"
+                        width={50}
+                        height={50}
+                        alt="clock"
+                      /> */}
+                    </div>
+                    <div className="ml-6">
+                      <div className="text-xs">{item.createdAt.substring(0, 10)}</div>
+                      <div className="text-lg font-bold">Kelas Regular</div>
+                      <div className=" text-lg">{item.regular.courseName}</div>
+                    </div>
+                  </div>
+                  <div>
+                    <div className="font-bold text-lg">Rp. {item.regular.adminFee}</div>
+                    <FullRoundedButton text="Lihat Detail" onclick={() => handleOpen(item)}/>
+                  </div>
                 </div>
-                <div className="ml-6">
-                  <div className="text-xs">{item.createdAt.substring(0, 10)}</div>
-                  <div className="text-lg font-bold">Kelas Regular</div>
-                  <div className=" text-lg">{item.regular.courseName}</div>
-                </div>
-              </div>
-              <div>
-                <div className="font-bold text-lg">Rp. {item.regular.adminFee}</div>
-                <FullRoundedButton text="Lihat Detail" onclick={() => handleOpen(item)}/>
-              </div>
+              ))}
             </div>
-          ))}
+          )}
           <ModalCustom
           title={"Detail Riwayat Transaksi"}
           width={500}

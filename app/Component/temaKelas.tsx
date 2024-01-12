@@ -97,7 +97,7 @@ export default function TemaKelas() {
           />
         }
       </div>
-      <Table className="mt-5 text-xl" columns={columns} dataSource={tema} pagination={false} scroll={{y:200}}/>
+      <Table className="mt-5 text-xl" columns={columns} dataSource={tema} pagination={false} scroll={{y:300}}/>
       <ModalPengajuan
         title="pengajuan Kelas"
         closeModal={handleClose}

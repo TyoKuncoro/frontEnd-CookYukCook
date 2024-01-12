@@ -86,11 +86,11 @@ const HomeKitchen: React.FC = () => {
         visible={modalOpen}
         content={<FormPengajuanKelas onClose={handleClose} mutateData={null} />}
       />
-      <div className="flex justify-between">
-        <div className="w-[1090px]">
+      <div className="flex justify-between w-full">
+        <div className="w-[750px]">
           <TemaKelas />
-          <div className="border border-solid border-primary mt-10 rounded-2xl shadow-md h-[55%]">
-            <div className="flex justify-between p-2">
+          <div className="border border-solid border-primary mt-20 rounded-2xl shadow-md h-[55%]">
+            <div className="flex justify-between px-5 py-3">
               <p className="font-bold text-3xl">Kelas Anda</p>
               <FullRoundedButton
                 text="Ajukan Kelas"
@@ -100,6 +100,7 @@ const HomeKitchen: React.FC = () => {
             </div>
             {dataRegular?.data.length == 0 ? (
               <Empty
+              className="mt-32"
                 image={Empty.PRESENTED_IMAGE_SIMPLE}
                 description={<span>Kelas Masih Kosong</span>}
               />
@@ -107,15 +108,15 @@ const HomeKitchen: React.FC = () => {
               <div>
               <Swiper
                 navigation={true}
-                slidesPerView={3}
+                slidesPerView={2}
                 modules={[Navigation]}
-                className="w-full flex justify-center ms-14"
+                className="flex justify-center ms-14 me-14"
               >
                 {token &&
                   dataRegular?.data.map((item: any, index: any) => (
                     <SwiperSlide key={index} className="">
                       <Card
-                        style={{ width: 280 }}
+                        style={{ width: 300, height:350 }}
                         className="rounded-md text-center shadow-sm"
                       >
                         <div>

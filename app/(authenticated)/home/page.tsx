@@ -89,6 +89,13 @@ const Home: React.FC = () => {
   }
   const { data: dataKelas } =
     regularClassRepository.hooks.findAllRegularClass();
+  console.log(dataKelas, "ini dataKelas")
+    let kelasWithoutFull: any = [];
+  dataKelas?.data.forEach((item: any) => {
+    if (item?.numberOfBenches !== 0){
+      kelasWithoutFull.push(item)
+    }
+  })
   // console.log(dataKelas?.data?.[0].material, "Data Kelas");
   // const cariKelas = dataKelas?.data?.map((items)=> items.id)
   // const {data: dataMateri} = materiRepository.hooks.findMaterialByClass(dataKelas?.data?.map((items) => items.id))
@@ -132,21 +139,18 @@ const Home: React.FC = () => {
     <div className="p-5 bg-white">
       <div className=" rounded-3xl" style={{ border: "2px solid #FF7D04" }}>
         <div
-          className="px-3 py-3 bg-orange-400 rounded-tl-2xl rounded-br-3xl font-bold text-xl"
-          style={{
-            marginRight: "88%",
-          }}
+          className="w-fit px-3 py-3 bg-orange-400 rounded-tl-2xl rounded-br-3xl font-bold text-xl"
         >
           Pilihan Untukmu
         </div>
-        <div className="mx-3 py-10 h-70">
+        <div className="">
           <Swiper
             navigation={true}
             slidesPerView={3}
             modules={[Navigation]}
-            className=" swipper-wrapper"
+            className="flex justify-center my-5"
           >
-            {dataKelas?.data.map((item: any, index: any) => (
+            {kelasWithoutFull.map((item: any, index: any) => (
               <SwiperSlide key={index} className="cardSlider">
                 <Card
                   title={item.courseName}
@@ -164,22 +168,13 @@ const Home: React.FC = () => {
                   // />
                   // }
                   headStyle={{ fontSize: 18 }}
-                  style={{ width: 440 }}
+                  style={{ width: 325 }}
                 >
                   <div className="flex justify-between">
                     <div>
                       <div className="text-lg font-semibold">Kelas Regular</div>
                       <div className="text-base mb-3">
                         Tema: {item.theme.name}
-                      </div>
-                      <div className="text-base">
-                        <EnvironmentOutlined className="mr-2" />{" "}
-                        {item.kitchen.users.address}
-                      </div>
-                      <div className="text-base">
-                        <CalendarOutlined className="mr-2" />{" "}
-                        {item.startDate.substring(0, 10)} sampai {""}{" "}
-                        {item.endDate.substring(0, 10)}
                       </div>
                     </div>
                     <Image
@@ -190,6 +185,15 @@ const Home: React.FC = () => {
                       alt="Gambar"
                     />
                   </div>
+                      <div className="text-base">
+                        <EnvironmentOutlined className="mr-2" />{" "}
+                        {item.kitchen.users.address}
+                      </div>
+                      <div className="text-base">
+                        <CalendarOutlined className="mr-2" />{" "}
+                        {item.startDate.substring(0, 10)} sampai {""}{" "}
+                        {item.endDate.substring(0, 10)}
+                      </div>
                   <div className="flex justify-between items-center mt-5">
                     <div>
                       <div className="text-lg font-medium">
@@ -263,9 +267,9 @@ const Home: React.FC = () => {
           </Swiper>
         </div>
       </div>
-      <div className="flex justify-between mt-10">
+      <div className="flex flex-col mt-10">
         <div
-          className=" mt-6 rounded-3xl mr-10 w-[50%]"
+          className=" mt-6 rounded-3xl mr-5 w-full"
           style={{ border: "2px solid #FF7D04" }}
         >
           <div
@@ -276,14 +280,14 @@ const Home: React.FC = () => {
           >
             Kelas Regular Pilihanmu
           </div>
-          <div className=" w-[100%] h-80 mt-6">
+          <div className=" w-full h-72 mt-6">
             {dataApprove ? (
               <div>
                 <Swiper
                   navigation={true}
-                  slidesPerView={2}
+                  slidesPerView={3}
                   modules={[Navigation]}
-                  className="swiper-wrapper flex justify-center"
+                  className="flex justify-center"
                 >
                   {dataApprove?.data?.map((item: any, index: any) => (
                     <SwiperSlide key={index}>
@@ -297,8 +301,8 @@ const Home: React.FC = () => {
                             onclick={showModal1}
                           />
                         }
-                        style={{ width: 300 }}
-                        className="rounded-lg p-2 ml-6 shadow-sm"
+                        style={{ width: 320 }}
+                        className="rounded-lg p-2 shadow-sm"
                       >
                         <div className="flex justify-between">
                           <div>
@@ -329,6 +333,7 @@ const Home: React.FC = () => {
               </div>
             ) : (
               <Empty
+              className="mt-10"
                 image={Empty.PRESENTED_IMAGE_SIMPLE}
                 description={<span>Kelas Regular Masih Kosong</span>}
               />
@@ -336,7 +341,7 @@ const Home: React.FC = () => {
           </div>
         </div>
         <div
-          className=" mt-6 rounded-3xl w-[50%]"
+          className=" mt-6 rounded-3xl w-full"
           style={{ border: "2px solid #FF7D04" }}
         >
           <div
@@ -347,9 +352,9 @@ const Home: React.FC = () => {
           >
             Kelas Private Pilihanmu
           </div>
-          <div className=" w-[100%] mt-32">
+          <div className="w-full h-52">
             <Empty
-            className="m-auto"
+            className="mt-32"
               image={Empty.PRESENTED_IMAGE_SIMPLE}
               description={<span>Kelas Privat Masih Kosong</span>}
             />

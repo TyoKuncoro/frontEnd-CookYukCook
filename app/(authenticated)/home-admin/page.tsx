@@ -85,10 +85,10 @@ function HomeAdmin() {
       title: "Aksi",
       key: "aksi",
       render: (_, record) => (
-        <Space size="middle">
-          <div className="w-[30] flex gap-2 bg-orange-50 p-1 text-center rounded border-solid border border-orange-600 hover:bg-blue-100 hover:text-orange-700 ">
+        <Space size="middle" className="flex flex-col">
+          <div className="w-[113px] flex gap-2 bg-orange-50 p-1 text-center items-center justify-center rounded border-solid border border-orange-600 hover:bg-blue-100 hover:text-orange-700 ">
             <a
-              className="text-orange-500 text-base font-semibold flex gap-2 hover:text-orange-700"
+              className="text-orange-500 text-base text-center font-semibold flex gap-2 hover:text-orange-700"
               key={record.key}
               onClick={() => showDetail(record)}
             >
@@ -108,7 +108,7 @@ function HomeAdmin() {
             </a>
           </div>
 
-          <div className="w-30 flex gap-2 bg-red-50 p-1 text-center rounded border-solid border border-red-600 hover:bg-red-100 hover:text-red-700 ">
+          <div className="w-[113px] flex gap-2 bg-red-50 p-1 items-center justify-center text-center rounded border-solid border border-red-600 hover:bg-red-100 hover:text-red-700 ">
             <a
               className="text-red-500 text-base font-semibold flex gap-2 hover:text-red-700"
               key={record.users.id}
@@ -125,7 +125,7 @@ function HomeAdmin() {
   return (
     <div className="bg-white px-3 py-4 w-full">
       <p className="text-2xl font-bold">Verifikasi Studio Masak</p>
-      <Table columns={columns} dataSource={data?.data} pagination={false} scroll={{y:300}}/>
+      <Table className="overflow-hidden" columns={columns} dataSource={data?.data} pagination={false} scroll={{y:300}}/>
       <ModalCustom
         width={450}
         title={"Menolak Studio Masak"}
@@ -150,7 +150,7 @@ function HomeAdmin() {
         <div className="mb-4">
           <p className="text-2xl font-bold">Kelas Regular</p>
           <div className="flex gap-3 items-center justify-center">
-            <Card title="Kelas Memasak Makanan Simple" className="w-96 h-52">
+            <Card title="Kelas Memasak Makanan Simple" className="w-[370px] h-54 shadow-sm">
               <div className="flex justify-between">
                 <div>
                   <p className="text-base">Tema: Memasak Nasi</p>
@@ -167,7 +167,7 @@ function HomeAdmin() {
                 />
               </div>
             </Card>
-            <Card title="Kelas Memasak Makanan Simple" className="w-96 h-52">
+            <Card title="Kelas Memasak Makanan Simple" className="w-[370px] h-54 shadow-sm">
               <div className="flex justify-between">
                 <div>
                   <p className="text-base">Tema: Memasak Nasi</p>
@@ -184,7 +184,7 @@ function HomeAdmin() {
                 />
               </div>
             </Card>
-            <Card title="Kelas Memasak Makanan Simple" className="w-96 h-52">
+            <Card title="Kelas Memasak Makanan Simple" className="w-[370px] h-54 shadow-sm">
               <div className="flex justify-between">
                 <div>
                   <p className="text-base">Tema: Memasak Nasi</p>
@@ -201,7 +201,7 @@ function HomeAdmin() {
                 />
               </div>
             </Card>
-            <Card title="Kelas Memasak Makanan Simple" className="w-96 h-52">
+            <Card title="Kelas Memasak Makanan Simple" className="w-[370px] h-54 shadow-sm">
               <div className="flex justify-between">
                 <div>
                   <p className="text-base">Tema: Memasak Nasi</p>
@@ -223,7 +223,7 @@ function HomeAdmin() {
         <div className="">
           <p className="text-2xl font-bold">Kelas Privat</p>
           <div className="flex gap-3 items-center justify-center">
-            <Card title="Kelas Memasak Makanan Simple" className="w-96 h-52">
+            <Card title="Kelas Memasak Makanan Simple" className="w-[370px] h-54 shadow-sm">
               <div className="flex justify-between">
                 <div>
                   <p className="text-base">Tema: Memasak Nasi</p>
@@ -240,7 +240,7 @@ function HomeAdmin() {
                 />
               </div>
             </Card>
-            <Card title="Kelas Memasak Makanan Simple" className="w-96 h-52">
+            <Card title="Kelas Memasak Makanan Simple" className="w-[370px] h-54 shadow-sm">
               <div className="flex justify-between">
                 <div>
                   <p className="text-base">Tema: Memasak Nasi</p>
@@ -257,7 +257,7 @@ function HomeAdmin() {
                 />
               </div>
             </Card>
-            <Card title="Kelas Memasak Makanan Simple" className="w-96 h-52">
+            <Card title="Kelas Memasak Makanan Simple" className="w-[370px] h-54 shadow-sm">
               <div className="flex justify-between">
                 <div>
                   <p className="text-base">Tema: Memasak Nasi</p>
@@ -274,7 +274,7 @@ function HomeAdmin() {
                 />
               </div>
             </Card>
-            <Card title="Kelas Memasak Makanan Simple" className="w-96 h-52">
+            <Card title="Kelas Memasak Makanan Simple" className="w-[370px] h-54 shadow-sm">
               <div className="flex justify-between">
                 <div>
                   <p className="text-base">Tema: Memasak Nasi</p>

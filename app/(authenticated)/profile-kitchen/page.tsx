@@ -318,7 +318,7 @@ const ProfileKitchen = () => {
           </div>
         </div>
         <div>
-          <div className="text-justify bg-white py-7 px-10 rounded w-[920px]">
+          <div className="text-justify bg-white py-7 px-10 rounded w-[800px]">
             <div className="flex">
               <p className="text-4xl font-bold">
                 {dataKitchen?.data?.users.name}
