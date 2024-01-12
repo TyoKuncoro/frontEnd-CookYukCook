@@ -5,17 +5,14 @@ import Image from "next/image";
 import {
   HomeOutlined,
   AuditOutlined,
-  MessageOutlined,
   LaptopOutlined,
   NotificationOutlined,
   UserOutlined,
   BookOutlined,
   WalletOutlined,
   ClockCircleOutlined,
-  BellOutlined,
   LogoutOutlined,
   IdcardOutlined,
-  UsergroupDeleteOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { Breadcrumb, Layout, Menu, theme } from "antd";
