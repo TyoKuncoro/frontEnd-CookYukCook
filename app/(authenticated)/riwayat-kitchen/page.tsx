@@ -155,7 +155,7 @@ const RiwayatKitchen: React.FC = () => {
                   </div>
                   <div>
                     <div className="font-bold text-lg">Rp. {item.regular.adminFee}</div>
-                    <FullRoundedButton text="Bayar" key={item.id} onclick={() => handleModalBayar(item)}/>
+                    <FullRoundedButton text="Bayar" key={item.regular.id} onclick={() => handleModalBayar(item.regular)}/>
                   </div>
                 </div>
               ))}

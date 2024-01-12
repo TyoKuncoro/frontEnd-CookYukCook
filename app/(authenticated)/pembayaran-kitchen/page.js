@@ -46,8 +46,8 @@ const PembayaranKitchen = () => {
   const dataKelas = localStorage.getItem("idKelas");
   console.log(dataKelas, "ini data kelas");
   const { data: dataBayar } =
-    usersPaymentRepository.hooks.getUserPayById(dataKelas);
-  console.log(dataBayar, "ini data bayar");
+    regularClassRepository.hooks.findRegClassById(dataKelas);
+  console.log(dataBayar?.data?.id, "ini data bayar");
 
   const handleCheckout = async () => {
     const uuidGenerator = uuidv4();
@@ -55,12 +55,12 @@ const PembayaranKitchen = () => {
 
     const data = {
       id: uuidGenerator,
-      productName: dataBayar?.data?.regular?.courseName,
-      price: dataBayar?.data?.regular?.adminFee,
+      productName: dataBayar?.data?.courseName,
+      price: dataBayar?.data?.adminFee,
       quantity: 1,
     };
     console.log(dataBayar?.data.id, "ini data id")
-    const approving = await regularClassRepository.manipulateData.updateApprove(dataBayar?.data.regular.id)
+    const approving = await regularClassRepository.manipulateData.updateApprove(dataBayar?.data?.id)
     console.log(approving, "ini approving")
     const response = await fetch("api/token", {
       method: "POST",
@@ -78,12 +78,10 @@ const PembayaranKitchen = () => {
   // End handle webHooks Midtrans
 
   const today = new Date();
-  console.log(today, "today")
   const day = today.getDate();
   const month = today.getMonth() + 1;
   const year = today.getFullYear();
-  const date = today.toLocaleDateString()
-const time = today.toLocaleTimeString('en-US', { hour12: false })
+
   const todayDate = `${day} - ${month} - ${year}`;
   const token = localStorage.getItem("access_token");
   let role = "";
@@ -102,82 +100,43 @@ const time = today.toLocaleTimeString('en-US', { hour12: false })
   }
 
   return (
-    <div className="flex justify-center items-center m-auto h-full">
-      <div className="bg-white w-[800px] p-5 shadow-md border border-solid border-slate-100 rounded-md">
-        <div className="text-4xl font-bold text-center mb-10"> Pembayaran Pengajuan Kelas Regular</div>
-        <div className="flex gap-2 justify-end mb-5">
-          <div className="text-lg">{date}</div>
-          <div className="text-lg">{time}</div>
-        </div>
-        <div className="w-[730px] m-auto">
-          <div className="flex justify-between mb-4">
-            <div className="text-xl font-semibold">Nama Studio Masak</div>
-            <div className="text-xl">{nama}</div>
+    <div className="mt-20">
+      <div className=" mx-80 py-16 flex place-content-center rounded-2xl">
+        <div className=" w-[75%]">
+          <div className="text-2xl font-bold text-orange-500">
+            Pengajuan kelas Regular
           </div>
-          <div className="flex justify-between mb-3">
-            <div className="text-xl font-semibold">Nama Kelas</div>
-            <div className="text-xl">{dataBayar?.data?.regular?.courseName}</div>
+          <div className="text-xl mb-20">Nama: {nama}</div>
+          <div className="text-xl font-bold text-orange-500 mb-5">
+            Detail Pesanan
           </div>
-          <div className="flex justify-between mb-3">
-            <div className="text-xl font-semibold">Tema Kelas</div>
-            <div className="text-xl">{dataBayar?.data?.regular?.theme?.name}</div>
+          <div className="text-l font-bold bg-orange-200 px-10 w-[75%] py-5 rounded-lg">
+            {/* <div className="mb-2">{namaKelas}</div> */}
+            {/* <div className="mb-5">Tema: {courseName}</div> */}
+            <tbody className="w-80">
+              <tr>
+                <td>Nama Kelas</td>
+                <td>: {dataBayar?.data?.courseName}</td>
+              </tr>
+              <tr>
+                <td className="w-56">Biaya Pengajuan Kelas (10%)</td>
+                <td>: Rp. {dataBayar?.data?.adminFee}</td>
+              </tr>
+            </tbody>
           </div>
-        <div className="flex justify-between mb-3">
-          <div className="text-xl font-semibold">Harga</div>
-          <div className="text-xl font-bold">{dataBayar?.data?.regular?.adminFee}</div>
         </div>
-        </div>
-        <div className="flex justify-center my-10">
+        <div>
+          <div className="text-right text-l flex flex-col text-xl font-bold justify-between screen mb-80">
+            {todayDate}
+          </div>
           <FullRoundedButton
-                text={"Ajukan dan Bayar"}
-                icons={null}
-                onclick={handleCheckout}
-              />
+            text={"Ajukan dan Bayar"}
+            icons={null}
+            onclick={handleCheckout}
+          />
         </div>
       </div>
-
     </div>
-    // <div className="mt-20">
-    //   <div className=" mx-80 py-16 place-content-center rounded-2xl">
-    //     <div className=" w-[75%]">
-    //       <div className="text-3xl font-bold text-orange-500">
-    //         Pengajuan kelas Regular
-    //       </div>
-    //       <div className="text-xl mb-20">Nama Studio Masak: {nama}</div>
-    //       <div className="text-xl font-bold text-orange-500 mb-5">
-    //         Detail Pesanan
-    //       </div>
-    //       <div className="text-l font-bold bg-orange-200 px-10 w-[75%] py-5 rounded-lg">
-    //         {/* <div className="mb-2">{namaKelas}</div> */}
-    //         {/* <div className="mb-5">Tema: {courseName}</div> */}
-    //         <tbody className="w-80">
-    //           <tr>
-    //             <td>Nama Kelas</td>
-    //             <td>: {dataBayar?.data?.regular?.courseName}</td>
-    //           </tr>
-    //           <tr>
-    //             <td>Tema Kelas</td>
-    //             <td>: {dataBayar?.data?.regular?.theme?.courseName}</td>
-    //           </tr>
-    //           <tr>
-    //             <td className="w-56">Biaya Pengajuan Kelas (10%)</td>
-    //             <td>: Rp. {dataBayar?.data?.regular?.adminFee}</td>
-    //           </tr>
-    //         </tbody>
-    //       </div>
-    //     </div>
-    //     <div>
-    //       <div className="text-right text-base flex flex-col text-xl font-bold justify-between screen mb-80">
-    //        Tanggal Transaksi: {todayDate}
-    //       </div>
-          // <FullRoundedButton
-          //   text={"Ajukan dan Bayar"}
-          //   icons={null}
-          //   onclick={handleCheckout}
-          // />
-    //     </div>
-    //   </div>
-    // </div>
   );
 };
 

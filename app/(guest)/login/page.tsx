@@ -70,7 +70,7 @@ const Login = () => {
   }
 
   return (
-    <div className="mt-20">
+    <div className="mt-20 h-full">
       <div className="flex place-content-center">
         <div
           className="rounded-l-3xl shadow-md"

@@ -11,8 +11,8 @@ const url = {
   createTraineeReg: () => `/users-payment/booking-regular`,
   updateStatus: (id:any) => `/users-payment/status/${id}`,
   getPengajuanApporve: (id:any) => `/users-payment/approve-pengajuan/${id}`,
-  getPengajuanPending: (id:any) => `/users-payment/pending-pengajuan/${id}`
-
+  getPengajuanPending: (id:any) => `/users-payment/pending-pengajuan/${id}`,
+  getpengajuan : (id:any) => `/users-payment/payment-pengajuan/${id}`
 };
 
 const hooks = {
@@ -33,6 +33,9 @@ const hooks = {
   },
   getPengajuanPending(id: any) {
     return useSWR(url.getPengajuanPending(id), http.fetcher);
+  },
+  getPengajuan(id: any) {
+    return useSWR(url.getpengajuan(id), http.fetcher);
   }
 };
 

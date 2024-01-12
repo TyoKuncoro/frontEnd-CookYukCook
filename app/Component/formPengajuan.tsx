@@ -64,13 +64,15 @@ const FormPengajuanKelas = ({ mutateData, onClose }) => {
         message.success("Pengajuan Kelas Berhasil");
       }, 2000);
       form.resetFields();
-      const findUserPay = usersPaymentRepository.hooks.getUserPayByRegClass(pengajuan?.body?.data?.id)
-      console.log(findUserPay, "findd")
-      localStorage.setItem("idKelas", findUserPay.data);
+      console.log("masuk kesini ga")
+      // const findUserPay = usersPaymentRepository.hooks.getUserPayByRegClass(pengajuan?.body?.data?.id)
+      // console.log(findUserPay, "findd")
+      localStorage.setItem("idKelas",pengajuan?.body?.data?.result?.id );
+      console.log("ini mau router")
       router.push("/pembayaran");
-      mutateData();
+      // mutateData();
     } catch (error) {
-      console.log(error);
+      console.log(error, "error ini");
     }
   };
   //   // const onFinish = (values: any) => {
