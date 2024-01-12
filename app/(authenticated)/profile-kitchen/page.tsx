@@ -287,7 +287,7 @@ const ProfileKitchen = () => {
         className="m-auto justify-center items-center text-center"
       >
         <Form.Item>
-          <Image
+          <img
             className=" rounded text-center"
             src={`http://localhost:3222/kitchen-studio/upload-legalitas/${dataKitchen?.data.legality}/image}`}
             width={420}

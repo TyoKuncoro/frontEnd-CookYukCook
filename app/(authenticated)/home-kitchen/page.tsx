@@ -87,7 +87,7 @@ const HomeKitchen: React.FC = () => {
         content={<FormPengajuanKelas onClose={handleClose} mutateData={null} />}
       />
       <div className="flex justify-between">
-        <div className="w-[930px]">
+        <div className="w-[1090px]">
           <TemaKelas />
           <div className="border border-solid border-primary mt-10 rounded-2xl shadow-md h-[55%]">
             <div className="flex justify-between p-2">
@@ -106,29 +106,28 @@ const HomeKitchen: React.FC = () => {
             ) : (
               <div>
               <Swiper
-                spaceBetween={10}
                 navigation={true}
-                slidesPerView={2}
+                slidesPerView={3}
                 modules={[Navigation]}
-                className=" swipper-wrapper py-2 flex gap-4 mb-4"
+                className="w-full flex justify-center ms-14"
               >
                 {token &&
                   dataRegular?.data.map((item: any, index: any) => (
-                    <SwiperSlide key={index}>
+                    <SwiperSlide key={index} className="">
                       <Card
-                        style={{ width: 300 }}
-                        className="rounded-lg p-2 ml-6 shadow-sm"
+                        style={{ width: 280 }}
+                        className="rounded-md text-center shadow-sm"
                       >
-                        <div className=" content-between ">
+                        <div>
                           <Image
-                            className=" rounded"
+                            className=" rounded m-auto"
                             src="/assets/Image.png"
                             width={220}
                             height={175}
                             alt="Gambar"
                           />
-                          <div className="flex justify-between">
-                            <div>
+                          <div>
+                            <div className="text-start">
                               <div className="text-xl font-bold">
                                 {item.courseName}
                               </div>
@@ -154,11 +153,11 @@ const HomeKitchen: React.FC = () => {
         </div>
         <div className="h-full">
           <p className="text-3xl font-bold">Jadwal</p>
-          <div className="bg-secondary h-[780px] rounded-md shadow-md">
+          <div className="bg-secondary p-3 rounded-md shadow-md mt-14">
             <Calendar
               fullscreen={false}
               onSelect={() => new Date()}
-              className="bg-orange-300 w-[400px] shadow-md mt-10"
+              className="w-[400px] shadow-md"
             />
             <div className="bg-white border border-solid border-primary rounded shadow-sm mt-3 p-2 w-[380px] items-center m-auto">
               <div className="flex gap-6">

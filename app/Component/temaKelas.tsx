@@ -70,11 +70,11 @@ export default function TemaKelas() {
       dataIndex: "chef_name",
       key: "chef_name",
     },
-    {
-      title: "Harga",
-      dataIndex: "price",
-      key: "price",
-    },
+    // {
+    //   title: "Harga",
+    //   dataIndex: "price",
+    //   key: "price",
+    // },
     // {
     //   title: 'Pilih Tema',
     //   key: 'action',
@@ -97,7 +97,7 @@ export default function TemaKelas() {
           />
         }
       </div>
-      <Table className="mt-5 text-xl " columns={columns} dataSource={tema} pagination={false} scroll={{y:200}}/>
+      <Table className="mt-5 text-xl" columns={columns} dataSource={tema} pagination={false} scroll={{y:200}}/>
       <ModalPengajuan
         title="pengajuan Kelas"
         closeModal={handleClose}

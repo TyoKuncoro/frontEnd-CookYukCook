@@ -19,6 +19,9 @@
   margin-inline-start:40px;
   /* margin-inline-end: -30px; */
 }
+.cardSlider{
+  width: 300px;
+}
 
   .ant-input-affix-wrapper-focused {
     border: 1px solid #FF7D04 !important;
@@ -228,3 +231,6 @@ quatenary: '#FDF7EF'
 :where(.css-dev-only-do-not-override-1d8d5er).ant-list .ant-list-item {
   border: none;
 }
+/* .swiper-button-next:after{
+  margin-inline-start: 30px;
+} */

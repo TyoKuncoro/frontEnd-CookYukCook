@@ -9,6 +9,7 @@ import { message } from "antd";
 import { parseJwt } from "#/app/Component/Helper/convert";
 import { regularClassRepository } from "#/repository/regularClass";
 import axios from "axios";
+import { usersPaymentRepository } from "#/repository/usersPayment";
 
 // import snap from "midtrans-client"
 
@@ -45,7 +46,7 @@ const PembayaranKitchen = () => {
   const dataKelas = localStorage.getItem("idKelas");
   console.log(dataKelas, "ini data kelas");
   const { data: dataBayar } =
-    regularClassRepository.hooks.findRegClassById(dataKelas);
+    usersPaymentRepository.hooks.getUserPayById(dataKelas);
   console.log(dataBayar, "ini data bayar");
 
   const handleCheckout = async () => {
@@ -54,12 +55,12 @@ const PembayaranKitchen = () => {
 
     const data = {
       id: uuidGenerator,
-      productName: dataBayar?.data?.courseName,
-      price: dataBayar?.data?.adminFee,
+      productName: dataBayar?.data?.regular?.courseName,
+      price: dataBayar?.data?.regular?.adminFee,
       quantity: 1,
     };
     console.log(dataBayar?.data.id, "ini data id")
-    const approving = await regularClassRepository.manipulateData.updateApprove(dataBayar?.data.id)
+    const approving = await regularClassRepository.manipulateData.updateApprove(dataBayar?.data.regular.id)
     console.log(approving, "ini approving")
     const response = await fetch("api/token", {
       method: "POST",
@@ -115,11 +116,11 @@ const PembayaranKitchen = () => {
             <tbody className="w-80">
               <tr>
                 <td>Tema</td>
-                <td>: {dataBayar?.data?.courseName}</td>
+                <td>: {dataBayar?.data?.regular?.courseName}</td>
               </tr>
               <tr>
                 <td className="w-56">Biaya Pengajuan Kelas (10%)</td>
-                <td>: Rp. {dataBayar?.data?.adminFee}</td>
+                <td>: Rp. {dataBayar?.data?.regular?.adminFee}</td>
               </tr>
             </tbody>
           </div>

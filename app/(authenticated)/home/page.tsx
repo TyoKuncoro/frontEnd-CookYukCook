@@ -54,7 +54,7 @@ const Home: React.FC = () => {
   const showModal1 = () => {
     if (!localStorage.getItem("access_token")) {
       message.error("silahkan login");
-      router.push("login");
+      // router.push("login");
     } else {
       setIsModalOpen1(true);
     }
@@ -62,7 +62,7 @@ const Home: React.FC = () => {
   const showModal2 = () => {
     if (!localStorage.getItem("access_token")) {
       message.error("silahkan login");
-      router.push("login");
+      // router.push("login");
     } else {
       setIsModalOpen2(true);
     }
@@ -89,13 +89,6 @@ const Home: React.FC = () => {
   }
   const { data: dataKelas } =
     regularClassRepository.hooks.findAllRegularClass();
-
-  let dataFiltered: any = [];
-  dataKelas?.data.forEach((item: any) => {
-    if (item.numberOfBenches != 0) {
-      dataFiltered.push(item);
-    }
-  });
   // console.log(dataKelas?.data?.[0].material, "Data Kelas");
   // const cariKelas = dataKelas?.data?.map((items)=> items.id)
   // const {data: dataMateri} = materiRepository.hooks.findMaterialByClass(dataKelas?.data?.map((items) => items.id))
@@ -130,7 +123,7 @@ const Home: React.FC = () => {
     localStorage.setItem("idBayar", daftar?.body?.data?.id);
     router.push("/pembayaran");
 
-    setIsModalOpen(false);
+    // setIsModalOpen(false);
   };
 
   return role === "Kitchen Studio" ? (
@@ -153,83 +146,126 @@ const Home: React.FC = () => {
             modules={[Navigation]}
             className=" swipper-wrapper"
           >
-            {dataFiltered?.length == 0 ? (
-              <Empty
-                className="mt-4"
-                image={Empty.PRESENTED_IMAGE_SIMPLE}
-                description={
-                  <span>Kelas Rekomendasi Untukmu Masih Kosong</span>
-                }
-              />
-            ) : (
-              dataFiltered?.map((item: any, index: any) => (
-                <SwiperSlide key={index}>
-                  <Card
-                    title={item.courseName}
-                    className="mr-10 w-[20%]"
-                    extra={
-                      <FullRoundedButton
-                        text="Lihat Detail"
-                        icons={null}
-                        type={"primary"}
-                        onclick={() =>
-                          item.numberOfBenches == 0
-                            ? message.error("Kuota sudah Penuh")
-                            : showModal(item)
-                        }
-                      />
-                    }
-                    style={{ width: 300 }}
-                  >
-                    <div className="flex justify-between">
-                      <div>
-                        <div className="text-lg font-semibold mb-2">
-                          Kelas Regular
-                        </div>
-                        <div className="text-base">
-                          Tema : {item.theme.name}
-                        </div>
-                        <div className="text-base">
-                          Lokasi : {item.kitchen.users.address}
-                        </div>
-                        <div className="text-base">
-                          Dimulai pada: {item.startDate.substring(0, 10)}
-                        </div>
-                        <div className="text-base">
-                          Sampai: {item.endDate.substring(0, 10)}
-                        </div>
-                        <div className=" font-bold text-lg mt-3">
-                          Harga: {formatter.format(item.price - item.adminFee)}
-                        </div>
-                        <div className=" font-bold">
-                          Kuota:{" "}
-                          {item.numberOfBenches == 0 ? (
-                            <span className="text-red-500">Penuh</span>
-                          ) : (
-                            `${item.numberOfBenches} Orang`
-                          )}
-                        </div>
+            {dataKelas?.data.map((item: any, index: any) => (
+              <SwiperSlide key={index} className="cardSlider">
+                <Card
+                  title={item.courseName}
+                  // className="mr-10"
+                  // extra={
+                  // <FullRoundedButton
+                  //   text="Lihat Detail"
+                  //   icons={null}
+                  //   type={"primary"}
+                  //   onclick={() =>
+                  //     item.numberOfBenches == 0
+                  //       ? message.error("Kuota sudah Penuh")
+                  //       : showModal(item)
+                  //   }
+                  // />
+                  // }
+                  headStyle={{ fontSize: 18 }}
+                  style={{ width: 440 }}
+                >
+                  <div className="flex justify-between">
+                    <div>
+                      <div className="text-lg font-semibold">Kelas Regular</div>
+                      <div className="text-base mb-3">
+                        Tema: {item.theme.name}
                       </div>
-                      <div className=" content-between">
-                        <Image
-                          className=" rounded"
-                          src="/assets/Image.png"
-                          width={40}
-                          height={40}
-                          alt="Gambar"
-                        />
+                      <div className="text-base">
+                        <EnvironmentOutlined className="mr-2" />{" "}
+                        {item.kitchen.users.address}
+                      </div>
+                      <div className="text-base">
+                        <CalendarOutlined className="mr-2" />{" "}
+                        {item.startDate.substring(0, 10)} sampai {""}{" "}
+                        {item.endDate.substring(0, 10)}
                       </div>
                     </div>
-                  </Card>
-                </SwiperSlide>
-              ))
-            )}
+                    <Image
+                      className=" rounded"
+                      src="/assets/Image.png"
+                      width={60}
+                      height={60}
+                      alt="Gambar"
+                    />
+                  </div>
+                  <div className="flex justify-between items-center mt-5">
+                    <div>
+                      <div className="text-lg font-medium">
+                        Harga: {formatter.format(item.price - item.adminFee)}
+                      </div>
+                      <div className="text-lg font-medium">
+                        Kuota:{" "}
+                        {item.numberOfBenches == 0 ? (
+                          <span className="text-red-500">Penuh</span>
+                        ) : (
+                          `${item.numberOfBenches} Orang`
+                        )}
+                      </div>
+                    </div>
+                    <FullRoundedButton
+                      text="Lihat Detail"
+                      icons={null}
+                      type={"primary"}
+                      onclick={() =>
+                        item.numberOfBenches == 0
+                          ? message.error("Kuota sudah Penuh")
+                          : showModal(item)
+                      }
+                    />
+                  </div>
+                  {/* <div className="flex justify-between">
+                    <div>
+                      <div className="text-lg font-semibold mb-2">
+                        {" "}
+                        Kelas Regular
+                      </div>
+                      <div className="text-base"> Tema : {item.theme.name}</div>
+                      <div className="text-base">
+                        {" "}
+                        Lokasi : {item.kitchen.users.address}
+                      </div>
+                      <div className="text-base mb-3 flex gap-1">
+                        {" "}
+                        Dimulai pada:
+                        <div className="font-medium">
+                          {item.startDate.substring(0, 10)} sampai {""}{" "}
+                          {item.endDate.substring(0, 10)}
+                        </div>
+                      </div>
+                      <div className=" font-bold text-lg mt-3">
+                        Harga: {formatter.format(item.price - item.adminFee)}
+                      </div>
+                      <div className=" font-bold">
+                        Kuota:{" "}
+                        {item.numberOfBenches == 0 ? (
+                          <span className="text-red-500">Penuh</span>
+                        ) : (
+                          `${item.numberOfBenches} Orang`
+                        )}
+                      </div>
+                    </div>
+                    <div className=" content-between">
+                      <Image
+                        className=" rounded"
+                        src="/assets/Image.png"
+                        width={40}
+                        height={40}
+                        alt="Gambar"
+                      />
+                    </div>
+                  </div>
+                  </div> */}
+                </Card>
+              </SwiperSlide>
+            ))}
           </Swiper>
         </div>
       </div>
       <div className="flex justify-between mt-10">
         <div
-          className=" mt-6 rounded-3xl mr-10 w-[50%] "
+          className=" mt-6 rounded-3xl mr-10 w-[50%]"
           style={{ border: "2px solid #FF7D04" }}
         >
           <div
@@ -240,60 +276,63 @@ const Home: React.FC = () => {
           >
             Kelas Regular Pilihanmu
           </div>
-          <div className=" py-4 mx-10 h-64">
-            <Swiper
-              navigation={true}
-              slidesPerView={2}
-              modules={[Navigation]}
-              className=" py-4 mx-3 flex"
-            >
-              {dataApprove?.data.length == 0 ? (
-                <Empty
-                  image={Empty.PRESENTED_IMAGE_SIMPLE}
-                  description={<span>Kelas Regular Masih Kosong</span>}
-                />
-              ) : (
-                dataApprove?.data?.map((item: any, index: any) => (
-                  <SwiperSlide key={index}>
-                    <Card
-                      title={item?.regular?.courseName}
-                      extra={
-                        <FullRoundedButton
-                          text="Lihat Detail"
-                          icons={null}
-                          type={"primary"}
-                          onclick={showModal1}
-                        />
-                      }
-                      style={{ width: 300 }}
-                    >
-                      <div className="flex justify-between">
-                        <div>
-                          <div>Tema: {item?.regular.theme.name}</div>
-                          <div className="font-bold">Kelas Regular</div>
-                          <div>lokasi:</div>
-                          <p className=" text-xs">{item?.users?.address}</p>
-                          <div className=" text-xs">Dimulai pada:</div>
-                          <div className="text-xs">
-                            {item?.regular?.startDate.substring(0, 10)} sampai{" "}
-                            {item?.regular?.endDate.substring(0, 10)}
+          <div className=" w-[100%] h-80 mt-6">
+            {dataApprove ? (
+              <div>
+                <Swiper
+                  navigation={true}
+                  slidesPerView={2}
+                  modules={[Navigation]}
+                  className="swiper-wrapper flex justify-center"
+                >
+                  {dataApprove?.data?.map((item: any, index: any) => (
+                    <SwiperSlide key={index}>
+                      <Card
+                        title={item?.regular?.courseName}
+                        extra={
+                          <FullRoundedButton
+                            text="Lihat Detail"
+                            icons={null}
+                            type={"primary"}
+                            onclick={showModal1}
+                          />
+                        }
+                        style={{ width: 300 }}
+                        className="rounded-lg p-2 ml-6 shadow-sm"
+                      >
+                        <div className="flex justify-between">
+                          <div>
+                            <div>Tema: {item?.regular.theme.name}</div>
+                            <div className="font-bold">Kelas Regular</div>
+                            <div>lokasi:</div>
+                            <p className=" text-xs">{item?.users?.address}</p>
+                            <div className=" text-xs">Dimulai pada:</div>
+                            <div className="text-xs">
+                              {item?.regular?.startDate.substring(0, 10)} sampai{" "}
+                              {item?.regular?.endDate.substring(0, 10)}
+                            </div>
+                          </div>
+                          <div className=" content-between">
+                            <Image
+                              className=" rounded"
+                              src="/assets/Image.png"
+                              width={40}
+                              height={40}
+                              alt="Gambar"
+                            />
                           </div>
                         </div>
-                        <div className=" content-between">
-                          <Image
-                            className=" rounded"
-                            src="/assets/Image.png"
-                            width={40}
-                            height={40}
-                            alt="Gambar"
-                          />
-                        </div>
-                      </div>
-                    </Card>
-                  </SwiperSlide>
-                ))
-              )}
-            </Swiper>
+                      </Card>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              </div>
+            ) : (
+              <Empty
+                image={Empty.PRESENTED_IMAGE_SIMPLE}
+                description={<span>Kelas Regular Masih Kosong</span>}
+              />
+            )}
           </div>
         </div>
         <div
@@ -308,10 +347,11 @@ const Home: React.FC = () => {
           >
             Kelas Private Pilihanmu
           </div>
-          <div className=" py-4 m-auto leading-6 mx-10">
+          <div className=" w-[100%] mt-32">
             <Empty
+            className="m-auto"
               image={Empty.PRESENTED_IMAGE_SIMPLE}
-              description={<span>Kelas Private Masih Kosong</span>}
+              description={<span>Kelas Privat Masih Kosong</span>}
             />
             {/* {token && (
               <Card
